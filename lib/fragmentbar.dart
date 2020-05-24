@@ -11,7 +11,7 @@ class Fragmentnaql extends StatefulWidget {
 }
 
 class _fragmentState extends State<Fragmentnaql> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -23,7 +23,11 @@ class _fragmentState extends State<Fragmentnaql> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
-
+      LoginScreen2(),
+      LoginScreen2(),
+      LoginScreen2(),
+      LoginScreen2(),
+      LoginScreen2()
 
 //      AllCoiffures(),
 //    PlaceholderWidget(Colors.white),

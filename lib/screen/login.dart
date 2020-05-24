@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-class Screen2 extends StatelessWidget {
-  Screen2({
+class LoginScreen2 extends StatelessWidget {
+  LoginScreen2({
     Key key,
   }) : super(key: key);
 

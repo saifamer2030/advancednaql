@@ -18,6 +18,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Splash(),
+      routes: <String,WidgetBuilder>{
+        '/landingpage':(BuildContext context)=>new MyApp(),
+        '/splash':(BuildContext context)=>new Splash(),
+        '/login':(BuildContext context)=>new LoginScreen2(),
+        '/signupprovider':(BuildContext context)=>new LoginScreen2(),
+        '/signupuser':(BuildContext context)=>new Fragmentnaql(),
+
+      },
     );
   }
 }

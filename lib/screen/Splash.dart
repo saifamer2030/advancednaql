@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+class Splash  extends StatefulWidget {
 
-class Splash extends StatelessWidget {
-  Splash({
-    Key key,
-  }) : super(key: key);
+  @override
+  _SplashState createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash > {
+  init() async {
+    Navigator.of(context).pushReplacementNamed('/signupuser');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 2), () => init());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,11 +34,11 @@ class Splash extends StatelessWidget {
           Transform.translate(
             offset: Offset(46.0, 302.0),
             child:
-                // Adobe XD layer: 'logo' (component)
-                Container(
-                  child: new Image.asset("assets/logo.png",
-                      fit: BoxFit.fill),
-                ),
+            // Adobe XD layer: 'logo' (component)
+            Container(
+              child: new Image.asset("assets/logo.png",
+                  fit: BoxFit.fill),
+            ),
           ),
         ],
       ),
