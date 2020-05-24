@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-import './Screen2.dart';
 
 class Splash extends StatelessWidget {
   Splash({
@@ -24,7 +23,10 @@ class Splash extends StatelessWidget {
             offset: Offset(46.0, 302.0),
             child:
                 // Adobe XD layer: 'logo' (component)
-                Container(),
+                Container(
+                  child: new Image.asset("assets/logo.png",
+                      fit: BoxFit.fill),
+                ),
           ),
         ],
       ),
