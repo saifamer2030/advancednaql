@@ -29,15 +29,10 @@ class _fragmentState extends State<Fragmentnaql> {
       LoginScreen2(),
       LoginScreen2()
 
-//      AllCoiffures(),
-//    PlaceholderWidget(Colors.white),
-//    PlaceholderWidget(Colors.deepOrange),
-//    PlaceholderWidget(Colors.green)
+
     ];
     return Scaffold(
-//      appBar: AppBar(
-//        title: Text('My Flutter App'),
-//      ),
+
       body: _children[_currentIndex],
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(
