@@ -8,7 +8,7 @@ class Splash  extends StatefulWidget {
 
 class _SplashState extends State<Splash > {
   init() async {
-    Navigator.of(context).pushReplacementNamed('/signupuser');
+    Navigator.of(context).pushReplacementNamed('/login');
   }
 
   @override
@@ -31,11 +31,10 @@ class _SplashState extends State<Splash > {
               color: const Color(0xffffffff),
             ),
           ),
-          Transform.translate(
-            offset: Offset(46.0, 302.0),
-            child:
-            // Adobe XD layer: 'logo' (component)
-            Container(
+          Center(
+            child: Container(
+              width: 300.0,
+             // height: 896.0,
               child: new Image.asset("assets/logo.png",
                   fit: BoxFit.fill),
             ),

@@ -36,23 +36,25 @@ class LoginScreen2 extends StatelessWidget {
               ),
             ),
             Transform.translate(
-              offset: Offset(124.0, 39.0),
+              offset: Offset(0.0, -250.0),
               child:
                   // Adobe XD layer: 'logoBox' (shape)
-                  Container(
+                  Center(
+                    child: Container(
                 width: 166.0,
                 height: 67.0,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    alignment: Alignment.center,
-                    matchTextDirection: true,
-                    repeat: ImageRepeat.noRepeat,
-                    image: AssetImage("assets/logowhite.png"),
-                  ),
-                  borderRadius: BorderRadius.circular(21.0),
-                  color: const Color(0xff4fc3f7),
+                    image: DecorationImage(
+                      alignment: Alignment.center,
+                      matchTextDirection: true,
+                      repeat: ImageRepeat.noRepeat,
+                      image: AssetImage("assets/logowhite.png"),
+                    ),
+                    borderRadius: BorderRadius.circular(21.0),
+                    color: const Color(0xff4fc3f7),
                 ),
               ),
+                  ),
             ),
             Container(
               width: 168.0,
