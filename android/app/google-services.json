@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1064652075744",
+    "firebase_url": "https://advancednaql.firebaseio.com",
+    "project_id": "advancednaql",
+    "storage_bucket": "advancednaql.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064652075744:android:720988bbb66bd096b69685",
+        "android_client_info": {
+          "package_name": "com.arabdevelopers.advancednaql"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064652075744-gp7pf3kpmp50jv4hj6qb0mspiep2d2ru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4BHgkqyQHhqsHvIXxcTkd8ztxWhoNwBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064652075744-gp7pf3kpmp50jv4hj6qb0mspiep2d2ru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

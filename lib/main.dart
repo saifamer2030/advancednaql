@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'fragmentbar.dart';
 import 'screen/Splash.dart';
 import 'screen/login.dart';
+import 'screen/signup.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,8 +23,8 @@ class MyApp extends StatelessWidget {
         '/landingpage':(BuildContext context)=>new MyApp(),
         '/splash':(BuildContext context)=>new Splash(),
         '/login':(BuildContext context)=>new LoginScreen2(),
-        '/signupprovider':(BuildContext context)=>new LoginScreen2(),
-        '/signupuser':(BuildContext context)=>new Fragmentnaql(),
+        '/signup':(BuildContext context)=>new SignUp(),
+        '/fragmentnaql':(BuildContext context)=>new Fragmentnaql(),
 
       },
     );
