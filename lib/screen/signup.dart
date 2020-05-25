@@ -21,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmpasswordController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
+  TextEditingController _codeController = TextEditingController();
 
   var _initpassword = '';
   var _initpasswordconf = '';
@@ -342,7 +343,8 @@ class _SignUpState extends State<SignUp> {
                                     onTap: () {
                                       if (_formKey.currentState.validate()) {
 
-                                        _uploaddata();
+                                        loginUserphone(_phoneController.text.trim(), context);
+                                       // _uploaddataemail();
                                         setState(() {
                                           _load2 = true;
                                         });
@@ -402,9 +404,83 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+  Future<bool> loginUserphone(String phone, BuildContext context) async{
+    FirebaseAuth _auth = FirebaseAuth.instance;
 
+    _auth.verifyPhoneNumber(
+        phoneNumber: "+2$phone",
+        timeout: Duration(seconds: 60),
+        verificationCompleted: (AuthCredential credential) async{
+          Navigator.of(context).pop();
 
-  void _uploaddata() {
+          AuthResult result = await _auth.signInWithCredential(credential);
+          createRecord(result.user.uid);
+
+          //FirebaseUser user = result.user;
+          Navigator.of(context).pushReplacementNamed('/fragmentnaql');
+
+//          if(user != null){
+//            Navigator.push(context, MaterialPageRoute(
+//                builder: (context) => HomeScreen(user: user,)
+//            ));
+//          }else{
+//            print("Error");
+//          }
+
+          //This callback would gets called when verification is done auto maticlly
+        },
+        verificationFailed: (AuthException exception){
+          print(exception);
+        },
+        codeSent: (String verificationId, [int forceResendingToken]){
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Give the code?"),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextField(
+                        controller: _codeController,
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("Confirm"),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      onPressed: () async{
+                        final code = _codeController.text.trim();
+                        AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationId, smsCode: code);
+
+                        AuthResult result = await _auth.signInWithCredential(credential);
+
+                        //FirebaseUser user = result.user;
+                        createRecord(result.user.uid);
+                        Navigator.of(context).pushReplacementNamed('/fragmentnaql');
+
+//                        if(user != null){
+//                          Navigator.push(context, MaterialPageRoute(
+//                              builder: (context) => HomeScreen(user: user,)
+//                          ));
+//                        }else{
+//                          print("Error");
+//                        }
+                      },
+                    )
+                  ],
+                );
+              }
+          );
+        },
+        codeAutoRetrievalTimeout: null
+    );
+  }
+
+  void _uploaddataemail() {
 
     FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: _emailController.text,
