@@ -36,7 +36,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
               ),
             ),
             Transform.translate(
-              offset: Offset(0.0, -250.0),
+              offset: Offset(0.0, -270.0),
               child:
               // Adobe XD layer: 'logoBox' (shape)
               Center(
