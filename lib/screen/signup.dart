@@ -405,14 +405,14 @@ class _SignUpState extends State<SignUp> {
 
 
   void _uploaddata() {
-    //Toast.show(_emailController.text,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
     FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: _emailController.text,
       password: _passwordController.text,
     ).then((signedInUser) {
+      //Toast.show("${signedInUser.user.uid}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
-      createRecord(signedInUser);
+      createRecord(signedInUser.user.uid);
     }).catchError((e) {
       Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
       // print(e);
@@ -421,9 +421,10 @@ class _SignUpState extends State<SignUp> {
 
   }
 
-  void createRecord( signedInUser) {
-    userdatabaseReference.child(signedInUser.uid).set({
-      'cId': signedInUser.uid,
+  void createRecord( signedInUserid) {
+
+    userdatabaseReference.child(signedInUserid).set({
+      'cId': signedInUserid,
       'cName': _nameController.text,
       'cEmail': _emailController.text,
       'cPhone': _phoneController.text,

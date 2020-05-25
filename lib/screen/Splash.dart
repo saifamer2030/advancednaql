@@ -8,7 +8,7 @@ class Splash  extends StatefulWidget {
 
 class _SplashState extends State<Splash > {
   init() async {
-    Navigator.of(context).pushNamed('/signup');
+    Navigator.of(context).pushNamed('/login');
   }
 
   @override
