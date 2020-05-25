@@ -1,4 +1,5 @@
 import 'package:advancednaql/screen/login.dart';
+import 'package:advancednaql/screen/morewidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -22,13 +23,15 @@ class _fragmentState extends State<Fragmentnaql> {
   @override
   Widget build(BuildContext context) {
     final List<Widget> _children = [
+      MoreWidget(),
       LoginScreen2(),
       LoginScreen2(),
       LoginScreen2(),
       LoginScreen2(),
-      LoginScreen2()
+
     ];
     return Scaffold(
+      backgroundColor: const Color(0xffffffff),
       body: _children[_currentIndex],
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(

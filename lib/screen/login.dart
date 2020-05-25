@@ -25,13 +25,15 @@ class _LoginScreen2State extends State<LoginScreen2> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
+      backgroundColor: const Color(0xffffffff),
       body: Container(
         child: Stack(
           children: <Widget>[
             Container(
-              width: 414.0,
+              width:  MediaQuery.of(context).size.width,
               height: 86.0,
               decoration: BoxDecoration(
+
                 color: const Color(0xff4fc3f7),
               ),
             ),
