@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1064652075744-5pdbphn637quh2bdlbvp873pu4er5fg1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arabdevelopers.advancednaql",
+            "certificate_hash": "24778533f3cda8798b50c9c50a86060de5315f49"
+          }
+        },
+        {
           "client_id": "1064652075744-gp7pf3kpmp50jv4hj6qb0mspiep2d2ru.apps.googleusercontent.com",
           "client_type": 3
         }

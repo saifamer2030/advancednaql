@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-class Splash  extends StatefulWidget {
+import 'package:firebase_auth/firebase_auth.dart';
 
+class Splash  extends StatefulWidget {
+  bool isLoggedIn = false;
+  String userId, usertype;
   @override
   _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash > {
   init() async {
-    Navigator.of(context).pushNamed('/login');
+    FirebaseAuth.instance.currentUser().then((user) => user != null
+        ? Navigator.of(context).pushReplacementNamed('/fragmentnaql')//setState(() {Navigator.of(context).pushReplacementNamed('/fragmentnaql'); })
+        : Navigator.of(context).pushReplacementNamed('/login'));
+   // Navigator.of(context).pushNamed('/login');
   }
 
   @override
