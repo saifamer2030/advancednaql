@@ -9,8 +9,7 @@ class LoginScreen2  extends StatefulWidget {
 }
 
 class _LoginScreen2State extends State<LoginScreen2> {
-  final userdatabaseReference =
-      FirebaseDatabase.instance.reference().child("coiffuredata");
+
 
   bool _load = false;
   var _formKey1 = GlobalKey<FormState>();
@@ -19,6 +18,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _codeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -61,11 +61,11 @@ class _LoginScreen2State extends State<LoginScreen2> {
             Form(
               key: _formKey1,
               child: Padding(
-                  padding: EdgeInsets.only(top:_minimumPadding * 0,bottom: _minimumPadding * 2, right: _minimumPadding * 2,left: _minimumPadding * 2),
+                  padding: EdgeInsets.only(top:_minimumPadding * 20,bottom: _minimumPadding * 2, right: _minimumPadding * 2,left: _minimumPadding * 2),
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     children: <Widget>[
-                      getImageAsset(),
+                      //getImageAsset(),
                       Padding(
                         padding: EdgeInsets.only(bottom: _minimumPadding),
                         child: Text(
@@ -236,6 +236,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                               onTap: () {
                                 if (_formKey1.currentState.validate()) {
                                   _uploaddata();
+                                  //signinphone();
                                   setState(() {
                                     _load = true;
                                   });
@@ -358,6 +359,104 @@ class _LoginScreen2State extends State<LoginScreen2> {
     return Container(
       child: image,
       margin: EdgeInsets.all(_minimumPadding * 5),
+    );
+  }
+
+  void signinphone(){
+    List<String> phonenoList = [];
+    final userdatabaseReference =
+    FirebaseDatabase.instance.reference().child("userdata");
+    userdatabaseReference.once().then((DataSnapshot snapshot) {
+      var KEYS = snapshot.value.keys;
+      var DATA = snapshot.value;
+
+      phonenoList.clear();
+      for (var individualkey in KEYS) {
+        phonenoList.add(DATA[individualkey]["cPhone"]);
+    }
+    if(phonenoList.contains(_emailController.text)){
+    loginUserphone(_emailController.text.trim(), context);
+
+    }else{
+      Toast.show("تم التسجيل من قبل",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+    }
+        });
+
+  }
+  Future<bool> loginUserphone(String phone, BuildContext context) async{
+    FirebaseAuth _auth = FirebaseAuth.instance;
+
+    _auth.verifyPhoneNumber(
+        phoneNumber: "+2$phone",
+        timeout: Duration(seconds: 60),
+        verificationCompleted: (AuthCredential credential) async{
+          Navigator.of(context).pop();
+
+          AuthResult result = await _auth.signInWithCredential(credential);
+          //createRecord(result.user.uid);
+
+          //FirebaseUser user = result.user;
+          Navigator.of(context).pushReplacementNamed('/fragmentnaql');
+
+//          if(user != null){
+//            Navigator.push(context, MaterialPageRoute(
+//                builder: (context) => HomeScreen(user: user,)
+//            ));
+//          }else{
+//            print("Error");
+//          }
+
+          //This callback would gets called when verification is done auto maticlly
+        },
+        verificationFailed: (AuthException exception){
+          print(exception);
+        },
+        codeSent: (String verificationId, [int forceResendingToken]){
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text("Give the code?"),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      TextField(
+                        controller: _codeController,
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text("Confirm"),
+                      textColor: Colors.white,
+                      color: Colors.blue,
+                      onPressed: () async{
+                        final code = _codeController.text.trim();
+                        AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationId, smsCode: code);
+
+                        AuthResult result = await _auth.signInWithCredential(credential);
+
+                        //FirebaseUser user = result.user;
+                      //  createRecord(result.user.uid);
+                        Navigator.of(context).pushReplacementNamed('/fragmentnaql');
+
+//                        if(user != null){
+//                          Navigator.push(context, MaterialPageRoute(
+//                              builder: (context) => HomeScreen(user: user,)
+//                          ));
+//                        }else{
+//                          print("Error");
+//                        }
+                      },
+                    )
+                  ],
+                );
+              }
+          );
+        },
+        codeAutoRetrievalTimeout: null
     );
   }
 
