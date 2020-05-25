@@ -343,8 +343,8 @@ class _SignUpState extends State<SignUp> {
                                     onTap: () {
                                       if (_formKey.currentState.validate()) {
 
-                                        loginUserphone(_phoneController.text.trim(), context);
-                                       // _uploaddataemail();
+                                        //loginUserphone(_phoneController.text.trim(), context);
+                                        _uploaddataemail();
                                         setState(() {
                                           _load2 = true;
                                         });
