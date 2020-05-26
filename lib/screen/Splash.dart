@@ -11,10 +11,11 @@ class Splash  extends StatefulWidget {
 
 class _SplashState extends State<Splash > {
   init() async {
+    // Navigator.of(context).pushNamed('/login');
+
     FirebaseAuth.instance.currentUser().then((user) => user != null
         ? Navigator.of(context).pushReplacementNamed('/fragmentnaql')//setState(() {Navigator.of(context).pushReplacementNamed('/fragmentnaql'); })
         : Navigator.of(context).pushReplacementNamed('/login'));
-   // Navigator.of(context).pushNamed('/login');
   }
 
   @override

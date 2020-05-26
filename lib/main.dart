@@ -6,6 +6,7 @@ import 'fragmentbar.dart';
 import 'screen/Splash.dart';
 import 'screen/login.dart';
 import 'screen/signup.dart';
+import 'screen/neworder.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,7 +29,11 @@ class MyApp extends StatelessWidget {
         '/signup':(BuildContext context)=>new SignUp(),
         '/fragmentnaql':(BuildContext context)=>new Fragmentnaql(),
         '/addnewads':(BuildContext context)=>new AddNewAds(),
+<<<<<<< HEAD
         '/pledge':(BuildContext context)=>new Pledge(),
+=======
+        '/neworder':(BuildContext context)=>new newOrder(),
+>>>>>>> f8b7eed503baf83a64feb91402ee3341eb6c168c
 
       },
     );
