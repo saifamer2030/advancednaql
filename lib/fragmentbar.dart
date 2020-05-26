@@ -11,7 +11,7 @@ class Fragmentnaql extends StatefulWidget {
 }
 
 class _fragmentState extends State<Fragmentnaql> {
-  int _currentIndex = 0;
+  int _currentIndex = 4;
 
   @override
   void initState() {

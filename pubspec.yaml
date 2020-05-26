@@ -69,6 +69,10 @@ flutter:
   assets:
    - assets/logo.png
    - assets/logowhite.png
+   - assets/images/ic_lang.png
+   - assets/images/ic_policy.png
+   - assets/images/ic_privcy.png
+   - assets/images/ic_volum.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
