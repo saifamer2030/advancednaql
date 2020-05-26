@@ -63,9 +63,8 @@ class MoreWidget extends StatelessWidget {
                               'إعدادات عامة',
                               style: TextStyle(
                                 fontFamily: 'DroidArabicKufi-Bold',
-                                fontSize: 30,
-
-                                fontStyle: FontStyle.normal,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
                                 color: const Color(0xff1891C7),
                                 height: 1.0800000190734864,
                               ),
