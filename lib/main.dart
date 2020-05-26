@@ -1,4 +1,5 @@
 import 'package:advancednaql/screen/addNewAds.dart';
+import 'package:advancednaql/screen/pledge.dart';
 import 'package:flutter/material.dart';
 
 import 'fragmentbar.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/signup':(BuildContext context)=>new SignUp(),
         '/fragmentnaql':(BuildContext context)=>new Fragmentnaql(),
         '/addnewads':(BuildContext context)=>new AddNewAds(),
+        '/pledge':(BuildContext context)=>new Pledge(),
 
       },
     );

@@ -38,7 +38,7 @@ class _fragmentState extends State<Fragmentnaql> {
             // sets the background color of the `BottomNavigationBar`
             canvasColor: const Color(0xffEAEAEA),
             // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-            primaryColor: const Color(0xff41a0cb),
+            primaryColor: const Color(0xff41a0cb),//727272  41a0cb
             textTheme: Theme.of(context).textTheme.copyWith(
                     caption: new TextStyle(
                   color: const Color(0xff727272),
@@ -48,7 +48,7 @@ class _fragmentState extends State<Fragmentnaql> {
 //fixedColor: const Color(0xffF1AB37),
           type: BottomNavigationBarType.fixed,
           onTap: onTabTapped,
-          selectedItemColor: Colors.black,
+          selectedItemColor:const Color(0xff41a0cb),
           currentIndex: _currentIndex,
 
           items: [
@@ -65,7 +65,7 @@ class _fragmentState extends State<Fragmentnaql> {
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
-                  color: const Color(0xff727272),
+
                   height: 1.1666666666666667,
                 ),
                 textAlign: TextAlign.right,
@@ -81,7 +81,6 @@ class _fragmentState extends State<Fragmentnaql> {
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
-                  color: const Color(0xff727272),
                   height: 1.1666666666666667,
                 ),
                 textAlign: TextAlign.right,
@@ -97,7 +96,6 @@ class _fragmentState extends State<Fragmentnaql> {
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
-                  color: const Color(0xff727272),
                   height: 1.1666666666666667,
                 ),
                 textAlign: TextAlign.right,
@@ -113,7 +111,6 @@ class _fragmentState extends State<Fragmentnaql> {
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
-                  color: const Color(0xff727272),
                   height: 1.1666666666666667,
                 ),
                 textAlign: TextAlign.right,
@@ -129,7 +126,6 @@ class _fragmentState extends State<Fragmentnaql> {
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
-                  color: const Color(0xff727272),
                   height: 1.1666666666666667,
                 ),
               ),
