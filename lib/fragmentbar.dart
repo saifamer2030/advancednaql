@@ -1,5 +1,6 @@
 import 'package:advancednaql/screen/login.dart';
 import 'package:advancednaql/screen/morewidget.dart';
+import 'package:advancednaql/screen/neworder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -27,7 +28,7 @@ class _fragmentState extends State<Fragmentnaql> {
       LoginScreen2(),
       LoginScreen2(),
       LoginScreen2(),
-      LoginScreen2(),
+      newOrder(),
 
     ];
     return Scaffold(
