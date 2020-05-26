@@ -1,3 +1,4 @@
+import 'package:advancednaql/screen/allorder.dart';
 import 'package:advancednaql/screen/login.dart';
 import 'package:advancednaql/screen/morewidget.dart';
 import 'package:advancednaql/screen/neworder.dart';
@@ -27,7 +28,7 @@ class _fragmentState extends State<Fragmentnaql> {
       MoreWidget(),
       LoginScreen2(),
       LoginScreen2(),
-      LoginScreen2(),
+      AllOrder(),
       newOrder(),
 
     ];
