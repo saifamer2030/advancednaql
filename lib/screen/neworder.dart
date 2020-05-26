@@ -60,7 +60,7 @@ class _newOrderState extends State<newOrder> {
             ),
             Container(
               child: Transform.translate(
-                offset: Offset(0.0, -220.0),
+                offset: Offset(0.0, -240.0),
                 child:
                 // Adobe XD layer: 'logoBox' (shape)
                 Center(
@@ -81,22 +81,7 @@ class _newOrderState extends State<newOrder> {
                 ),
               ),
             ),
-            Container(
-              child: Transform.translate(
-                offset: Offset(0.0, -150.0),
-                child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      color: const Color(0xff4fc3f7),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+
 
 
             Form(
@@ -120,6 +105,7 @@ class _newOrderState extends State<newOrder> {
                               width: 150,
                               height: 40,
                               child: RaisedButton(
+
                                 color: const Color(0xffe7e7e7),
                                 onPressed:  () {
 //
