@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-
 import 'package:flutter/painting.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MoreWidget extends StatelessWidget {
   MoreWidget({
@@ -431,26 +431,41 @@ class MoreWidget extends StatelessWidget {
                           height: .2,
                           color: Colors.grey,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              'تسجيل خروج',
-                              style: TextStyle(
-                                fontFamily: 'DroidArabicKufi',
-                                fontSize: 13,
-                                color: const Color(0xff3F9DC7),
-                                height: 1.2307692307692308,
+                        InkWell(
+                          onTap: (){
+                            FirebaseAuth.instance.signOut();
+                               Navigator.of(context).pushReplacementNamed('/login');
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+////                            InkWell(
+////                              onTap: () {
+////                                print("kkkkkkkkkkkclick");
+//                                FirebaseAuth.instance.signOut();
+//                                Navigator.of(context).pushNamed('/login');
+////
+////                              },
+////
+////                            ),
+                              Text(
+                                'تسجيل خروج',
+                                style: TextStyle(
+                                  fontFamily: 'DroidArabicKufi',
+                                  fontSize: 13,
+                                  color: const Color(0xff3F9DC7),
+                                  height: 1.2307692307692308,
+                                ),
+                                textAlign: TextAlign.right,
                               ),
-                              textAlign: TextAlign.right,
-                            ),
 
-                            // Adobe XD layer: 'world-wide-web-icon…' (shape)
-                            Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: new Icon(Icons.power_settings_new,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
-                            ),
-                          ],
+                              // Adobe XD layer: 'world-wide-web-icon…' (shape)
+                              Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new Icon(Icons.power_settings_new,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                              ),
+                            ],
+                          ),
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,

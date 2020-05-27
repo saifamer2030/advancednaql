@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:toast/toast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class newOrder extends StatefulWidget {
   @override
@@ -97,6 +98,11 @@ class _newOrderState extends State<newOrder> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    Widget loadingIndicator = _load2
+        ? new Container(
+      child: SpinKitCircle(color: Colors.blue),
+    )
+        : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
@@ -643,6 +649,10 @@ class _newOrderState extends State<newOrder> {
                     ],
                   )),
             ),
+            new Align(
+              child: loadingIndicator,
+              alignment: FractionalOffset.center,
+            ),
             //new Align(child: loadingIndicator,alignment: FractionalOffset.center,),
           ],
         ),
@@ -675,33 +685,21 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
        'cstarttraveltime': "",
             'curi': "a",
     }).whenComplete(() {
-            showInSnackBar('تم إرسال طلبك بنجاح سيتم مراجعتة ونشره');
+      Toast.show("تم ارسال طلبك بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      setState(() {
+        _load2 = false;
+      });
+    }).catchError((e) {
+            Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+            setState(() {
+              _load2 = false;
+            });
+          });
 
-    });
         })
     );
 
-//
-//            orderdatabaseReference.child(_userId).child(date).set({
-//              'cId': _userId,
-//              'date': date1,
-//              'lat1': "31",
-//              'long1': "31",
-//              'lat2': "30",
-//              'long2': "30",
-//              'cType': "order",
-//              'Category': _CategorycurrentItemSelected,
-//              'payload': _PayloadcurrentItemSelected,
-//              'nocars':
-//                  _nocheck ? _noController.text : __noarraycurrentItemSelected,
-//              'time':
-//                  _timecheck ? _timeController.text : _timecurrentItemSelected,
-//              'published': false,
-//            }).whenComplete(() {
-//              showInSnackBar('تم إرسال طلبك بنجاح سيتم مراجعتة ونشره');
-//
-//            });
-//          }));
+
 
   }
   void showInSnackBar(String value) {

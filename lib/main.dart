@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'fragmentbar.dart';
 import 'screen/Splash.dart';
 import 'screen/login.dart';
+import 'screen/network_connection.dart';
 import 'screen/signup.dart';
 import 'screen/neworder.dart';
 
@@ -33,8 +34,7 @@ class MyApp extends StatelessWidget {
         '/pledge':(BuildContext context)=>new Pledge(),
 
         '/neworder':(BuildContext context)=>new newOrder(),
-
-
+        '/conection':(BuildContext context)=>new ConnectionScreen(),
       },
     );
   }

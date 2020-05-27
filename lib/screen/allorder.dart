@@ -119,61 +119,54 @@ class _AllOrderState extends State<AllOrder> {
           ),
         ),
       ),
-      body: Container(
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/bg_grad_gold.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                  child: true
-                      ? orderlist.length == 0
-                          ? Center(
-                              child: Text(
-                              "لا توجد بيانات",
-                              style: TextStyle(color: Colors.grey),
-                            ))
-                          :namelist.length != 0? new ListView.builder(
-                              physics: BouncingScrollPhysics(),
-                              controller: _controller,
-                              itemCount: orderlist.length,
-                              itemBuilder: (BuildContext ctxt, int index) {
-                                return InkWell(
-                                    child: firebasedata(
-                                      index,
-                                      orderlist.length,
-                                      orderlist[index].cId,
-                                      orderlist[index].cdate,
-                                      orderlist[index].clat1,
-                                      orderlist[index].clong1,
-                                      orderlist[index].clat2,
-                                      orderlist[index].clong2,
-                                      orderlist[index].cType,
-                                      orderlist[index].cCategory,
-                                      orderlist[index].cpayload,
-                                      orderlist[index].cnocars,
-                                      orderlist[index].ctime,
-                                      orderlist[index].cpublished,
-                                      orderlist[index].cstarttraveltime,
-                                        orderlist[index].curi,
-                                      namelist[index],
+      body: Column(
+        children: <Widget>[
+          Expanded(
+              child: true
+                  ? orderlist.length == 0
+                      ? Center(
+                          child: Text(
+                          "لا توجد بيانات",
+                          style: TextStyle(color: Colors.grey),
+                        ))
+                      :namelist.length != 0? new ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          controller: _controller,
+                          itemCount: orderlist.length,
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            return InkWell(
+                                child: firebasedata(
+                                  index,
+                                  orderlist.length,
+                                  orderlist[index].cId,
+                                  orderlist[index].cdate,
+                                  orderlist[index].clat1,
+                                  orderlist[index].clong1,
+                                  orderlist[index].clat2,
+                                  orderlist[index].clong2,
+                                  orderlist[index].cType,
+                                  orderlist[index].cCategory,
+                                  orderlist[index].cpayload,
+                                  orderlist[index].cnocars,
+                                  orderlist[index].ctime,
+                                  orderlist[index].cpublished,
+                                  orderlist[index].cstarttraveltime,
+                                    orderlist[index].curi,
+                                  namelist[index],
 
 
-                                    ),
-                                    onTap:
-                                        () {}
-                                    );
-                              }):Center(
-                      child: Text(
-                        "لا توجد بيانات",
-                        style: TextStyle(color: Colors.grey),
-                      ))
-                      : null)
-            ],
-          )),
+                                ),
+                                onTap:
+                                    () {}
+                                );
+                          }):Center(
+                  child: Text(
+                    "لا توجد بيانات",
+                    style: TextStyle(color: Colors.grey),
+                  ))
+                  : null)
+        ],
+      ),
     );
   }
 
@@ -222,11 +215,9 @@ class _AllOrderState extends State<AllOrder> {
             child: Row(
               children: <Widget>[
                 Container(
-                  child: curi != "a"
-                      ? new Image.network(
-                    'https://www.almrsal.com/wp-content/uploads/2015/09/fakhama.jpeg',
-                    fit: BoxFit.cover,
-                  )
+                  child: curi == "a"
+                      ? new Image.asset("assets/logo.png",
+                fit: BoxFit.fill)
                       : new Image.network(
                     'https://www.almrsal.com/wp-content/uploads/2015/09/fakhama.jpeg',
                     fit: BoxFit.cover,

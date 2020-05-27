@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:advancednaql/screen/allorder.dart';
 import 'package:advancednaql/screen/login.dart';
 import 'package:advancednaql/screen/morewidget.dart';
 import 'package:advancednaql/screen/neworder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'screen/network_connection.dart';
 
 class Fragmentnaql extends StatefulWidget {
   int selectPage;
@@ -14,22 +18,25 @@ class Fragmentnaql extends StatefulWidget {
 
 class _fragmentState extends State<Fragmentnaql> {
   int _currentIndex = 4;
-
+bool con=true;
   @override
   void initState() {
     super.initState();
+    setState(() {
+    });
 
 //    _currentIndex = widget.selectPage != null ? widget.selectPage : 4;
   }
 
   @override
   Widget build(BuildContext context) {
+
     final List<Widget> _children = [
       MoreWidget(),
       LoginScreen2(),
       LoginScreen2(),
-      AllOrder(),
       newOrder(),
+      AllOrder(),
 
     ];
     return Scaffold(
@@ -148,3 +155,5 @@ class _fragmentState extends State<Fragmentnaql> {
     });
   }
 }
+
+
