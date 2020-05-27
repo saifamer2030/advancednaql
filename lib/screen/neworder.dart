@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:toast/toast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class newOrder extends StatefulWidget {
   @override
@@ -97,6 +98,11 @@ class _newOrderState extends State<newOrder> {
 
   @override
   Widget build(BuildContext context) {
+    Widget loadingIndicator = _load2
+        ? new Container(
+      child: SpinKitCircle(color: Colors.blue),
+    )
+        : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
@@ -642,6 +648,10 @@ class _newOrderState extends State<newOrder> {
                     ],
                   )),
             ),
+            new Align(
+              child: loadingIndicator,
+              alignment: FractionalOffset.center,
+            ),
             //new Align(child: loadingIndicator,alignment: FractionalOffset.center,),
           ],
         ),
@@ -675,8 +685,15 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
             'curi': "a",
     }).whenComplete(() {
       Toast.show("تم ارسال طلبك بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
-    });
+      setState(() {
+        _load2 = false;
+      });
+    }).catchError((e) {
+            Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+            setState(() {
+              _load2 = false;
+            });
+          });
         })
     );
 

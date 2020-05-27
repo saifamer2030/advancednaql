@@ -1,6 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
-
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:toast/toast.dart';
@@ -25,10 +27,9 @@ class _SignUpState extends State<SignUp> {
 
   var _initpassword = '';
   var _initpasswordconf = '';
-  bool _load2 = false;
+  bool _load = false;
   final userdatabaseReference =
   FirebaseDatabase.instance.reference().child("userdata");
-//  GoogleSignIn googleAuth = new GoogleSignIn();
 
   @override
   void initState() {
@@ -37,7 +38,11 @@ class _SignUpState extends State<SignUp> {
   }
   @override
   Widget build(BuildContext context) {
-
+    Widget loadingIndicator = _load
+        ? new Container(
+      child: SpinKitCircle(color: Colors.blue),
+    )
+        : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
@@ -343,14 +348,24 @@ class _SignUpState extends State<SignUp> {
                                   color: const Color(0xff41a0cb),
                                   elevation: 3.0,
                                   child: GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (_formKey.currentState.validate()) {
+                                        try {
+                                          final result = await InternetAddress.lookup('google.com');
+                                          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                            //  print('connected');
+                                            _uploaddataemail();
+                                            setState(() {
+                                              _load = true;
+                                            });
+                                          }
+                                        } on SocketException catch (_) {
+                                          //  print('not connected');
+                                          Toast.show("برجاء مراجعة الاتصال بالشبكة",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
+                                        }
                                         //loginUserphone(_phoneController.text.trim(), context);
-                                        _uploaddataemail();
-                                        setState(() {
-                                          _load2 = true;
-                                        });
+
                                       } else
                                         print('correct');
                                     },
@@ -399,6 +414,10 @@ class _SignUpState extends State<SignUp> {
 
                     ],
                   )),
+            ),
+            new Align(
+              child: loadingIndicator,
+              alignment: FractionalOffset.center,
             ),
            // new Align(child: loadingIndicator,alignment: FractionalOffset.center,),
 
@@ -494,7 +513,9 @@ class _SignUpState extends State<SignUp> {
       createRecord(signedInUser.user.uid);
     }).catchError((e) {
       Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-      // print(e);
+      setState(() {
+        _load = false;
+      });
     });
 
 
@@ -516,7 +537,7 @@ class _SignUpState extends State<SignUp> {
     });
 
     setState(() {
-      _load2 = false;
+      _load = false;
     });
     Navigator.of(context).pushReplacementNamed('/fragmentnaql');
   }

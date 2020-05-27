@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:connectivity/connectivity.dart';
 
 class LoginScreen2  extends StatefulWidget {
   @override
@@ -10,6 +14,7 @@ class LoginScreen2  extends StatefulWidget {
 
 class _LoginScreen2State extends State<LoginScreen2> {
 
+  var connectivityResult =  (Connectivity().checkConnectivity());
 
   bool _load = false;
   var _formKey1 = GlobalKey<FormState>();
@@ -22,6 +27,11 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
   @override
   Widget build(BuildContext context) {
+    Widget loadingIndicator = _load
+        ? new Container(
+      child: SpinKitCircle(color: Colors.blue),
+    )
+        : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
@@ -235,13 +245,24 @@ class _LoginScreen2State extends State<LoginScreen2> {
                             color: Theme.of(context).accentColor,
                             elevation: 7.0,
                             child: GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 if (_formKey1.currentState.validate()) {
-                                  _uploaddata();
-                                  //signinphone();
-                                  setState(() {
-                                    _load = true;
-                                  });
+                                  try {
+                                    final result = await InternetAddress.lookup('google.com');
+                                    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                    //  print('connected');
+                                      _uploaddata();
+                                      //signinphone();
+                                      setState(() {
+                                        _load = true;
+                                      });
+                                    }
+                                  } on SocketException catch (_) {
+                                  //  print('not connected');
+                  Toast.show("برجاء مراجعة الاتصال بالشبكة",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                                  }
+
                                 }
                               },
                               child: Center(
@@ -340,10 +361,11 @@ class _LoginScreen2State extends State<LoginScreen2> {
                     ],
                   )),
             ),
-//            new Align(
-//              child: loadingIndicator,
-//              alignment: FractionalOffset.center,
-//            ),
+            new Align(
+              child: loadingIndicator,
+              alignment: FractionalOffset.center,
+            ),
+
           ],
         ),
       ),
@@ -471,10 +493,14 @@ class _LoginScreen2State extends State<LoginScreen2> {
         .then((signedInUser) {
 
       Navigator.of(context).pushReplacementNamed('/fragmentnaql');
-
+      setState(() {
+        _load = false;
+      });
     }).catchError((e) {
           Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-          // print(e);
+          setState(() {
+            _load = false;
+          });
         });
     // print(_emailController.text+"////");
   }
