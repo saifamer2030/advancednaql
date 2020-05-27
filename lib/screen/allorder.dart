@@ -17,7 +17,7 @@ class _AllOrderState extends State<AllOrder> {
   List<OrderClass> orderlist = [];
   List<String> namelist = [];
 
-  String _userId, _userType;
+  String _userId;
   final orderdatabaseReference =FirebaseDatabase.instance.reference().child("orderdata");
 
 
@@ -136,7 +136,7 @@ class _AllOrderState extends State<AllOrder> {
                               "لا توجد بيانات",
                               style: TextStyle(color: Colors.grey),
                             ))
-                          : new ListView.builder(
+                          :namelist.length != 0? new ListView.builder(
                               physics: BouncingScrollPhysics(),
                               controller: _controller,
                               itemCount: orderlist.length,
@@ -166,7 +166,11 @@ class _AllOrderState extends State<AllOrder> {
                                     onTap:
                                         () {}
                                     );
-                              })
+                              }):Center(
+                      child: Text(
+                        "لا توجد بيانات",
+                        style: TextStyle(color: Colors.grey),
+                      ))
                       : null)
             ],
           )),
