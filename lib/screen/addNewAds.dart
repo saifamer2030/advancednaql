@@ -55,7 +55,8 @@ class _adsState extends State<AddNewAds> {
                   children: <Widget>[
                     InkWell(
                       onTap: (){
-
+                        Navigator.of(context)
+                            .pushNamed('/neworder');
                       },
                       child: Column(
                         children: <Widget>[
