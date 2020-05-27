@@ -182,7 +182,7 @@ class MoreWidget extends StatelessWidget {
                                   style: TextStyle(
                                     fontFamily: 'DroidArabicKufi',
                                     fontSize: 13,
-                                    color: const Color(0xff4fc3f7),
+                                    color: const Color(0xff3F9DC7),
                                     height: 1.2307692307692308,
                                   ),
                                   textAlign: TextAlign.right,

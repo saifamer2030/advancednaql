@@ -95,7 +95,7 @@ class _newOrderState extends State<newOrder> {
     _timecurrentItemSelected = _timearray[0];
     __noarraycurrentItemSelected = _noarray[0];
   }
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Widget loadingIndicator = _load2
@@ -106,6 +106,7 @@ class _newOrderState extends State<newOrder> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         child: Stack(
           children: <Widget>[
@@ -694,11 +695,21 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
               _load2 = false;
             });
           });
+
         })
     );
 
-  }
 
+
+  }
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        style: TextStyle(color: const Color(0xff48B2E1)),
+      ),
+    ));
+  }
   void _onDropDownItemSelectedcat(String newValueSelected) {
     setState(() {
       this._CategorycurrentItemSelected = newValueSelected;
