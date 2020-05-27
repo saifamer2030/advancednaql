@@ -125,7 +125,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           style: textStyle,
-                                          textDirection: TextDirection.ltr,
+                                          textDirection: TextDirection.rtl,
                                           controller: _emailController,
                                           validator: (String value) {
                                             if (value.isEmpty) {
