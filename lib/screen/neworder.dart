@@ -94,12 +94,13 @@ class _newOrderState extends State<newOrder> {
     _timecurrentItemSelected = _timearray[0];
     __noarraycurrentItemSelected = _noarray[0];
   }
-
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         child: Stack(
           children: <Widget>[
@@ -676,12 +677,19 @@ class _newOrderState extends State<newOrder> {
                   _timecheck ? _timeController.text : _timecurrentItemSelected,
               'published': false,
             }).whenComplete(() {
-              Toast.show(date1 + "تم ارسال طلبك بنجاح", context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+              showInSnackBar('تم إرسال طلبك بنجاح سيتم مراجعتة ونشره');
+
             });
           }));
   }
-
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        style: TextStyle(color: const Color(0xff48B2E1)),
+      ),
+    ));
+  }
   void _onDropDownItemSelectedcat(String newValueSelected) {
     setState(() {
       this._CategorycurrentItemSelected = newValueSelected;

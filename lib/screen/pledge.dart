@@ -1,7 +1,9 @@
 import 'package:advancednaql/screen/addNewAds.dart';
+import 'package:advancednaql/screen/newoffer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Pledge extends StatefulWidget {
   @override
@@ -15,10 +17,12 @@ class __pledgeState extends State<Pledge> {
   bool isSwitched2 = false;
   bool isSwitched3 = false;
   String data = "غير موافق";
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color(0xffffffff),
       body: Stack(children: <Widget>[
         Container(
@@ -258,14 +262,23 @@ class __pledgeState extends State<Pledge> {
   Future<void> _counterButtonPress() async {
     if (isSwitched && isSwitched2 && isSwitched3) {
       Navigator.push(
-          context, new MaterialPageRoute(builder: (context) => AddNewAds()));
+          context, new MaterialPageRoute(builder: (context) => NewOffer()));
 
       print("go_______");
 //      setState(() {
 //        Navigator.of(context).pushNamed('/addnewads');
 //      });
     } else {
-      return null;
+      return showInSnackBar(' الرجاء الموافقة علي الشروط');
     }
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        style: TextStyle(color: const Color(0xff48B2E1)),
+      ),
+    ));
   }
 }
