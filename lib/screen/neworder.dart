@@ -652,35 +652,57 @@ class _newOrderState extends State<newOrder> {
 
   void createRecord() {
     FirebaseAuth.instance.currentUser().then((user) => user == null
-        ? null
-        : setState(() {
-            _userId = user.uid;
-            DateTime now = DateTime.now();
-            String date1 =
-                '${now.year}-${now.month}-${now.day}'; // ${now.hour}:${now.minute}:00.000';
-            String date =
-                '${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
+        ?null
+        :setState(() {
+          _userId = user.uid;
+          DateTime now = DateTime.now();
+String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
+String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
 
-            orderdatabaseReference.child(_userId).child(date).set({
-              'cId': _userId,
-              'date': date1,
-              'lat1': "31",
-              'long1': "31",
-              'lat2': "30",
-              'long2': "30",
-              'cType': "order",
-              'Category': _CategorycurrentItemSelected,
-              'payload': _PayloadcurrentItemSelected,
-              'nocars':
-                  _nocheck ? _noController.text : __noarraycurrentItemSelected,
-              'time':
-                  _timecheck ? _timeController.text : _timecurrentItemSelected,
-              'published': false,
-            }).whenComplete(() {
-              showInSnackBar('تم إرسال طلبك بنجاح سيتم مراجعتة ونشره');
+          orderdatabaseReference.child(_userId).child(date).set({
+      'cId': _userId,
+      'cdate': date1,
+      'clat1':"31",
+      'clong1':"31",
+       'clat2': "30",
+       'clong2': "30",
+      'cType': "order",
+      'cCategory': _CategorycurrentItemSelected,
+      'cpayload': _PayloadcurrentItemSelected,
+      'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
+      'ctime':_timecheck?_timeController.text:_timecurrentItemSelected,
+      'cpublished': false,
+       'cstarttraveltime': "",
+            'curi': "a",
+    }).whenComplete(() {
+            showInSnackBar('تم إرسال طلبك بنجاح سيتم مراجعتة ونشره');
 
-            });
-          }));
+    });
+        })
+    );
+
+//
+//            orderdatabaseReference.child(_userId).child(date).set({
+//              'cId': _userId,
+//              'date': date1,
+//              'lat1': "31",
+//              'long1': "31",
+//              'lat2': "30",
+//              'long2': "30",
+//              'cType': "order",
+//              'Category': _CategorycurrentItemSelected,
+//              'payload': _PayloadcurrentItemSelected,
+//              'nocars':
+//                  _nocheck ? _noController.text : __noarraycurrentItemSelected,
+//              'time':
+//                  _timecheck ? _timeController.text : _timecurrentItemSelected,
+//              'published': false,
+//            }).whenComplete(() {
+//              showInSnackBar('تم إرسال طلبك بنجاح سيتم مراجعتة ونشره');
+//
+//            });
+//          }));
+
   }
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
