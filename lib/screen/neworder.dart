@@ -502,6 +502,7 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
       'ctime':_timecheck?_timeController.text:_timecurrentItemSelected,
       'cpublished': false,
        'cstarttraveltime': "",
+            'curi': "a",
     }).whenComplete(() {
       Toast.show("تم ارسال طلبك بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 

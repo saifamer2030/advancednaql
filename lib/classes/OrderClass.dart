@@ -12,7 +12,7 @@ class OrderClass {
   String ctime;
   bool cpublished;
   String cstarttraveltime;
-
+  String curi;
   OrderClass(
   this.cId,
   this.cdate,
@@ -27,6 +27,7 @@ class OrderClass {
   this.ctime,
   this.cpublished,
   this.cstarttraveltime,
+      this.curi,
 
      );
 

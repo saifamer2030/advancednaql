@@ -15,7 +15,7 @@ class AllOrder extends StatefulWidget {
 
 class _AllOrderState extends State<AllOrder> {
   List<OrderClass> orderlist = [];
-
+  List<String> namelist = [];
 
   String _userId, _userType;
   final orderdatabaseReference =FirebaseDatabase.instance.reference().child("orderdata");
@@ -34,7 +34,7 @@ class _AllOrderState extends State<AllOrder> {
         var dateId = data.value.keys;
 
         orderlist.clear();
-
+        namelist.clear();
         for (var id in dateId) {
           orderdatabaseReference.child(id).once().then((DataSnapshot data1) {
 
@@ -57,7 +57,30 @@ class _AllOrderState extends State<AllOrder> {
             DATA[individualkey]['ctime'],
             DATA[individualkey]['cpublished'],
             DATA[individualkey]['cstarttraveltime'],
+            DATA[individualkey]['curi'],
           );
+          //String  cName;
+          final userdatabaseReference =
+          FirebaseDatabase.instance.reference().child("userdata");
+          userdatabaseReference
+              .child(DATA[individualkey]['cId'],)
+              .child("cName")
+              .once()
+              .then((DataSnapshot snapshot5) {
+            setState(() {
+              if (snapshot5.value != null) {
+                setState(() {
+                  namelist.add(snapshot5.value);
+                 // cName = snapshot.value;
+                });
+              } else {
+                setState(() {
+                  namelist.add("no name");
+                  // cName = snapshot.value;
+                });
+              }
+            });
+          });
           setState(() {
             orderlist.add(orderclass);
 
@@ -135,6 +158,9 @@ class _AllOrderState extends State<AllOrder> {
                                       orderlist[index].ctime,
                                       orderlist[index].cpublished,
                                       orderlist[index].cstarttraveltime,
+                                        orderlist[index].curi,
+                                      namelist[index],
+
 
                                     ),
                                     onTap:
@@ -163,10 +189,12 @@ class _AllOrderState extends State<AllOrder> {
   String ctime,
   bool cpublished,
   String cstarttraveltime,
-
+      String  curi,
+      String  cname,
   ) {
 
     return Card(
+
       shape: new RoundedRectangleBorder(
           side:
               new BorderSide(color: Theme.of(context).accentColor, width: 1.0),
@@ -187,129 +215,170 @@ class _AllOrderState extends State<AllOrder> {
         },
         child: Container(
             padding: EdgeInsets.all(0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Row(
               children: <Widget>[
-                Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: <Widget>[
-                    Container(
-                      child: cId != null
-                          ? new Image.network(
-                        'https://www.almrsal.com/wp-content/uploads/2015/09/fakhama.jpeg',,
-                              fit: BoxFit.cover,
-                            )
-                          : new Image.network(
-                              'https://www.almrsal.com/wp-content/uploads/2015/09/fakhama.jpeg',
-                              fit: BoxFit.cover,
-                            ),
-                      height: 240,
-                      width: 350,
-                    ),
-                    cpublished == true
-                        ? Positioned(
-                            bottom: 180,
-                            left: 30,
-                            child: Container(
-                              width: 70,
-                              height: 40,
-                              color: Colors.black.withOpacity(0.3),
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.stars,
-                                    color: Theme.of(context).accentColor,
-                                  ),
-                                  Text(
-                                    "VIP",
-                                    style: TextStyle(
-                                        color: Theme.of(context).accentColor,
-                                        fontFamily: 'Gamja Flower',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 30.0,
-                                        fontStyle: FontStyle.normal),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        : Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                          ),
-                    Container(
-                      height: 65,
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-
-                  ],
+                Container(
+                  child: curi != "a"
+                      ? new Image.network(
+                    'https://www.almrsal.com/wp-content/uploads/2015/09/fakhama.jpeg',
+                    fit: BoxFit.cover,
+                  )
+                      : new Image.network(
+                    'https://www.almrsal.com/wp-content/uploads/2015/09/fakhama.jpeg',
+                    fit: BoxFit.cover,
+                  ),
+                  width: 100,
+                  height:130,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 10, right: 5, top: 5, bottom: 5),
-                  child: Row(
-//                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Container(
+                  height: 130,
+                  child: Stack(
+                    //alignment: Alignment.bottomCenter,
                     children: <Widget>[
-                      InkWell(
+                      cType == "order"
+                          ? Positioned(
+                        top: 0,
+                        left: 0,
                         child: Container(
-                          width: 40,
-                          height: 40,
-//                          child: Image(
-//                            image: serviceplace == "مشغل"
-//                                ? AssetImage('assets/images/coiffure.png')
-//                                : serviceplace == "كوافير"
-//                                    ? AssetImage('assets/images/employee.png')
-//                                    : AssetImage('assets/images/cof_emp.png'),
-//                          ),
-                        ),
-                        onTap: () {
-                          Toast.show(
-                              "  هذا المشغل يقبل الخدمات في  $cnocars ",
-                              context,
-                              duration: Toast.LENGTH_SHORT,
-                              gravity: Toast.BOTTOM);
-                        },
-                      ),
 
-//                    new Checkbox(
-//                      activeColor: Color(0xffF1AB37),
-//                      tristate: true,
-//                      value: true,
-//                      onChanged: (bool newValue){
-//                        setState(() {
-//
-//                        });
-//                      },
-//
-//                    ),
-//                    new Icon(
-//                      Icons.favorite_border,
-//                      color: const Color(0xffF1AB37),
-//                      size: 40,
-//                    ),
-                      SizedBox(
-                        width: 20,
+                          height: 40,
+                          width: 60,
+                          color: Colors.green,
+                          child: Text(
+                            "طلب",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Gamja Flower',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30.0,
+                                fontStyle: FontStyle.normal),
+                          ),
+                        ),
+                      )
+                          : Positioned(
+                        top: 0,
+                        left: 0,
+                        child: Container(
+
+                          height: 40,
+                          width: 60,
+                          color: Colors.red,
+                          child: Text(
+                            "عرض",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Gamja Flower',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30.0,
+                                fontStyle: FontStyle.normal),
+                          ),
+                        ),
                       ),
-                      Stack(
-                        alignment: Alignment.topRight,
-                        children: <Widget>[
-                          Row(
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child:Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            "$cCategory حمولة  $cpayload",textDirection: TextDirection.rtl,textAlign: TextAlign.right,
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontFamily: 'Gamja Flower',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.0,
+                                fontStyle: FontStyle.normal),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 20,
+                        right: 0,
+                        child:Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child:cname!=null? Text(
+                            cname,textDirection: TextDirection.rtl,textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontFamily: 'Gamja Flower',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.0,
+                                fontStyle: FontStyle.normal),
+                          ):Text(" "),
+                        ),
+                      ),
+                      Positioned(
+                        top: 100,
+                        right: 0,
+                        child:Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child:Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+
                             children: <Widget>[
-                              new Text(
-                                " $cCategory / $cnocars ",
+                              Text(
+                                "الواجهة: ",textDirection: TextDirection.rtl,textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: 'Gamja Flower',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.0,
+                                    fontStyle: FontStyle.normal),
                               ),
                               SizedBox(
-                                width: 5.0,
+                                height: _minimumPadding,
+                                width: _minimumPadding,
                               ),
-                              new Icon(
-                                Icons.location_on,
-                                color: const Color(0xffFF008B),
-                                size: 20,
+                              Text(
+                                "الواجهة: ",textDirection: TextDirection.rtl,textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: 'Gamja Flower',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.0,
+                                    fontStyle: FontStyle.normal),
+                              ),
+                              SizedBox(
+                                height: _minimumPadding,
+                                width: _minimumPadding,
+                              ),
+                              Text(
+                                "وقت التحرك: ",textDirection: TextDirection.rtl,textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: 'Gamja Flower',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.0,
+                                    fontStyle: FontStyle.normal),
+                              ),
+                              SizedBox(
+                                height: _minimumPadding,
+                                width: _minimumPadding,
+                              ),
+                              Text(
+                                "منذ: $cdate",textDirection: TextDirection.rtl,textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: 'Gamja Flower',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 10.0,
+                                    fontStyle: FontStyle.normal),
                               ),
                             ],
                           ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 5, top: 5, bottom: 5),
+                            child:Text(
+                              "                                                                    ",textDirection: TextDirection.rtl,textAlign: TextAlign.right,
+
+                            ),
+                          ),
+
+
                         ],
                       ),
+
                     ],
                   ),
                 ),
