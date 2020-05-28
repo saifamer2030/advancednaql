@@ -676,7 +676,7 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
       'clong1':"31",
        'clat2': "30",
        'clong2': "30",
-      'cType': "order",
+      'cType': "طلب",
       'cCategory': _CategorycurrentItemSelected,
       'cpayload': _PayloadcurrentItemSelected,
       'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,

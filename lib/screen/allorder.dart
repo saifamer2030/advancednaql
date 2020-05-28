@@ -1,5 +1,6 @@
 
 import 'package:advancednaql/classes/OrderClass.dart';
+import 'package:advancednaql/classes/OrderNameClass.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +15,68 @@ class AllOrder extends StatefulWidget {
 }
 
 class _AllOrderState extends State<AllOrder> {
-  List<OrderClass> orderlist = [];
+  List<OrderNameClass> orderlist = [];
   List<String> namelist = [];
-
+  var _typearray = [
+    'الكل',
+    'طلبات',
+    'عروض',
+  ];
+  var _typecurrentItemSelected = '';
   String _userId;
   final orderdatabaseReference =FirebaseDatabase.instance.reference().child("orderdata");
+  bool isSearch = false;
+  String filtter = '';
+  TextEditingController searchcontroller = TextEditingController();
 
+  List<OrderNameClass> SearchList = [];
+
+  void filterSearchResults(String filtter) {
+    SearchList.addAll(orderlist);
+    if (filtter == '') {
+      setState(() {
+        orderlist.clear();
+        orderlist.addAll(SearchList);
+      });
+      return;
+    } else {
+      setState(() {
+        List<OrderNameClass> ListData = [];
+        SearchList.forEach((item) {
+          if ((item.cCategory.toString().contains(filtter))
+              ||(item.cName.toString().contains(filtter))
+              ||(item.cnocars.toString().contains(filtter))
+              ||(item.cpayload.toString().contains(filtter))
+              ||(item.cType.toString().contains(filtter))
+              ||(item.cdate.toString().contains(filtter))
+          ) {
+            ListData.add(item);
+          }
+        });
+        setState(() {
+          orderlist.clear();
+          orderlist.addAll(ListData);
+        });
+        return;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-
+    _typecurrentItemSelected = _typearray[0];
+    searchcontroller.addListener(() {
+      if (searchcontroller.text == '') {
+        setState(() {
+          filtter = '';
+        });
+      } else {
+        setState(() {
+          filtter = searchcontroller.text;
+        });
+      }
+    });
     FirebaseAuth.instance.currentUser().then((user) => user == null
         ? null
         : setState(() {
@@ -70,21 +122,51 @@ class _AllOrderState extends State<AllOrder> {
             setState(() {
               if (snapshot5.value != null) {
                 setState(() {
-                  namelist.add(snapshot5.value);
-                 // cName = snapshot.value;
+                  //namelist.add(snapshot5.value);
+                  OrderNameClass ordernameclass =new OrderNameClass(
+                    DATA[individualkey]['cId'],
+                    DATA[individualkey]['cdate'],
+                    DATA[individualkey]['clat1'],
+                    DATA[individualkey]['clong1'],
+                    DATA[individualkey]['clat2'],
+                    DATA[individualkey]['clong2'],
+                    DATA[individualkey]['cType'],
+                    DATA[individualkey]['cCategory'],
+                    DATA[individualkey]['cpayload'],
+                    DATA[individualkey]['cnocars'],
+                    DATA[individualkey]['ctime'],
+                    DATA[individualkey]['cpublished'],
+                    DATA[individualkey]['cstarttraveltime'],
+                    DATA[individualkey]['curi'],
+                      snapshot5.value,
+                  );
+                  orderlist.add(ordernameclass);
                 });
               } else {
                 setState(() {
-                  namelist.add("no name");
-                  // cName = snapshot.value;
+                  OrderNameClass ordernameclass =new OrderNameClass(
+                    DATA[individualkey]['cId'],
+                    DATA[individualkey]['cdate'],
+                    DATA[individualkey]['clat1'],
+                    DATA[individualkey]['clong1'],
+                    DATA[individualkey]['clat2'],
+                    DATA[individualkey]['clong2'],
+                    DATA[individualkey]['cType'],
+                    DATA[individualkey]['cCategory'],
+                    DATA[individualkey]['cpayload'],
+                    DATA[individualkey]['cnocars'],
+                    DATA[individualkey]['ctime'],
+                    DATA[individualkey]['cpublished'],
+                    DATA[individualkey]['cstarttraveltime'],
+                    DATA[individualkey]['curi'],
+                    "no name",
+                  );
+                  orderlist.add(ordernameclass);
                 });
               }
             });
           });
-          setState(() {
-            orderlist.add(orderclass);
 
-          });
         }
       });}
               });
@@ -121,15 +203,168 @@ class _AllOrderState extends State<AllOrder> {
       ),
       body: Column(
         children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 86.0,
+            decoration: BoxDecoration(
+              color: const Color(0xff4fc3f7),
+            ),
+          ),
+          Container(
+            child: Transform.translate(
+              offset: Offset(0.0, -40.0),
+              child:
+              // Adobe XD layer: 'logoBox' (shape)
+              Center(
+                child: Container(
+                  width: 166.0,
+                  height: 67.0,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      alignment: Alignment.center,
+                      matchTextDirection: true,
+                      repeat: ImageRepeat.noRepeat,
+                      image: AssetImage("assets/logowhite.png"),
+                    ),
+                    borderRadius: BorderRadius.circular(21.0),
+                    color: const Color(0xff4fc3f7),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            height: 50.0,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    width: 150,
+                    height: 40,
+                    color: Colors.grey[500],
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: TextField(
+                        style: TextStyle(color: Colors.black),
+                        onChanged: (value) {
+                          filterSearchResults(value);
+                        },
+                        controller: searchcontroller,
+                         // focusNode: focus,
+
+                        decoration: InputDecoration(
+                          labelText:searchcontroller.text.isEmpty? "بحث بالاسم":'',
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 18.0),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.black,
+                          ),
+                          suffixIcon: searchcontroller.text.isNotEmpty
+                              ? IconButton(
+                            icon: Icon(Icons.cancel,
+                                color: Colors.black),
+                            onPressed: () {
+                              setState(() {
+                                searchcontroller.clear();
+                                filterSearchResults('');
+                              });
+                            },
+                          )
+                              : null,
+
+
+                          errorStyle: TextStyle(color: Colors.white),
+                          enabled: true,
+                          alignLabelWithHint: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 120,
+                    height: 40,
+                    color: Colors.grey[500],
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: RaisedButton(
+                        color: Colors.grey[500],
+                        onPressed: ()  {
+
+                        },
+                        child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "الخريطة",
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.black,
+                              size: 25.0,
+                            ),
+                          ],
+                        ),
+
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 70,
+                    height: 40,
+                    color: Colors.blue,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: DropdownButton<String>(
+                        items: _typearray.map(
+                                (String value) {
+                              return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    textDirection:
+                                    TextDirection.rtl,
+                                    style: TextStyle(
+                                        color: Colors.grey[500],
+                                        fontSize: 15,
+                                        fontWeight:
+                                        FontWeight.bold),
+                                  ));
+                            }).toList(),
+                        value: _typecurrentItemSelected,
+                        onChanged:
+                            (String newValueSelected) {
+                          // Your code to execute, when a menu item is selected from dropdown
+                          _onDropDownItemSelectedtype(
+                              newValueSelected);
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
-              child: true
-                  ? orderlist.length == 0
+              child: orderlist.length == 0
                       ? Center(
                           child: Text(
                           "لا توجد بيانات",
                           style: TextStyle(color: Colors.grey),
                         ))
-                      :namelist.length != 0? new ListView.builder(
+                      :
+
+              new ListView.builder(
                           physics: BouncingScrollPhysics(),
                           controller: _controller,
                           itemCount: orderlist.length,
@@ -152,19 +387,16 @@ class _AllOrderState extends State<AllOrder> {
                                   orderlist[index].cpublished,
                                   orderlist[index].cstarttraveltime,
                                     orderlist[index].curi,
-                                  namelist[index],
+                                  orderlist[index].cName,
 
 
                                 ),
                                 onTap:
                                     () {}
                                 );
-                          }):Center(
-                  child: Text(
-                    "لا توجد بيانات",
-                    style: TextStyle(color: Colors.grey),
-                  ))
-                  : null)
+                          })
+
+                  )
         ],
       ),
     );
@@ -215,6 +447,8 @@ class _AllOrderState extends State<AllOrder> {
             child: Row(
               children: <Widget>[
                 Container(
+                  color: Colors.grey[300],
+
                   child: curi == "a"
                       ? new Image.asset("assets/logo.png",
                 fit: BoxFit.fill)
@@ -230,8 +464,7 @@ class _AllOrderState extends State<AllOrder> {
                   child: Stack(
                     //alignment: Alignment.bottomCenter,
                     children: <Widget>[
-                      cType == "order"
-                          ? Positioned(
+                      Positioned(
                         top: 0,
                         left: 0,
                         child: Container(
@@ -240,26 +473,7 @@ class _AllOrderState extends State<AllOrder> {
                           width: 60,
                           color: Colors.green,
                           child: Text(
-                            "طلب",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Gamja Flower',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30.0,
-                                fontStyle: FontStyle.normal),
-                          ),
-                        ),
-                      )
-                          : Positioned(
-                        top: 0,
-                        left: 0,
-                        child: Container(
-
-                          height: 40,
-                          width: 60,
-                          color: Colors.red,
-                          child: Text(
-                            "عرض",
+                            cType,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Gamja Flower',
@@ -269,6 +483,7 @@ class _AllOrderState extends State<AllOrder> {
                           ),
                         ),
                       ),
+
                       Positioned(
                         top: 0,
                         right: 0,
@@ -384,5 +599,17 @@ class _AllOrderState extends State<AllOrder> {
   }
 
 
+  void _onDropDownItemSelectedtype(String newValueSelected) {
+    setState(() {
+      this._typecurrentItemSelected = newValueSelected;
+    });
+    if(newValueSelected=='طلبات'){
+      filterSearchResults("طلب");
+    }else if(newValueSelected=='عروض'){
+      filterSearchResults("عرض");
+    }else if(newValueSelected=='الكل'){
+      filterSearchResults('');
+    }
 
+  }
 }
