@@ -20,6 +20,7 @@ class LanguageSelector extends StatelessWidget {
               RaisedButton(
                 child: Text(Translations.of(context).translate('language_en')),
                 onPressed: (){
+                  Navigator.pop(context); 
                   applic.onLocaleChanged(new Locale('en', 'US'));
                   HelperFunc.updateDefLang('en', 'US');
                   HelperFunc.reopenMoreInfo(context);
@@ -29,9 +30,10 @@ class LanguageSelector extends StatelessWidget {
               RaisedButton(
                 child: Text(Translations.of(context).translate('language_ar')),
                 onPressed: (){
+                  Navigator.pop(context); 
+                  HelperFunc.reopenMoreInfo(context);
                   applic.onLocaleChanged(new Locale('ar', 'EG'));
                   HelperFunc.updateDefLang('ar', 'EG');
-                  HelperFunc.reopenMoreInfo(context);
                 },
               ),
             ],
