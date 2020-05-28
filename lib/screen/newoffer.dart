@@ -84,7 +84,7 @@ class _newoffer extends State<NewOffer> {
                         ),
                       ),
                       Container(
-                        width: 380,
+                        width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         child: Column(
                           children: <Widget>[
@@ -124,84 +124,87 @@ class _newoffer extends State<NewOffer> {
                               ),
                             ),
 
-                            Container(
-                              width: 380,
-                              child: Material(
-                                  elevation: 5.0,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5.0)),
-                                  color: const Color(0xff43A2CC), //48B2E1
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Material(
+                                    elevation: 5.0,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5.0)),
+                                    color: const Color(0xff43A2CC), //48B2E1
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
 //                                              borderRadius: BorderRadius.only(
 //                                                  topRight: Radius.circular(10.0),
 //                                                  bottomRight: Radius.circular(10.0)),
-                                        ),
-                                        width: 300,
-                                        height: 40,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: TextFormField(
-                                              // textAlign: TextAlign.right,
-
-                                              keyboardType: TextInputType.text,
-
+                                          ),
+                                          width: 300,
+                                          height: 40,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8),
+                                            child: Directionality(
                                               textDirection: TextDirection.rtl,
-                                              controller: null,
-                                              decoration: InputDecoration(
-                                                border: InputBorder.none,
-                                                labelText: "الموديل",
-                                                fillColor: Colors.white,
-                                                filled: true,
-                                                errorStyle: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15.0),
+                                              child: TextFormField(
+                                                // textAlign: TextAlign.right,
+
+                                                keyboardType: TextInputType.text,
+
+                                                textDirection: TextDirection.rtl,
+                                                controller: null,
+                                                decoration: InputDecoration(
+                                                  border: InputBorder.none,
+                                                  labelText: "الموديل",
+                                                  fillColor: Colors.white,
+                                                  filled: true,
+                                                  errorStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0),
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            Text(
-                                              "الموديل",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                            Container(
-                                              width: 20,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  alignment: Alignment.center,
-                                                  matchTextDirection: true,
-                                                  repeat: ImageRepeat.noRepeat,
-                                                  image: AssetImage(
-                                                      "assets/images/ic_modelcar.png"),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              Text(
+                                                "الموديل",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                              Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    alignment: Alignment.center,
+                                                    matchTextDirection: true,
+                                                    repeat: ImageRepeat.noRepeat,
+                                                    image: AssetImage(
+                                                        "assets/images/ic_modelcar.png"),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
+                                      ],
+                                    )),
+                              ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Container(
-                                width: 380,
+                                width: MediaQuery.of(context).size.width,
                                 child: Material(
                                     elevation: 5.0,
                                     borderRadius:
@@ -278,9 +281,9 @@ class _newoffer extends State<NewOffer> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.all( 10.0),
                               child: Container(
-                                width: 380,
+                                width: MediaQuery.of(context).size.width,
                                 child: Material(
                                     elevation: 5.0,
                                     borderRadius:

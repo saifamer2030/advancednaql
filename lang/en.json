@@ -22,5 +22,7 @@
   "language_ar":"Arabic",
   "language":"Language",
   "select_language":"Select language",
-  "are_u_sure":"Are you sure ?"
+  "are_u_sure":"Are you sure ?",
+  "email": "Email",
+  "plz_entr_email": "Please enter your e-mail!"
 }

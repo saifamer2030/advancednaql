@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -140,7 +141,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                           },
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: 'البريد الإالكترونى',
+                                            hintText: Translations.of(context).translate('email'),
                                             fillColor: Colors.white,
                                             filled: true,
                                             errorStyle: TextStyle(

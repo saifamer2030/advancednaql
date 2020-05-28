@@ -22,5 +22,7 @@
   "language_ar":"عربي",
   "language":"اللغة",
   "select_language":"اختار اللغة",
-  "are_u_sure":"تاكيد ؟"
+  "are_u_sure":"تاكيد ؟",
+  "email": "البريد الإالكترونى",
+  "plz_entr_email": "برجاء إدخال البريد الإلكترونى"
 }
