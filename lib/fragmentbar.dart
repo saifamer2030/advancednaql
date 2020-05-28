@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'screen/network_connection.dart';
+import 'translation/app_localizations.dart';
 
 class Fragmentnaql extends StatefulWidget {
   int selectPage;
@@ -70,7 +71,8 @@ bool con=true;
                 allowDrawingOutsideViewBox: true,
               ),
               title: Text(
-                'المزيد',
+                // 'المزيد',
+                Translations.of(context).translate('more'),
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
@@ -86,7 +88,8 @@ bool con=true;
                 allowDrawingOutsideViewBox: true,
               ),
               title: Text(
-                'التنبيهات',
+                // 'التنبيهات',
+                Translations.of(context).translate('alerts'),
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
@@ -101,7 +104,8 @@ bool con=true;
                 allowDrawingOutsideViewBox: true,
               ),
               title: Text(
-                'المفضلة',
+                // 'المفضلة',
+                Translations.of(context).translate('favorit'),
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
@@ -116,7 +120,8 @@ bool con=true;
                 allowDrawingOutsideViewBox: true,
               ),
               title: Text(
-                'طلباتي ',
+                // 'طلباتي ',
+                Translations.of(context).translate('my_orders'),
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,
@@ -131,7 +136,8 @@ bool con=true;
                 allowDrawingOutsideViewBox: true,
               ),
               title: Text(
-                'الرئيسية',
+                // 'الرئيسية',
+                Translations.of(context).translate('home'),
                 style: TextStyle(
                   fontFamily: 'GESSTwoMedium-Medium',
                   fontSize: 12,

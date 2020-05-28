@@ -4,6 +4,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/painting.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../translation/helper_func.dart';
+
 class MoreWidget extends StatelessWidget {
   MoreWidget({
     Key key,
@@ -166,7 +168,11 @@ class MoreWidget extends StatelessWidget {
                           height: .2,
                           color: Colors.grey,
                         ),
-                        Row(
+                        InkWell(
+                              onTap: () {
+                                HelperFunc.reopenSetting(context);
+                              },
+                              child:Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                           children: <Widget>[
@@ -207,6 +213,7 @@ class MoreWidget extends StatelessWidget {
                               ],
                             ),
                           ],
+                        ),
                         ),
 
 //                        Container(

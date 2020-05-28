@@ -9,6 +9,7 @@ class NewOffer extends StatefulWidget {
 @override
 class _newoffer extends State<NewOffer> {
   final double _minimumPadding = 5.0;
+  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +55,14 @@ class _newoffer extends State<NewOffer> {
                     children: <Widget>[
                       Container(
                         width: 200,
-                        height: 200,
+                        height: 150,
                         color: const Color(0xffEDEBEB),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
                               width: 100,
-                              height: 100,
+                              height: 50,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   alignment: Alignment.center,
@@ -89,7 +90,7 @@ class _newoffer extends State<NewOffer> {
                           children: <Widget>[
                             Container(
                               width: 380,
-                              height: 70,
+                              height: 60,
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Card(
@@ -129,7 +130,7 @@ class _newoffer extends State<NewOffer> {
                                   elevation: 5.0,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
-                                  color:  const Color(0xff48B2E1),//48B2E1
+                                  color: const Color(0xff43A2CC), //48B2E1
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -142,14 +143,14 @@ class _newoffer extends State<NewOffer> {
 //                                                  bottomRight: Radius.circular(10.0)),
                                         ),
                                         width: 300,
-                                        height: 60,
+                                        height: 40,
                                         child: Padding(
                                           padding: const EdgeInsets.all(8),
                                           child: Directionality(
                                             textDirection: TextDirection.rtl,
                                             child: TextFormField(
                                               // textAlign: TextAlign.right,
-                                              obscureText: true,
+
                                               keyboardType: TextInputType.text,
 
                                               textDirection: TextDirection.rtl,
@@ -157,7 +158,6 @@ class _newoffer extends State<NewOffer> {
                                               decoration: InputDecoration(
                                                 border: InputBorder.none,
                                                 labelText: "الموديل",
-
                                                 fillColor: Colors.white,
                                                 filled: true,
                                                 errorStyle: TextStyle(
@@ -171,9 +171,14 @@ class _newoffer extends State<NewOffer> {
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: <Widget>[
-                                            Text("الموديل",style: TextStyle(color: Colors.white),),
+                                            Text(
+                                              "الموديل",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
                                             Container(
                                               width: 20,
                                               height: 20,
@@ -187,7 +192,6 @@ class _newoffer extends State<NewOffer> {
                                                 ),
                                               ),
                                             ),
-
                                           ],
                                         ),
                                       ),
@@ -195,17 +199,17 @@ class _newoffer extends State<NewOffer> {
                                   )),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10.0 ),
+                              padding: const EdgeInsets.only(top: 10.0),
                               child: Container(
                                 width: 380,
                                 child: Material(
                                     elevation: 5.0,
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                    color:  const Color(0xff48B2E1),//48B2E1
+                                        BorderRadius.all(Radius.circular(5.0)),
+                                    color: const Color(0xff43A2CC), //48B2E1
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Container(
                                           decoration: BoxDecoration(
@@ -215,22 +219,22 @@ class _newoffer extends State<NewOffer> {
 //                                                  bottomRight: Radius.circular(10.0)),
                                           ),
                                           width: 300,
-                                          height: 60,
+                                          height: 40,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
                                             child: Directionality(
                                               textDirection: TextDirection.rtl,
                                               child: TextFormField(
                                                 // textAlign: TextAlign.right,
-                                                obscureText: true,
-                                                keyboardType: TextInputType.text,
+                                                keyboardType:
+                                                    TextInputType.text,
 
-                                                textDirection: TextDirection.rtl,
+                                                textDirection:
+                                                    TextDirection.rtl,
                                                 controller: null,
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
                                                   labelText: "الشركة",
-
                                                   fillColor: Colors.white,
                                                   filled: true,
                                                   errorStyle: TextStyle(
@@ -244,9 +248,14 @@ class _newoffer extends State<NewOffer> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: <Widget>[
-                                              Text("الشركة",style: TextStyle(color: Colors.white),),
+                                              Text(
+                                                "الشركة",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
                                               Container(
                                                 width: 20,
                                                 height: 20,
@@ -254,13 +263,13 @@ class _newoffer extends State<NewOffer> {
                                                   image: DecorationImage(
                                                     alignment: Alignment.center,
                                                     matchTextDirection: true,
-                                                    repeat: ImageRepeat.noRepeat,
+                                                    repeat:
+                                                        ImageRepeat.noRepeat,
                                                     image: AssetImage(
                                                         "assets/images/ic_compny.png"),
                                                   ),
                                                 ),
                                               ),
-
                                             ],
                                           ),
                                         ),
@@ -269,17 +278,17 @@ class _newoffer extends State<NewOffer> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10.0 ),
+                              padding: const EdgeInsets.only(top: 10.0),
                               child: Container(
                                 width: 380,
                                 child: Material(
                                     elevation: 5.0,
                                     borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                    color:  const Color(0xff48B2E1),//48B2E1
+                                        BorderRadius.all(Radius.circular(5.0)),
+                                    color: const Color(0xff43A2CC), //48B2E1
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Container(
                                           decoration: BoxDecoration(
@@ -289,22 +298,22 @@ class _newoffer extends State<NewOffer> {
 //                                                  bottomRight: Radius.circular(10.0)),
                                           ),
                                           width: 300,
-                                          height: 60,
+                                          height: 40,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
                                             child: Directionality(
                                               textDirection: TextDirection.rtl,
                                               child: TextFormField(
                                                 // textAlign: TextAlign.right,
-                                                obscureText: true,
-                                                keyboardType: TextInputType.text,
+                                                keyboardType:
+                                                    TextInputType.text,
 
-                                                textDirection: TextDirection.rtl,
+                                                textDirection:
+                                                    TextDirection.rtl,
                                                 controller: null,
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
                                                   labelText: "اسم المالك",
-
                                                   fillColor: Colors.white,
                                                   filled: true,
                                                   errorStyle: TextStyle(
@@ -318,9 +327,15 @@ class _newoffer extends State<NewOffer> {
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
                                             children: <Widget>[
-                                              Text("اسم المالك",style: TextStyle(color: Colors.white,fontSize: 10),),
+                                              Text(
+                                                "اسم المالك",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 10),
+                                              ),
                                               Container(
                                                 width: 20,
                                                 height: 20,
@@ -328,18 +343,319 @@ class _newoffer extends State<NewOffer> {
                                                   image: DecorationImage(
                                                     alignment: Alignment.center,
                                                     matchTextDirection: true,
-                                                    repeat: ImageRepeat.noRepeat,
+                                                    repeat:
+                                                        ImageRepeat.noRepeat,
                                                     image: AssetImage(
                                                         "assets/images/ic_mycar.png"),
                                                   ),
                                                 ),
                                               ),
-
                                             ],
                                           ),
                                         ),
                                       ],
                                     )),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Container(
+                                    color: const Color(0xffF4F4F4),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Switch(
+                                          value: isSwitched,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              isSwitched = value;
+                                              print(isSwitched);
+                                            });
+                                          },
+                                          activeTrackColor:
+                                              const Color(0xff1891C7),
+                                          activeColor: Colors.lightBlueAccent,
+                                        ),
+                                        Text("مع السائق"),
+                                        Container(
+                                          width: 20,
+                                          height: 20,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.center,
+                                              matchTextDirection: true,
+                                              repeat: ImageRepeat.noRepeat,
+                                              image: AssetImage(
+                                                  "assets/images/ic_driver.png"),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    color: const Color(0xff43A2CC),
+                                    child: DropdownButtonHideUnderline(
+                                        child: ButtonTheme(
+                                      alignedDropdown: true,
+                                      child: DropdownButton<String>(
+                                        items: <String>['Foo', 'Bar']
+                                            .map((String value) {
+                                          return new DropdownMenuItem<String>(
+                                            value: value,
+                                            child: new Text(value),
+                                          );
+                                        }).toList(),
+                                        onChanged: null,
+                                        value: null,
+                                        style: new TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    )),
+                                  ),
+                                  Container(
+                                    width: 100,
+                                    color: const Color(0xff43A2CC),
+                                    child: DropdownButtonHideUnderline(
+                                        child: ButtonTheme(
+                                      alignedDropdown: true,
+                                      child: DropdownButton<String>(
+                                        items: <String>['Foo', 'Bar']
+                                            .map((String value) {
+                                          return new DropdownMenuItem<String>(
+                                            value: value,
+                                            child: new Text(value),
+                                          );
+                                        }).toList(),
+                                        onChanged: null,
+                                        value: null,
+                                        style: new TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Container(
+                                  width: 100,
+                                  color: const Color(0xff43A2CC),
+                                  child: DropdownButtonHideUnderline(
+                                      child: ButtonTheme(
+                                        alignedDropdown: true,
+                                        child: Row(
+                                          children: <Widget>[
+                                            DropdownButton<String>(
+                                              items: <String>['Foo', 'Bar']
+                                                  .map((String value) {
+                                                return new DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: new Text(value),
+                                                );
+                                              }).toList(),
+                                              onChanged: null,
+                                              value: null,
+                                              style: new TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  alignment: Alignment.center,
+                                                  matchTextDirection: true,
+                                                  repeat:
+                                                  ImageRepeat.noRepeat,
+                                                  image: AssetImage(
+                                                      "assets/images/ic_wcar.png"),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                ),
+                                Container(
+                                  width: 100,
+                                  color: const Color(0xff43A2CC),
+                                  child: DropdownButtonHideUnderline(
+                                      child: ButtonTheme(
+                                        alignedDropdown: true,
+                                        child: Row(
+                                          children: <Widget>[
+                                            DropdownButton<String>(
+                                              items: <String>['Foo', 'Bar']
+                                                  .map((String value) {
+                                                return new DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: new Text(value),
+                                                );
+                                              }).toList(),
+                                              onChanged: null,
+                                              value: null,
+                                              style: new TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  alignment: Alignment.center,
+                                                  matchTextDirection: true,
+                                                  repeat:
+                                                  ImageRepeat.noRepeat,
+                                                  image: AssetImage(
+                                                      "assets/images/ic_wbcar.png"),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                ),
+                                Container(
+                                  width: 100,
+                                  color: const Color(0xff43A2CC),
+                                  child: DropdownButtonHideUnderline(
+                                      child: ButtonTheme(
+                                        alignedDropdown: true,
+                                        child: Row(
+                                          children: <Widget>[
+                                            DropdownButton<String>(
+                                              items: <String>['Foo', 'Bar']
+                                                  .map((String value) {
+                                                return new DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: new Text(value),
+                                                );
+                                              }).toList(),
+                                              onChanged: null,
+                                              value: null,
+                                              style: new TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 20,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  alignment: Alignment.center,
+                                                  matchTextDirection: true,
+                                                  repeat:
+                                                  ImageRepeat.noRepeat,
+                                                  image: AssetImage(
+                                                      "assets/images/ic_wlocation.png"),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Card(
+                                elevation: 0.0,
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    textInputAction: TextInputAction.newline,
+                                    maxLines: null,
+                                    controller: null,
+                                    textDirection: TextDirection.rtl,
+                                    onChanged: (value) {},
+                                    //  controller: controller,
+                                    decoration: InputDecoration(
+                                        labelText: "   وصف مختصر: ",
+                                        hintText: " وصف مختصر ",
+                                        hintStyle: TextStyle(fontSize: 10.0),
+                                        labelStyle: TextStyle(fontSize: 10.0),
+                                        contentPadding:
+                                            new EdgeInsets.symmetric(
+                                                vertical: 20.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5.0)))),
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Card(
+                                elevation: 0.0,
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    textInputAction: TextInputAction.newline,
+                                    maxLines: null,
+                                    controller: null,
+                                    textDirection: TextDirection.rtl,
+                                    onChanged: (value) {},
+                                    //  controller: controller,
+                                    decoration: InputDecoration(
+                                        labelText: "   تفاصيل إضافية :",
+                                        hintText: "    تفاصيل إضافية :",
+                                        hintStyle: TextStyle(fontSize: 10.0),
+                                        labelStyle: TextStyle(fontSize: 10.0),
+                                        contentPadding: new EdgeInsets.symmetric(
+                                            vertical: 50.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5.0)))),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Container(
+                                width: 300 /*MediaQuery.of(context).size.width*/,
+                                height: 50,
+                                child: new RaisedButton(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text("إضافة"),
+                                      Icon(Icons.check,color: Colors.white,),
+                                    ],
+                                  ),
+                                  textColor: Colors.white,
+                                  color: const Color(0xff43A2CC),
+                                  onPressed: () {},
+//
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(10.0)),
+                                ),
                               ),
                             ),
 //                                Container(

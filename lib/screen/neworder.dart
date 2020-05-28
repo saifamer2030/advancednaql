@@ -685,8 +685,8 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
        'cstarttraveltime': "",
             'curi': "a",
     }).whenComplete(() {
-      Toast.show("تم ارسال طلبك بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-      setState(() {
+            showInSnackBar("تم إرسال طلبك للمراجعه بنجاح");
+            setState(() {
         _load2 = false;
       });
     }).catchError((e) {
