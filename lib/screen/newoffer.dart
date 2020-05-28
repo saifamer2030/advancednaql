@@ -10,7 +10,87 @@ class NewOffer extends StatefulWidget {
 class _newoffer extends State<NewOffer> {
   final double _minimumPadding = 5.0;
   bool isSwitched = false;
+  var _Categoryarray = [
+    'نقل خفيف',
+    'نقل متوسط',
+    'نقل ثقيل',
+    'معدات ثقيلة',
+    'معدات زراعية',
+    'نقل ركاب'
+  ];
+  var _Payloadarray = [
+    '100-200 كيلو',
+    '200-300 كيلو',
+    '400-500 كيلو',
+    '600-700 كيلو',
+    '800-900 كيلو'
+  ];
+  var _cityarray = ['جدة', 'الرياض', 'مكة', 'المدينة'];
+  var _advarray = ['اااااااااا', 'ةةةةةةةة', 'ووووووو', 'ءءءءءءءءء'];
+  var _noarray = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+  ];
 
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _modelController = TextEditingController();
+  TextEditingController _companyController = TextEditingController();
+  TextEditingController _ownerController = TextEditingController();
+  TextEditingController _shortController = TextEditingController();
+  TextEditingController _detailController = TextEditingController();
+  var _CategorycurrentItemSelected = '';
+  var _PayloadcurrentItemSelected = '';
+  var _citycurrentItemSelected = '';
+  var __noarraycurrentItemSelected = '';
+  var __advarraycurrentItemSelected = '';
+  @override
+  void initState() {
+    super.initState();
+    _CategorycurrentItemSelected = _Categoryarray[0];
+    _PayloadcurrentItemSelected = _Payloadarray[0];
+    __advarraycurrentItemSelected= _advarray[0];
+    __noarraycurrentItemSelected = _noarray[0];
+    _citycurrentItemSelected = _cityarray[0];
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +185,7 @@ class _newoffer extends State<NewOffer> {
                                       textAlign: TextAlign.right,
                                       keyboardType: TextInputType.text,
                                       textDirection: TextDirection.rtl,
-                                      controller: null,
+                                      controller: _titleController,
                                       onChanged: (value) {},
                                       //  controller: controller,
                                       decoration: InputDecoration(
@@ -156,7 +236,7 @@ class _newoffer extends State<NewOffer> {
                                                 keyboardType: TextInputType.text,
 
                                                 textDirection: TextDirection.rtl,
-                                                controller: null,
+                                                controller: _modelController,
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
                                                   labelText: "الموديل",
@@ -234,7 +314,7 @@ class _newoffer extends State<NewOffer> {
 
                                                 textDirection:
                                                     TextDirection.rtl,
-                                                controller: null,
+                                                controller: _companyController,
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
                                                   labelText: "الشركة",
@@ -313,7 +393,7 @@ class _newoffer extends State<NewOffer> {
 
                                                 textDirection:
                                                     TextDirection.rtl,
-                                                controller: null,
+                                                controller: _ownerController,
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
                                                   labelText: "اسم المالك",
@@ -408,15 +488,20 @@ class _newoffer extends State<NewOffer> {
                                         child: ButtonTheme(
                                       alignedDropdown: true,
                                       child: DropdownButton<String>(
-                                        items: <String>['Foo', 'Bar']
-                                            .map((String value) {
+                                        items: _noarray.map(
+                                                (String value) {
                                           return new DropdownMenuItem<String>(
                                             value: value,
                                             child: new Text(value),
                                           );
                                         }).toList(),
-                                        onChanged: null,
-                                        value: null,
+                                        value: __noarraycurrentItemSelected,
+                                        onChanged:
+                                            (String newValueSelected) {
+                                          // Your code to execute, when a menu item is selected from dropdown
+                                          _onDropDownItemSelectedno(
+                                              newValueSelected);
+                                        },
                                         style: new TextStyle(
                                           color: Colors.black,
                                         ),
@@ -430,15 +515,20 @@ class _newoffer extends State<NewOffer> {
                                         child: ButtonTheme(
                                       alignedDropdown: true,
                                       child: DropdownButton<String>(
-                                        items: <String>['Foo', 'Bar']
-                                            .map((String value) {
+                                        items: _advarray.map(
+                                                (String value) {
                                           return new DropdownMenuItem<String>(
                                             value: value,
                                             child: new Text(value),
                                           );
                                         }).toList(),
-                                        onChanged: null,
-                                        value: null,
+                                        value: __advarraycurrentItemSelected,
+                                        onChanged:
+                                            (String newValueSelected) {
+                                          // Your code to execute, when a menu item is selected from dropdown
+                                          _onDropDownItemSelectedadv(
+                                              newValueSelected);
+                                        },
                                         style: new TextStyle(
                                           color: Colors.black,
                                         ),
@@ -460,15 +550,20 @@ class _newoffer extends State<NewOffer> {
                                         child: Row(
                                           children: <Widget>[
                                             DropdownButton<String>(
-                                              items: <String>['Foo', 'Bar']
-                                                  .map((String value) {
+                                              items: _Payloadarray.map(
+                                                      (String value) {
                                                 return new DropdownMenuItem<String>(
                                                   value: value,
                                                   child: new Text(value),
                                                 );
                                               }).toList(),
-                                              onChanged: null,
-                                              value: null,
+                                              value: _PayloadcurrentItemSelected,
+                                              onChanged:
+                                                  (String newValueSelected) {
+                                                // Your code to execute, when a menu item is selected from dropdown
+                                                _onDropDownItemSelectedpay(
+                                                    newValueSelected);
+                                              },
                                               style: new TextStyle(
                                                 color: Colors.black,
                                               ),
@@ -500,15 +595,20 @@ class _newoffer extends State<NewOffer> {
                                         child: Row(
                                           children: <Widget>[
                                             DropdownButton<String>(
-                                              items: <String>['Foo', 'Bar']
+                                              items: _Categoryarray
                                                   .map((String value) {
                                                 return new DropdownMenuItem<String>(
                                                   value: value,
                                                   child: new Text(value),
                                                 );
                                               }).toList(),
-                                              onChanged: null,
-                                              value: null,
+                                              value: _CategorycurrentItemSelected,
+                                              onChanged:
+                                                  (String newValueSelected) {
+                                                // Your code to execute, when a menu item is selected from dropdown
+                                                _onDropDownItemSelectedcat(
+                                                    newValueSelected);
+                                              },
                                               style: new TextStyle(
                                                 color: Colors.black,
                                               ),
@@ -540,15 +640,20 @@ class _newoffer extends State<NewOffer> {
                                         child: Row(
                                           children: <Widget>[
                                             DropdownButton<String>(
-                                              items: <String>['Foo', 'Bar']
+                                              items: _cityarray
                                                   .map((String value) {
                                                 return new DropdownMenuItem<String>(
                                                   value: value,
                                                   child: new Text(value),
                                                 );
                                               }).toList(),
-                                              onChanged: null,
-                                              value: null,
+                                              value: _citycurrentItemSelected,
+                                              onChanged:
+                                                  (String newValueSelected) {
+                                                // Your code to execute, when a menu item is selected from dropdown
+                                                _onDropDownItemSelectedcity(
+                                                    newValueSelected);
+                                              },
                                               style: new TextStyle(
                                                 color: Colors.black,
                                               ),
@@ -587,7 +692,7 @@ class _newoffer extends State<NewOffer> {
                                     keyboardType: TextInputType.multiline,
                                     textInputAction: TextInputAction.newline,
                                     maxLines: null,
-                                    controller: null,
+                                    controller: _shortController,
                                     textDirection: TextDirection.rtl,
                                     onChanged: (value) {},
                                     //  controller: controller,
@@ -621,7 +726,7 @@ class _newoffer extends State<NewOffer> {
                                     keyboardType: TextInputType.multiline,
                                     textInputAction: TextInputAction.newline,
                                     maxLines: null,
-                                    controller: null,
+                                    controller: _detailController,
                                     textDirection: TextDirection.rtl,
                                     onChanged: (value) {},
                                     //  controller: controller,
@@ -716,4 +821,33 @@ class _newoffer extends State<NewOffer> {
       ]),
     );
   }
+
+  void _onDropDownItemSelectedcat(String newValueSelected) {
+    setState(() {
+      this._CategorycurrentItemSelected = newValueSelected;
+    });
+  }
+
+  void _onDropDownItemSelectedpay(String newValueSelected) {
+    setState(() {
+      this._PayloadcurrentItemSelected = newValueSelected;
+    });
+  }
+  void _onDropDownItemSelectedno(String newValueSelected) {
+    setState(() {
+      this.__noarraycurrentItemSelected = newValueSelected;
+    });
+  }
+
+  void _onDropDownItemSelectedadv(String newValueSelected) {
+    setState(() {
+      this.__advarraycurrentItemSelected = newValueSelected;
+    });
+  }
+  void _onDropDownItemSelectedcity(String newValueSelected) {
+    setState(() {
+      this._citycurrentItemSelected = newValueSelected;
+    });
+  }
+
 }

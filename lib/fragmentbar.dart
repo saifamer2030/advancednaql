@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'screen/network_connection.dart';
+import 'screen/newoffer.dart';
 import 'translation/app_localizations.dart';
 
 class Fragmentnaql extends StatefulWidget {
@@ -35,7 +36,7 @@ bool con=true;
     final List<Widget> _children = [
       MoreWidget(),
       LoginScreen2(),
-      LoginScreen2(),
+      NewOffer(),
       newOrder(),
       AllOrder(),
 
