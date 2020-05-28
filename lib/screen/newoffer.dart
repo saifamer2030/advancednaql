@@ -144,7 +144,7 @@ class _newoffer extends State<NewOffer> {
 //                                                  topRight: Radius.circular(10.0),
 //                                                  bottomRight: Radius.circular(10.0)),
                                           ),
-                                          width: 300,
+                                          width: 250,
                                           height: 40,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
@@ -221,7 +221,7 @@ class _newoffer extends State<NewOffer> {
 //                                                  topRight: Radius.circular(10.0),
 //                                                  bottomRight: Radius.circular(10.0)),
                                           ),
-                                          width: 300,
+                                          width: 250,
                                           height: 40,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
@@ -300,7 +300,7 @@ class _newoffer extends State<NewOffer> {
 //                                                  topRight: Radius.circular(10.0),
 //                                                  bottomRight: Radius.circular(10.0)),
                                           ),
-                                          width: 300,
+                                          width: 250,
                                           height: 40,
                                           child: Padding(
                                             padding: const EdgeInsets.all(8),
