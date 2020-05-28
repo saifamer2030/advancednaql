@@ -30,13 +30,36 @@ class _AllOrderState extends State<AllOrder> {
   TextEditingController searchcontroller = TextEditingController();
 
   List<OrderNameClass> SearchList = [];
+  List<OrderNameClass> costantList = [];
+//  filterSearchResults(String text) {
+//    //SearchList.clear();
+//    if (text.isEmpty) {
+//      setState(() {
+//        orderlist.clear();
+//        orderlist.addAll(SearchList);
+//      });
+//      return;
+//    }
+//
+//    orderlist.forEach((userDetail) {
+//      if (userDetail.cName.contains(text) || userDetail.cType.contains(text))
+//        SearchList.add(userDetail);
+//    });
+//
+//    setState(() {
+//      orderlist.clear();
+//      orderlist.addAll(SearchList);
+//    });
+//  }
 
   void filterSearchResults(String filtter) {
+
+    SearchList.clear();
     SearchList.addAll(orderlist);
     if (filtter == '') {
       setState(() {
         orderlist.clear();
-        orderlist.addAll(SearchList);
+        orderlist.addAll(costantList);
       });
       return;
     } else {
@@ -141,6 +164,8 @@ class _AllOrderState extends State<AllOrder> {
                       snapshot5.value,
                   );
                   orderlist.add(ordernameclass);
+                  costantList.add(ordernameclass);
+
                 });
               } else {
                 setState(() {
@@ -162,6 +187,7 @@ class _AllOrderState extends State<AllOrder> {
                     "no name",
                   );
                   orderlist.add(ordernameclass);
+                  costantList.add(ordernameclass);
                 });
               }
             });
@@ -253,6 +279,7 @@ class _AllOrderState extends State<AllOrder> {
                       child: TextField(
                         style: TextStyle(color: Colors.black),
                         onChanged: (value) {
+
                           filterSearchResults(value);
                         },
                         controller: searchcontroller,
