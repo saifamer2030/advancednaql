@@ -437,7 +437,7 @@ class _AllOrderState extends State<AllOrder> {
                             ? new Image.asset("assets/images/ic_bluecar.png",
                                 fit: BoxFit.fill)
                             : new Image.network(
-                                'https://www.almrsal.com/wp-content/uploads/2015/09/fakhama.jpeg',
+                          curi,
                                 fit: BoxFit.cover,
                               ),
                       ),

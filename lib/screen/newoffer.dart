@@ -22,10 +22,18 @@ class _newoffer extends State<NewOffer> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   bool photoselected1=false;
   bool photoselected2=false;
-
+  int picno=0;
   final double _minimumPadding = 5.0;
   String _userId;
   File sampleImage1;
+  File sampleImage2;
+  File sampleImage3;
+  File sampleImage11;
+  File sampleImage12;
+  File sampleImage13;
+  File sampleImage14;
+  List<String> urlList = [];
+
   bool _load2 = false;
   final orderdatabaseReference =
   FirebaseDatabase.instance.reference().child("orderdata");
@@ -47,7 +55,7 @@ class _newoffer extends State<NewOffer> {
     '800-900 كيلو'
   ];
   var _cityarray = ['جدة', 'الرياض', 'مكة', 'المدينة'];
-  var _advarray = ['اااااااااا', 'ةةةةةةةة', 'ووووووو', 'ءءءءءءءءء'];
+  var _advarray = ['تشغيل', 'أيجار'];
   var _noarray = [
     "1",
     "2",
@@ -102,6 +110,7 @@ class _newoffer extends State<NewOffer> {
   var _citycurrentItemSelected = '';
   var __noarraycurrentItemSelected = '';
   var __advarraycurrentItemSelected = '';
+
   @override
   void initState() {
     super.initState();
@@ -154,7 +163,19 @@ class _newoffer extends State<NewOffer> {
                 children: <Widget>[
                   Center(
                     child: new InkWell(
-                      onTap: (){getImage1();},
+                      onTap: (){
+                        if(picno==0){
+                          getImage1();
+                        }else if (picno==1){
+                          getImage2();
+                        }else if (picno==2){
+                          getImage3();
+                        }else{
+                Toast.show("اقصى عدد ممكن هو ثلاثة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+                        }
+
+                        },
                       child: Container(
                         width: 200,
                         height: 150,
@@ -177,13 +198,35 @@ class _newoffer extends State<NewOffer> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                    width: 70,
-                                    height: 70,
-                                    child: Icon(
-                                      Icons.add_circle,
-                                      color: Colors.grey,
-                                    )),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:10.0),
+                                  child: Icon(
+                                    Icons.add_circle,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top:10.0,left: 160.0),
+                                  child: (picno>0)?
+                                        Container(
+                                          width: 30,
+                                          height: 30,
+                                          decoration: new BoxDecoration(
+                                            color: Colors.green,
+                                            shape: BoxShape.circle),
+                                          child: Center(
+                                            child: Text(
+                                            "$picno",
+                                            textDirection: TextDirection.rtl,
+                                            style: TextStyle(
+                                                color: Colors.blue,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        )
+                                      :null,
+                                ),
 
                               ],
                             ),
@@ -724,6 +767,135 @@ class _newoffer extends State<NewOffer> {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 2*_minimumPadding,
+                    width: _minimumPadding,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left:10.0),
+                        child: Container(
+                          width: 150 /*MediaQuery.of(context).size.width*/,
+                          height: 50,
+                          child: new RaisedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                new Text("صورة استمارة السيارة",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                  ),),
+                                Icon(Icons.add,color: Colors.black54,),
+                              ],
+                            ),
+                            textColor: Colors.black54,
+                            color: Colors.grey[400],
+                            onPressed: () {
+                              getImage11();
+                            },
+//
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:10.0),
+                        child: Container(
+                          width: 150 /*MediaQuery.of(context).size.width*/,
+                          height: 50,
+                          child: new RaisedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                new Text("صورة الهوية",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                  ),),
+                                Icon(Icons.add,color: Colors.black54,),
+                              ],
+                            ),
+                            textColor: Colors.black54,
+                            color: Colors.grey[400],
+                            onPressed: () {
+                              getImage12();
+                            },
+//
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 2*_minimumPadding,
+                    width: _minimumPadding,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left:10.0),
+                        child: Container(
+                          width: 150 /*MediaQuery.of(context).size.width*/,
+                          height: 50,
+                          child: new RaisedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                new Text("صورة المعدة",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                  ),),
+                                Icon(Icons.add,color: Colors.black54,),
+                              ],
+                            ),
+                            textColor: Colors.black54,
+                            color: Colors.grey[400],
+                            onPressed: () {
+                              getImage13();
+                            },
+//
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:10.0),
+                        child: Container(
+                          width: 150 /*MediaQuery.of(context).size.width*/,
+                          height: 50,
+                          child: new RaisedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                new Text("صورة رخصة السائق",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      ),),
+                                Icon(Icons.add,color: Colors.black54,),
+                              ],
+                            ),
+                            textColor: Colors.black54,
+                            color: Colors.grey[400],
+                            onPressed: () {
+                              getImage14();
+                            },
+//
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Card(
@@ -823,14 +995,14 @@ class _newoffer extends State<NewOffer> {
                         color: const Color(0xff43A2CC),
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            if(sampleImage1 != null){
-                              uploadpp();
+                            if (sampleImage11 != null && sampleImage12 != null && sampleImage13 != null && sampleImage14 != null) {
+                              uploadpp11();
 
                               setState(() {
                                 //  _load2 = true;
                               });
                             }else{
-                              Toast.show("111111ا",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                            //  Toast.show("111111ا",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
                             }
 
@@ -879,7 +1051,7 @@ class _newoffer extends State<NewOffer> {
       this._citycurrentItemSelected = newValueSelected;
     });
   }
-  void createRecord(url) {
+  void createRecord(url11,url12,url13,url14) {
     FirebaseAuth.instance.currentUser().then((user) => user == null
         ?null
         :setState(() {
@@ -902,7 +1074,7 @@ class _newoffer extends State<NewOffer> {
         'ctime':"a",
         'cpublished': false,
         'cstarttraveltime': "",
-        'curi': url,
+        'curi': url12,
         //////////////////////////
         'ccity': _citycurrentItemSelected,
         'cadv': __advarraycurrentItemSelected,
@@ -910,9 +1082,13 @@ class _newoffer extends State<NewOffer> {
         'ccompany': _companyController.text,
         'cowner': _ownerController.text,
         'cmodel': _modelController.text,
-        'cdriver': false,
+        'cdriver': isSwitched,
         'cshort': _shortController.text,
         'cdetail': _detailController.text,
+        'curi11': url11,
+        'curi13': url13,
+        'curi14': url14,
+        'curilist': urlList,
 
       }).whenComplete(() {
         showInSnackBar("تم إرسال طلبك للمراجعه بنجاح");
@@ -940,8 +1116,8 @@ class _newoffer extends State<NewOffer> {
       ),
     ));
   }
-  Future uploadpp() async {
-    Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+  Future uploadpp1(url11,url12,url13,url14) async {
+   // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
     final StorageReference storageRef =
     FirebaseStorage.instance.ref().child('myimage');
@@ -951,18 +1127,171 @@ class _newoffer extends State<NewOffer> {
     final StorageUploadTask uploadTask =
     storageRef.child('$now.jpg').putFile(sampleImage1);
     var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    String url = Imageurl.toString();
-    print('URL Is $url');
-    setState(() {
-     // _load1 = false;
-    });
+    String url1 = Imageurl.toString();
+    //print('URL Is $url1');
+
     Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-   // uploadwp(url);
-    createRecord(url);
+    setState(() {
+      urlList.add(url1);
+      // _load1 = false;
+    });    if(picno>=2){
+       uploadpp2(url11,url12,url13,url14);
+    }else if(picno==1){
+      createRecord(url11,url12,url13,url14);
+    }
+   // uploadpp1(url11,url12,url13,url14,url1);
     setState(() {
      // _load1 = true;
     });
   }
+  Future uploadpp2(url11,url12,url13,url14) async {
+
+    final StorageReference storageRef =
+    FirebaseStorage.instance.ref().child('myimage');
+    DateTime now = DateTime.now();
+
+//    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
+    final StorageUploadTask uploadTask =
+    storageRef.child('$now.jpg').putFile(sampleImage2);
+    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url2 = Imageurl.toString();
+   // print('URL Is $url');
+    setState(() {
+      // _load1 = false;
+    });
+    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    // uploadwp(url);
+    setState(() {
+      urlList.add(url2);
+      // _load1 = false;
+    });    if(picno>=3){
+      uploadpp2(url11,url12,url13,url14);
+    }else if(picno==2){
+      createRecord(url11,url12,url13,url14);
+    }
+    setState(() {
+      // _load1 = true;
+    });
+  }
+  Future uploadpp3(url11,url12,url13,url14) async {
+    // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    final StorageReference storageRef =
+    FirebaseStorage.instance.ref().child('myimage');
+    DateTime now = DateTime.now();
+
+//    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
+    final StorageUploadTask uploadTask =
+    storageRef.child('$now.jpg').putFile(sampleImage3);
+    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url3 = Imageurl.toString();
+    //print('URL Is $url3');
+    setState(() {
+      // _load1 = false;
+    });
+    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    // uploadwp(url);
+    setState(() {
+      urlList.add(url3);
+      // _load1 = false;
+    });
+      createRecord(url11,url12,url13,url14);
+
+    setState(() {
+      // _load1 = true;
+    });
+  }
+  Future uploadpp11() async {
+    final StorageReference storageRef =
+    FirebaseStorage.instance.ref().child('myimage');
+    DateTime now = DateTime.now();
+
+//    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
+    final StorageUploadTask uploadTask =
+    storageRef.child('$now.jpg').putFile(sampleImage11);
+    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url11 = Imageurl.toString();
+    //print('URL Is $url');
+    setState(() {
+      // _load1 = false;
+    });
+    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    // uploadwp(url);
+    uploadpp12(url11);
+    setState(() {
+      // _load1 = true;
+    });
+  }
+  Future uploadpp12(String url11) async {
+    // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    final StorageReference storageRef =
+    FirebaseStorage.instance.ref().child('myimage');
+    DateTime now = DateTime.now();
+
+//    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
+    final StorageUploadTask uploadTask =
+    storageRef.child('$now.jpg').putFile(sampleImage12);
+    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url12 = Imageurl.toString();
+    //print('URL Is $url');
+    setState(() {
+      // _load1 = false;
+    });
+    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    // uploadwp(url);
+    uploadpp13(url11,url12);
+    setState(() {
+      // _load1 = true;
+    });
+  }
+  Future uploadpp13(url11,url12) async {
+    // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    final StorageReference storageRef =
+    FirebaseStorage.instance.ref().child('myimage');
+    DateTime now = DateTime.now();
+
+//    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
+    final StorageUploadTask uploadTask =
+    storageRef.child('$now.jpg').putFile(sampleImage13);
+    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url13 = Imageurl.toString();
+    //print('URL Is $url');
+    setState(() {
+      // _load1 = false;
+    });
+    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    // uploadwp(url);
+    uploadpp14(url11,url12,url13);
+    setState(() {
+      // _load1 = true;
+    });
+  }
+  Future uploadpp14(url11,url12,url13) async {
+    // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    final StorageReference storageRef =
+    FirebaseStorage.instance.ref().child('myimage');
+    DateTime now = DateTime.now();
+
+//    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
+    final StorageUploadTask uploadTask =
+    storageRef.child('$now.jpg').putFile(sampleImage14);
+    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+    String url14 = Imageurl.toString();
+    //print('URL Is $url');
+    setState(() {
+      // _load1 = false;
+    });
+    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    // uploadwp(url);
+    uploadpp1(url11,url12,url13,url14);
+    setState(() {
+      // _load1 = true;
+    });
+  }
+
   Future getImage1() async {
     var tempImage1 = await ImagePicker.pickImage(source: ImageSource.gallery);
     ///***************************************
@@ -978,9 +1307,132 @@ class _newoffer extends State<NewOffer> {
     /// **********************************
     setState(() {
       sampleImage1 = compressImg1;
+      picno++;
      // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
     });
   }
+  Future getImage2() async {
+    var tempImage2 = await ImagePicker.pickImage(source: ImageSource.gallery);
+    ///***************************************
+    final tempDir2 =await getTemporaryDirectory();
+    final path2 = tempDir2.path;
+
+    int rand2= new Math.Random().nextInt(100000);
+
+    Img.Image image2= Img.decodeImage(tempImage2.readAsBytesSync());
+    Img.Image smallerImg2 = Img.copyResizeCropSquare(image2, 500);
+    var compressImg2= new File("$path2/image2_$rand2.jpg")
+      ..writeAsBytesSync(Img.encodeJpg(smallerImg2, quality: 50));
+    /// **********************************
+    setState(() {
+      sampleImage2 = compressImg2;
+      picno++;
+      // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    });
+  }
+  Future getImage3() async {
+    var tempImage3 = await ImagePicker.pickImage(source: ImageSource.gallery);
+    ///***************************************
+    final tempDir3 =await getTemporaryDirectory();
+    final path3 = tempDir3.path;
+
+    int rand3= new Math.Random().nextInt(100000);
+
+    Img.Image image3= Img.decodeImage(tempImage3.readAsBytesSync());
+    Img.Image smallerImg3 = Img.copyResizeCropSquare(image3, 500);
+    var compressImg3= new File("$path3/image3_$rand3.jpg")
+      ..writeAsBytesSync(Img.encodeJpg(smallerImg3, quality: 50));
+    /// **********************************
+    setState(() {
+      sampleImage3 = compressImg3;
+      picno++;
+      // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    });
+  }
+  Future getImage11() async {
+    var tempImage11 = await ImagePicker.pickImage(source: ImageSource.gallery);
+    ///***************************************
+    final tempDir11 =await getTemporaryDirectory();
+    final path11 = tempDir11.path;
+
+    int rand11= new Math.Random().nextInt(100000);
+
+    Img.Image image11= Img.decodeImage(tempImage11.readAsBytesSync());
+    Img.Image smallerImg11 = Img.copyResizeCropSquare(image11, 500);
+    var compressImg11= new File("$path11/image11_$rand11.jpg")
+      ..writeAsBytesSync(Img.encodeJpg(smallerImg11, quality: 50));
+    /// **********************************
+    setState(() {
+      sampleImage11 = compressImg11;
+      //picno++;
+      // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    });
+  }
+  Future getImage12() async {
+    var tempImage12 = await ImagePicker.pickImage(source: ImageSource.gallery);
+    ///***************************************
+    final tempDir12 =await getTemporaryDirectory();
+    final path12 = tempDir12.path;
+
+    int rand12= new Math.Random().nextInt(100000);
+
+    Img.Image image12= Img.decodeImage(tempImage12.readAsBytesSync());
+    Img.Image smallerImg12 = Img.copyResizeCropSquare(image12, 500);
+    var compressImg12= new File("$path12/image12_$rand12.jpg")
+      ..writeAsBytesSync(Img.encodeJpg(smallerImg12, quality: 50));
+    /// **********************************
+    setState(() {
+      sampleImage12 = compressImg12;
+      //picno++;
+      // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    });
+  }
+  Future getImage13() async {
+    var tempImage13 = await ImagePicker.pickImage(source: ImageSource.gallery);
+    ///***************************************
+    final tempDir13 =await getTemporaryDirectory();
+    final path13 = tempDir13.path;
+
+    int rand13= new Math.Random().nextInt(100000);
+
+    Img.Image image13= Img.decodeImage(tempImage13.readAsBytesSync());
+    Img.Image smallerImg13 = Img.copyResizeCropSquare(image13, 500);
+    var compressImg13= new File("$path13/image13_$rand13.jpg")
+      ..writeAsBytesSync(Img.encodeJpg(smallerImg13, quality: 50));
+    /// **********************************
+    setState(() {
+      sampleImage13 = compressImg13;
+      //picno++;
+      // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    });
+  }
+  Future getImage14() async {
+    var tempImage14 = await ImagePicker.pickImage(source: ImageSource.gallery);
+    ///***************************************
+    final tempDir14 =await getTemporaryDirectory();
+    final path14 = tempDir14.path;
+
+    int rand14= new Math.Random().nextInt(100000);
+
+    Img.Image image14= Img.decodeImage(tempImage14.readAsBytesSync());
+    Img.Image smallerImg14 = Img.copyResizeCropSquare(image14, 500);
+    var compressImg14= new File("$path14/image14_$rand14.jpg")
+      ..writeAsBytesSync(Img.encodeJpg(smallerImg14, quality: 50));
+    /// **********************************
+    setState(() {
+      sampleImage14 = compressImg14;
+      //picno++;
+      // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+    });
+  }
+
+
 
 }
