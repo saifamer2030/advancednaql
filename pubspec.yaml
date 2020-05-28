@@ -26,6 +26,7 @@ dependencies:
   firebase_auth: ^0.16.0
   firebase_database: ^3.0.4
   firebase_storage: ^3.0.3
+  smooth_star_rating: ^1.1.1
   intl: 
   image: ^2.0.4
   toast: ^0.1.3
@@ -37,6 +38,9 @@ dependencies:
   connectivity: ^0.4.8+6
   shared_preferences: ^0.5.3+5
   flutter_screenutil: ^0.4.2
+  image_picker: ^0.6.6+5
+  path_provider: ^1.6.9
+  flutter_image_compress: ^0.6.8
   rxdart:
   flutter_localizations:
     sdk: flutter

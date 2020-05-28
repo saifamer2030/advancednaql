@@ -118,7 +118,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                             topRight: Radius.circular(10.0),
                                             bottomRight: Radius.circular(10.0)),
                                       ),
-                                      width: 300,
+                                      width: 250,
                                       height: 60,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8),
@@ -182,7 +182,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                             topRight: Radius.circular(10.0),
                                             bottomRight: Radius.circular(10.0)),
                                       ),
-                                      width: 300,
+                                      width: 250,
                                       height: 60,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8),
