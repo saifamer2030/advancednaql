@@ -402,7 +402,7 @@ class _newoffer extends State<NewOffer> {
                                       TextInputType.text,
                                       validator: (String value) {
                                         if ((value.isEmpty)) {
-                                          return 'برجاء ادخال اسم الشركة';
+                                          return 'برجاء ادخال اسم الماركة';
                                         }
                                       },
                                       textDirection:
@@ -410,7 +410,7 @@ class _newoffer extends State<NewOffer> {
                                       controller: _companyController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        labelText: "الشركة",
+                                        labelText: "الماركة",
                                         fillColor: Colors.white,
                                         filled: true,
                                         errorStyle: TextStyle(
@@ -428,7 +428,7 @@ class _newoffer extends State<NewOffer> {
                                   MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Text(
-                                      "الشركة",
+                                      "الماركة",
                                       style: TextStyle(
                                           color: Colors.white),
                                     ),
@@ -1099,7 +1099,7 @@ class _newoffer extends State<NewOffer> {
         'curi11': url11,
         'curi13': url13,
         'curi14': url14,
-        'curilist': urlList,
+        'curilist': urlList.toString(),
 
       }).whenComplete(() {
      //   Toast.show("تم إرسال طلبك للمراجعه بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);

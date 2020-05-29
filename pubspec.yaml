@@ -36,11 +36,14 @@ dependencies:
   flutter_svg: ^0.17.4
   flutter_spinkit: "^4.1.2"
   connectivity: ^0.4.8+6
-  shared_preferences: ^0.5.3+5
+  shared_preferences: ^0.5.7+3
   flutter_screenutil: ^0.4.2
   image_picker: ^0.6.6+5
   path_provider: ^1.6.9
   flutter_image_compress: ^0.6.8
+  flutter_swiper: ^1.1.6
+
+  #simple_slider: ^0.0.2
   rxdart:
   flutter_localizations:
     sdk: flutter

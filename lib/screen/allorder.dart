@@ -1,5 +1,6 @@
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
+import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -90,11 +91,11 @@ class _AllOrderState extends State<AllOrder> {
             final orderdatabaseReference =
                 FirebaseDatabase.instance.reference().child("orderdata");
             orderdatabaseReference.once().then((DataSnapshot data) {
-              var dateId = data.value.keys;
+              var uuId = data.value.keys;
 
               orderlist.clear();
               namelist.clear();
-              for (var id in dateId) {
+              for (var id in uuId) {
                 orderdatabaseReference
                     .child(id)
                     .once()
@@ -149,6 +150,7 @@ class _AllOrderState extends State<AllOrder> {
                               DATA[individualkey]['cstarttraveltime'],
                               DATA[individualkey]['curi'],
                               snapshot5.value,
+                              individualkey,
                             );
                             orderlist.add(ordernameclass);
                             costantList.add(ordernameclass);
@@ -171,6 +173,7 @@ class _AllOrderState extends State<AllOrder> {
                               DATA[individualkey]['cstarttraveltime'],
                               DATA[individualkey]['curi'],
                               "no name",
+                              individualkey,
                             );
                             orderlist.add(ordernameclass);
                             costantList.add(ordernameclass);
@@ -387,6 +390,7 @@ class _AllOrderState extends State<AllOrder> {
                               orderlist[index].cstarttraveltime,
                               orderlist[index].curi,
                               orderlist[index].cName,
+                              orderlist[index].cDateID,
                             ),
                             onTap: () {});
                       })
@@ -415,6 +419,7 @@ class _AllOrderState extends State<AllOrder> {
     String cstarttraveltime,
     String curi,
     String cname,
+      String  cDateID,
   ) {
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -426,14 +431,17 @@ class _AllOrderState extends State<AllOrder> {
         margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
         child: InkWell(
           onTap: () {
-//          setState(() {
-//            Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                    builder: (context) => CoifUserProlile(
-//                        cId, curi, cName, _userId,
-//                        cRate: cRate)));
-//          });
+          setState(() {
+            if(cType=="عرض"){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => providerProlile(
+                          cId, cDateID, cname
+                          )));
+            }else{}
+
+          });
           },
           child: Container(
               padding: EdgeInsets.all(0),
