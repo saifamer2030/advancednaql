@@ -639,7 +639,7 @@ class _newoffer extends State<NewOffer> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
-                        width: 150,
+
                         color: const Color(0xff43A2CC),
                         child: DropdownButtonHideUnderline(
                             child: ButtonTheme(
@@ -684,7 +684,7 @@ class _newoffer extends State<NewOffer> {
                             )),
                       ),
                       Container(
-                        width: 150,
+
                         color: const Color(0xff43A2CC),
                         child: DropdownButtonHideUnderline(
                             child: ButtonTheme(
@@ -729,7 +729,7 @@ class _newoffer extends State<NewOffer> {
                             )),
                       ),
                       Container(
-                        width: 50,
+
                         color: const Color(0xff43A2CC),
                         child: DropdownButtonHideUnderline(
                             child: ButtonTheme(
@@ -785,7 +785,6 @@ class _newoffer extends State<NewOffer> {
                       Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
-                          width: 150 /*MediaQuery.of(context).size.width*/,
                           height: 50,
                           child: new RaisedButton(
                             child: Row(

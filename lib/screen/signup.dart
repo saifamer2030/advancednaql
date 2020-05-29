@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -96,7 +97,7 @@ class _SignUpState extends State<SignUp> {
                             top: _minimumPadding, bottom: _minimumPadding),
                         child: Center(
                           child: Text(
-                            "إنشاء حساب جديد",
+                            Translations.of(context).translate('create_new_account'),
                             style: TextStyle(
                                 color: const Color(0xff41a0cb),
                                 fontSize: 20,
@@ -122,11 +123,11 @@ class _SignUpState extends State<SignUp> {
                               controller: _nameController,
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'برجاء ادخال الإسم بالكامل';
+                                  return Translations.of(context).translate('please_enter_the_full_name');
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: 'الاسم بالكامل',
+                                labelText: Translations.of(context).translate('full_name'),
                                 //hintText: 'Name',
                                 labelStyle: textStyle,
                                 errorStyle: TextStyle(
@@ -152,17 +153,17 @@ class _SignUpState extends State<SignUp> {
                               controller: _emailController,
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'برجاء إدخال البريد الإلكترونى';
+                                  return Translations.of(context).translate('please_enter_your_email');
                                 }
                                 Pattern pattern =
                                     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                                 RegExp regex = new RegExp(pattern);
                                 if (!regex.hasMatch(value)) {
-                                  return 'بريد إلكترونى غير صحيح';
+                                  return Translations.of(context).translate('invalid_email');
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: 'البريد الإلكترونى',
+                                labelText: Translations.of(context).translate('email'),
                                 //hintText: 'Name',
                                 labelStyle: textStyle,
                                 errorStyle: TextStyle(
@@ -188,14 +189,14 @@ class _SignUpState extends State<SignUp> {
                               controller: _phoneController,
                               validator: (String value) {
                                 if (value.isEmpty) {
-                                  return 'برجاء إدخال رقم الهاتف';
+                                  return Translations.of(context).translate('please_enter_the_phone_number');
                                 }
                                 if (value.length < 10) {
-                                  return ' رقم الهاتف غير صحيح';
+                                  return Translations.of(context).translate('phone_number_is_incorrect');
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: 'رقم الهاتف',
+                                labelText: Translations.of(context).translate('telephone_number'),
                                 //hintText: 'Name',
                                 labelStyle: textStyle,
                                 errorStyle: TextStyle(
@@ -223,14 +224,14 @@ class _SignUpState extends State<SignUp> {
                               validator: (String value) {
                                 _initpassword = value;
                                 if (value.isEmpty) {
-                                  return 'برجاء إدخال كلمة السر';
+                                  return Translations.of(context).translate('please_enter_the_password');
                                 }
                                 if (value.length < 6) {
-                                  return ' كلمة السر لا تقل عن 6';
+                                  return Translations.of(context).translate('the_password_is_not_less_than');
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: 'كلمة السر',
+                                labelText: Translations.of(context).translate('password'),
                                 //hintText: 'Name',
                                 labelStyle: textStyle,
                                 errorStyle: TextStyle(
@@ -258,17 +259,17 @@ class _SignUpState extends State<SignUp> {
                               validator: (String value) {
                                 _initpasswordconf = value;
                                 if (value.isEmpty) {
-                                  return 'برجاء إدخال تأكيد لكلمة السر';
+                                  return Translations.of(context).translate('please_enter_a_password_confirmation');
                                 }
                                 if (value.length < 6) {
-                                  return ' كلمة السر لا تقل عن 6';
+                                  return Translations.of(context).translate('the_password_is_not_less_than');
                                 }
                                 if (_initpasswordconf != _initpassword) {
-                                  return 'لا تساوى كلمة المرور';
+                                  return Translations.of(context).translate('password_is_not_equal');
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: 'تأكيد كلمة السر',
+                                labelText: Translations.of(context).translate('password_is_not_equal'),
                                 //hintText: 'Name',
                                 labelStyle: textStyle,
                                 errorStyle: TextStyle(
@@ -288,7 +289,7 @@ class _SignUpState extends State<SignUp> {
                             top: _minimumPadding, bottom: _minimumPadding),
                         child: Center(
                           child: Text(
-                            "بالضغط على زر التسجيل انت توافق على الشروط و الاأحكام",
+                            Translations.of(context).translate('by_clicking_on_the_register_button_you_agree_to_the_terms_and_conditions'),
                             style: TextStyle(
                                 color: const Color(0xff000000),
                                 fontSize: 12,
@@ -324,7 +325,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                     child: Center(
                                       child: Text(
-                                        'تخطى الدخول',
+                                        Translations.of(context).translate('skip_entry'),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Colors.white,
@@ -361,7 +362,7 @@ class _SignUpState extends State<SignUp> {
                                           }
                                         } on SocketException catch (_) {
                                           //  print('not connected');
-                                          Toast.show("برجاء مراجعة الاتصال بالشبكة",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                          Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
                                         }
                                         //loginUserphone(_phoneController.text.trim(), context);
@@ -371,7 +372,7 @@ class _SignUpState extends State<SignUp> {
                                     },
                                     child: Center(
                                       child: Text(
-                                        'تسجيل',
+                                        Translations.of(context).translate('sign_up'),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             color: Colors.white,
@@ -397,7 +398,7 @@ class _SignUpState extends State<SignUp> {
                         child: Center(
                           child: FlatButton(
                             child: Text(
-                              " ...تسجيل الدخول اذا كان لديك حساب مسبق",
+                              Translations.of(context).translate('log_in_if_you_already_have_an_account'),
                               style: TextStyle(
                                   color: const Color(0xff41a0cb),
                                   fontSize: 12,
@@ -532,7 +533,7 @@ class _SignUpState extends State<SignUp> {
 
       //'published': false,
     }).whenComplete(() {
-      Toast.show("تم تسجيل الدخول بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      Toast.show(Translations.of(context).translate('sign_in_successful'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
     });
 

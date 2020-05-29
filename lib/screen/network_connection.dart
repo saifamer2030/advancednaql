@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ConnectionScreen extends StatelessWidget {
- // final Function action;
+  // final Function action;
 
   ConnectionScreen();
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
         child: Column(
@@ -40,9 +40,7 @@ class ConnectionScreen extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.center,
-              child: Text(
-                  "يوجد خطأ بالشبكة",
-                  style: TextStyle(fontSize: 16.0)),
+              child: Text("يوجد خطأ بالشبكة", style: TextStyle(fontSize: 16.0)),
             ),
             SizedBox(
               height: 50.0,
@@ -54,31 +52,69 @@ class ConnectionScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 //color: CustomColors.kTabBarIconColor,
               ),
-              child: RaisedButton(
-                //color: CustomColors.kTabBarIconColor,
-                onPressed: () async {
+              child: InkWell(
+                onTap: () async {
                   try {
                     final result = await InternetAddress.lookup('google.com');
                     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                      FirebaseAuth.instance.currentUser().then((user) => user != null
-                          ? Navigator.of(context).pushReplacementNamed('/fragmentnaql')//setState(() {Navigator.of(context).pushReplacementNamed('/fragmentnaql'); })
-                          : Navigator.of(context).pushReplacementNamed('/login'));
+                      FirebaseAuth.instance.currentUser().then((user) => user !=
+                              null
+                          ? Navigator.of(context).pushReplacementNamed(
+                              '/fragmentnaql') //setState(() {Navigator.of(context).pushReplacementNamed('/fragmentnaql'); })
+                          : Navigator.of(context)
+                              .pushReplacementNamed('/login'));
                     }
                   } on SocketException catch (_) {
-
 //Toast.show(_.toString()+"jjjjjjjjjjjj",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
                   }
                 },
-                child: Text(
-                  "حاول ثانيأ",
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.refresh),
+
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "حاول ثانيأ",
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+
+//                  RaisedButton(
+//                    //color: CustomColors.kTabBarIconColor,
+//                    onPressed: () async {
+//                      try {
+//                        final result = await InternetAddress.lookup('google.com');
+//                        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+//                          FirebaseAuth.instance.currentUser().then((user) => user != null
+//                              ? Navigator.of(context).pushReplacementNamed('/fragmentnaql')//setState(() {Navigator.of(context).pushReplacementNamed('/fragmentnaql'); })
+//                              : Navigator.of(context).pushReplacementNamed('/login'));
+//                        }
+//                      } on SocketException catch (_) {
+//
+////Toast.show(_.toString()+"jjjjjjjjjjjj",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+//
+//                      }
+//                    },
+//                    child: Text(
+//                      "حاول ثانيأ",
+//                      style: TextStyle(
+//                          fontSize: 16.0,
+//                          color: Colors.white,
+//                          fontWeight: FontWeight.bold),
+//                    ),
+//                    shape: RoundedRectangleBorder(
+//                      borderRadius: BorderRadius.circular(10.0),
+//                    ),
+//                  ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -88,4 +124,3 @@ class ConnectionScreen extends StatelessWidget {
     );
   }
 }
-
