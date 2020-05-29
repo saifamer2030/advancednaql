@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:math' as Math;
 import 'package:image/image.dart' as Img;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
 class NewOffer extends StatefulWidget {
@@ -20,9 +20,7 @@ class NewOffer extends StatefulWidget {
 class _newoffer extends State<NewOffer> {
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  bool photoselected1=false;
-  bool photoselected2=false;
-  int picno=0;
+
   final double _minimumPadding = 5.0;
   String _userId;
   File sampleImage1;
@@ -32,6 +30,11 @@ class _newoffer extends State<NewOffer> {
   File sampleImage12;
   File sampleImage13;
   File sampleImage14;
+  int picno=0;
+  bool photoselected11=false;
+  bool photoselected12=false;
+  bool photoselected13=false;
+  bool photoselected14=false;
   List<String> urlList = [];
 
   bool _load2 = false;
@@ -123,6 +126,11 @@ class _newoffer extends State<NewOffer> {
   }
   @override
   Widget build(BuildContext context) {
+    Widget loadingIndicator = _load2
+        ? new Container(
+      child: SpinKitCircle(color: Colors.blue),
+    )
+        : new Container();
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: Stack(children: <Widget>[
@@ -787,7 +795,7 @@ class _newoffer extends State<NewOffer> {
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),),
-                                Icon(Icons.add,color: Colors.black54,),
+                                photoselected11?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
                               ],
                             ),
                             textColor: Colors.black54,
@@ -814,7 +822,7 @@ class _newoffer extends State<NewOffer> {
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),),
-                                Icon(Icons.add,color: Colors.black54,),
+                                photoselected12?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
                               ],
                             ),
                             textColor: Colors.black54,
@@ -852,7 +860,7 @@ class _newoffer extends State<NewOffer> {
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),),
-                                Icon(Icons.add,color: Colors.black54,),
+                                photoselected13?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
                               ],
                             ),
                             textColor: Colors.black54,
@@ -879,7 +887,7 @@ class _newoffer extends State<NewOffer> {
                                   style: TextStyle(
                                       fontSize: 10,
                                       ),),
-                                Icon(Icons.add,color: Colors.black54,),
+                                photoselected14?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
                               ],
                             ),
                             textColor: Colors.black54,
@@ -995,14 +1003,14 @@ class _newoffer extends State<NewOffer> {
                         color: const Color(0xff43A2CC),
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            if (sampleImage11 != null && sampleImage12 != null && sampleImage13 != null && sampleImage14 != null) {
+                            if (sampleImage11 != null && sampleImage12 != null && sampleImage13 != null && sampleImage14 != null&& sampleImage1 != null) {
                               uploadpp11();
 
                               setState(() {
-                                //  _load2 = true;
+                                 _load2 = true;
                               });
                             }else{
-                            //  Toast.show("111111ا",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                            Toast.show("برجاء إضافة الصور المطلوبة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
                             }
 
@@ -1019,6 +1027,10 @@ class _newoffer extends State<NewOffer> {
               ),
             ),
           ),
+        ),
+        new Align(
+          child: loadingIndicator,
+          alignment: FractionalOffset.center,
         ),
       ]),
     );
@@ -1091,10 +1103,31 @@ class _newoffer extends State<NewOffer> {
         'curilist': urlList,
 
       }).whenComplete(() {
-        showInSnackBar("تم إرسال طلبك للمراجعه بنجاح");
+     //   Toast.show("تم إرسال طلبك للمراجعه بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+        //showInSnackBar("تم إرسال طلبك للمراجعه بنجاح");
         setState(() {
           _load2 = false;
+          isSwitched=false;
+           photoselected11=false;
+           photoselected12=false;
+           photoselected13=false;
+           photoselected14=false;
+           _titleController.text = "";
+          _modelController.text = "";
+          _companyController.text = "";
+          _ownerController.text = "";
+          _ownerController.text = "";
+          _shortController.text = "";
+          _detailController.text = "";
+          _CategorycurrentItemSelected = _Categoryarray[0];
+          _PayloadcurrentItemSelected = _Payloadarray[0];
+          __advarraycurrentItemSelected= _advarray[0];
+          __noarraycurrentItemSelected = _noarray[0];
+          _citycurrentItemSelected = _cityarray[0];
+
         });
+        showAlertDialog( context);
       }).catchError((e) {
         Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
         setState(() {
@@ -1107,6 +1140,31 @@ class _newoffer extends State<NewOffer> {
 
 
 
+  }
+  showAlertDialog(BuildContext context) {
+
+    // set up the button
+    Widget okButton = FlatButton(
+      child: Text("إلغاء"),
+      onPressed: () { Navigator.pop(context); },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("تهانينا"),
+      content: Text("تم إرسال طلبك للمراجعه بنجاح"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
@@ -1130,10 +1188,10 @@ class _newoffer extends State<NewOffer> {
     String url1 = Imageurl.toString();
     //print('URL Is $url1');
 
-    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show("تم تحميل الصورة رقم 1",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     setState(() {
       urlList.add(url1);
-      // _load1 = false;
+       _load2 = false;
     });    if(picno>=2){
        uploadpp2(url11,url12,url13,url14);
     }else if(picno==1){
@@ -1141,7 +1199,7 @@ class _newoffer extends State<NewOffer> {
     }
    // uploadpp1(url11,url12,url13,url14,url1);
     setState(() {
-     // _load1 = true;
+      _load2 = true;
     });
   }
   Future uploadpp2(url11,url12,url13,url14) async {
@@ -1157,20 +1215,20 @@ class _newoffer extends State<NewOffer> {
     String url2 = Imageurl.toString();
    // print('URL Is $url');
     setState(() {
-      // _load1 = false;
+      _load2= false;
     });
-    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show("تم تحميل الصورة رقم 2",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     setState(() {
       urlList.add(url2);
       // _load1 = false;
     });    if(picno>=3){
-      uploadpp2(url11,url12,url13,url14);
+      uploadpp3(url11,url12,url13,url14);
     }else if(picno==2){
       createRecord(url11,url12,url13,url14);
     }
     setState(() {
-      // _load1 = true;
+       _load2 = true;
     });
   }
   Future uploadpp3(url11,url12,url13,url14) async {
@@ -1193,12 +1251,12 @@ class _newoffer extends State<NewOffer> {
     // uploadwp(url);
     setState(() {
       urlList.add(url3);
-      // _load1 = false;
+       _load2 = false;
     });
       createRecord(url11,url12,url13,url14);
 
     setState(() {
-      // _load1 = true;
+      _load2 = true;
     });
   }
   Future uploadpp11() async {
@@ -1213,13 +1271,13 @@ class _newoffer extends State<NewOffer> {
     String url11 = Imageurl.toString();
     //print('URL Is $url');
     setState(() {
-      // _load1 = false;
+       _load2 = false;
     });
-    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show("تم تحميل الصورة استمارة السيارة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp12(url11);
     setState(() {
-      // _load1 = true;
+       _load2 = true;
     });
   }
   Future uploadpp12(String url11) async {
@@ -1236,13 +1294,13 @@ class _newoffer extends State<NewOffer> {
     String url12 = Imageurl.toString();
     //print('URL Is $url');
     setState(() {
-      // _load1 = false;
+       _load2 = false;
     });
-    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show("تم تحميل الصورة الهوية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp13(url11,url12);
     setState(() {
-      // _load1 = true;
+       _load2 = true;
     });
   }
   Future uploadpp13(url11,url12) async {
@@ -1259,13 +1317,13 @@ class _newoffer extends State<NewOffer> {
     String url13 = Imageurl.toString();
     //print('URL Is $url');
     setState(() {
-      // _load1 = false;
+       _load2 = false;
     });
-    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show("تم تحميل الصورة المعدة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp14(url11,url12,url13);
     setState(() {
-      // _load1 = true;
+      _load2 = true;
     });
   }
   Future uploadpp14(url11,url12,url13) async {
@@ -1282,13 +1340,13 @@ class _newoffer extends State<NewOffer> {
     String url14 = Imageurl.toString();
     //print('URL Is $url');
     setState(() {
-      // _load1 = false;
+       _load2 = false;
     });
-    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show("تم تحميل الصورة رخصة السائق",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp1(url11,url12,url13,url14);
     setState(() {
-      // _load1 = true;
+      _load2 = true;
     });
   }
 
@@ -1367,6 +1425,7 @@ class _newoffer extends State<NewOffer> {
     /// **********************************
     setState(() {
       sampleImage11 = compressImg11;
+      photoselected11=true;
       //picno++;
       // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
@@ -1387,6 +1446,8 @@ class _newoffer extends State<NewOffer> {
     /// **********************************
     setState(() {
       sampleImage12 = compressImg12;
+      photoselected12=true;
+
       //picno++;
       // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
@@ -1407,6 +1468,8 @@ class _newoffer extends State<NewOffer> {
     /// **********************************
     setState(() {
       sampleImage13 = compressImg13;
+      photoselected13=true;
+
       //picno++;
       // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
@@ -1427,6 +1490,8 @@ class _newoffer extends State<NewOffer> {
     /// **********************************
     setState(() {
       sampleImage14 = compressImg14;
+      photoselected14=true;
+
       //picno++;
       // Toast.show(sampleImage1.toString(),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
