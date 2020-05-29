@@ -1,4 +1,4 @@
-class OrderNameClass {
+class OrderDetailClass {
   String cId;
   String cdate;
   String clat1;
@@ -13,9 +13,20 @@ class OrderNameClass {
   bool cpublished;
   String cstarttraveltime;
   String curi;
-  String cName;
-  String cDateID;
-  OrderNameClass(
+  ///////
+  String ccity;
+  String cadv;
+  String ctitle;
+  String ccompany;
+  String cowner;
+  String cmodel;
+  bool cdriver;
+  String cshort;
+  String cdetail;
+  String curilist;
+
+
+  OrderDetailClass(
   this.cId,
   this.cdate,
   this.clat1,
@@ -29,9 +40,18 @@ class OrderNameClass {
   this.ctime,
   this.cpublished,
   this.cstarttraveltime,
-      this.curi,
-      this.cName,
-      this.cDateID,
+   this.curi,
+  ///////
+  this.ccity,
+  this.cadv,
+  this.ctitle,
+  this.ccompany,
+  this.cowner,
+  this.cmodel,
+  this.cdriver,
+  this.cshort,
+  this.cdetail,
+  this.curilist,
      );
 
 
