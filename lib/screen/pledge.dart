@@ -225,7 +225,9 @@ class __pledgeState extends State<Pledge> {
                             ),
                             child: Center(
                                 child: Text(
-                              isSwitched3 ? Translations.of(context).translate('ok'): data,
+                              isSwitched3
+                                  ? Translations.of(context).translate('oK')
+                                  : data,
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 15,

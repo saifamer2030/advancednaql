@@ -1,3 +1,4 @@
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -179,7 +180,7 @@ class _newoffer extends State<NewOffer> {
                         }else if (picno==2){
                           getImage3();
                         }else{
-                Toast.show("اقصى عدد ممكن هو ثلاثة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                Toast.show(Translations.of(context).translate('the_maximum_number_is_three'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
                         }
 
@@ -263,7 +264,7 @@ class _newoffer extends State<NewOffer> {
                             controller: _titleController,
                             validator: (String value) {
                               if ((value.isEmpty)) {
-                                return 'برجاء ادخال عنوان الإعلان';
+                                return Translations.of(context).translate('please_enter_the_ad_title');
                               }
                             },
 
@@ -271,8 +272,8 @@ class _newoffer extends State<NewOffer> {
                             //  controller: controller,
                             decoration: InputDecoration(
                                 errorStyle: TextStyle(color: Colors.red, fontSize: 15.0),
-                                labelText: "عنوان الإعلان",
-                                hintText: "عنوان الإعلان",
+                                labelText: Translations.of(context).translate('ad_title'),
+                                hintText: Translations.of(context).translate('ad_title'),
 
 //                                prefixIcon: Icon(
 //                                  Icons.phone_iphone,
@@ -323,12 +324,12 @@ class _newoffer extends State<NewOffer> {
                                       controller: _modelController,
                                             validator: (String value) {
                                             if ((value.isEmpty)) {
-                                            return 'برجاء ادخال الموديل';
+                                            return Translations.of(context).translate('please_enter_the_model');
                                             }
                                             },
                                         decoration:  InputDecoration(
                                         border: InputBorder.none,
-                                        labelText: "الموديل",
+                                        labelText:Translations.of(context).translate('Model'),
                                         fillColor: Colors.white,
                                         filled: true,
                                         errorStyle: TextStyle(
@@ -346,7 +347,7 @@ class _newoffer extends State<NewOffer> {
                                   MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Text(
-                                      "الموديل",
+                                      Translations.of(context).translate('Model'),
                                       style: TextStyle(
                                           color: Colors.white),
                                     ),
@@ -402,7 +403,7 @@ class _newoffer extends State<NewOffer> {
                                       TextInputType.text,
                                       validator: (String value) {
                                         if ((value.isEmpty)) {
-                                          return 'برجاء ادخال اسم الماركة';
+                                          return Translations.of(context).translate('please_enter_the_brand_name');
                                         }
                                       },
                                       textDirection:
@@ -410,7 +411,7 @@ class _newoffer extends State<NewOffer> {
                                       controller: _companyController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        labelText: "الماركة",
+                                        labelText: Translations.of(context).translate('brand'),
                                         fillColor: Colors.white,
                                         filled: true,
                                         errorStyle: TextStyle(
@@ -428,7 +429,7 @@ class _newoffer extends State<NewOffer> {
                                   MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Text(
-                                      "الماركة",
+                                      Translations.of(context).translate('brand'),
                                       style: TextStyle(
                                           color: Colors.white),
                                     ),
@@ -485,7 +486,7 @@ class _newoffer extends State<NewOffer> {
                                       TextInputType.text,
                                       validator: (String value) {
                                         if ((value.isEmpty)) {
-                                          return 'برجاء ادخال اسم المالك';
+                                          return Translations.of(context).translate('please_enter_the_owners_name');
                                         }
                                       },
                                       textDirection:
@@ -493,7 +494,7 @@ class _newoffer extends State<NewOffer> {
                                       controller: _ownerController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        labelText: "اسم المالك",
+                                        labelText:Translations.of(context).translate('the_owners_name'),
                                         fillColor: Colors.white,
                                         filled: true,
                                         errorStyle: TextStyle(
@@ -511,7 +512,7 @@ class _newoffer extends State<NewOffer> {
                                   MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Text(
-                                      "اسم المالك",
+                                      Translations.of(context).translate('the_owners_name'),
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 10),
@@ -561,7 +562,7 @@ class _newoffer extends State<NewOffer> {
                                 const Color(0xff1891C7),
                                 activeColor: Colors.lightBlueAccent,
                               ),
-                              Text("مع السائق"),
+                              Text(Translations.of(context).translate('with_the_driver'),),
                               Container(
                                 width: 20,
                                 height: 20,
@@ -790,7 +791,7 @@ class _newoffer extends State<NewOffer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                new Text("صورة استمارة السيارة",
+                                new Text(Translations.of(context).translate('copy_of_the_car_form'),
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),),
@@ -817,7 +818,7 @@ class _newoffer extends State<NewOffer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                new Text("صورة الهوية",
+                                new Text(Translations.of(context).translate('iD_photo'),
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),),
@@ -855,7 +856,7 @@ class _newoffer extends State<NewOffer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                new Text("صورة المعدة",
+                                new Text(Translations.of(context).translate('equipment_image'),
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),),
@@ -882,7 +883,7 @@ class _newoffer extends State<NewOffer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                new Text("صورة رخصة السائق",
+                                new Text(Translations.of(context).translate('copy_of_the_drivers_license'),
                                   style: TextStyle(
                                       fontSize: 10,
                                       ),),
@@ -921,14 +922,14 @@ class _newoffer extends State<NewOffer> {
                           textDirection: TextDirection.rtl,
                           validator: (String value) {
                             if ((value.isEmpty)) {
-                              return 'برجاء ادخال وصف مختصر';
+                              return Translations.of(context).translate('please_enter_brief_description');
                             }
                           },
                           onChanged: (value) {},
                           //  controller: controller,
                           decoration: InputDecoration(
-                              labelText: "   وصف مختصر: ",
-                              hintText: " وصف مختصر ",
+                              labelText:Translations.of(context).translate('brief_description'),
+                              hintText:Translations.of(context).translate('brief_description'),
                               hintStyle: TextStyle(fontSize: 10.0),
                               labelStyle: TextStyle(fontSize: 10.0),
                               errorStyle: TextStyle(
@@ -965,12 +966,12 @@ class _newoffer extends State<NewOffer> {
                           //  controller: controller,
                           validator: (String value) {
                             if ((value.isEmpty)) {
-                              return 'برجاء ادخال التفاصيل إضافية';
+                              return Translations.of(context).translate('please_enter_additional_details');
                             }
                           },
                           decoration: InputDecoration(
-                              labelText: "   تفاصيل إضافية :",
-                              hintText: "    تفاصيل إضافية :",
+                              labelText: Translations.of(context).translate('additional_details'),
+                              hintText: Translations.of(context).translate('additional_details'),
                               errorStyle: TextStyle(
                                   color: Colors.red,
                                   fontSize: 15.0),
@@ -994,7 +995,7 @@ class _newoffer extends State<NewOffer> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Text("إضافة"),
+                            new Text(Translations.of(context).translate('addition'),),
                             Icon(Icons.check,color: Colors.white,),
                           ],
                         ),
@@ -1009,7 +1010,7 @@ class _newoffer extends State<NewOffer> {
                                  _load2 = true;
                               });
                             }else{
-                            Toast.show("برجاء إضافة الصور المطلوبة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                            Toast.show(Translations.of(context).translate('please_add_the_required_images'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
                             }
 
@@ -1078,7 +1079,7 @@ class _newoffer extends State<NewOffer> {
         'clong1':"a",
         'clat2': "a",
         'clong2': "a",
-        'cType': "عرض",
+        'cType': Translations.of(context).translate('show'),
         'cCategory': _CategorycurrentItemSelected,
         'cpayload': _PayloadcurrentItemSelected,
         'cnocars':__noarraycurrentItemSelected,
@@ -1150,8 +1151,8 @@ class _newoffer extends State<NewOffer> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("تهانينا"),
-      content: Text("تم إرسال طلبك للمراجعه بنجاح"),
+      title: Text(Translations.of(context).translate('congratulations'),),
+      content: Text(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),),
       actions: [
         okButton,
       ],
@@ -1187,7 +1188,7 @@ class _newoffer extends State<NewOffer> {
     String url1 = Imageurl.toString();
     //print('URL Is $url1');
 
-    Toast.show("تم تحميل الصورة رقم 1",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('Image_1uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     setState(() {
       urlList.add(url1);
        _load2 = false;
@@ -1216,7 +1217,7 @@ class _newoffer extends State<NewOffer> {
     setState(() {
       _load2= false;
     });
-    Toast.show("تم تحميل الصورة رقم 2",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('Image_2uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     setState(() {
       urlList.add(url2);
@@ -1246,7 +1247,7 @@ class _newoffer extends State<NewOffer> {
     setState(() {
       // _load1 = false;
     });
-    Toast.show("تم تحميل الصورة الشخصية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('profile_photo_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     setState(() {
       urlList.add(url3);
@@ -1272,7 +1273,7 @@ class _newoffer extends State<NewOffer> {
     setState(() {
        _load2 = false;
     });
-    Toast.show("تم تحميل الصورة استمارة السيارة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('the_photo_has_been_uploaded_the_car_form'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp12(url11);
     setState(() {
@@ -1295,7 +1296,7 @@ class _newoffer extends State<NewOffer> {
     setState(() {
        _load2 = false;
     });
-    Toast.show("تم تحميل الصورة الهوية",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('id_photo_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp13(url11,url12);
     setState(() {
@@ -1318,7 +1319,7 @@ class _newoffer extends State<NewOffer> {
     setState(() {
        _load2 = false;
     });
-    Toast.show("تم تحميل الصورة المعدة",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('equipment_image_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp14(url11,url12,url13);
     setState(() {
@@ -1341,7 +1342,7 @@ class _newoffer extends State<NewOffer> {
     setState(() {
        _load2 = false;
     });
-    Toast.show("تم تحميل الصورة رخصة السائق",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('Photo_Drivers_license_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
     // uploadwp(url);
     uploadpp1(url11,url12,url13,url14);
     setState(() {
