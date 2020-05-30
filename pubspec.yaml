@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^1.6.9
   flutter_image_compress: ^0.6.8
   flutter_swiper: ^1.1.6
+  url_launcher: ^5.4.10
 
   #simple_slider: ^0.0.2
   rxdart:

@@ -150,7 +150,8 @@ class _AllOrderState extends State<AllOrder> {
                             orderlist.add(ordernameclass);
                             costantList.add(ordernameclass);
                           });
-                        } else {
+                        }
+                        else {
                           setState(() {
                             OrderNameClass ordernameclass = new OrderNameClass(
                               DATA[individualkey]['cId'],
@@ -384,7 +385,8 @@ class _AllOrderState extends State<AllOrder> {
                               orderlist[index].cDateID,
                             ),
                             onTap: () {});
-                      }))
+                      })
+          )
         ],
       ),
     );
