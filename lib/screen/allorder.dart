@@ -4,6 +4,7 @@ import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'package:toast/toast.dart';
@@ -16,6 +17,7 @@ class AllOrder extends StatefulWidget {
 class _AllOrderState extends State<AllOrder> {
   List<OrderNameClass> orderlist = [];
   List<String> namelist = [];
+  bool _load = false;
   var _typearray = [
     'الكل',
     'طلبات',
@@ -31,7 +33,6 @@ class _AllOrderState extends State<AllOrder> {
 
   List<OrderNameClass> SearchList = [];
   List<OrderNameClass> costantList = [];
-
 
   void filterSearchResults(String filtter) {
     SearchList.clear();
@@ -67,10 +68,14 @@ class _AllOrderState extends State<AllOrder> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _load = true;
+    });
     _typecurrentItemSelected = _typearray[0];
     searchcontroller.addListener(() {
       if (searchcontroller.text == '') {
         setState(() {
+
           filtter = '';
         });
       } else {
@@ -189,6 +194,12 @@ class _AllOrderState extends State<AllOrder> {
 
   @override
   Widget build(BuildContext context) {
+    Widget loadingIndicator = _load
+        ? new Container(
+            child: SpinKitCircle(color: Colors.blue),
+          )
+        : new Container();
+    TextStyle textStyle = Theme.of(context).textTheme.subtitle;
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       floatingActionButton: Container(
@@ -347,6 +358,7 @@ class _AllOrderState extends State<AllOrder> {
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -354,10 +366,7 @@ class _AllOrderState extends State<AllOrder> {
           Expanded(
               child: orderlist.length == 0
                   ? Center(
-                      child: Text(
-                      "لا توجد بيانات",
-                      style: TextStyle(color: Colors.grey),
-                    ))
+                      child:  loadingIndicator,)
                   : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,
@@ -386,6 +395,7 @@ class _AllOrderState extends State<AllOrder> {
                             ),
                             onTap: () {});
                       })
+
           )
         ],
       ),
@@ -447,7 +457,7 @@ class _AllOrderState extends State<AllOrder> {
                             ? new Image.asset("assets/images/ic_bluecar.png",
                                 fit: BoxFit.fill)
                             : new Image.network(
-                          curi,
+                                curi,
                                 fit: BoxFit.cover,
                               ),
                       ),
@@ -466,7 +476,7 @@ class _AllOrderState extends State<AllOrder> {
                           child: Container(
                             height: 30,
                             width: 50,
-                            color:cType=="طلب"? Colors.green:Colors.red,
+                            color: cType == "طلب" ? Colors.green : Colors.red,
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
@@ -530,7 +540,6 @@ class _AllOrderState extends State<AllOrder> {
                                 spacing: 0.0),
                           ),
                         ),
-
                         Positioned(
                           top: 100,
                           right: 0,

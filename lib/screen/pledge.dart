@@ -1,5 +1,6 @@
 import 'package:advancednaql/screen/addNewAds.dart';
 import 'package:advancednaql/screen/newoffer.dart';
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -16,11 +17,12 @@ class __pledgeState extends State<Pledge> {
   bool isSwitched = false;
   bool isSwitched2 = false;
   bool isSwitched3 = false;
-  String data = "غير موافق";
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    String data = Translations.of(context).translate('not_agree');
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: const Color(0xffffffff),
@@ -99,7 +101,7 @@ class __pledgeState extends State<Pledge> {
                               top: 10.0,
                             ),
                             child: Text(
-                                "اتعهد واقسم بالله انا المعلن ان ادفع عمولة التطبيق وهي ١٪ من قيمة الخدمة في حالة إتمامها عن طريق التطبيق او بسبب التطبيق وان هذة العمولة هي امانة في ذمتي. ملاحظة عمولة التطبيق هي علي المعلن ولا تبرأ ذمة المعلن من العمولة إلا في حالة دفعها",
+                                Translations.of(context).translate('pledge1'),
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -127,7 +129,9 @@ class __pledgeState extends State<Pledge> {
                             ),
                             child: Center(
                                 child: Text(
-                              isSwitched ? "موافق" : data,
+                              isSwitched
+                                  ? Translations.of(context).translate('oK')
+                                  : data,
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 15,
@@ -145,7 +149,7 @@ class __pledgeState extends State<Pledge> {
                               top: 10.0,
                             ),
                             child: Text(
-                                "اتعهد انا المعلن ان جميع المعلومات التي اذكرها بالاعلان صحيحة وفي القسم الصحيح واتعهد بان الصور التي سوف يتم عرضها هي صور حديثة لنفس الخدمة وليست لخدمة اخري مشابهة.",
+                                Translations.of(context).translate('pledge2'),
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -173,7 +177,9 @@ class __pledgeState extends State<Pledge> {
                             ),
                             child: Center(
                                 child: Text(
-                              isSwitched2 ? "موافق" : data,
+                              isSwitched2
+                                  ? Translations.of(context).translate('oK')
+                                  : data,
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 15,
@@ -190,12 +196,12 @@ class __pledgeState extends State<Pledge> {
                             padding: const EdgeInsets.only(
                               top: 10.0,
                             ),
-                            child: Text(
-                                "اتعهد انا المعلن بان اقوم بدفع العمولة خلال اقل من ١٠ ايام من تاريخ استلام كامل سعر الخدمة.",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            child:
+                                Text(Translations.of(context).translate('pledge3'),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                           ),
                           Center(
                             child: Switch(
@@ -219,7 +225,9 @@ class __pledgeState extends State<Pledge> {
                             ),
                             child: Center(
                                 child: Text(
-                              isSwitched3 ? "موافق" : data,
+                              isSwitched3
+                                  ? Translations.of(context).translate('oK')
+                                  : data,
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 fontSize: 15,
@@ -235,7 +243,7 @@ class __pledgeState extends State<Pledge> {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             child: new RaisedButton(
-                              child: new Text("التالي"),
+                              child: new Text(Translations.of(context).translate('next')),
                               textColor: Colors.white,
                               color: const Color(0xff48B2E1),
                               onPressed: _counterButtonPress,
@@ -269,7 +277,7 @@ class __pledgeState extends State<Pledge> {
 //        Navigator.of(context).pushNamed('/addnewads');
 //      });
     } else {
-      return showInSnackBar(' الرجاء الموافقة علي الشروط');
+      return showInSnackBar(Translations.of(context).translate('please_agree_to_the_terms'));
     }
   }
 

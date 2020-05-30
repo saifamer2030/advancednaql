@@ -1,3 +1,4 @@
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -175,7 +176,7 @@ class _newOrderState extends State<newOrder> {
 //
                                     },
                                     child: Text(
-                                      "مكان التوصيل",
+                                        Translations.of(context).translate('place_of_delivery'),
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
@@ -214,7 +215,7 @@ class _newOrderState extends State<newOrder> {
                                   InkWell(
                                     onTap: () {},
                                     child: Text(
-                                      "مكان التحميل",
+                                        Translations.of(context).translate('download_place'),
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
@@ -545,11 +546,11 @@ class _newOrderState extends State<newOrder> {
                                   controller: _noController,
                                   validator: (String value) {
                                     if ((_nocheck) && (value.isEmpty)) {
-                                      return 'برجاء ادخال عدد الشاحنات';
+                                      return Translations.of(context).translate('please_enter_the_number_of_trucks');
                                     }
                                   },
                                   decoration: InputDecoration(
-                                    labelText: 'عدد الشاحنات',
+                                    labelText: Translations.of(context).translate('number_of_trucks'),
                                     //hintText: 'Name',
                                     labelStyle: textStyle,
                                     errorStyle: TextStyle(
@@ -585,11 +586,11 @@ class _newOrderState extends State<newOrder> {
                                   controller: _timeController,
                                   validator: (String value) {
                                     if ((_timecheck) && (value.isEmpty)) {
-                                      return 'برجاء إدخال وقت الطلب';
+                                      return Translations.of(context).translate('please_enter_the_order_time');
                                     }
                                   },
                                   decoration: InputDecoration(
-                                    labelText: 'وقت الطلب',
+                                    labelText: Translations.of(context).translate('request_time'),
                                     //hintText: 'Name',
                                     labelStyle: textStyle,
                                     errorStyle: TextStyle(
@@ -634,7 +635,7 @@ class _newOrderState extends State<newOrder> {
                               },
                               child: Center(
                                 child: Text(
-                                  'طلب',
+                                  Translations.of(context).translate('order'),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -676,7 +677,7 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
       'clong1':"31",
        'clat2': "30",
        'clong2': "30",
-      'cType': "طلب",
+      'cType': Translations.of(context).translate('order'),
       'cCategory': _CategorycurrentItemSelected,
       'cpayload': _PayloadcurrentItemSelected,
       'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
@@ -685,7 +686,7 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
        'cstarttraveltime': "",
             'curi': "a",
     }).whenComplete(() {
-            showInSnackBar("تم إرسال طلبك للمراجعه بنجاح");
+            showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
             setState(() {
         _load2 = false;
       });
