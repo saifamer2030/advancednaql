@@ -13,16 +13,45 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:connectivity/connectivity.dart';
-class providerProlile  extends StatefulWidget {
+class orderProfile  extends StatefulWidget {
+
   String cId;
-  String cName;
-  String cDateID;
-  providerProlile(this.cId, this.cDateID, this.cName);
+      String cdate;
+  String clat1;
+      String clong1;
+  String clat2;
+      String clong2;
+  String cType;
+      String cCategory;
+  String cpayload;
+      String cnocars;
+  String ctime;
+      bool cpublished;
+  String cstarttraveltime;
+      String curi;
+  String cname;
+      String  cDateID;
+  orderProfile( this.cId,
+      this.cdate,
+      this.clat1,
+      this.clong1,
+      this.clat2,
+      this.clong2,
+      this.cType,
+      this.cCategory,
+      this.cpayload,
+      this.cnocars,
+      this.ctime,
+      this.cpublished,
+      this.cstarttraveltime,
+      this.curi,
+      this.cname,
+      this.cDateID,);
   @override
-  _providerProlileState createState() => _providerProlileState();
+  _orderProfileState createState() => _orderProfileState();
 }
 
-class _providerProlileState extends State<providerProlile> {
+class _orderProfileState extends State<orderProfile> {
   String _userId;
   var _formKey1 = GlobalKey<FormState>();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -33,7 +62,6 @@ class _providerProlileState extends State<providerProlile> {
   List<CommentClass> commentlist = [];
   //var _controller = ScrollController();
 
-  OrderDetailClass orderclass;
   final double _minimumPadding = 5.0;
   bool _load=false;
   String cPhone;
@@ -94,76 +122,6 @@ class _providerProlileState extends State<providerProlile> {
         ? null
         : setState(() {
       _userId = user.uid;
-    //  Toast.show(_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-      final databaseFav =
-      FirebaseDatabase.instance.reference().child("userFavourits");
-      databaseFav
-          .child(_userId).child(widget.cId+widget.cDateID).child("FavChecked")
-          .once()
-          .then((DataSnapshot snapshot5) {
-        setState(() {
-          if (snapshot5.value != null) {
-            setState(() {
-              favcheck=snapshot5.value;
-            });
-          }else{
-            setState(() {
-              favcheck=false;
-            });
-          }
-
-        });
-      });
-      /////////////////////////////////////
-      final orderdatabaseReference =
-      FirebaseDatabase.instance.reference().child("orderdata");
-
-orderdatabaseReference
-              .child(widget.cId).child(widget.cDateID)
-              .once()
-              .then((DataSnapshot data1) {
-            var DATA = data1.value;
-setState(() {
-   orderclass = new OrderDetailClass(
-    DATA['cId'],
-    DATA['cdate'],
-    DATA['clat1'],
-    DATA['clong1'],
-    DATA['clat2'],
-    DATA['clong2'],
-    DATA['cType'],
-    DATA['cCategory'],
-    DATA['cpayload'],
-    DATA['cnocars'],
-    DATA['ctime'],
-    DATA['cpublished'],
-    DATA['cstarttraveltime'],
-    DATA['curi'],
-     ////
-     DATA['ccity'],
-     DATA['cadv'],
-     DATA['ctitle'],
-     DATA['ccompany'],
-     DATA['cowner'],
-     DATA['cmodel'],
-     DATA['cdriver'],
-     DATA['cshort'],
-     DATA['cdetail'],
-    DATA['curilist'],
-  );
-   _imageUrls=DATA['curilist'].replaceAll(" ", "").replaceAll("[", "").replaceAll("]", "").split(",");
-
-});
-              //String  cName;
-           // Toast.show(widget.cId+widget.cDateID,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-       //     print("kkkkkkk${orderclass.cnocars}");
-
-            //}
-          });
-       // }
-    //  });
     }));
   }
   @override
@@ -222,47 +180,15 @@ setState(() {
 
                       Container(
                         //color: Colors.grey[200],
-                          width: 300,height: 200,
-                       child: _imageUrls==null?
-                       SpinKitThreeBounce(
-                         size: 35,
-                         color: Colors.blue,
-                       ):Swiper(
-                         loop: false,
-                         duration: 1000,
-                         autoplay: true,
-                         autoplayDelay: 15000,
-                         itemCount: _imageUrls.length,
-                         pagination:
-                         new SwiperPagination(
-                           margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                             builder: new DotSwiperPaginationBuilder(
-                                 color: Colors.grey,
-                                 activeColor: Colors.blue,
-                                 size: 8.0,
-                                 activeSize: 8.0),
-                         ),
+                          width: 300,height: 180,
+                       child:
+                       new Image.asset("assets/images/ic_bluecar.png",
+                           fit: BoxFit.contain)
 
-                         control: new SwiperControl(),
-                         viewportFraction: 1,
-                         scale: 0.1,
-                         outer: true,
-                         itemBuilder:
-                             (BuildContext context,
-                             int index) {
-                           return  Image.network(_imageUrls[index],
-                               fit: BoxFit.fill, loadingBuilder: (BuildContext context,
-                                   Widget child, ImageChunkEvent loadingProgress) {
-                                 if (loadingProgress == null) return child;
-                                 return SpinKitThreeBounce(
-                                   color: Colors.blue,
-                                   size: 35,
-                                 );
-                               });
-                         },
-                       )
-
-
+                      ),
+                      SizedBox(
+                        height: _minimumPadding,
+                        width: _minimumPadding,
                       ),
                       Card(
 
@@ -279,86 +205,14 @@ setState(() {
                             child: Stack(
                               alignment: Alignment.bottomCenter,
                               children: <Widget>[
-                                new Positioned(
-                                    top: 30,
-                                    left: 15,
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          setState(() {
-                                            favcheck=!favcheck; //boolean value
-                                          });
-                                          if (_userId == null) {
-                                            //if(favchecklist[position] ){
-                                            Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-                                           setState(() {
-                                             favcheck = false; //boolean value
-
-                                           });
-                                          } else {
-//////////*******************************************
-                                            final databaseFav = FirebaseDatabase
-                                                .instance
-                                                .reference()
-                                                .child("userFavourits")
-                                                .child(_userId).child(widget.cId+widget.cDateID);
-                                            if (favcheck) {
-                                              databaseFav.set({
-                                                'cId': widget.cId,
-                                                'FavChecked': favcheck,
-                                                'cDateID':widget.cDateID,
-                                              });
-
-                                              Toast.show(
-                                                  "${widget.cName}تم اضافتة فى المفضلة ", context,
-                                                  duration: Toast.LENGTH_SHORT,
-                                                  gravity: Toast.BOTTOM);
-                                            } else {
-                                              databaseFav.set(null);
-
-                                              Toast.show("تم الحذف فى المفضلة", context,
-                                                  duration: Toast.LENGTH_SHORT,
-                                                  gravity: Toast.BOTTOM);
-                                            }
-
-                                            ////////////////*************************
-                                          }
-                                        });
-                                      },
-                                      child: Container(
-                                        //decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
-                                        child: Padding(
-                                          padding:
-                                          const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                                          child: favcheck
-                                              ? Icon(
-                                            Icons.favorite,
-                                            size: 40.0,
-                                            color: Colors.red,
-                                          )
-////
-                                              :
-                                          Column(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.favorite_border,
-                                                size: 40.0,
-                                                color: Colors.red,
-                                              ),
-
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )),
 
                                 Positioned(
                                   top: 0,
                                   right: 5,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child: orderclass==null?Text(""):Text(
-                                      "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                    child: Text(
+                                      "شاحنة ${widget.cCategory} حمولة ${widget.cpayload}",
                                       textDirection: TextDirection.rtl,
                                       textAlign: TextAlign.right,
                                       style: TextStyle(
@@ -370,7 +224,7 @@ setState(() {
                                     ),
                                   ),
                                 ),
-                                Positioned(
+                             /**   Positioned(
                                   top: 0,
                                   left: 5,
                                   child: Padding(
@@ -381,7 +235,7 @@ setState(() {
                                         orderclass==null?Text(""):
                                         Padding(
                                           padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("خلال: ${ orderclass.cmodel}",
+                                          child: Text("خلال: ${ widget.cmodel}",
                                             textDirection: TextDirection.rtl,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -394,7 +248,7 @@ setState(() {
                                       ],
                                     ),
                                   ),
-                                ),
+                                ),**/
 
                                 Positioned(
                                   top: 20,
@@ -403,11 +257,9 @@ setState(() {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
-
-                                        orderclass==null?Text(""):
                                              Padding(
                                                padding: const EdgeInsets.only(top:8.0),
-                                               child: Text("المالك: ${ widget.cName}",
+                                               child: Text("الطالب: ${ widget.cname}",
                                           textDirection: TextDirection.rtl,
                                           textAlign: TextAlign.right,
                                           style: TextStyle(
@@ -424,7 +276,7 @@ setState(() {
                                     ),
                                   ),
                                 ),
-                                Positioned(
+                              /**  Positioned(
                                   top: 45,
                                   right: 5,
                                   child: Padding(
@@ -451,19 +303,18 @@ setState(() {
                                       ],
                                     ),
                                   ),
-                                ),
+                                ),**/
                                 Positioned(
-                                  top: 70,
+                                  top: 45,
                                   right: 5,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
 
-                                        orderclass==null?Text(""):
                                         Padding(
                                           padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("الموديل: ${ orderclass.cmodel}",
+                                          child: Text("الفترة: ${ widget.ctime}",
                                             textDirection: TextDirection.rtl,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -482,13 +333,12 @@ setState(() {
                                 ),
                                 Positioned(
                                   top: 70,
-                                  left: 5,
+                                  right: 5,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
 
-                                        orderclass==null?Text(""):
                                         Padding(
                                           padding: const EdgeInsets.only(top:8.0),
                                           child: Text("من: الى: ",
@@ -516,7 +366,7 @@ setState(() {
                               ],
                             )),
                       ),
-                      Padding(
+                      /**Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           child:orderclass==null?Text(""): Text(orderclass.cdetail,
@@ -528,7 +378,7 @@ setState(() {
                                 fontStyle: FontStyle.normal),
                           ),
                         ),
-                      ),
+                      ),**/
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Container(

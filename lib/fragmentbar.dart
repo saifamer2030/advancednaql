@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:advancednaql/screen/allorder.dart';
 import 'package:advancednaql/screen/login.dart';
 import 'package:advancednaql/screen/morewidget.dart';
+import 'package:advancednaql/screen/myfavourits.dart';
 import 'package:advancednaql/screen/neworder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -36,7 +37,7 @@ bool con=true;
     final List<Widget> _children = [
       MoreWidget(),
       LoginScreen2(),
-      NewOffer(),
+      MyFav(),
       newOrder(),
       AllOrder(),
 

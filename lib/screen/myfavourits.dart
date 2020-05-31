@@ -1,6 +1,7 @@
+import 'package:advancednaql/classes/FavClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
+import 'package:advancednaql/classes/OrderDetailClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
-import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -10,12 +11,12 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'package:toast/toast.dart';
 
-class AllOrder extends StatefulWidget {
+class MyFav extends StatefulWidget {
   @override
-  _AllOrderState createState() => _AllOrderState();
+  _MyFavState createState() => _MyFavState();
 }
 
-class _AllOrderState extends State<AllOrder> {
+class _MyFavState extends State<MyFav> {
   List<OrderNameClass> orderlist = [];
   List<String> namelist = [];
   bool _load = false;
@@ -26,8 +27,9 @@ class _AllOrderState extends State<AllOrder> {
   ];
   var _typecurrentItemSelected = '';
   String _userId;
-  final orderdatabaseReference =
-      FirebaseDatabase.instance.reference().child("orderdata");
+
+  final databaseFav =
+  FirebaseDatabase.instance.reference().child("userFavourits");
   bool isSearch = false;
   String filtter = '';
   TextEditingController searchcontroller = TextEditingController();
@@ -89,104 +91,129 @@ class _AllOrderState extends State<AllOrder> {
         ? null
         : setState(() {
             _userId = user.uid;
-            final orderdatabaseReference =
-                FirebaseDatabase.instance.reference().child("orderdata");
-            orderdatabaseReference.once().then((DataSnapshot data) {
-              var uuId = data.value.keys;
+//            final orderdatabaseReference =
+//                FirebaseDatabase.instance.reference().child("orderdata");
+//            orderdatabaseReference.once().then((DataSnapshot data) {
+//              var uuId = data.value.keys;
 
-              orderlist.clear();
-              namelist.clear();
-              for (var id in uuId) {
-                orderdatabaseReference
-                    .child(id)
+
+          //    for (var id in uuId) {
+      databaseFav
+                    .child(_userId)
                     .once()
                     .then((DataSnapshot data1) {
-                  var DATA = data1.value;
-                  var keys = data1.value.keys;
-
-                  for (var individualkey in keys) {
-                    OrderClass orderclass = new OrderClass(
-                      DATA[individualkey]['cId'],
-                      DATA[individualkey]['cdate'],
-                      DATA[individualkey]['clat1'],
-                      DATA[individualkey]['clong1'],
-                      DATA[individualkey]['clat2'],
-                      DATA[individualkey]['clong2'],
-                      DATA[individualkey]['cType'],
-                      DATA[individualkey]['cCategory'],
-                      DATA[individualkey]['cpayload'],
-                      DATA[individualkey]['cnocars'],
-                      DATA[individualkey]['ctime'],
-                      DATA[individualkey]['cpublished'],
-                      DATA[individualkey]['cstarttraveltime'],
-                      DATA[individualkey]['curi'],
+                  var DATA1 = data1.value;
+                  var keys1 = data1.value.keys;
+                  orderlist.clear();
+                  namelist.clear();
+                  for (var individualkey1 in keys1) {
+                    FavClass favclass = new FavClass(
+                      DATA1[individualkey1]['cId'],
+                      DATA1[individualkey1]['cChecked'],
+                      DATA1[individualkey1]['cDateID'],
                     );
-                    //String  cName;
-                    final userdatabaseReference =
-                        FirebaseDatabase.instance.reference().child("userdata");
-                    userdatabaseReference
-                        .child(
-                          DATA[individualkey]['cId'],
-                        )
-                        .child("cName")
+                    ///////////////////////////////////
+                    final orderdatabaseReference =
+                    FirebaseDatabase.instance.reference().child("orderdata");
+
+                    orderdatabaseReference
+                        .child(DATA1[individualkey1]['cId']).child(DATA1[individualkey1]['cDateID'])
                         .once()
-                        .then((DataSnapshot snapshot5) {
+                        .then((DataSnapshot data1) {
+                      var DATA = data1.value;
                       setState(() {
-                        if (snapshot5.value != null) {
+                        OrderClass  orderclass = new OrderClass(
+                          DATA['cId'],
+                          DATA['cdate'],
+                          DATA['clat1'],
+                          DATA['clong1'],
+                          DATA['clat2'],
+                          DATA['clong2'],
+                          DATA['cType'],
+                          DATA['cCategory'],
+                          DATA['cpayload'],
+                          DATA['cnocars'],
+                          DATA['ctime'],
+                          DATA['cpublished'],
+                          DATA['cstarttraveltime'],
+                          DATA['curi'],
+
+                        );
+                        /////////////////////////////////////
+                        final userdatabaseReference =
+                        FirebaseDatabase.instance.reference().child("userdata");
+                        userdatabaseReference
+                            .child(
+                          DATA['cId']
+                        )
+                            .child("cName")
+                            .once()
+                            .then((DataSnapshot snapshot5) {
                           setState(() {
-                            //namelist.add(snapshot5.value);
-                            OrderNameClass ordernameclass = new OrderNameClass(
-                              DATA[individualkey]['cId'],
-                              DATA[individualkey]['cdate'],
-                              DATA[individualkey]['clat1'],
-                              DATA[individualkey]['clong1'],
-                              DATA[individualkey]['clat2'],
-                              DATA[individualkey]['clong2'],
-                              DATA[individualkey]['cType'],
-                              DATA[individualkey]['cCategory'],
-                              DATA[individualkey]['cpayload'],
-                              DATA[individualkey]['cnocars'],
-                              DATA[individualkey]['ctime'],
-                              DATA[individualkey]['cpublished'],
-                              DATA[individualkey]['cstarttraveltime'],
-                              DATA[individualkey]['curi'],
-                              snapshot5.value,
-                              individualkey,
-                            );
-                            orderlist.add(ordernameclass);
-                            costantList.add(ordernameclass);
+                            if (snapshot5.value != null) {
+                              setState(() {
+                                //namelist.add(snapshot5.value);
+                                OrderNameClass ordernameclass = new OrderNameClass(
+                                  DATA['cId'],
+                                  DATA['cdate'],
+                                  DATA['clat1'],
+                                  DATA['clong1'],
+                                  DATA['clat2'],
+                                  DATA['clong2'],
+                                  DATA['cType'],
+                                  DATA['cCategory'],
+                                  DATA['cpayload'],
+                                  DATA['cnocars'],
+                                  DATA['ctime'],
+                                  DATA['cpublished'],
+                                  DATA['cstarttraveltime'],
+                                  DATA['curi'],
+                                  snapshot5.value,
+                                  DATA1[individualkey1]['cDateID'],
+                                );
+                                orderlist.add(ordernameclass);
+                                costantList.add(ordernameclass);
+                              });
+                            }
+                            else {
+                              setState(() {
+                                OrderNameClass ordernameclass = new OrderNameClass(
+                                  DATA['cId'],
+                                  DATA['cdate'],
+                                  DATA['clat1'],
+                                  DATA['clong1'],
+                                  DATA['clat2'],
+                                  DATA['clong2'],
+                                  DATA['cType'],
+                                  DATA['cCategory'],
+                                  DATA['cpayload'],
+                                  DATA['cnocars'],
+                                  DATA['ctime'],
+                                  DATA['cpublished'],
+                                  DATA['cstarttraveltime'],
+                                  DATA['curi'],
+                                  "no name",
+                                  DATA1[individualkey1]['cDateID'],
+                                );
+                                orderlist.add(ordernameclass);
+                                costantList.add(ordernameclass);
+                              });
+                            }
                           });
-                        }
-                        else {
-                          setState(() {
-                            OrderNameClass ordernameclass = new OrderNameClass(
-                              DATA[individualkey]['cId'],
-                              DATA[individualkey]['cdate'],
-                              DATA[individualkey]['clat1'],
-                              DATA[individualkey]['clong1'],
-                              DATA[individualkey]['clat2'],
-                              DATA[individualkey]['clong2'],
-                              DATA[individualkey]['cType'],
-                              DATA[individualkey]['cCategory'],
-                              DATA[individualkey]['cpayload'],
-                              DATA[individualkey]['cnocars'],
-                              DATA[individualkey]['ctime'],
-                              DATA[individualkey]['cpublished'],
-                              DATA[individualkey]['cstarttraveltime'],
-                              DATA[individualkey]['curi'],
-                              "no name",
-                              individualkey,
-                            );
-                            orderlist.add(ordernameclass);
-                            costantList.add(ordernameclass);
-                          });
-                        }
+                        });
                       });
+                      //String  cName;
+                      // Toast.show(widget.cId+widget.cDateID,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+
+                      //     print("kkkkkkk${orderclass.cnocars}");
+
+                      //}
                     });
+
                   }
                 });
-              }
-            });
+           //   }
+          //  });
           }));
   }
 
@@ -441,29 +468,7 @@ class _AllOrderState extends State<AllOrder> {
                       builder: (context) => providerProlile(
                           cId, cDateID, cname
                           )));
-            }else if(cType=="طلب"){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => orderProfile(
-                         cId,
-                         cdate,
-                         clat1,
-                         clong1,
-                         clat2,
-                         clong2,
-                         cType,
-                         cCategory,
-                         cpayload,
-                         cnocars,
-                         ctime,
-                         cpublished,
-                         cstarttraveltime,
-                         curi,
-                         cname,
-                          cDateID,
-                      )));
-            }else {}
+            }else{}
 
           });
           },
