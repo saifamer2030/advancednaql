@@ -7,6 +7,7 @@ import 'package:advancednaql/screen/myfavourits.dart';
 import 'package:advancednaql/screen/neworder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:advancednaql/screen/myadvertisement.dart';
 
 import 'screen/network_connection.dart';
 import 'screen/newoffer.dart';
@@ -36,7 +37,7 @@ bool con=true;
 
     final List<Widget> _children = [
       MoreWidget(),
-      LoginScreen2(),
+      MyAdvertisement(),
       MyFav(),
       newOrder(),
       AllOrder(),

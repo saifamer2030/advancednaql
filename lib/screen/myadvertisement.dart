@@ -1,7 +1,6 @@
-import 'package:advancednaql/classes/FavClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
-import 'package:advancednaql/classes/OrderDetailClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
+import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -11,21 +10,24 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'package:toast/toast.dart';
 
-class MyFav extends StatefulWidget {
+class MyAdvertisement extends StatefulWidget {
   @override
-  _MyFavState createState() => _MyFavState();
+  _MyAdvertisementState createState() => _MyAdvertisementState();
 }
 
-class _MyFavState extends State<MyFav> {
+class _MyAdvertisementState extends State<MyAdvertisement> {
   List<OrderNameClass> orderlist = [];
   List<String> namelist = [];
   bool _load = false;
-
+  var _typearray = [
+    'الكل',
+    'طلبات',
+    'عروض',
+  ];
   var _typecurrentItemSelected = '';
   String _userId;
-
-  final databaseFav =
-  FirebaseDatabase.instance.reference().child("userFavourits");
+  final orderdatabaseReference =
+      FirebaseDatabase.instance.reference().child("orderdata");
   bool isSearch = false;
   String filtter = '';
   TextEditingController searchcontroller = TextEditingController();
@@ -70,6 +72,7 @@ class _MyFavState extends State<MyFav> {
     setState(() {
       _load = true;
     });
+    _typecurrentItemSelected = _typearray[0];
     searchcontroller.addListener(() {
       if (searchcontroller.text == '') {
         setState(() {
@@ -86,128 +89,103 @@ class _MyFavState extends State<MyFav> {
         ? null
         : setState(() {
             _userId = user.uid;
-//            final orderdatabaseReference =
-//                FirebaseDatabase.instance.reference().child("orderdata");
+            final orderdatabaseReference =
+                FirebaseDatabase.instance.reference().child("orderdata");
 //            orderdatabaseReference.once().then((DataSnapshot data) {
 //              var uuId = data.value.keys;
 
 
-          //    for (var id in uuId) {
-      databaseFav
+           //   for (var id in uuId) {
+                orderdatabaseReference
                     .child(_userId)
                     .once()
                     .then((DataSnapshot data1) {
-                  var DATA1 = data1.value;
-                  var keys1 = data1.value.keys;
+                  var DATA = data1.value;
+                  var keys = data1.value.keys;
                   orderlist.clear();
                   namelist.clear();
-                  for (var individualkey1 in keys1) {
-                    FavClass favclass = new FavClass(
-                      DATA1[individualkey1]['cId'],
-                      DATA1[individualkey1]['cChecked'],
-                      DATA1[individualkey1]['cDateID'],
+                  for (var individualkey in keys) {
+                    OrderClass orderclass = new OrderClass(
+                      DATA[individualkey]['cId'],
+                      DATA[individualkey]['cdate'],
+                      DATA[individualkey]['clat1'],
+                      DATA[individualkey]['clong1'],
+                      DATA[individualkey]['clat2'],
+                      DATA[individualkey]['clong2'],
+                      DATA[individualkey]['cType'],
+                      DATA[individualkey]['cCategory'],
+                      DATA[individualkey]['cpayload'],
+                      DATA[individualkey]['cnocars'],
+                      DATA[individualkey]['ctime'],
+                      DATA[individualkey]['cpublished'],
+                      DATA[individualkey]['cstarttraveltime'],
+                      DATA[individualkey]['curi'],
                     );
-                    ///////////////////////////////////
-                    final orderdatabaseReference =
-                    FirebaseDatabase.instance.reference().child("orderdata");
-
-                    orderdatabaseReference
-                        .child(DATA1[individualkey1]['cId']).child(DATA1[individualkey1]['cDateID'])
-                        .once()
-                        .then((DataSnapshot data1) {
-                      var DATA = data1.value;
-                      setState(() {
-                        OrderClass  orderclass = new OrderClass(
-                          DATA['cId'],
-                          DATA['cdate'],
-                          DATA['clat1'],
-                          DATA['clong1'],
-                          DATA['clat2'],
-                          DATA['clong2'],
-                          DATA['cType'],
-                          DATA['cCategory'],
-                          DATA['cpayload'],
-                          DATA['cnocars'],
-                          DATA['ctime'],
-                          DATA['cpublished'],
-                          DATA['cstarttraveltime'],
-                          DATA['curi'],
-
-                        );
-                        /////////////////////////////////////
-                        final userdatabaseReference =
+                    //String  cName;
+                    final userdatabaseReference =
                         FirebaseDatabase.instance.reference().child("userdata");
-                        userdatabaseReference
-                            .child(
-                          DATA['cId']
+                    userdatabaseReference
+                        .child(
+                          DATA[individualkey]['cId'],
                         )
-                            .child("cName")
-                            .once()
-                            .then((DataSnapshot snapshot5) {
+                        .child("cName")
+                        .once()
+                        .then((DataSnapshot snapshot5) {
+                      setState(() {
+                        if (snapshot5.value != null) {
                           setState(() {
-                            if (snapshot5.value != null) {
-                              setState(() {
-                                //namelist.add(snapshot5.value);
-                                OrderNameClass ordernameclass = new OrderNameClass(
-                                  DATA['cId'],
-                                  DATA['cdate'],
-                                  DATA['clat1'],
-                                  DATA['clong1'],
-                                  DATA['clat2'],
-                                  DATA['clong2'],
-                                  DATA['cType'],
-                                  DATA['cCategory'],
-                                  DATA['cpayload'],
-                                  DATA['cnocars'],
-                                  DATA['ctime'],
-                                  DATA['cpublished'],
-                                  DATA['cstarttraveltime'],
-                                  DATA['curi'],
-                                  snapshot5.value,
-                                  DATA1[individualkey1]['cDateID'],
-                                );
-                                orderlist.add(ordernameclass);
-                                costantList.add(ordernameclass);
-                              });
-                            }
-                            else {
-                              setState(() {
-                                OrderNameClass ordernameclass = new OrderNameClass(
-                                  DATA['cId'],
-                                  DATA['cdate'],
-                                  DATA['clat1'],
-                                  DATA['clong1'],
-                                  DATA['clat2'],
-                                  DATA['clong2'],
-                                  DATA['cType'],
-                                  DATA['cCategory'],
-                                  DATA['cpayload'],
-                                  DATA['cnocars'],
-                                  DATA['ctime'],
-                                  DATA['cpublished'],
-                                  DATA['cstarttraveltime'],
-                                  DATA['curi'],
-                                  "no name",
-                                  DATA1[individualkey1]['cDateID'],
-                                );
-                                orderlist.add(ordernameclass);
-                                costantList.add(ordernameclass);
-                              });
-                            }
+                            //namelist.add(snapshot5.value);
+                            OrderNameClass ordernameclass = new OrderNameClass(
+                              DATA[individualkey]['cId'],
+                              DATA[individualkey]['cdate'],
+                              DATA[individualkey]['clat1'],
+                              DATA[individualkey]['clong1'],
+                              DATA[individualkey]['clat2'],
+                              DATA[individualkey]['clong2'],
+                              DATA[individualkey]['cType'],
+                              DATA[individualkey]['cCategory'],
+                              DATA[individualkey]['cpayload'],
+                              DATA[individualkey]['cnocars'],
+                              DATA[individualkey]['ctime'],
+                              DATA[individualkey]['cpublished'],
+                              DATA[individualkey]['cstarttraveltime'],
+                              DATA[individualkey]['curi'],
+                              snapshot5.value,
+                              individualkey,
+                            );
+                            orderlist.add(ordernameclass);
+                            costantList.add(ordernameclass);
                           });
-                        });
+                        }
+                        else {
+                          setState(() {
+                            OrderNameClass ordernameclass = new OrderNameClass(
+                              DATA[individualkey]['cId'],
+                              DATA[individualkey]['cdate'],
+                              DATA[individualkey]['clat1'],
+                              DATA[individualkey]['clong1'],
+                              DATA[individualkey]['clat2'],
+                              DATA[individualkey]['clong2'],
+                              DATA[individualkey]['cType'],
+                              DATA[individualkey]['cCategory'],
+                              DATA[individualkey]['cpayload'],
+                              DATA[individualkey]['cnocars'],
+                              DATA[individualkey]['ctime'],
+                              DATA[individualkey]['cpublished'],
+                              DATA[individualkey]['cstarttraveltime'],
+                              DATA[individualkey]['curi'],
+                              "no name",
+                              individualkey,
+                            );
+                            orderlist.add(ordernameclass);
+                            costantList.add(ordernameclass);
+                          });
+                        }
                       });
-                      //String  cName;
-                      // Toast.show(widget.cId+widget.cDateID,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-                      //     print("kkkkkkk${orderclass.cnocars}");
-
-                      //}
                     });
-
                   }
                 });
-           //   }
+             // }
           //  });
           }));
   }
@@ -285,7 +263,7 @@ class _MyFavState extends State<MyFav> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    width: 350,
+                    width: 150,
                     height: 40,
                     color: Colors.grey[500],
                     child: Align(
@@ -300,7 +278,7 @@ class _MyFavState extends State<MyFav> {
 
                         decoration: InputDecoration(
                           labelText:
-                              searchcontroller.text.isEmpty ? "                     بحث بالاسم" : '',
+                              searchcontroller.text.isEmpty ? "بحث بالاسم" : '',
                           labelStyle:
                               TextStyle(color: Colors.black, fontSize: 18.0),
                           prefixIcon: Icon(
@@ -325,6 +303,62 @@ class _MyFavState extends State<MyFav> {
                       ),
                     ),
                   ),
+                  Container(
+                    width: 120,
+                    height: 40,
+                    color: Colors.grey[500],
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: RaisedButton(
+                        color: Colors.grey[500],
+                        onPressed: () {},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              "الخريطة",
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.black,
+                              size: 25.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 70,
+                    height: 40,
+                    color: const Color(0xff43A2CC),
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: DropdownButton<String>(
+                        items: _typearray.map((String value) {
+                          return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                textDirection: TextDirection.rtl,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ));
+                        }).toList(),
+                        value: _typecurrentItemSelected,
+                        onChanged: (String newValueSelected) {
+                          // Your code to execute, when a menu item is selected from dropdown
+                          _onDropDownItemSelectedtype(newValueSelected);
+                        },
+                      ),
+                    ),
+                  ),
 
                 ],
               ),
@@ -339,28 +373,66 @@ class _MyFavState extends State<MyFav> {
                       controller: _controller,
                       itemCount: orderlist.length,
                       itemBuilder: (BuildContext ctxt, int index) {
-                        return InkWell(
-                            child: firebasedata(
-                              index,
-                              orderlist.length,
-                              orderlist[index].cId,
-                              orderlist[index].cdate,
-                              orderlist[index].clat1,
-                              orderlist[index].clong1,
-                              orderlist[index].clat2,
-                              orderlist[index].clong2,
-                              orderlist[index].cType,
-                              orderlist[index].cCategory,
-                              orderlist[index].cpayload,
-                              orderlist[index].cnocars,
-                              orderlist[index].ctime,
-                              orderlist[index].cpublished,
-                              orderlist[index].cstarttraveltime,
-                              orderlist[index].curi,
-                              orderlist[index].cName,
-                              orderlist[index].cDateID,
-                            ),
-                            onTap: () {});
+                        return Dismissible(
+                          key: Key(orderlist[index].cId),
+                          background: Container(
+                              color: Colors.red,
+                              padding: EdgeInsets.only(left: 20),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Icon(
+                                  Icons.delete_forever,
+                                  color: Colors.white,
+                                  size: 60,
+                                ),
+                              )),
+                          direction: DismissDirection.startToEnd,
+                          onDismissed: (direction) {
+                            setState(() {
+                              FirebaseDatabase.instance.reference()
+                                  .child("orderdata").child(_userId).child(orderlist[index].cDateID)
+                                  .remove().whenComplete(() =>
+                                  Toast.show("تم الحذف فى المفضلة", context,
+                                  duration: Toast.LENGTH_SHORT,
+                                  gravity: Toast.BOTTOM));
+setState(() {
+  orderlist.removeAt(index);
+});
+                            });
+                          },
+
+
+
+
+
+
+
+
+
+
+                          child: InkWell(
+                              child: firebasedata(
+                                index,
+                                orderlist.length,
+                                orderlist[index].cId,
+                                orderlist[index].cdate,
+                                orderlist[index].clat1,
+                                orderlist[index].clong1,
+                                orderlist[index].clat2,
+                                orderlist[index].clong2,
+                                orderlist[index].cType,
+                                orderlist[index].cCategory,
+                                orderlist[index].cpayload,
+                                orderlist[index].cnocars,
+                                orderlist[index].ctime,
+                                orderlist[index].cpublished,
+                                orderlist[index].cstarttraveltime,
+                                orderlist[index].curi,
+                                orderlist[index].cName,
+                                orderlist[index].cDateID,
+                              ),
+                              onTap: () {}),
+                        );
                       })
 
           )
@@ -407,7 +479,29 @@ class _MyFavState extends State<MyFav> {
                       builder: (context) => providerProlile(
                           cId, cDateID, cname
                           )));
-            }else{}
+            }else if(cType=="طلب"){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => orderProfile(
+                         cId,
+                         cdate,
+                         clat1,
+                         clong1,
+                         clat2,
+                         clong2,
+                         cType,
+                         cCategory,
+                         cpayload,
+                         cnocars,
+                         ctime,
+                         cpublished,
+                         cstarttraveltime,
+                         curi,
+                         cname,
+                          cDateID,
+                      )));
+            }else {}
 
           });
           },
