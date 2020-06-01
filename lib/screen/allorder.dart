@@ -266,6 +266,7 @@ class _AllOrderState extends State<AllOrder> {
                     width: 150,
                     height: 40,
                     color: Colors.grey[500],
+
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: TextField(
@@ -275,7 +276,6 @@ class _AllOrderState extends State<AllOrder> {
                         },
                         controller: searchcontroller,
                         // focusNode: focus,
-
                         decoration: InputDecoration(
                           labelText:
                               searchcontroller.text.isEmpty ? "بحث بالاسم" : '',

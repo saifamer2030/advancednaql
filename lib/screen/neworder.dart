@@ -680,6 +680,7 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
       'cType': Translations.of(context).translate('order'),
       'cCategory': _CategorycurrentItemSelected,
       'cpayload': _PayloadcurrentItemSelected,
+      'cpayload': _PayloadcurrentItemSelected,
       'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
       'ctime':_timecheck?_timeController.text:_timecurrentItemSelected,
       'cpublished': false,

@@ -12,5 +12,18 @@ class CoiffureRegDataClass {
       this.cPhone,
      );
 
+  CoiffureRegDataClass.fromJson(Map model) {
+    this.cId = model["cId"];
+    this.cEmail = model["cEmail"];
+    this.cName = model["cName"];
+    this.cPhone = model["cPhone"];
 
+  }
+  String get CId => cId;
+
+  String get CEmail => cEmail;
+
+  String get CName => cName;
+
+  String get CPhone => cPhone;
 }

@@ -27,6 +27,7 @@ dependencies:
   firebase_database: ^3.0.4
   firebase_storage: ^3.0.3
   smooth_star_rating: ^1.1.1
+  google_sign_in:
   intl: 
   image: ^2.0.4
   toast: ^0.1.3

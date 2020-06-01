@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:advancednaql/ModelsForChating/chat.dart';
 import 'package:advancednaql/classes/CommentClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderDetailClass.dart';
@@ -548,7 +549,15 @@ setState(() {
                             textColor: Colors.white,
                             color: const Color(0xff43A2CC),
                             onPressed: () {
-
+                              Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                    new ChatPage(
+                                        name:  widget.cName,
+                                        uid: widget.cId
+                                    )),
+                              );
                             },
 //
                             shape: new RoundedRectangleBorder(
@@ -583,6 +592,15 @@ setState(() {
                                 textColor: Colors.black54,
                                 color: Colors.grey[400],
                                 onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                        new ChatPage(
+                                            name:  widget.cName,
+                                            uid: widget.cId
+                                        )),
+                                  );
                                 },
 //
                                 shape: new RoundedRectangleBorder(
