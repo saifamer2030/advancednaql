@@ -2,14 +2,15 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:advancednaql/ModelsForChating/state.dart';
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart' as intl;
 
 class ChatPage extends StatefulWidget {
   ChatPage({Key key, this.url, this.name, this.uid}) : super(key: key);
@@ -40,7 +41,7 @@ class _ChatState extends State<ChatPage> {
 
   picker() async {
     DateTime time = DateTime.now();
-    String formattedDate = DateFormat('hh:mm').format(time);
+    String formattedDate =intl.DateFormat('hh:mm').format(time);
     File img = await ImagePicker.pickImage(source: ImageSource.gallery);
     // File img = await ImagePicker.pickImage(source: ImageSource.camera);
     if (img != null) {
@@ -96,7 +97,7 @@ class _ChatState extends State<ChatPage> {
   Widget build(BuildContext context) {
     // TODO: implement build
     DateTime time = DateTime.now();
-    String formattedDate = DateFormat('hh:mm').format(time);
+    String formattedDate = intl.DateFormat('hh:mm').format(time);
 
     return new Scaffold(
       backgroundColor: const Color(0xffffffff),
@@ -153,96 +154,166 @@ class _ChatState extends State<ChatPage> {
                     ),
                   ),
                 ),
-//
-//                Form(
-//                  child: Padding(
-//                    padding: EdgeInsets.only(
-//                        top: _minimumPadding * 22,
-//                        left: _minimumPadding,
-//                        right: _minimumPadding),
-//                    child: Container(
-//                      width: MediaQuery.of(context).size.width,
-//                      height: 80.0,
-//                      decoration: BoxDecoration(
-//                        borderRadius: BorderRadius.circular(7.0),
-//                        color: const Color(0xffe5e5e5),
-//                        boxShadow: [
-//                          BoxShadow(
-//                              color: const Color(0x33000000),
-//                              blurRadius: 3)
-//                        ],
-//                      ),
-//                      child: Row(
-//                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                        children: <Widget>[
-//                          Icon(Icons.call,color: Colors.lightBlueAccent,),
-//                          Container(
-//                            height: 50,
-//                            width: 50,
-//                            decoration: BoxDecoration(
-//                                shape: BoxShape.circle,
-//                                image: new DecorationImage(
-//                                  fit: BoxFit.cover,
-//                                  image: // NetworkImage(_imgUrl)
-//                                  new AssetImage("assets/images/ic_driver.png"),
-//
-//                                )),
-//                          ),
-//
-//                        ],
-//                      ),
-//                    ),
-//                  ),
-//                ),
-                Form(
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: _minimumPadding * 22,
+                      left: _minimumPadding,
+                      right: _minimumPadding),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 80,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        new RaisedButton(
+                          child: new Text("طلب تتبع"),
+                          textColor: Colors.white,
+                          color: Colors.grey,
+                          onPressed: () {},
 
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          top: _minimumPadding * 22,
-                          left: _minimumPadding,
-                          right: _minimumPadding),
-                      child: new Positioned(
-                          child: isLoaded
-                              ? chatHolder.length == 0
-                                  ? Center(child: Text("لا توجد محادثة"))
-                                  : ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      itemBuilder:
-                                          (BuildContext ctxt, int index) {
-                                        if (chatHolder[index].senderUser ==
-                                            user.uid) {
-                                          if (chatHolder[index].img != null) {
-                                            print("this Me =" +
-                                                chatHolder[index].img);
-                                          }
-                                          return Bubble(
-                                            message: chatHolder[index].message,
-                                            time: formattedDate,
-                                            delivered: true,
-                                            isMe: true,
-                                            img: chatHolder[index].img,
-                                          );
-                                        } else {
-                                          return new Bubble(
-                                            message: chatHolder[index].message,
-                                            time: formattedDate,
-                                            delivered: false,
-                                            isMe: false,
-                                            img: chatHolder[index].img,
-                                          );
-                                        }
-                                      },
-                                      itemCount: chatHolder.length,
-                                      padding:
-                                          new EdgeInsets.fromLTRB(0, 0, 0, 70),
-                                    )
-                              : Center(
-                                  child: SpinKitPumpingHeart(
-                                    color: const Color(0xff4fc3f7),
-                                  ),
-                                )),
+                          //#48B2E1
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0)),
+                        ),
+                        new RaisedButton(
+                          textColor: Colors.white,
+                          color: const Color(0xff48B2E1),
+                          onPressed: () {},
 
+                          //#48B2E1
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0)),
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                'إتمام الصفقة',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Icon(
+                                Icons.thumb_up,
+                                color: Colors.white,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: _minimumPadding * 40,
+                      left: _minimumPadding * 2,
+                      right: _minimumPadding * 2),
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 80.0,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: const Color(0xffe5e5e5),
+                        boxShadow: [
+                          BoxShadow(color: const Color(0x33000000), blurRadius: 3)
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Icon(
+                            Icons.call,
+                            color: Colors.lightBlueAccent,
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(widget.name,
+                                    style: new TextStyle(
+                                        color: Colors.lightBlueAccent,
+                                        fontSize: 16,
+                                     )),
+                              ),
+                              new Container(
+                                child: new Text(widget.name[0],
+                                    style: new TextStyle(
+                                        color: Colors.lightBlueAccent,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.w900)),
+                                decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey[400]),
+                                padding: new EdgeInsets.all(20.0),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_right,
+                                color: Colors.lightBlueAccent,
+                              ),
+                            ],
+                          ),
+
+//                        Container(
+//                          height: 50,
+//                          width: 50,
+//                          decoration: BoxDecoration(
+//                              shape: BoxShape.circle,
+//                              image: new DecorationImage(
+//                                fit: BoxFit.cover,
+//                                image: // NetworkImage(_imgUrl)
+//                                    new AssetImage(
+//                                        "assets/images/ic_driver.png"),
+//                              )),
+//                        ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: _minimumPadding * 60,
+                      left: _minimumPadding,
+                      right: _minimumPadding),
+                  child: new Positioned(
+                      child: isLoaded
+                          ? chatHolder.length == 0
+                              ? Center(child: Text("لا توجد محادثة"))
+                              : ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  itemBuilder: (BuildContext ctxt, int index) {
+                                    if (chatHolder[index].senderUser ==
+                                        user.uid) {
+                                      if (chatHolder[index].img != null) {
+                                        print("this Me =" +
+                                            chatHolder[index].img);
+                                      }
+                                      return Bubble(
+                                        message: chatHolder[index].message,
+                                        time: formattedDate,
+                                        delivered: true,
+                                        isMe: true,
+                                        img: chatHolder[index].img,
+                                      );
+                                    } else {
+                                      return new Bubble(
+                                        message: chatHolder[index].message,
+                                        time: formattedDate,
+                                        delivered: false,
+                                        isMe: false,
+                                        img: chatHolder[index].img,
+                                      );
+                                    }
+                                  },
+                                  itemCount: chatHolder.length,
+                                  padding: new EdgeInsets.fromLTRB(0, 0, 0, 70),
+                                )
+                          : Center(
+                              child: SpinKitPumpingHeart(
+                                color: const Color(0xff4fc3f7),
+                              ),
+                            )),
                 ),
                 new Positioned(
                     child: new Align(
@@ -252,14 +323,17 @@ class _ChatState extends State<ChatPage> {
                       children: <Widget>[
                         Expanded(
                           child: new Padding(
-                            child: new TextField(
-                              keyboardType: TextInputType.multiline,
-                              textInputAction: TextInputAction.newline,
-                              maxLines: null,
-                              decoration: new InputDecoration.collapsed(
-                                hintText: "اكتب رساله هنا",
+                            child: Directionality(
+                              textDirection: TextDirection.rtl,
+                              child: new TextField(
+                                keyboardType: TextInputType.multiline,
+                                textInputAction: TextInputAction.newline,
+                                maxLines: null,
+                                decoration: new InputDecoration.collapsed(
+                                  hintText: "اكتب رساله هنا",
+                                ),
+                                controller: _controller,
                               ),
-                              controller: _controller,
                             ),
                             padding: EdgeInsets.fromLTRB(10.0, 0, 10, 0),
                           ),
@@ -388,7 +462,7 @@ class Bubble extends StatelessWidget {
             bottomRight: Radius.circular(10.0),
           )
         : BorderRadius.only(
-            topRight: Radius.circular(10.0),
+//            topRight: Radius.circular(10.0),
             bottomLeft: Radius.circular(10.0),
             bottomRight: Radius.circular(10.0),
           );

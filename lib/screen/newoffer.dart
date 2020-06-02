@@ -309,7 +309,7 @@ class _newoffer extends State<NewOffer> {
                                             },
                                         decoration:  InputDecoration(
                                         border: InputBorder.none,
-                                        labelText:Translations.of(context).translate('Model'),
+                                        labelText:Translations.of(context).translate('model'),
                                         fillColor: Colors.white,
                                         filled: true,
                                         errorStyle: TextStyle(
@@ -327,7 +327,7 @@ class _newoffer extends State<NewOffer> {
                                   MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     Text(
-                                      Translations.of(context).translate('Model'),
+                                      Translations.of(context).translate('model'),
                                       style: TextStyle(
                                           color: Colors.white),
                                     ),

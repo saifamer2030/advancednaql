@@ -689,10 +689,10 @@ setState(() {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
-                                    new Text("تواصل عن طريق الواتس",
+                                    new Text("تواصل عن طريق الواتساب",
                                       style: TextStyle(
                                         color: Colors.blue,
-                                        fontSize: 10,
+                                        fontSize: 8,
                                       ),),
                                     Icon(Icons.call,color: Colors.blue,),
                                   ],
