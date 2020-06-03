@@ -105,6 +105,7 @@ flutter:
    - assets/images/ic_location2.png
    - assets/images/ic_wlocation.png
    - assets/images/ic_bluecar.png
+   - assets/images/ic_ads.png
    - lang/en.json
    - lang/ar.json
   # An image asset can refer to one or more resolution-specific "variants", see

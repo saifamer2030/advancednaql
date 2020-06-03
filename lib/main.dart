@@ -1,8 +1,10 @@
 import 'package:advancednaql/screen/addNewAds.dart';
+import 'package:advancednaql/screen/myadvertisement.dart';
 import 'package:advancednaql/screen/pledge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'ModelsForChating/home.dart';
 import 'fragmentbar.dart';
 import 'screen/Splash.dart';
 import 'screen/login.dart';
@@ -74,9 +76,9 @@ class _MyAppState extends State<MyApp> {
         '/signup':(BuildContext context)=>new SignUp(),
         '/fragmentnaql':(BuildContext context)=>new Fragmentnaql(),
         '/addnewads':(BuildContext context)=>new AddNewAds(),
-
+        '/myadvertisement':(BuildContext context)=>new MyAdvertisement(),
+        '/homechatroom':(BuildContext context)=>new HomePage(),
         '/pledge':(BuildContext context)=>new Pledge(),
-
         '/neworder':(BuildContext context)=>new newOrder(),
         '/conection':(BuildContext context)=>new ConnectionScreen(),
       },

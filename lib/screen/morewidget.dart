@@ -19,7 +19,10 @@ class MoreWidget extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           Container(
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
             height: 86.0,
             decoration: BoxDecoration(
               color: const Color(0xff4fc3f7),
@@ -28,8 +31,8 @@ class MoreWidget extends StatelessWidget {
           Transform.translate(
             offset: Offset(124.0, 39.0),
             child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Container(
+            // Adobe XD layer: 'logoBox' (shape)
+            Container(
               width: 166.0,
               height: 67.0,
               decoration: BoxDecoration(
@@ -83,8 +86,9 @@ class MoreWidget extends StatelessWidget {
                           ],
                         ),
                         InkWell(
-                          onTap: ()=>  Navigator.of(context)
-                              .pushNamed('/addnewads'),
+                          onTap: () =>
+                              Navigator.of(context)
+                                  .pushNamed('/addnewads'),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -110,7 +114,7 @@ class MoreWidget extends StatelessWidget {
                                   // Adobe XD layer: 'world-wide-web-icon…' (shape)
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child:  new Icon(
+                                    child: new Icon(
                                       Icons.add,
                                       color: Colors.grey,
 
@@ -123,7 +127,123 @@ class MoreWidget extends StatelessWidget {
                         ),
 
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          height: .2,
+                          color: Colors.grey,
+                        ),
+                        InkWell(
+                          onTap: () =>
+                              Navigator.of(context)
+                                  .pushNamed('/myadvertisement'),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                            children: <Widget>[
+                              Icon(
+                                Icons.keyboard_arrow_left,
+                                color: const Color(0xff3F9DC7),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'إعلاناتي',
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 13,
+                                      color: const Color(0xff3F9DC7),
+                                      height: 1.2307692307692308,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+
+                                  // Adobe XD layer: 'world-wide-web-icon…' (shape)
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child:Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          image: AssetImage("assets/images/ic_ads.png"),
+                                        ),
+
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          height: .2,
+                          color: Colors.grey,
+                        ),
+                        InkWell(
+                          onTap: () =>
+                              Navigator.of(context)
+                                  .pushNamed('/homechatroom'),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                            children: <Widget>[
+                              Icon(
+                                Icons.keyboard_arrow_left,
+                                color: const Color(0xff3F9DC7),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'محادثاتي',
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 13,
+                                      color: const Color(0xff3F9DC7),
+                                      height: 1.2307692307692308,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+
+                                  // Adobe XD layer: 'world-wide-web-icon…' (shape)
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+
+                                    child: new Icon(
+                                      Icons.email,
+                                      color: Colors.grey,
+
+                                    ),
+
+
+
+//                                    child:  new Icon(
+//                                      Icons.chat,
+//                                      color: Colors.grey,
+//
+//                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
@@ -164,40 +284,44 @@ class MoreWidget extends StatelessWidget {
                         ),
 
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
                         InkWell(
-                              onTap: () {
-                                HelperFunc.reopenSetting(context);
-                              },
-                              child:Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          onTap: () {
+                            HelperFunc.reopenSetting(context);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                          children: <Widget>[
-                            Icon(
-                              Icons.keyboard_arrow_left,
-                              color: const Color(0xff3F9DC7),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Text(
-                                  'اللغة',
-                                  style: TextStyle(
-                                    fontFamily: 'DroidArabicKufi',
-                                    fontSize: 13,
-                                    color: const Color(0xff3F9DC7),
-                                    height: 1.2307692307692308,
+                            children: <Widget>[
+                              Icon(
+                                Icons.keyboard_arrow_left,
+                                color: const Color(0xff3F9DC7),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'اللغة',
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 13,
+                                      color: const Color(0xff3F9DC7),
+                                      height: 1.2307692307692308,
+                                    ),
+                                    textAlign: TextAlign.right,
                                   ),
-                                  textAlign: TextAlign.right,
-                                ),
 
-                                // Adobe XD layer: 'world-wide-web-icon…' (shape)
-                                Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: new Icon(Icons.public,color: Colors.grey,)
+                                  // Adobe XD layer: 'world-wide-web-icon…' (shape)
+                                  Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Icon(
+                                        Icons.public, color: Colors.grey,)
 //                              Container(
 //                                width: 25.0,
 //                                height: 25.0,
@@ -209,11 +333,11 @@ class MoreWidget extends StatelessWidget {
 //                                  ),
 //                                ),
 //                              ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
 
 //                        Container(
@@ -245,7 +369,10 @@ class MoreWidget extends StatelessWidget {
 //                          ],
 //                        ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
@@ -274,7 +401,8 @@ class MoreWidget extends StatelessWidget {
                                 // Adobe XD layer: 'world-wide-web-icon…' (shape)
                                 Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: new Icon(Icons.note,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                                    child: new Icon(Icons.note, color: Colors
+                                        .grey,) // Adobe XD layer: 'terms' (shape)
 //                                  Container(
 //                                width: 25.0,
 //                                height: 25.0,
@@ -293,7 +421,10 @@ class MoreWidget extends StatelessWidget {
                         ),
 
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
@@ -322,7 +453,8 @@ class MoreWidget extends StatelessWidget {
                                 // Adobe XD layer: 'world-wide-web-icon…' (shape)
                                 Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: new Icon(Icons.lock,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                                    child: new Icon(Icons.lock, color: Colors
+                                        .grey,) // Adobe XD layer: 'terms' (shape)
                                 ),
                               ],
                             ),
@@ -330,7 +462,10 @@ class MoreWidget extends StatelessWidget {
                         ),
 
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
@@ -351,12 +486,16 @@ class MoreWidget extends StatelessWidget {
                             // Adobe XD layer: 'world-wide-web-icon…' (shape)
                             Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: new Icon(Icons.star,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                                child: new Icon(Icons.star, color: Colors
+                                    .grey,) // Adobe XD layer: 'terms' (shape)
                             ),
                           ],
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
@@ -377,12 +516,16 @@ class MoreWidget extends StatelessWidget {
                             // Adobe XD layer: 'world-wide-web-icon…' (shape)
                             Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: new Icon(Icons.report,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                                child: new Icon(Icons.report, color: Colors
+                                    .grey,) // Adobe XD layer: 'terms' (shape)
                             ),
                           ],
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
@@ -403,12 +546,16 @@ class MoreWidget extends StatelessWidget {
                             // Adobe XD layer: 'world-wide-web-icon…' (shape)
                             Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: new Icon(Icons.help,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                                child: new Icon(Icons.help, color: Colors
+                                    .grey,) // Adobe XD layer: 'terms' (shape)
                             ),
                           ],
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
@@ -429,19 +576,24 @@ class MoreWidget extends StatelessWidget {
                             // Adobe XD layer: 'world-wide-web-icon…' (shape)
                             Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: new Icon(Icons.smartphone,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                                child: new Icon(Icons.smartphone, color: Colors
+                                    .grey,) // Adobe XD layer: 'terms' (shape)
                             ),
                           ],
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             FirebaseAuth.instance.signOut();
-                               Navigator.of(context).pushReplacementNamed('/login');
+                            Navigator.of(context).pushReplacementNamed(
+                                '/login');
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -469,13 +621,18 @@ class MoreWidget extends StatelessWidget {
                               // Adobe XD layer: 'world-wide-web-icon…' (shape)
                               Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: new Icon(Icons.power_settings_new,color: Colors.grey,) // Adobe XD layer: 'terms' (shape)
+                                  child: new Icon(Icons.power_settings_new,
+                                    color: Colors
+                                        .grey,) // Adobe XD layer: 'terms' (shape)
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
                           height: .2,
                           color: Colors.grey,
                         ),

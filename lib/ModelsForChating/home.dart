@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 final mDatabase = FirebaseDatabase.instance.reference();
 
 class _HomePageState extends State<HomePage> {
+  final double _minimumPadding = 5.0;
   List<CoiffureRegDataClass> userList;
   FirebaseAuth _firebaseAuth;
   FirebaseUser curUser;
@@ -92,59 +93,93 @@ class _HomePageState extends State<HomePage> {
 
   Scaffold _buildHomeContent() {
     return Scaffold(
-        appBar: new AppBar(
-            title: new Text("أخر المحادثات"),
-            backgroundColor: Theme
-                .of(context)
-                .secondaryHeaderColor,
-            leading: Image(image: AssetImage("assets/images/logo.png")),
-
+//        appBar: new AppBar(
+//            title: new Text("أخر المحادثات"),
+//            backgroundColor: Theme
+//                .of(context)
+//                .secondaryHeaderColor,
+//            leading: Image(image: AssetImage("assets/images/logo.png")),
+//
+//        ),
+        body: Stack(
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 86.0,
+          decoration: BoxDecoration(
+            color: const Color(0xff4fc3f7),
+          ),
         ),
-        body: Container(
-            decoration: new BoxDecoration(
-           color: Colors.white,
+        Transform.translate(
+          offset: Offset(124.0, 39.0),
+          child:
+              // Adobe XD layer: 'logoBox' (shape)
+              Container(
+            width: 166.0,
+            height: 67.0,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                alignment: Alignment.center,
+                matchTextDirection: true,
+                repeat: ImageRepeat.noRepeat,
+                image: AssetImage("assets/logowhite.png"),
+              ),
+              borderRadius: BorderRadius.circular(21.0),
+              color: const Color(0xff4fc3f7),
             ),
-            child: isLoaded
-                ? userList.length == 0
-                ? Center(child: Text("لايوجد محاثات سابقه"))
-                : ListView.builder(
-              physics: BouncingScrollPhysics(),
-              itemBuilder: (BuildContext ctxt, int index) {
-                return new InkWell(
-                  child: Row(children: <Widget>[
-                    new Container(
-                      child: new Text(userList[index].cName[0],
-                          style: new TextStyle(
-                              color: Colors.pink[300],
-                              fontSize: 30,
-                              fontWeight: FontWeight.w900)),
-                      decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.yellow),
-                      padding: new EdgeInsets.all(20.0),
-                    ),
-                    new Padding(
-                        child: new Text(userList[index].cName),
-                        padding: new EdgeInsets.all(10.0))
-                  ]),
-                  onTap: () =>
-                      Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                            new ChatPage(
-                                name: userList[index].cName,
-                                uid: userList[index].cId
-                            )),
-                      ),
-                );
-              },
-              itemCount: userList.length,
-              padding: const EdgeInsets.all(10.0),
-            )
-                : Center(
-              child: SpinKitPumpingHeart(color: Colors.pinkAccent),
-            )));
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              top: _minimumPadding * 22,
+              left: _minimumPadding,
+              right: _minimumPadding),
+          child: Container(
+              decoration: new BoxDecoration(
+                color: Colors.white,
+              ),
+              child: isLoaded
+                  ? userList.length == 0
+                      ? Center(child: Text("لايوجد محاثات سابقه"))
+                      : ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            return new InkWell(
+                              child: Row(children: <Widget>[
+                                new Container(
+                                  child: new Text(userList[index].cName[0],
+                                      style: new TextStyle(
+                                          color: Colors.lightBlue,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w900)),
+                                  decoration: new BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.grey),
+                                  padding: new EdgeInsets.all(20.0),
+                                ),
+                                new Padding(
+                                    child: new Text(userList[index].cName),
+                                    padding: new EdgeInsets.all(10.0))
+                              ]),
+                              onTap: () => Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        new ChatPage(
+                                            name: userList[index].cName,
+                                            uid: userList[index].cId)),
+                              ),
+                            );
+                          },
+                          itemCount: userList.length,
+                          padding: const EdgeInsets.all(10.0),
+                        )
+                  : Center(
+                      child: SpinKitCircle(color: Colors.blue),
+                    )),
+        ),
+      ],
+    ));
   }
 
   Future<void> getFirebaseLoggedInUser() async {
@@ -152,16 +187,17 @@ class _HomePageState extends State<HomePage> {
       Map<String, dynamic> mapOfMaps = Map.from(snapshot.value);
       mapOfMaps.values.forEach((value) {
         CoiffureRegDataClass usr =
-        CoiffureRegDataClass.fromJson(Map.from(value));
+            CoiffureRegDataClass.fromJson(Map.from(value));
 
 /*        HelperFunc.showToast("curUser ${curUser.uid}", Colors.pink);*/
         mDatabase
             .child("ChatList")
             .child(curUser.uid)
+
             .child("idTo")
             .once()
             .then((DataSnapshot snapshot2) {
-          chatList2.add(new ChatList(snapshot2.value, "1"));
+          chatList2.add(new ChatList(snapshot2.value, "2"));
 /*
               HelperFunc.showToast("idTo ${snapshot2.value}", Colors.pink);
 */
