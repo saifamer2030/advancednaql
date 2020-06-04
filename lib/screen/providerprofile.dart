@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:advancednaql/ModelsForChating/chat.dart';
 import 'package:advancednaql/classes/CommentClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderDetailClass.dart';
@@ -598,10 +599,24 @@ setState(() {
                                   ),
                                 ],
                               ),
-                              textColor: Colors.white,
-                              color: const Color(0xff43A2CC),
-                              onPressed: () {
 
+                            textColor: Colors.white,
+                            color: const Color(0xff43A2CC),
+                              onPressed: () {
+                                if (_userId == null) {
+                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                        new ChatPage(
+                                            name:  widget.cName,
+                                            uid: widget.cId
+                                        )),
+                                  );
+                                }
                               },
 //
                               shape: new RoundedRectangleBorder(
@@ -639,8 +654,19 @@ setState(() {
       if (_userId == null) {
       Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
 
-      } else {}
+      } else {
+        Navigator.push(
+          context,
+          new MaterialPageRoute(
+              builder: (BuildContext context) =>
+              new ChatPage(
+                  name:  widget.cName,
+                  uid: widget.cId
+              )),
+        );
+      }
                                   },
+
 //
                                   shape: new RoundedRectangleBorder(
                                       borderRadius: new BorderRadius.circular(10.0)),
@@ -750,7 +776,7 @@ setState(() {
                                     } else {
                                       if(cPhone!=null){
                                         //var phone="01003208785";
-                                        var whatsappUrl ="whatsapp://send?phone=$cPhone";
+                                        var whatsappUrl ="whatsapp://send?phone=+2$cPhone";
                                         canLaunch(whatsappUrl) != null? launch(whatsappUrl):print("open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
                                       }else{
                                         Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
@@ -759,6 +785,7 @@ setState(() {
                                     }
 
                                       },
+
 //
                                   shape: new RoundedRectangleBorder(
                                       borderRadius: new BorderRadius.circular(10.0)),

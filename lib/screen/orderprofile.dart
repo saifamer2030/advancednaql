@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:advancednaql/ModelsForChating/chat.dart';
 import 'package:advancednaql/classes/CommentClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderDetailClass.dart';
+import 'package:advancednaql/classes/UserRegDataClass.dart';
 import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +63,8 @@ class _orderProfileState extends State<orderProfile> {
   var _controller = ScrollController();
   bool favcheck=false;
   //List<OrderDetailClass> orderlist = [];
+  List<CoiffureRegDataClass> userList;
+
   List<CommentClass> commentlist = [];
   //var _controller = ScrollController();
 
@@ -174,6 +178,7 @@ class _orderProfileState extends State<orderProfile> {
                           color: const Color(0xff4fc3f7),
                         ),
                       ),
+
                     ),
                   ),
                 ],
@@ -388,6 +393,7 @@ class _orderProfileState extends State<orderProfile> {
                                   fontFamily: 'Gamja Flower',
                                   fontStyle: FontStyle.normal),
                             ),
+<<<<<<< HEAD
                           ),
                         ),**/
                         Padding(
@@ -406,10 +412,24 @@ class _orderProfileState extends State<orderProfile> {
                                   ),
                                 ],
                               ),
-                              textColor: Colors.white,
-                              color: const Color(0xff43A2CC),
-                              onPressed: () {
 
+                            textColor: Colors.white,
+                            color: const Color(0xff43A2CC),
+                              onPressed: () {
+                                if (_userId == null) {
+                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                        new ChatPage(
+                                            name:  widget.cname,
+                                            uid: widget.cId
+                                        )),
+                                  );
+                                }
                               },
 //
                               shape: new RoundedRectangleBorder(
@@ -421,30 +441,45 @@ class _orderProfileState extends State<orderProfile> {
                           height: 2*_minimumPadding,
                           width: _minimumPadding,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(left:10.0),
-                              child: Container(
-                                width: 150 /*MediaQuery.of(context).size.width*/,
-                                height: 40,
-                                child: new RaisedButton(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      new Text("تواصل عبر الدردشة",
-                                        style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 10,
-                                        ),),
-                                      Icon(Icons.mail_outline,color: Colors.blue,),
-                                    ],
-                                  ),
-                                  textColor: Colors.black54,
-                                  color: Colors.grey[400],
-                                  onPressed: () {
-                                  },
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left:10.0),
+                            child: Container(
+                              width: 150 /*MediaQuery.of(context).size.width*/,
+                              height: 40,
+                              child: new RaisedButton(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    new Text("تواصل عبر الدردشة",
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 10,
+                                      ),),
+                                    Icon(Icons.mail_outline,color: Colors.blue,),
+                                  ],
+                                ),
+                                textColor: Colors.black54,
+                                color: Colors.grey[400],
+                                onPressed: () {
+                                  if (_userId == null) {
+                                    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                          new ChatPage(
+                                              name:  widget.cname,
+                                              uid: widget.cId
+                                          )),
+                                    );
+                                  }
+                                },
 //
                                   shape: new RoundedRectangleBorder(
                                       borderRadius: new BorderRadius.circular(10.0)),
@@ -471,12 +506,17 @@ class _orderProfileState extends State<orderProfile> {
                                   textColor: Colors.black54,
                                   color: Colors.grey[400],
                                   onPressed: () {
-                                    if(cPhone!=null){
-                                      _makePhoneCall('tel:$cPhone');
-                                    }else{
-                                      Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                    if (_userId == null) {
+                                      Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+                                    } else {
+                                      if(cPhone!=null){
+                                        _makePhoneCall('tel:$cPhone');
+                                      }else{
+                                        Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
+                                      }
                                     }
+
 
 
                                   },
@@ -543,15 +583,22 @@ class _orderProfileState extends State<orderProfile> {
                                   textColor: Colors.black54,
                                   color: Colors.grey[400],
                                   onPressed: () {
-                                    if(cPhone!=null){
-                                     //var phone="01003208785";
-                                      var whatsappUrl ="whatsapp://send?phone=+2$cPhone";
-                                      canLaunch(whatsappUrl) != null? launch(whatsappUrl):print("open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
-                                    }else{
-                                      Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                    if (_userId == null) {
+                                      Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
 
+                                    } else {
+                                      if(cPhone!=null){
+                                        //var phone="01003208785";
+                                        var whatsappUrl ="whatsapp://send?phone=+2$cPhone";
+                                        canLaunch(whatsappUrl) != null? launch(whatsappUrl):print("open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
+                                      }else{
+                                        Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                                      }
                                     }
-                                      },
+
+                                  },
+
 //
                                   shape: new RoundedRectangleBorder(
                                       borderRadius: new BorderRadius.circular(10.0)),
