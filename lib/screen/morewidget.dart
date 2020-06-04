@@ -5,6 +5,7 @@ import 'package:flutter/painting.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../translation/helper_func.dart';
+import 'login.dart';
 
 class MoreWidget extends StatelessWidget {
   MoreWidget({
@@ -18,32 +19,40 @@ class MoreWidget extends StatelessWidget {
       backgroundColor: const Color(0xffffffff),
       body: Stack(
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 86.0,
-            decoration: BoxDecoration(
-              color: const Color(0xff4fc3f7),
-            ),
-          ),
-          Transform.translate(
-            offset: Offset(124.0, 39.0),
-            child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Container(
-              width: 166.0,
-              height: 67.0,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  alignment: Alignment.center,
-                  matchTextDirection: true,
-                  repeat: ImageRepeat.noRepeat,
-                  image: AssetImage("assets/logowhite.png"),
+          Column(
+            children: <Widget>[
+              Container(
+                width:  MediaQuery.of(context).size.width,
+                height: 86.0,
+                decoration: BoxDecoration(
+
+                  color: const Color(0xff4fc3f7),
                 ),
-                borderRadius: BorderRadius.circular(21.0),
-                color: const Color(0xff4fc3f7),
               ),
-            ),
+              Transform.translate(
+                offset: Offset(0.0, -42.0),
+                child:
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
+                  child: Container(
+                    width: 166.0,
+                    height: 67.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        matchTextDirection: true,
+                        repeat: ImageRepeat.noRepeat,
+                        image: AssetImage("assets/logowhite.png"),
+                      ),
+                      borderRadius: BorderRadius.circular(21.0),
+                      color: const Color(0xff4fc3f7),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+
           Form(
             child: Padding(
               padding: EdgeInsets.only(
@@ -441,7 +450,10 @@ class MoreWidget extends StatelessWidget {
                         InkWell(
                           onTap: (){
                             FirebaseAuth.instance.signOut();
-                               Navigator.of(context).pushReplacementNamed('/login');
+                            Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(builder: (context) => LoginScreen2(), maintainState: false));
+//                            Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
+//                                builder: (context) => Screen4(), maintainState: false));
+                             //  Navigator.of(context).pushReplacementNamed('/login');
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,

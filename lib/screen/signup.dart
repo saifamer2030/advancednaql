@@ -52,35 +52,38 @@ class _SignUpState extends State<SignUp> {
         child: Stack(
           children: <Widget>[
 
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 86.0,
-              decoration: BoxDecoration(
-                color: const Color(0xff4fc3f7),
-              ),
-            ),
-            Container(
-              child: Transform.translate(
-                offset: Offset(0.0, -270.0),
-                child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
-                  child: Container(
-                    width: 166.0,
-                    height: 67.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        alignment: Alignment.center,
-                        matchTextDirection: true,
-                        repeat: ImageRepeat.noRepeat,
-                        image: AssetImage("assets/logowhite.png"),
+            Column(
+              children: <Widget>[
+                Container(
+                  width:  MediaQuery.of(context).size.width,
+                  height: 86.0,
+                  decoration: BoxDecoration(
+
+                    color: const Color(0xff4fc3f7),
+                  ),
+                ),
+                Transform.translate(
+                  offset: Offset(0.0, -42.0),
+                  child:
+                  // Adobe XD layer: 'logoBox' (shape)
+                  Center(
+                    child: Container(
+                      width: 166.0,
+                      height: 67.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          alignment: Alignment.center,
+                          matchTextDirection: true,
+                          repeat: ImageRepeat.noRepeat,
+                          image: AssetImage("assets/logowhite.png"),
+                        ),
+                        borderRadius: BorderRadius.circular(21.0),
+                        color: const Color(0xff4fc3f7),
                       ),
-                      borderRadius: BorderRadius.circular(21.0),
-                      color: const Color(0xff4fc3f7),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
 
 
@@ -321,7 +324,7 @@ class _SignUpState extends State<SignUp> {
                                   elevation: 3.0,
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.of(context).pushNamed('/login');
+                                      Navigator.of(context).pushNamed('/fragmentnaql');
                                     },
                                     child: Center(
                                       child: Text(

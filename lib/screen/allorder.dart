@@ -85,10 +85,11 @@ class _AllOrderState extends State<AllOrder> {
         });
       }
     });
-    FirebaseAuth.instance.currentUser().then((user) => user == null
-        ? null
-        : setState(() {
-            _userId = user.uid;
+//    FirebaseAuth.instance.currentUser().then((user) => user == null
+//        ? null
+//        :
+    setState(() {
+        //    _userId = user.uid;
             final orderdatabaseReference =
                 FirebaseDatabase.instance.reference().child("orderdata");
             orderdatabaseReference.once().then((DataSnapshot data) {
@@ -187,7 +188,8 @@ class _AllOrderState extends State<AllOrder> {
                 });
               }
             });
-          }));
+          });
+    //);
   }
 
   final double _minimumPadding = 5.0;
@@ -224,36 +226,40 @@ class _AllOrderState extends State<AllOrder> {
       ),
       body: Column(
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 86.0,
-            decoration: BoxDecoration(
-              color: const Color(0xff4fc3f7),
-            ),
-          ),
-          Container(
-            child: Transform.translate(
-              offset: Offset(0.0, -45.0),
-              child:
-                  // Adobe XD layer: 'logoBox' (shape) const Color(0xff43A2CC),
-                  Center(
-                child: Container(
-                  width: 166.0,
-                  height: 67.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      alignment: Alignment.center,
-                      matchTextDirection: true,
-                      repeat: ImageRepeat.noRepeat,
-                      image: AssetImage("assets/logowhite.png"),
+          Column(
+            children: <Widget>[
+              Container(
+                width:  MediaQuery.of(context).size.width,
+                height: 86.0,
+                decoration: BoxDecoration(
+
+                  color: const Color(0xff4fc3f7),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(0.0, -42.0),
+                child:
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
+                  child: Container(
+                    width: 166.0,
+                    height: 67.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        matchTextDirection: true,
+                        repeat: ImageRepeat.noRepeat,
+                        image: AssetImage("assets/logowhite.png"),
+                      ),
+                      borderRadius: BorderRadius.circular(21.0),
+                      color: const Color(0xff4fc3f7),
                     ),
-                    borderRadius: BorderRadius.circular(21.0),
-                    color: const Color(0xff4fc3f7),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
+
           Container(
             height: 40.0,
             decoration: BoxDecoration(color: Colors.white),
@@ -435,12 +441,10 @@ class _AllOrderState extends State<AllOrder> {
           onTap: () {
           setState(() {
             if(cType=="عرض"){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => providerProlile(
-                          cId, cDateID, cname
-                          )));
+              Navigator.push(context,MaterialPageRoute(builder: (context) => providerProlile(cId, cDateID, cname)));
+              //Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(builder: (context) => providerProlile(cId, cDateID, cname), maintainState: false));
+
+
             }else if(cType=="طلب"){
               Navigator.push(
                   context,
@@ -652,8 +656,12 @@ class _AllOrderState extends State<AllOrder> {
       this._typecurrentItemSelected = newValueSelected;
     });
     if (newValueSelected == 'طلبات') {
+      orderlist.clear();
+      orderlist.addAll(costantList);
       filterSearchResults("طلب");
     } else if (newValueSelected == 'عروض') {
+      orderlist.clear();
+      orderlist.addAll(costantList);
       filterSearchResults("عرض");
     } else if (newValueSelected == 'الكل') {
       filterSearchResults('');

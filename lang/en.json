@@ -24,6 +24,8 @@
   "select_language":"Select language",
   "are_u_sure":"Are you sure ?",
   "email":"Email",
+  "email_phone":"Email/ phone no.",
+  "email_phone_error":"Email or phone no not correct",
   "plz_entr_email":"Please enter your e-mail!",
   "create_new_account":"Create New Account",
   "please_enter_the_full_name":"Please Enter The Full Name",

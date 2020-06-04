@@ -24,6 +24,8 @@
   "select_language":"اختار اللغة",
   "are_u_sure":"تاكيد ؟",
   "email":"البريد الإالكترونى",
+  "email_phone":"البريد الإالكترونى/رقم الهاتف",
+  "email_phone_error":"البريد الإالكترونى/رقم الهاتف غير صحيح",
   "plz_entr_email":"برجاء إدخال البريد الإلكترونى",
   "create_new_account":"إنشاء حساب جديد",
   "please_enter_the_full_name":"برجاء ادخال الإسم بالكامل",

@@ -16,6 +16,7 @@ class LoginScreen2  extends StatefulWidget {
 class _LoginScreen2State extends State<LoginScreen2> {
 
   var connectivityResult =  (Connectivity().checkConnectivity());
+  bool _authtype = false;
 
   bool _load = false;
   var _formKey1 = GlobalKey<FormState>();
@@ -40,35 +41,40 @@ class _LoginScreen2State extends State<LoginScreen2> {
       body: Container(
         child: Stack(
           children: <Widget>[
-            Container(
-              width:  MediaQuery.of(context).size.width,
-              height: 86.0,
-              decoration: BoxDecoration(
-
-                color: const Color(0xff4fc3f7),
-              ),
-            ),
-            Transform.translate(
-              offset: Offset(0.0, -270.0),
-              child:
-              // Adobe XD layer: 'logoBox' (shape)
-              Center(
-                child: Container(
-                  width: 166.0,
-                  height: 67.0,
+            Column(
+              children: <Widget>[
+                Container(
+                  width:  MediaQuery.of(context).size.width,
+                  height: 86.0,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      alignment: Alignment.center,
-                      matchTextDirection: true,
-                      repeat: ImageRepeat.noRepeat,
-                      image: AssetImage("assets/logowhite.png"),
-                    ),
-                    borderRadius: BorderRadius.circular(21.0),
+
                     color: const Color(0xff4fc3f7),
                   ),
                 ),
-              ),
+                Transform.translate(
+                  offset: Offset(0.0, -42.0),
+                  child:
+                  // Adobe XD layer: 'logoBox' (shape)
+                  Center(
+                    child: Container(
+                      width: 166.0,
+                      height: 67.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          alignment: Alignment.center,
+                          matchTextDirection: true,
+                          repeat: ImageRepeat.noRepeat,
+                          image: AssetImage("assets/logowhite.png"),
+                        ),
+                        borderRadius: BorderRadius.circular(21.0),
+                        color: const Color(0xff4fc3f7),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
+
 
 
             Form(
@@ -124,7 +130,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                         padding: const EdgeInsets.all(8),
                                         child: TextFormField(
                                           keyboardType:
-                                              TextInputType.emailAddress,
+                                              TextInputType.text,
                                           style: textStyle,
                                           textDirection: TextDirection.rtl,
                                           controller: _emailController,
@@ -132,16 +138,31 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                             if (value.isEmpty) {
                                               return 'برجاء إدخال البريد الإلكترونى';
                                             }
-                                            Pattern pattern =
-                                                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+                                            Pattern pattern =r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                            Pattern pattern1 =r'^(?:[+0]10)?[0-9]{11}$';//10,11 for 11 no
+                                                                //(?:[+0]n)?[0-9]{n+1}$'
                                             RegExp regex = new RegExp(pattern);
-                                            if (!regex.hasMatch(value)) {
-                                              return 'بريد إلكترونى غير صحيح';
+                                            RegExp regex1 = new RegExp(pattern1);
+                                            if ((regex.hasMatch(value))|| (regex1.hasMatch(value))) {
+                                              if (regex.hasMatch(value)) {
+                                                setState(() {
+                                                  _authtype=false;
+                                                });
+
+                                              }else if (regex1.hasMatch(value)) {
+                                                setState(() {
+                                                  _authtype=true;
+                                                });
+                                              }
+                                            }else{
+                                              return Translations.of(context).translate('email_phone_error');
+
                                             }
                                           },
                                           decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: Translations.of(context).translate('email'),
+                                            hintText: Translations.of(context).translate('email_phone'),
                                             fillColor: Colors.white,
                                             filled: true,
                                             errorStyle: TextStyle(
@@ -252,7 +273,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                     final result = await InternetAddress.lookup('google.com');
                                     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
                                     //  print('connected');
-                                      _uploaddata();
+                                      if(_authtype){signinphone();}else{_uploaddata();}
+
                                       //signinphone();
                                       setState(() {
                                         _load = true;
