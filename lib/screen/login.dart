@@ -569,14 +569,24 @@ class _LoginScreen2State extends State<LoginScreen2> {
           child: new Text('إلغاء'),
         ),
         new FlatButton(
-          onPressed: () {
+          onPressed: () async {
             if (_resetKey1.currentState.validate()) {
-              FirebaseAuth.instance
-                  .sendPasswordResetEmail(email: _textFieldController.text);
-              //Form.of(context).save();
-              Navigator.pop(context);
-              Toast.show("برجاء مراجعة بريدك الإلكترونى", context,
-                  duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+              try {
+                final result = await InternetAddress.lookup('google.com');
+                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                  FirebaseAuth.instance
+                      .sendPasswordResetEmail(email: _textFieldController.text);
+                  //Form.of(context).save();
+                  Navigator.pop(context);
+                  Toast.show("برجاء مراجعة بريدك الإلكترونى", context,
+                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                }
+              } on SocketException catch (_) {
+                //  print('not connected');
+                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+              }
+
             }
           },
           child: new Text('تأكيد'),

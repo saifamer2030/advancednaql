@@ -2,6 +2,7 @@ import 'package:advancednaql/classes/FavClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderDetailClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
+import 'package:advancednaql/classes/UserRateClass.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -142,71 +143,48 @@ class _MyFavState extends State<MyFav> {
                         final userdatabaseReference =
                         FirebaseDatabase.instance.reference().child("userdata");
                         userdatabaseReference
-                            .child(
-                          DATA['cId']
-                        )
-                            .child("cName")
+                            .child( DATA['cId'])
                             .once()
-                            .then((DataSnapshot snapshot5) {
+                            .then((DataSnapshot data1) {
+                          var DATA5= data1.value;
                           setState(() {
-                            if (snapshot5.value != null) {
-                              setState(() {
-                                //namelist.add(snapshot5.value);
-                                OrderNameClass ordernameclass = new OrderNameClass(
-                                  DATA['cId'],
-                                  DATA['cdate'],
-                                  DATA['clat1'],
-                                  DATA['clong1'],
-                                  DATA['clat2'],
-                                  DATA['clong2'],
-                                  DATA['cType'],
-                                  DATA['cCategory'],
-                                  DATA['cpayload'],
-                                  DATA['cnocars'],
-                                  DATA['ctime'],
-                                  DATA['cpublished'],
-                                  DATA['cstarttraveltime'],
-                                  DATA['curi'],
-                                  snapshot5.value,
-                                  DATA1[individualkey1]['cDateID'],
-                                );
-                                orderlist.add(ordernameclass);
-                                costantList.add(ordernameclass);
-                              });
-                            }
-                            else {
-                              setState(() {
-                                OrderNameClass ordernameclass = new OrderNameClass(
-                                  DATA['cId'],
-                                  DATA['cdate'],
-                                  DATA['clat1'],
-                                  DATA['clong1'],
-                                  DATA['clat2'],
-                                  DATA['clong2'],
-                                  DATA['cType'],
-                                  DATA['cCategory'],
-                                  DATA['cpayload'],
-                                  DATA['cnocars'],
-                                  DATA['ctime'],
-                                  DATA['cpublished'],
-                                  DATA['cstarttraveltime'],
-                                  DATA['curi'],
-                                  "no name",
-                                  DATA1[individualkey1]['cDateID'],
-                                );
-                                orderlist.add(ordernameclass);
-                                costantList.add(ordernameclass);
-                              });
-                            }
+                            UserRateClass userrating = new UserRateClass(
+                              DATA5['cName'],
+                              DATA5['rating'],
+                              DATA5['custRate'],
+
+                            );
+                            setState(() {
+                              //namelist.add(snapshot5.value);
+                              OrderNameClass ordernameclass = new OrderNameClass(
+                                DATA['cId'],
+                                DATA['cdate'],
+                                DATA['clat1'],
+                                DATA['clong1'],
+                                DATA['clat2'],
+                                DATA['clong2'],
+                                DATA['cType'],
+                                DATA['cCategory'],
+                                DATA['cpayload'],
+                                DATA['cnocars'],
+                                DATA['ctime'],
+                                DATA['cpublished'],
+                                DATA['cstarttraveltime'],
+                                DATA['curi'],
+                                DATA5['cName'],
+                                DATA5['rating'],
+                                DATA5['custRate'],
+                                DATA1[individualkey1]['cDateID'],
+                              );
+                              orderlist.add(ordernameclass);
+                              costantList.add(ordernameclass);
+                            });
                           });
                         });
+
+                        ////////////////////////////////////
                       });
-                      //String  cName;
-                      // Toast.show(widget.cId+widget.cDateID,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
-                      //     print("kkkkkkk${orderclass.cnocars}");
-
-                      //}
                     });
 
                   }
@@ -366,6 +344,8 @@ class _MyFavState extends State<MyFav> {
                               orderlist[index].cstarttraveltime,
                               orderlist[index].curi,
                               orderlist[index].cName,
+                              orderlist[index].rating,
+                              orderlist[index].custRate,
                               orderlist[index].cDateID,
                             ),
                             onTap: () {});
@@ -394,9 +374,15 @@ class _MyFavState extends State<MyFav> {
     bool cpublished,
     String cstarttraveltime,
     String curi,
-    String cname,
+      String cname,
+      rating,
+      custRate,
       String  cDateID,
   ) {
+    var cRate = 0.0;
+    if (custRate > 0) {
+      cRate = double.parse(rating) / custRate;
+    }
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
@@ -504,15 +490,28 @@ class _MyFavState extends State<MyFav> {
                           right: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: SmoothStarRating(
-                                allowHalfRating: false,
+                            child:  cRate > 0.0
+                                ? SmoothStarRating(
+                                allowHalfRating: true,
+                                onRated: (v) {
+                                },
                                 starCount: 5,
-                                rating: 5,
+                                rating: cRate,
+                                isReadOnly:true,//not changed
                                 //setting value
                                 size: 20.0,
-                                color: Colors.amber,
-                                borderColor: Colors.grey,
-                                spacing: 0.0),
+                                color: Colors.yellow,
+                                borderColor: Colors.yellow,
+                                spacing: 0.0)
+                                : new Text(
+                              'منضم حديثا',
+                              style: TextStyle(
+                                  color: Colors.yellow,
+                                  fontFamily: 'Gamja Flower',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0,
+                                  fontStyle: FontStyle.normal),
+                            ),
                           ),
                         ),
                         Positioned(

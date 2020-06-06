@@ -989,14 +989,25 @@ class _newoffer extends State<NewOffer> {
                         ),
                         textColor: Colors.white,
                         color: const Color(0xff43A2CC),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             if (sampleImage11 != null && sampleImage12 != null && sampleImage13 != null && sampleImage14 != null&& sampleImage1 != null) {
-                              uploadpp11();
 
-                              setState(() {
-                                 _load2 = true;
-                              });
+                              try {
+                                final result = await InternetAddress.lookup('google.com');
+                                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                  uploadpp11();
+
+                                  setState(() {
+                                    _load2 = true;
+                                  });
+                                }
+                              } on SocketException catch (_) {
+                                //  print('not connected');
+                                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                              }
+
                             }else{
                             Toast.show(Translations.of(context).translate('please_add_the_required_images'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
@@ -1074,7 +1085,7 @@ class _newoffer extends State<NewOffer> {
         'ctime':"a",
         'cpublished': false,
         'cstarttraveltime': "",
-        'curi': url12,
+        'curi': url13,
         //////////////////////////
         'ccity': _citycurrentItemSelected,
         'cadv': __advarraycurrentItemSelected,
@@ -1086,7 +1097,7 @@ class _newoffer extends State<NewOffer> {
         'cshort': _shortController.text,
         'cdetail': _detailController.text,
         'curi11': url11,
-        'curi13': url13,
+        'curi13': url12,
         'curi14': url14,
         'curilist': urlList.toString(),
 

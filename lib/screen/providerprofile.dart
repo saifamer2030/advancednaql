@@ -66,7 +66,7 @@ class _providerProlileState extends State<providerProlile> {
       });
     });
     final commentdatabaseReference =
-    FirebaseDatabase.instance.reference().child("commentsdata").child(widget.cId);
+    FirebaseDatabase.instance.reference().child("commentsdata").child(widget.cId).child(widget.cDateID);
     commentdatabaseReference.once().then((DataSnapshot snapshot) {
       var KEYS = snapshot.value.keys;
       var DATA = snapshot.value;
@@ -983,9 +983,19 @@ setState(() {
                                           ),
                                         ),
                                         InkWell(
-                                          onTap: (){
+                                          onTap: () async {
                                             if (_formKey1.currentState.validate()) {
-                                              createRecord();
+                                              try {
+                                                final result = await InternetAddress.lookup('google.com');
+                                                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                                  createRecord();
+
+                                                }
+                                              } on SocketException catch (_) {
+                                                //  print('not connected');
+                                                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                                              }
 
 //                                                setState(() {
 //                                                  _load2 = true;
@@ -1051,7 +1061,7 @@ setState(() {
               String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00';
               final commentbaseReference =
               FirebaseDatabase.instance.reference().child("commentsdata");
-              commentbaseReference.child(widget.cId).child(_userId+date).set({
+              commentbaseReference.child(widget.cId).child(widget.cDateID).child(_userId+date).set({
                 'cId': widget.cId,
                 'cuserid': _userId,
                 'cdate':now.toString(),

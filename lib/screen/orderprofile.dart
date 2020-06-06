@@ -81,9 +81,7 @@ class _orderProfileState extends State<orderProfile> {
     final userdatabaseReference =
     FirebaseDatabase.instance.reference().child("userdata");
     userdatabaseReference
-        .child(
-     widget.cId,
-    )
+        .child(widget.cId)
         .child("cPhone")
         .once()
         .then((DataSnapshot snapshot5) {
@@ -796,10 +794,19 @@ class _orderProfileState extends State<orderProfile> {
                                           ),
                                         ),
                                         InkWell(
-                                          onTap: (){
+                                          onTap: () async {
                                             if (_formKey1.currentState.validate()) {
-                                              createRecord();
+                                              try {
+                                                final result = await InternetAddress.lookup('google.com');
+                                                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                                  createRecord();
 
+                                                }
+                                              } on SocketException catch (_) {
+                                                //  print('not connected');
+                                                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                                              }
 //                                                setState(() {
 //                                                  _load2 = true;
 //                                                });

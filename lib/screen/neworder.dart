@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -628,12 +630,22 @@ class _newOrderState extends State<newOrder> {
                             color: const Color(0xff41A0CB),
                             elevation: 3.0,
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 if (_formKey.currentState.validate()) {
-                                  createRecord();
-                                  setState(() {
-                                    _load2 = true;
-                                  });
+                                  try {
+                                    final result = await InternetAddress.lookup('google.com');
+                                    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                      createRecord();
+                                      setState(() {
+                                        _load2 = true;
+                                      });
+                                    }
+                                  } on SocketException catch (_) {
+                                    //  print('not connected');
+                                    Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                                  }
+
                                 } else
                                   print('correct');
                               },

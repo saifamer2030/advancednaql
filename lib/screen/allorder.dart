@@ -1,5 +1,6 @@
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
+import 'package:advancednaql/classes/UserRateClass.dart';
 import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -122,68 +123,89 @@ class _AllOrderState extends State<AllOrder> {
                       DATA[individualkey]['cstarttraveltime'],
                       DATA[individualkey]['curi'],
                     );
-                    //String  cName;
+                    /////////////////////////////////////
                     final userdatabaseReference =
-                        FirebaseDatabase.instance.reference().child("userdata");
+                    FirebaseDatabase.instance.reference().child("userdata");
                     userdatabaseReference
-                        .child(
-                          DATA[individualkey]['cId'],
-                        )
-                        .child("cName")
+                        .child( DATA[individualkey]['cId'])
                         .once()
-                        .then((DataSnapshot snapshot5) {
+                        .then((DataSnapshot data1) {
+                      var DATA5= data1.value;
                       setState(() {
-                        if (snapshot5.value != null) {
-                          setState(() {
-                            //namelist.add(snapshot5.value);
-                            OrderNameClass ordernameclass = new OrderNameClass(
-                              DATA[individualkey]['cId'],
-                              DATA[individualkey]['cdate'],
-                              DATA[individualkey]['clat1'],
-                              DATA[individualkey]['clong1'],
-                              DATA[individualkey]['clat2'],
-                              DATA[individualkey]['clong2'],
-                              DATA[individualkey]['cType'],
-                              DATA[individualkey]['cCategory'],
-                              DATA[individualkey]['cpayload'],
-                              DATA[individualkey]['cnocars'],
-                              DATA[individualkey]['ctime'],
-                              DATA[individualkey]['cpublished'],
-                              DATA[individualkey]['cstarttraveltime'],
-                              DATA[individualkey]['curi'],
-                              snapshot5.value,
-                              individualkey,
-                            );
-                            orderlist.add(ordernameclass);
-                            costantList.add(ordernameclass);
-                          });
-                        }
-                        else {
-                          setState(() {
-                            OrderNameClass ordernameclass = new OrderNameClass(
-                              DATA[individualkey]['cId'],
-                              DATA[individualkey]['cdate'],
-                              DATA[individualkey]['clat1'],
-                              DATA[individualkey]['clong1'],
-                              DATA[individualkey]['clat2'],
-                              DATA[individualkey]['clong2'],
-                              DATA[individualkey]['cType'],
-                              DATA[individualkey]['cCategory'],
-                              DATA[individualkey]['cpayload'],
-                              DATA[individualkey]['cnocars'],
-                              DATA[individualkey]['ctime'],
-                              DATA[individualkey]['cpublished'],
-                              DATA[individualkey]['cstarttraveltime'],
-                              DATA[individualkey]['curi'],
-                              "no name",
-                              individualkey,
-                            );
-                            orderlist.add(ordernameclass);
-                            costantList.add(ordernameclass);
-                          });
-                        }
+                        UserRateClass userrating = new UserRateClass(
+                          DATA5['cName'],
+                          DATA5['rating'],
+                          DATA5['custRate'],
+
+                        );
+                        setState(() {
+                          //namelist.add(snapshot5.value);
+                          OrderNameClass ordernameclass = new OrderNameClass(
+                            DATA[individualkey]['cId'],
+                            DATA[individualkey]['cdate'],
+                            DATA[individualkey]['clat1'],
+                            DATA[individualkey]['clong1'],
+                            DATA[individualkey]['clat2'],
+                            DATA[individualkey]['clong2'],
+                            DATA[individualkey]['cType'],
+                            DATA[individualkey]['cCategory'],
+                            DATA[individualkey]['cpayload'],
+                            DATA[individualkey]['cnocars'],
+                            DATA[individualkey]['ctime'],
+                            DATA[individualkey]['cpublished'],
+                            DATA[individualkey]['cstarttraveltime'],
+                            DATA[individualkey]['curi'],
+                            DATA5['cName'],
+                            DATA5['rating'],
+                            DATA5['custRate'],
+                            individualkey,
+                          );
+                          orderlist.add(ordernameclass);
+                          costantList.add(ordernameclass);
+                        });
                       });
                     });
+                    ///////////////////////////////////
+                    //String  cName;
+//                    final userdatabaseReference =
+//                        FirebaseDatabase.instance.reference().child("userdata");
+//                    userdatabaseReference
+//                        .child(
+//                          DATA[individualkey]['cId'],
+//                        )
+//                        .child("cName")
+//                        .once()
+//                        .then((DataSnapshot snapshot5) {
+//                      setState(() {
+//                        if (snapshot5.value != null) {
+//
+//                        }
+//                        else {
+//                          setState(() {
+//                            OrderNameClass ordernameclass = new OrderNameClass(
+//                              DATA[individualkey]['cId'],
+//                              DATA[individualkey]['cdate'],
+//                              DATA[individualkey]['clat1'],
+//                              DATA[individualkey]['clong1'],
+//                              DATA[individualkey]['clat2'],
+//                              DATA[individualkey]['clong2'],
+//                              DATA[individualkey]['cType'],
+//                              DATA[individualkey]['cCategory'],
+//                              DATA[individualkey]['cpayload'],
+//                              DATA[individualkey]['cnocars'],
+//                              DATA[individualkey]['ctime'],
+//                              DATA[individualkey]['cpublished'],
+//                              DATA[individualkey]['cstarttraveltime'],
+//                              DATA[individualkey]['curi'],
+//                              "no name",
+//                              individualkey,
+//                            );
+//                            orderlist.add(ordernameclass);
+//                            costantList.add(ordernameclass);
+//                          });
+//                        }
+//                      });
+//                    });
                   }
                 });
               }
@@ -398,6 +420,8 @@ class _AllOrderState extends State<AllOrder> {
                               orderlist[index].cstarttraveltime,
                               orderlist[index].curi,
                               orderlist[index].cName,
+                              orderlist[index].rating,
+                              orderlist[index].custRate,
                               orderlist[index].cDateID,
                             ),
                             onTap: () {});
@@ -427,8 +451,14 @@ class _AllOrderState extends State<AllOrder> {
     String cstarttraveltime,
     String curi,
     String cname,
+        rating,
+  custRate,
       String  cDateID,
   ) {
+    var cRate = 0.0;
+    if (custRate > 0) {
+      cRate = double.parse(rating) / custRate;
+    }
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Card(
@@ -556,15 +586,28 @@ class _AllOrderState extends State<AllOrder> {
                           right: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: SmoothStarRating(
-                                allowHalfRating: false,
+                            child:  cRate > 0.0
+                                ? SmoothStarRating(
+                                allowHalfRating: true,
+                                onRated: (v) {
+                                },
                                 starCount: 5,
-                                rating: 5,
+                                rating: cRate,
+                                isReadOnly:true,//not changed
                                 //setting value
                                 size: 20.0,
-                                color: Colors.amber,
-                                borderColor: Colors.grey,
-                                spacing: 0.0),
+                                color: Colors.yellow,
+                                borderColor: Colors.yellow,
+                                spacing: 0.0)
+                                : new Text(
+                              'منضم حديثا',
+                              style: TextStyle(
+                                  color: Colors.yellow,
+                                  fontFamily: 'Gamja Flower',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0,
+                                  fontStyle: FontStyle.normal),
+                            ),
                           ),
                         ),
                         Positioned(

@@ -14,6 +14,8 @@ class OrderNameClass {
   String cstarttraveltime;
   String curi;
   String cName;
+  String rating;
+  int custRate;
   String cDateID;
   OrderNameClass(
   this.cId,
@@ -31,6 +33,8 @@ class OrderNameClass {
   this.cstarttraveltime,
       this.curi,
       this.cName,
+      this.rating,
+      this.custRate,
       this.cDateID,
      );
 
