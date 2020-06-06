@@ -44,7 +44,8 @@ class _fragmentState extends State<Fragmentnaql> {
       AllOrder(),
 
     ];
-    return CupertinoTabScaffold(
+    return
+      /*CupertinoTabScaffold(
       // debugShowCheckedModeBanner: false,
 
         tabBar: CupertinoTabBar(
@@ -173,8 +174,8 @@ class _fragmentState extends State<Fragmentnaql> {
             },
           );
         }
-    );
-    /**Scaffold(
+    );*/
+    Scaffold(
         backgroundColor: const Color(0xffffffff),
         body: _children[_currentIndex],
         bottomNavigationBar: new Theme(
@@ -286,7 +287,7 @@ class _fragmentState extends State<Fragmentnaql> {
         ],
         ),
         ),
-        );**/
+        );
   }
 
   void onTabTapped(int index) {

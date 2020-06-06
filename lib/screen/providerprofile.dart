@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:advancednaql/ModelsForChating/chat.dart';
 import 'package:advancednaql/classes/CommentClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderDetailClass.dart';
@@ -15,6 +14,7 @@ import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:connectivity/connectivity.dart';
 
+import 'ModelsForChating/chat.dart';
 import 'allorder.dart';
 class providerProlile  extends StatefulWidget {
   String cId;
@@ -754,10 +754,10 @@ setState(() {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
-                                    new Text("تواصل عن طريق الواتس",
+                                    new Text("تواصل عن طريق الواتساب",
                                       style: TextStyle(
                                         color: Colors.blue,
-                                        fontSize: 10,
+                                        fontSize: 8,
                                       ),),
                                     Icon(Icons.call,color: Colors.blue,),
                                   ],

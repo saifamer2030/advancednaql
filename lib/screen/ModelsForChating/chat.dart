@@ -1,8 +1,9 @@
 import 'dart:collection';
 import 'dart:io';
-
-import 'package:advancednaql/ModelsForChating/state.dart';
-import 'package:advancednaql/translation/app_localizations.dart';
+import 'package:advancednaql/classes/AlarmClass.dart';
+import 'package:advancednaql/screen/ModelsForChating/state.dart';
+import 'package:advancednaql/screen/UserRating/RatingClass.dart';
+import 'package:advancednaql/screen/UserRating/UserRatingPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -31,23 +32,23 @@ class _ChatState extends State<ChatPage> {
   ChatPage get widget => super.widget;
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseUser user;
-  DatabaseReference reference1, reference2, reference3, reference4;
+  DatabaseReference reference1, reference2, reference3, reference4, reference5;
   TextEditingController _controller;
   List<Message> chatHolder;
   File image;
-  String _cName = "";
+  String _cName =" ";
   String _imgUrl = "";
   bool isLoaded = false;
 
   picker() async {
     DateTime time = DateTime.now();
-    String formattedDate =intl.DateFormat('hh:mm').format(time);
+    String formattedDate = intl.DateFormat('hh:mm').format(time);
     File img = await ImagePicker.pickImage(source: ImageSource.gallery);
     // File img = await ImagePicker.pickImage(source: ImageSource.camera);
     if (img != null) {
       int timestamp = new DateTime.now().millisecondsSinceEpoch;
       StorageReference storageReference =
-          FirebaseStorage.instance.ref().child("PhotoChating");
+      FirebaseStorage.instance.ref().child("PhotoChating");
 
       StorageUploadTask uploadTask = storageReference
           .child("img_" + timestamp.toString() + ".jpg")
@@ -67,6 +68,7 @@ class _ChatState extends State<ChatPage> {
     super.initState();
     _auth = FirebaseAuth.instance;
     getLoggedInUser();
+    getUser();
     _controller = new TextEditingController();
     chatHolder = new List<Message>();
     setState(() {
@@ -138,8 +140,8 @@ class _ChatState extends State<ChatPage> {
                 Transform.translate(
                   offset: Offset(124.0, 39.0),
                   child:
-                      // Adobe XD layer: 'logoBox' (shape)
-                      Container(
+                  // Adobe XD layer: 'logoBox' (shape)
+                  Container(
                     width: 166.0,
                     height: 67.0,
                     decoration: BoxDecoration(
@@ -178,7 +180,16 @@ class _ChatState extends State<ChatPage> {
                         new RaisedButton(
                           textColor: Colors.white,
                           color: const Color(0xff48B2E1),
-                          onPressed: () {},
+                          onPressed: () {
+
+
+                            Navigator.push(
+                              context,
+                              new MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                  new UserRatingPage(Rating(widget.uid,"" , ""))),
+                            );
+                          },
 
                           //#48B2E1
                           shape: new RoundedRectangleBorder(
@@ -206,7 +217,7 @@ class _ChatState extends State<ChatPage> {
                       left: _minimumPadding * 2,
                       right: _minimumPadding * 2),
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -216,7 +227,8 @@ class _ChatState extends State<ChatPage> {
                         borderRadius: BorderRadius.circular(10.0),
                         color: const Color(0xffe5e5e5),
                         boxShadow: [
-                          BoxShadow(color: const Color(0x33000000), blurRadius: 3)
+                          BoxShadow(
+                              color: const Color(0x33000000), blurRadius: 3)
                         ],
                       ),
                       child: Row(
@@ -232,9 +244,9 @@ class _ChatState extends State<ChatPage> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(widget.name,
                                     style: new TextStyle(
-                                        color: Colors.lightBlueAccent,
-                                        fontSize: 16,
-                                     )),
+                                      color: Colors.lightBlueAccent,
+                                      fontSize: 16,
+                                    )),
                               ),
                               new Container(
                                 child: new Text(widget.name[0],
@@ -279,91 +291,91 @@ class _ChatState extends State<ChatPage> {
                   child: new Positioned(
                       child: isLoaded
                           ? chatHolder.length == 0
-                              ? Center(child: Text("لا توجد محادثة"))
-                              : ListView.builder(
-                                  physics: BouncingScrollPhysics(),
-                                  itemBuilder: (BuildContext ctxt, int index) {
-                                    if (chatHolder[index].senderUser ==
-                                        user.uid) {
-                                      if (chatHolder[index].img != null) {
-                                        print("this Me =" +
-                                            chatHolder[index].img);
-                                      }
-                                      return Bubble(
-                                        message: chatHolder[index].message,
-                                        time: formattedDate,
-                                        delivered: true,
-                                        isMe: true,
-                                        img: chatHolder[index].img,
-                                      );
-                                    } else {
-                                      return new Bubble(
-                                        message: chatHolder[index].message,
-                                        time: formattedDate,
-                                        delivered: false,
-                                        isMe: false,
-                                        img: chatHolder[index].img,
-                                      );
-                                    }
-                                  },
-                                  itemCount: chatHolder.length,
-                                  padding: new EdgeInsets.fromLTRB(0, 0, 0, 70),
-                                )
+                          ? Center(child: Text("لا توجد محادثة"))
+                          : ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (BuildContext ctxt, int index) {
+                          if (chatHolder[index].senderUser ==
+                              user.uid) {
+                            if (chatHolder[index].img != null) {
+                              print("this Me =" +
+                                  chatHolder[index].img);
+                            }
+                            return Bubble(
+                              message: chatHolder[index].message,
+                              time: chatHolder[index].timeData,
+                              delivered: true,
+                              isMe: true,
+                              img: chatHolder[index].img,
+                            );
+                          } else {
+                            return new Bubble(
+                              message: chatHolder[index].message,
+                              time: chatHolder[index].timeData,
+                              delivered: false,
+                              isMe: false,
+                              img: chatHolder[index].img,
+                            );
+                          }
+                        },
+                        itemCount: chatHolder.length,
+                        padding: new EdgeInsets.fromLTRB(0, 0, 0, 70),
+                      )
                           : Center(
-                              child: SpinKitPumpingHeart(
-                                color: const Color(0xff4fc3f7),
-                              ),
-                            )),
+                        child: SpinKitPumpingHeart(
+                          color: const Color(0xff4fc3f7),
+                        ),
+                      )),
                 ),
                 new Positioned(
                     child: new Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: new Container(
-                    child: new Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: new Padding(
-                            child: Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: new TextField(
-                                keyboardType: TextInputType.multiline,
-                                textInputAction: TextInputAction.newline,
-                                maxLines: null,
-                                decoration: new InputDecoration.collapsed(
-                                  hintText: "اكتب رساله هنا",
+                      alignment: FractionalOffset.bottomCenter,
+                      child: new Container(
+                        child: new Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: new Padding(
+                                child: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: new TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    textInputAction: TextInputAction.newline,
+                                    maxLines: null,
+                                    decoration: new InputDecoration.collapsed(
+                                      hintText: "اكتب رساله هنا",
+                                    ),
+                                    controller: _controller,
+                                  ),
                                 ),
-                                controller: _controller,
+                                padding: EdgeInsets.fromLTRB(10.0, 0, 10, 0),
                               ),
                             ),
-                            padding: EdgeInsets.fromLTRB(10.0, 0, 10, 0),
-                          ),
-                        ),
-                        new IconButton(
-                            icon: new Icon(
-                              Icons.insert_photo,
-                              color: const Color(0xff4fc3f7),
+                            new IconButton(
+                                icon: new Icon(
+                                  Icons.insert_photo,
+                                  color: const Color(0xff4fc3f7),
+                                ),
+                                onPressed: () => picker()),
+                            new IconButton(
+                              onPressed: () => sendMessage(
+                                  msg: _controller.text,
+                                  img: null,
+                                  time: formattedDate),
+                              icon: new Icon(
+                                Icons.send,
+                                color: const Color(0xff4fc3f7),
+                              ),
                             ),
-                            onPressed: () => picker()),
-                        new IconButton(
-                          onPressed: () => sendMessage(
-                              msg: _controller.text,
-                              img: null,
-                              time: formattedDate),
-                          icon: new Icon(
-                            Icons.send,
-                            color: const Color(0xff4fc3f7),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                    decoration: new BoxDecoration(
-                        borderRadius:
+                        decoration: new BoxDecoration(
+                            borderRadius:
                             new BorderRadius.all(Radius.circular(25.0)),
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black)),
-                    margin: EdgeInsets.all(10.0),
-                  ),
-                ))
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black)),
+                        margin: EdgeInsets.all(10.0),
+                      ),
+                    ))
               ],
             ),
           ),
@@ -373,6 +385,9 @@ class _ChatState extends State<ChatPage> {
   }
 
   getLoggedInUser() async {
+    DateTime now = DateTime.now();
+    int dateNow =
+    int.parse('${now.year}${now.month}${now.day}${now.hour}${now.minute}');
     user = await _auth.currentUser();
     reference1 = FirebaseDatabase.instance
         .reference()
@@ -395,6 +410,11 @@ class _ChatState extends State<ChatPage> {
         .child("ChatList")
         .child(widget.uid)
         .child("idTo");
+    reference5 = FirebaseDatabase.instance
+        .reference()
+        .child("Alarm")
+        .child(widget.uid)
+        .child("$dateNow");
 
     reference1.onChildAdded.listen((Event event) {
       Map map = event.snapshot.value;
@@ -408,28 +428,48 @@ class _ChatState extends State<ChatPage> {
       final DatabaseError error = o;
       print('Error: ${error.code} ${error.message}');
     });
+
+    reference5.onChildAdded.listen((Event event) {
+      Map map = event.snapshot.value;
+
+      AlarmClass A = AlarmClass.fromJson(map);
+      setState(() {
+        isLoaded = true;
+      });
+    }, onError: (Object o) {
+      final DatabaseError error = o;
+      print('Error: ${error.code} ${error.message}');
+    });
     // here you write the codes to input the data into firestore
   }
 
   void sendMessage({String msg, String img, String time}) {
 //    DateTime time = DateTime.now();
 //    String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(time);
-
+    DateTime now = DateTime.now();
+    int dateNow =
+    int.parse('${now.year}${now.month}${now.day}${now.hour}${now.minute}');
     if (msg != "") {
       setState(() {
         isLoaded = true;
       });
       Map<String, String> map = new HashMap<String, String>();
+      Map<String, String> mapalarm = new HashMap<String, String>();
       map.putIfAbsent("message", () => msg);
       map.putIfAbsent("img", () => img);
       map.putIfAbsent("senderUser", () => user.uid);
       map.putIfAbsent("recevdUser", () => widget.uid);
       map.putIfAbsent("recevdName", () => widget.name);
       map.putIfAbsent("timeData", () => time);
+      mapalarm.putIfAbsent("userId", () => user.uid);
+      mapalarm.putIfAbsent("Name", () => _cName);
+      mapalarm.putIfAbsent("cType", () => "chat");
+      mapalarm.putIfAbsent("timeData", () => "$dateNow");
       reference1.push().set(map);
       reference2.push().set(map);
       reference3.set(widget.uid);
       reference4.set(user.uid);
+      reference5.set(mapalarm);
       _controller.clear();
     } else {
       Fluttertoast.showToast(
@@ -457,15 +497,15 @@ class Bubble extends StatelessWidget {
     final icon = delivered ? Icons.done : Icons.done;
     final radius = isMe
         ? BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            bottomLeft: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0),
-          )
+      topLeft: Radius.circular(10.0),
+      bottomLeft: Radius.circular(10.0),
+      bottomRight: Radius.circular(10.0),
+    )
         : BorderRadius.only(
 //            topRight: Radius.circular(10.0),
-            bottomLeft: Radius.circular(10.0),
-            bottomRight: Radius.circular(10.0),
-          );
+      bottomLeft: Radius.circular(10.0),
+      bottomRight: Radius.circular(10.0),
+    );
     return Column(
       crossAxisAlignment: align,
       children: <Widget>[
@@ -486,18 +526,18 @@ class Bubble extends StatelessWidget {
             children: <Widget>[
               img == null
                   ? Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Text(message),
-                    )
+                padding: EdgeInsets.all(15.0),
+                child: Text(message),
+              )
                   : Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: InkWell(
-                        onTap: () => null,
-                        child: Container(
-                          child: Image.network(img),
-                        ),
-                      ),
-                    ),
+                padding: EdgeInsets.all(15.0),
+                child: InkWell(
+                  onTap: () => null,
+                  child: Container(
+                    child: Image.network(img),
+                  ),
+                ),
+              ),
               Positioned(
                 bottom: 0.0,
                 right: 0.0,

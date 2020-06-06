@@ -5,6 +5,7 @@ import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -16,9 +17,14 @@ class AllOrder extends StatefulWidget {
   _AllOrderState createState() => _AllOrderState();
 }
 
+//db ref
+final fcmReference = FirebaseDatabase.instance.reference().child('Fcm-Token');
+
 class _AllOrderState extends State<AllOrder> {
+  FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
   List<OrderNameClass> orderlist = [];
   List<String> namelist = [];
+  FirebaseUser user;
   bool _load = false;
   var _typearray = [
     'الكل',
@@ -70,6 +76,22 @@ class _AllOrderState extends State<AllOrder> {
   @override
   void initState() {
     super.initState();
+    FirebaseAuth.instance.currentUser().then((user) => user == null
+        ? null
+        : setState(() {
+      _userId = user.uid;
+    }));
+
+
+      // get Token :
+      firebaseMessaging.getToken().then((token) {
+        if(_userId != null){
+          update(token);
+        }
+
+      }).then((_) {});
+
+
     setState(() {
       _load = true;
     });
@@ -77,7 +99,6 @@ class _AllOrderState extends State<AllOrder> {
     searchcontroller.addListener(() {
       if (searchcontroller.text == '') {
         setState(() {
-
           filtter = '';
         });
       } else {
@@ -87,27 +108,55 @@ class _AllOrderState extends State<AllOrder> {
       }
     });
 //    FirebaseAuth.instance.currentUser().then((user) => user == null
-//        ? null
-//        :
+//
     setState(() {
-        //    _userId = user.uid;
-            final orderdatabaseReference =
-                FirebaseDatabase.instance.reference().child("orderdata");
-            orderdatabaseReference.once().then((DataSnapshot data) {
-              var uuId = data.value.keys;
+      //    _userId = user.uid;
+      final orderdatabaseReference =
+          FirebaseDatabase.instance.reference().child("orderdata");
+      orderdatabaseReference.once().then((DataSnapshot data) {
+        var uuId = data.value.keys;
 
-              orderlist.clear();
-              namelist.clear();
-              for (var id in uuId) {
-                orderdatabaseReference
-                    .child(id)
-                    .once()
-                    .then((DataSnapshot data1) {
-                  var DATA = data1.value;
-                  var keys = data1.value.keys;
+        orderlist.clear();
+        namelist.clear();
+        for (var id in uuId) {
+          orderdatabaseReference.child(id).once().then((DataSnapshot data1) {
+            var DATA = data1.value;
+            var keys = data1.value.keys;
 
-                  for (var individualkey in keys) {
-                    OrderClass orderclass = new OrderClass(
+            for (var individualkey in keys) {
+              OrderClass orderclass = new OrderClass(
+                DATA[individualkey]['cId'],
+                DATA[individualkey]['cdate'],
+                DATA[individualkey]['clat1'],
+                DATA[individualkey]['clong1'],
+                DATA[individualkey]['clat2'],
+                DATA[individualkey]['clong2'],
+                DATA[individualkey]['cType'],
+                DATA[individualkey]['cCategory'],
+                DATA[individualkey]['cpayload'],
+                DATA[individualkey]['cnocars'],
+                DATA[individualkey]['ctime'],
+                DATA[individualkey]['cpublished'],
+                DATA[individualkey]['cstarttraveltime'],
+                DATA[individualkey]['curi'],
+              );
+              /////////////////////////////////////
+              final userdatabaseReference =
+                  FirebaseDatabase.instance.reference().child("userdata");
+              userdatabaseReference
+                  .child(DATA[individualkey]['cId'])
+                  .once()
+                  .then((DataSnapshot data1) {
+                var DATA5 = data1.value;
+                setState(() {
+                  UserRateClass userrating = new UserRateClass(
+                    DATA5['cName'],
+                    DATA5['rating'],
+                    DATA5['custRate'],
+                  );
+                  setState(() {
+                    //namelist.add(snapshot5.value);
+                    OrderNameClass ordernameclass = new OrderNameClass(
                       DATA[individualkey]['cId'],
                       DATA[individualkey]['cdate'],
                       DATA[individualkey]['clat1'],
@@ -122,51 +171,18 @@ class _AllOrderState extends State<AllOrder> {
                       DATA[individualkey]['cpublished'],
                       DATA[individualkey]['cstarttraveltime'],
                       DATA[individualkey]['curi'],
+                      DATA5['cName'],
+                      DATA5['rating'],
+                      DATA5['custRate'],
+                      individualkey,
                     );
-                    /////////////////////////////////////
-                    final userdatabaseReference =
-                    FirebaseDatabase.instance.reference().child("userdata");
-                    userdatabaseReference
-                        .child( DATA[individualkey]['cId'])
-                        .once()
-                        .then((DataSnapshot data1) {
-                      var DATA5= data1.value;
-                      setState(() {
-                        UserRateClass userrating = new UserRateClass(
-                          DATA5['cName'],
-                          DATA5['rating'],
-                          DATA5['custRate'],
-
-                        );
-                        setState(() {
-                          //namelist.add(snapshot5.value);
-                          OrderNameClass ordernameclass = new OrderNameClass(
-                            DATA[individualkey]['cId'],
-                            DATA[individualkey]['cdate'],
-                            DATA[individualkey]['clat1'],
-                            DATA[individualkey]['clong1'],
-                            DATA[individualkey]['clat2'],
-                            DATA[individualkey]['clong2'],
-                            DATA[individualkey]['cType'],
-                            DATA[individualkey]['cCategory'],
-                            DATA[individualkey]['cpayload'],
-                            DATA[individualkey]['cnocars'],
-                            DATA[individualkey]['ctime'],
-                            DATA[individualkey]['cpublished'],
-                            DATA[individualkey]['cstarttraveltime'],
-                            DATA[individualkey]['curi'],
-                            DATA5['cName'],
-                            DATA5['rating'],
-                            DATA5['custRate'],
-                            individualkey,
-                          );
-                          orderlist.add(ordernameclass);
-                          costantList.add(ordernameclass);
-                        });
-                      });
-                    });
-                    ///////////////////////////////////
-                    //String  cName;
+                    orderlist.add(ordernameclass);
+                    costantList.add(ordernameclass);
+                  });
+                });
+              });
+              ///////////////////////////////////
+              //String  cName;
 //                    final userdatabaseReference =
 //                        FirebaseDatabase.instance.reference().child("userdata");
 //                    userdatabaseReference
@@ -206,11 +222,11 @@ class _AllOrderState extends State<AllOrder> {
 //                        }
 //                      });
 //                    });
-                  }
-                });
-              }
-            });
+            }
           });
+        }
+      });
+    });
     //);
   }
 
@@ -251,18 +267,17 @@ class _AllOrderState extends State<AllOrder> {
           Column(
             children: <Widget>[
               Container(
-                width:  MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
                 height: 86.0,
                 decoration: BoxDecoration(
-
                   color: const Color(0xff4fc3f7),
                 ),
               ),
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
+                    // Adobe XD layer: 'logoBox' (shape)
+                    Center(
                   child: Container(
                     width: 166.0,
                     height: 67.0,
@@ -281,7 +296,6 @@ class _AllOrderState extends State<AllOrder> {
               ),
             ],
           ),
-
           Container(
             height: 40.0,
             decoration: BoxDecoration(color: Colors.white),
@@ -294,7 +308,6 @@ class _AllOrderState extends State<AllOrder> {
                     width: 150,
                     height: 40,
                     color: Colors.grey[500],
-
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: TextField(
@@ -387,7 +400,6 @@ class _AllOrderState extends State<AllOrder> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -395,7 +407,8 @@ class _AllOrderState extends State<AllOrder> {
           Expanded(
               child: orderlist.length == 0
                   ? Center(
-                      child:  loadingIndicator,)
+                      child: loadingIndicator,
+                    )
                   : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,
@@ -425,9 +438,7 @@ class _AllOrderState extends State<AllOrder> {
                               orderlist[index].cDateID,
                             ),
                             onTap: () {});
-                      })
-
-          )
+                      }))
         ],
       ),
     );
@@ -451,9 +462,9 @@ class _AllOrderState extends State<AllOrder> {
     String cstarttraveltime,
     String curi,
     String cname,
-        rating,
-  custRate,
-      String  cDateID,
+    rating,
+    custRate,
+    String cDateID,
   ) {
     var cRate = 0.0;
     if (custRate > 0) {
@@ -469,37 +480,39 @@ class _AllOrderState extends State<AllOrder> {
         margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
         child: InkWell(
           onTap: () {
-          setState(() {
-            if(cType=="عرض"){
-              Navigator.push(context,MaterialPageRoute(builder: (context) => providerProlile(cId, cDateID, cname)));
-              //Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(builder: (context) => providerProlile(cId, cDateID, cname), maintainState: false));
+            setState(() {
+              if (cType == "عرض") {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            providerProlile(cId, cDateID, cname)));
+                //Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(builder: (context) => providerProlile(cId, cDateID, cname), maintainState: false));
 
-
-            }else if(cType=="طلب"){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => orderProfile(
-                         cId,
-                         cdate,
-                         clat1,
-                         clong1,
-                         clat2,
-                         clong2,
-                         cType,
-                         cCategory,
-                         cpayload,
-                         cnocars,
-                         ctime,
-                         cpublished,
-                         cstarttraveltime,
-                         curi,
-                         cname,
-                          cDateID,
-                      )));
-            }else {}
-
-          });
+              } else if (cType == "طلب") {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => orderProfile(
+                              cId,
+                              cdate,
+                              clat1,
+                              clong1,
+                              clat2,
+                              clong2,
+                              cType,
+                              cCategory,
+                              cpayload,
+                              cnocars,
+                              ctime,
+                              cpublished,
+                              cstarttraveltime,
+                              curi,
+                              cname,
+                              cDateID,
+                            )));
+              } else {}
+            });
           },
           child: Container(
               padding: EdgeInsets.all(0),
@@ -586,28 +599,28 @@ class _AllOrderState extends State<AllOrder> {
                           right: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child:  cRate > 0.0
+                            child: cRate > 0.0
                                 ? SmoothStarRating(
-                                allowHalfRating: true,
-                                onRated: (v) {
-                                },
-                                starCount: 5,
-                                rating: cRate,
-                                isReadOnly:true,//not changed
-                                //setting value
-                                size: 20.0,
-                                color: Colors.yellow,
-                                borderColor: Colors.yellow,
-                                spacing: 0.0)
+                                    allowHalfRating: true,
+                                    onRated: (v) {},
+                                    starCount: 5,
+                                    rating: cRate,
+                                    isReadOnly: true,
+                                    //not changed
+                                    //setting value
+                                    size: 20.0,
+                                    color: Colors.amber,
+                                    borderColor: Colors.amber,
+                                    spacing: 0.0)
                                 : new Text(
-                              'منضم حديثا',
-                              style: TextStyle(
-                                  color: Colors.yellow,
-                                  fontFamily: 'Gamja Flower',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
-                                  fontStyle: FontStyle.normal),
-                            ),
+                                    'منضم حديثا',
+                                    style: TextStyle(
+                                        color: Colors.lightBlue,
+                                        fontFamily: 'Gamja Flower',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0,
+                                        fontStyle: FontStyle.normal),
+                                  ),
                           ),
                         ),
                         Positioned(
@@ -692,6 +705,11 @@ class _AllOrderState extends State<AllOrder> {
         ),
       ),
     );
+  }
+
+  update(String token) async {
+    DatabaseReference databaseReference = new FirebaseDatabase().reference();
+    fcmReference.child(_userId).set({"Token": token});
   }
 
   void _onDropDownItemSelectedtype(String newValueSelected) {
