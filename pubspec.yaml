@@ -44,6 +44,8 @@ dependencies:
   flutter_image_compress: ^0.6.8
   flutter_swiper: ^1.1.6
   url_launcher: ^5.4.10
+  flutter_rating_bar: ^2.0.0
+  firebase_messaging: ^5.1.2
 
   #simple_slider: ^0.0.2
   rxdart:
@@ -106,6 +108,8 @@ flutter:
    - assets/images/ic_wlocation.png
    - assets/images/ic_bluecar.png
    - assets/images/ic_ads.png
+   - assets/images/image_privcy_policy.png
+   - assets/images/image_terms_use.png
    - lang/en.json
    - lang/ar.json
   # An image asset can refer to one or more resolution-specific "variants", see

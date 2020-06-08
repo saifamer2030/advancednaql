@@ -1,10 +1,12 @@
+import 'package:advancednaql/screen/ModelsForChating/home.dart';
 import 'package:advancednaql/screen/addNewAds.dart';
 import 'package:advancednaql/screen/myadvertisement.dart';
 import 'package:advancednaql/screen/pledge.dart';
+import 'package:advancednaql/screen/privcy_policy.dart';
+import 'package:advancednaql/screen/terms_use.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'ModelsForChating/home.dart';
 import 'fragmentbar.dart';
 import 'screen/Splash.dart';
 import 'screen/login.dart';
@@ -81,6 +83,8 @@ class _MyAppState extends State<MyApp> {
         '/pledge':(BuildContext context)=>new Pledge(),
         '/neworder':(BuildContext context)=>new newOrder(),
         '/conection':(BuildContext context)=>new ConnectionScreen(),
+        '/termsuse':(BuildContext context)=>new TermsUse(),
+        '/privcypolicy':(BuildContext context)=>new PrivcyPolicy(),
       },
       localizationsDelegates: [
               _localeOverrideDelegate,

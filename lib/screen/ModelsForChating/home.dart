@@ -1,5 +1,5 @@
-import 'package:advancednaql/ModelsForChating/state.dart';
 import 'package:advancednaql/classes/UserRegDataClass.dart';
+import 'package:advancednaql/screen/ModelsForChating/state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
