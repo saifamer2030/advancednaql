@@ -8,8 +8,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'SelectCity.dart';
-
 class newOrder extends StatefulWidget {
   @override
   _newOrderState createState() => _newOrderState();
@@ -545,7 +543,7 @@ class _newOrderState extends State<newOrder> {
                             textDirection: TextDirection.rtl,
                             child: TextFormField(
                               textAlign: TextAlign.right,
-                              keyboardType: TextInputType.text,
+                              keyboardType: TextInputType.number,
                               style: textStyle,
                               //textDirection: TextDirection.rtl,
                               controller: _noController,

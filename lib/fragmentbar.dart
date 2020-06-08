@@ -37,7 +37,7 @@ class _fragmentState extends State<Fragmentnaql> {
 
     final List<Widget> _children = [
       MoreWidget(),
-      MyAdvertisement(),
+      NewOffer(),
       MyFav(),
       newOrder(),
       AllOrder(),
