@@ -20,21 +20,21 @@ import 'allorder.dart';
 class orderProfile  extends StatefulWidget {
 
   String cId;
-      String cdate;
+  String cdate;
   String clat1;
-      String clong1;
+  String clong1;
   String clat2;
-      String clong2;
+  String clong2;
   String cType;
-      String cCategory;
+  String cCategory;
   String cpayload;
-      String cnocars;
+  String cnocars;
   String ctime;
-      bool cpublished;
+  bool cpublished;
   String cstarttraveltime;
-      String curi;
+  String curi;
   String cname;
-      String  cDateID;
+  String  cDateID;
   orderProfile( this.cId,
       this.cdate,
       this.clat1,
@@ -104,22 +104,22 @@ class _orderProfileState extends State<orderProfile> {
       commentlist.clear();
 
       for (var individualkey in KEYS) {
-       // if (!blockList.contains(individualkey) &&user.uid != individualkey) {
-          CommentClass commentclass =
-          new CommentClass(
-            DATA[individualkey]['cId'],
-            DATA[individualkey]['cuserid'],
-            DATA[individualkey]['cdate'],
-            DATA[individualkey]['cheaddate'],
-            DATA[individualkey]['ccoment'],
-            DATA[individualkey]['cname'],
-          );
+        // if (!blockList.contains(individualkey) &&user.uid != individualkey) {
+        CommentClass commentclass =
+        new CommentClass(
+          DATA[individualkey]['cId'],
+          DATA[individualkey]['cuserid'],
+          DATA[individualkey]['cdate'],
+          DATA[individualkey]['cheaddate'],
+          DATA[individualkey]['ccoment'],
+          DATA[individualkey]['cname'],
+        );
 
         setState(() {
-              commentlist.add(commentclass);
+          commentlist.add(commentclass);
 //              Toast.show("${favchecklist.length}/${coiffurelist.length}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-            });
-       // }
+        });
+        // }
       }
     });
     FirebaseAuth.instance.currentUser().then((user) => user == null
@@ -190,9 +190,9 @@ class _orderProfileState extends State<orderProfile> {
                       Container(
                         //color: Colors.grey[200],
                           width: 300,height: 180,
-                       child:
-                       new Image.asset("assets/images/ic_bluecar.png",
-                           fit: BoxFit.contain)
+                          child:
+                          new Image.asset("assets/images/ic_bluecar.png",
+                              fit: BoxFit.contain)
 
                       ),
                       SizedBox(
@@ -233,31 +233,31 @@ class _orderProfileState extends State<orderProfile> {
                                     ),
                                   ),
                                 ),
-                             /**   Positioned(
-                                  top: 0,
-                                  left: 5,
-                                  child: Padding(
+                                /**   Positioned(
+                                    top: 0,
+                                    left: 5,
+                                    child: Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
-                                      children: <Widget>[
+                                    children: <Widget>[
 
-                                        orderclass==null?Text(""):
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("خلال: ${ widget.cmodel}",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
-
-                                      ],
+                                    orderclass==null?Text(""):
+                                    Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Text("خلال: ${ widget.cmodel}",
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'Gamja Flower',
+                                    fontStyle: FontStyle.normal),
                                     ),
-                                  ),
-                                ),**/
+                                    ),
+
+                                    ],
+                                    ),
+                                    ),
+                                    ),**/
 
                                 Positioned(
                                   top: 20,
@@ -266,37 +266,9 @@ class _orderProfileState extends State<orderProfile> {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
-                                             Padding(
-                                               padding: const EdgeInsets.only(top:8.0),
-                                               child: Text("الطالب: ${ widget.cname}",
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                        ),
-                                             ),
-                                        Icon(
-                                          Icons.person,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              /**  Positioned(
-                                  top: 45,
-                                  right: 5,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: <Widget>[
-
-                                        orderclass==null?Text(""):
                                         Padding(
                                           padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("الماركة: ${ orderclass.ccompany}",
+                                          child: Text("الطالب: ${ widget.cname}",
                                             textDirection: TextDirection.rtl,
                                             textAlign: TextAlign.right,
                                             style: TextStyle(
@@ -306,13 +278,41 @@ class _orderProfileState extends State<orderProfile> {
                                           ),
                                         ),
                                         Icon(
-                                          Icons.drive_eta,
+                                          Icons.person,
                                           color: Colors.grey,
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),**/
+                                ),
+                                /**  Positioned(
+                                    top: 45,
+                                    right: 5,
+                                    child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Row(
+                                    children: <Widget>[
+
+                                    orderclass==null?Text(""):
+                                    Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Text("الماركة: ${ orderclass.ccompany}",
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontFamily: 'Gamja Flower',
+                                    fontStyle: FontStyle.normal),
+                                    ),
+                                    ),
+                                    Icon(
+                                    Icons.drive_eta,
+                                    color: Colors.grey,
+                                    ),
+                                    ],
+                                    ),
+                                    ),
+                                    ),**/
                                 Positioned(
                                   top: 45,
                                   right: 5,
@@ -376,19 +376,19 @@ class _orderProfileState extends State<orderProfile> {
                             )),
                       ),
                       /**Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
                           child:orderclass==null?Text(""): Text(orderclass.cdetail,
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 15.0,
-                                fontFamily: 'Gamja Flower',
-                                fontStyle: FontStyle.normal),
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                          fontSize: 15.0,
+                          fontFamily: 'Gamja Flower',
+                          fontStyle: FontStyle.normal),
                           ),
-<<<<<<< HEAD
-                        ),
-                      ),**/
+                          <<<<<<< HEAD
+                          ),
+                          ),**/
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
@@ -406,8 +406,8 @@ class _orderProfileState extends State<orderProfile> {
                               ],
                             ),
 
-                          textColor: Colors.white,
-                          color: const Color(0xff43A2CC),
+                            textColor: Colors.white,
+                            color: const Color(0xff43A2CC),
                             onPressed: () {
                               if (_userId == null) {
                                 Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
@@ -435,44 +435,44 @@ class _orderProfileState extends State<orderProfile> {
                         width: _minimumPadding,
                       ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left:10.0),
-                          child: Container(
-                            width: 150 /*MediaQuery.of(context).size.width*/,
-                            height: 40,
-                            child: new RaisedButton(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  new Text("تواصل عبر الدردشة",
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 10,
-                                    ),),
-                                  Icon(Icons.mail_outline,color: Colors.blue,),
-                                ],
-                              ),
-                              textColor: Colors.black54,
-                              color: Colors.grey[400],
-                              onPressed: () {
-                                if (_userId == null) {
-                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left:10.0),
+                            child: Container(
+                              width: 150 /*MediaQuery.of(context).size.width*/,
+                              height: 40,
+                              child: new RaisedButton(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    new Text("تواصل عبر الدردشة",
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 10,
+                                      ),),
+                                    Icon(Icons.mail_outline,color: Colors.blue,),
+                                  ],
+                                ),
+                                textColor: Colors.black54,
+                                color: Colors.grey[400],
+                                onPressed: () {
+                                  if (_userId == null) {
+                                    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
 
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    new MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                        new ChatPage(
-                                            name:  widget.cname,
-                                            uid: widget.cId
-                                        )),
-                                  );
-                                }
-                              },
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                          new ChatPage(
+                                              name:  widget.cname,
+                                              uid: widget.cId
+                                          )),
+                                    );
+                                  }
+                                },
 //
                                 shape: new RoundedRectangleBorder(
                                     borderRadius: new BorderRadius.circular(10.0)),
@@ -624,7 +624,7 @@ class _orderProfileState extends State<orderProfile> {
                                   padding: const EdgeInsets.only(top:0.0,bottom: 65),
                                   child: Container(
                                     height:300,
-                                   //color: Colors.red[300],
+                                    //color: Colors.red[300],
                                     child:  Expanded(
                                         child: Center(
                                           child: commentlist.length == 0
@@ -634,21 +634,21 @@ class _orderProfileState extends State<orderProfile> {
                                               : new ListView.builder(
                                               physics: BouncingScrollPhysics(),
                                               controller: _controller,
-                                             // reverse: true,
+                                              // reverse: true,
                                               itemCount: commentlist.length,
                                               itemBuilder: (BuildContext ctxt, int index) {
                                                 return InkWell(
-                                                    child:  _firebasedata(
-                                                      index,
-                                                      commentlist.length,
-                                                      commentlist[index].cId,
-                                                      commentlist[index].cuserid,
-                                                      commentlist[index].cdate,
-                                                      commentlist[index].cheaddate,
-                                                      commentlist[index].ccoment,
-                                                      commentlist[index].cname,
+                                                  child:  _firebasedata(
+                                                    index,
+                                                    commentlist.length,
+                                                    commentlist[index].cId,
+                                                    commentlist[index].cuserid,
+                                                    commentlist[index].cdate,
+                                                    commentlist[index].cheaddate,
+                                                    commentlist[index].ccoment,
+                                                    commentlist[index].cname,
 
-                                                    ),
+                                                  ),
 //                                                    onTap: () {
 //                                                      if(_userId==commentlist[index].cuserid){
 //                                                        FirebaseDatabase.instance
@@ -673,72 +673,72 @@ class _orderProfileState extends State<orderProfile> {
 //                                                            gravity: Toast.BOTTOM);
 //                                                      }
 //                                                    }
-                                                    );
+                                                );
                                               }),
-                                         /** new ListView.builder(
+                                          /** new ListView.builder(
                                               key: refreshKey,
                                               physics: BouncingScrollPhysics(),
                                               //controller: _controller,
                                               itemCount: commentlist.length,
                                               itemBuilder: (_, index) {
-                                                return Dismissible(
-                                                  key: Key(commentlist[index].cId),
-                                                  background: Container(
-                                                      color: Colors.red,
-                                                      padding: EdgeInsets.only(left: 20),
-                                                      child: Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Icon(
-                                                          Icons.delete_forever,
-                                                          color: Colors.white,
-                                                          size: 60,
-                                                        ),
-                                                      )),
-                                                  direction: DismissDirection.startToEnd,
-                                                  onDismissed: (direction) {
-                                                    setState(() {
-                                                      setState(() {
-                                                        commentlist.removeAt(index);
-                                                     });
-                                                     // commentlist.removeAt(index);
-                                                      //Toast.show(userfavlist[index].cId+"//"+_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-                                                      if(_userId==commentlist[index].cuserid){
-                                                        FirebaseDatabase.instance
-                                                            .reference()
-                                                            .child("commentsdata")
-                                                            .child(widget.cId)
-                                                            .child(commentlist[index].cheaddate)
-                                                            .remove()
-                                                            .whenComplete(() {
+                                              return Dismissible(
+                                              key: Key(commentlist[index].cId),
+                                              background: Container(
+                                              color: Colors.red,
+                                              padding: EdgeInsets.only(left: 20),
+                                              child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Icon(
+                                              Icons.delete_forever,
+                                              color: Colors.white,
+                                              size: 60,
+                                              ),
+                                              )),
+                                              direction: DismissDirection.startToEnd,
+                                              onDismissed: (direction) {
+                                              setState(() {
+                                              setState(() {
+                                              commentlist.removeAt(index);
+                                              });
+                                              // commentlist.removeAt(index);
+                                              //Toast.show(userfavlist[index].cId+"//"+_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                                              if(_userId==commentlist[index].cuserid){
+                                              FirebaseDatabase.instance
+                                              .reference()
+                                              .child("commentsdata")
+                                              .child(widget.cId)
+                                              .child(commentlist[index].cheaddate)
+                                              .remove()
+                                              .whenComplete(() {
 
-//                                                          setState(() {
-//                                                            commentlist.removeAt(index);
-//                                                          });
-                                                          Toast.show("تم حذف التعليق", context,
-                                                              duration: Toast.LENGTH_SHORT,
-                                                              gravity: Toast.BOTTOM);
-                                                        });
-                                                      }
-                                       else{
-                                                        Toast.show("ليس تعليقك", context,
-                                                            duration: Toast.LENGTH_SHORT,
-                                                            gravity: Toast.BOTTOM);
-                                                      }
-                                                    });
-                                                  },
-                                                  child:
-                                                  _firebasedata(
-                                                    index,
-                                                    commentlist.length,
-                                                    commentlist[index].cId,
-                                                    commentlist[index].cuserid,
-                                                    commentlist[index].cdate,
-                                                    commentlist[index].cheaddate,
-                                                    commentlist[index].ccoment,
-                                                    commentlist[index].cname,
+                                              //                                                          setState(() {
+                                              //                                                            commentlist.removeAt(index);
+                                              //                                                          });
+                                              Toast.show("تم حذف التعليق", context,
+                                              duration: Toast.LENGTH_SHORT,
+                                              gravity: Toast.BOTTOM);
+                                              });
+                                              }
+                                              else{
+                                              Toast.show("ليس تعليقك", context,
+                                              duration: Toast.LENGTH_SHORT,
+                                              gravity: Toast.BOTTOM);
+                                              }
+                                              });
+                                              },
+                                              child:
+                                              _firebasedata(
+                                              index,
+                                              commentlist.length,
+                                              commentlist[index].cId,
+                                              commentlist[index].cuserid,
+                                              commentlist[index].cdate,
+                                              commentlist[index].cheaddate,
+                                              commentlist[index].ccoment,
+                                              commentlist[index].cname,
 
-                                                  ),
-                                                );
+                                              ),
+                                              );
                                               }),**/
                                         )),
                                   ),
@@ -766,7 +766,7 @@ class _orderProfileState extends State<orderProfile> {
                                                   textAlign: TextAlign.right,
                                                   keyboardType: TextInputType.text,
                                                   textDirection: TextDirection.rtl,
-                                                   controller: _commentController,
+                                                  controller: _commentController,
                                                   validator: (String value) {
                                                     if ((value.isEmpty)) {
                                                       return 'برجاء ادخال التعليق';
@@ -778,7 +778,7 @@ class _orderProfileState extends State<orderProfile> {
                                                   decoration: InputDecoration(
                                                       errorStyle: TextStyle(color: Colors.red, fontSize: 15.0),
                                                       labelText: "التعليق",
-                                                     // hintText: "التعليق",
+                                                      // hintText: "التعليق",
 
 //                                prefixIcon: Icon(
 //                                  Icons.phone_iphone,
@@ -855,81 +855,81 @@ class _orderProfileState extends State<orderProfile> {
   void createRecord() {
 
 
-      final userdatabaseReference =
-      FirebaseDatabase.instance.reference().child("userdata");
-      userdatabaseReference
-          .child(_userId)
-          .child("cName")
-          .once()
-          .then((DataSnapshot snapshot5) {
-        setState(() {
-          if (snapshot5.value != null) {
-            setState(() {
-              DateTime now = DateTime.now();
+    final userdatabaseReference =
+    FirebaseDatabase.instance.reference().child("userdata");
+    userdatabaseReference
+        .child(_userId)
+        .child("cName")
+        .once()
+        .then((DataSnapshot snapshot5) {
+      setState(() {
+        if (snapshot5.value != null) {
+          setState(() {
+            DateTime now = DateTime.now();
 
-              // String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
-              String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00';
-              final commentbaseReference =
-              FirebaseDatabase.instance.reference().child("commentsdata");
-              commentbaseReference.child(widget.cId).child(_userId+date).set({
-                'cId': widget.cId,
-                'cuserid': _userId,
-                'cdate':now.toString(),
-                'cheaddate':_userId+date,
-                'ccoment':_commentController.text,
-                'cname': snapshot5.value,
-              }).whenComplete(() {
-                Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-                CommentClass commentclass =
-                new CommentClass(
-                    widget.cId,
-                  _userId,
-                  now.toString(),
-                  _userId+date,
-                  _commentController.text,
-                  snapshot5.value,
+            // String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
+            String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00';
+            final commentbaseReference =
+            FirebaseDatabase.instance.reference().child("commentsdata");
+            commentbaseReference.child(widget.cId).child(_userId+date).set({
+              'cId': widget.cId,
+              'cuserid': _userId,
+              'cdate':now.toString(),
+              'cheaddate':_userId+date,
+              'ccoment':_commentController.text,
+              'cname': snapshot5.value,
+            }).whenComplete(() {
+              Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+              CommentClass commentclass =
+              new CommentClass(
+                widget.cId,
+                _userId,
+                now.toString(),
+                _userId+date,
+                _commentController.text,
+                snapshot5.value,
+              );
+              setState(() {
+                commentlist.add(commentclass);
+                _commentController.text="";
+                //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
+
+                _controller.animateTo(                                      // NEW
+                  _controller.position.maxScrollExtent*1.1,                     // NEW
+                  duration: const Duration(milliseconds: 500),                    // NEW
+                  curve: Curves.ease,                                             // NEW
                 );
-                setState(() {
-                  commentlist.add(commentclass);
-                  _commentController.text="";
-            //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
-
-                  _controller.animateTo(                                      // NEW
-                    _controller.position.maxScrollExtent*1.1,                     // NEW
-                    duration: const Duration(milliseconds: 500),                    // NEW
-                    curve: Curves.ease,                                             // NEW
-                  );
-                });
-
-              //  _controller.animateTo(0.0,curve: Curves.easeInOut, duration: Duration(seconds: 1));
-              }).catchError((e) {
-                Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-                setState(() {
-                  //  _load2 = false;
-                });
               });
 
+              //  _controller.animateTo(0.0,curve: Curves.easeInOut, duration: Duration(seconds: 1));
+            }).catchError((e) {
+              Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+              setState(() {
+                //  _load2 = false;
+              });
             });
-          }
-        });
+
+          });
+        }
       });
+    });
 
 
-   // })
-   // );
+    // })
+    // );
 
 
 
   }
   Widget _firebasedata(
-  index,
-  length,
-  cId,
-  cuserid,
-  cdate,
-  cheaddate,
-  ccoment,
-  cname,
+      index,
+      length,
+      cId,
+      cuserid,
+      cdate,
+      cheaddate,
+      ccoment,
+      cname,
 
 
       ) {
@@ -946,30 +946,30 @@ class _orderProfileState extends State<orderProfile> {
           onTap: () {
             setState(() {
 
-                print("kkkkkkkkkkkk");
-                if(_userId==commentlist[index].cuserid){
-                  FirebaseDatabase.instance
-                      .reference()
-                      .child("commentsdata")
-                      .child(widget.cId)
-                      .child(commentlist[index].cheaddate)
-                      .remove()
-                      .whenComplete(() {
+              print("kkkkkkkkkkkk");
+              if(_userId==commentlist[index].cuserid){
+                FirebaseDatabase.instance
+                    .reference()
+                    .child("commentsdata")
+                    .child(widget.cId)
+                    .child(commentlist[index].cheaddate)
+                    .remove()
+                    .whenComplete(() {
 
-                    setState(() {
-                      commentlist.removeAt(index);
-                    });
-                    Toast.show("تم حذف التعليق", context,
-                        duration: Toast.LENGTH_SHORT,
-                        gravity: Toast.BOTTOM);
+                  setState(() {
+                    commentlist.removeAt(index);
                   });
-                }
-                else{
-                  Toast.show("ليس تعليقك", context,
+                  Toast.show("تم حذف التعليق", context,
                       duration: Toast.LENGTH_SHORT,
                       gravity: Toast.BOTTOM);
-                }
-           //   }),
+                });
+              }
+              else{
+                Toast.show("ليس تعليقك", context,
+                    duration: Toast.LENGTH_SHORT,
+                    gravity: Toast.BOTTOM);
+              }
+              //   }),
 //            Navigator.push(
 //                context,
 //                MaterialPageRoute(
