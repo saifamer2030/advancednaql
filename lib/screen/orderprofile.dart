@@ -853,6 +853,22 @@ class _orderProfileState extends State<orderProfile> {
   }
 
   void createRecord() {
+    DateTime now = DateTime.now();
+    String b=now.month.toString();
+    if(b.length<2){b="0"+b;}
+    String c=now.day.toString();
+    if(c.length<2){c="0"+c;}
+    String d=now.hour.toString();
+    if(d.length<2){d="0"+d;}
+    String e=now.minute.toString();
+    if(e.length<2){e="0"+e;}
+    String f=now.second.toString();
+    if(f.length<2){f="0"+f;}
+    final databasealarm = FirebaseDatabase
+        .instance
+        .reference()
+        .child("Alarm")
+        .child(widget.cId);
 
 
     final userdatabaseReference =
@@ -879,6 +895,7 @@ class _orderProfileState extends State<orderProfile> {
               'ccoment':_commentController.text,
               'cname': snapshot5.value,
             }).whenComplete(() {
+
               Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
               CommentClass commentclass =
               new CommentClass(
@@ -900,6 +917,37 @@ class _orderProfileState extends State<orderProfile> {
                   curve: Curves.ease,                                             // NEW
                 );
               });
+//              databasealarm.push().set({
+//                'alarmid': databasealarm.push().key,
+//                'wid': widget.cId,
+//                'Name': snapshot5.value,
+//                'cType': "profilecomment",
+//                'cDateID':"${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
+//                'arrange':int.parse("${now.year.toString()}${b}${c}${d}${e}${f}")
+//              }).whenComplete(() {
+//
+//                Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+//                CommentClass commentclass =
+//                new CommentClass(
+//                  widget.cId,
+//                  _userId,
+//                  now.toString(),
+//                  _userId+date,
+//                  _commentController.text,
+//                  snapshot5.value,
+//                );
+//                setState(() {
+//                  commentlist.add(commentclass);
+//                  _commentController.text="";
+//                  //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
+//
+//                  _controller.animateTo(                                      // NEW
+//                    _controller.position.maxScrollExtent*1.1,                     // NEW
+//                    duration: const Duration(milliseconds: 500),                    // NEW
+//                    curve: Curves.ease,                                             // NEW
+//                  );
+ //               });
+  //            });
 
               //  _controller.animateTo(0.0,curve: Curves.easeInOut, duration: Duration(seconds: 1));
             }).catchError((e) {

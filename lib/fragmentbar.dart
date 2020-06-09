@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:advancednaql/screen/allorder.dart';
 import 'package:advancednaql/screen/login.dart';
 import 'package:advancednaql/screen/morewidget.dart';
+import 'package:advancednaql/screen/myalarms.dart';
 import 'package:advancednaql/screen/myfavourits.dart';
 import 'package:advancednaql/screen/neworder.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +38,9 @@ class _fragmentState extends State<Fragmentnaql> {
 
     final List<Widget> _children = [
       MoreWidget(),
-      NewOffer(),
+      MyAlarms(),
       MyFav(),
-      newOrder(),
+      NewOffer(),
       AllOrder(),
 
     ];
