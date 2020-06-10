@@ -26,7 +26,7 @@ class providerProlile  extends StatefulWidget {
 }
 
 class _providerProlileState extends State<providerProlile> {
-  String _userId;
+  String _userId;String _username;
   var _formKey1 = GlobalKey<FormState>();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _launched;
@@ -46,10 +46,9 @@ class _providerProlileState extends State<providerProlile> {
   @override
   void initState() {
     super.initState();
-
     final userdatabaseReference =
     FirebaseDatabase.instance.reference().child("userdata");
-    userdatabaseReference
+      userdatabaseReference
         .child(
      widget.cId,
     )
@@ -146,7 +145,24 @@ class _providerProlileState extends State<providerProlile> {
         :
     setState(() {
       _userId = user.uid;
-    //  Toast.show(_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+      userdatabaseReference
+          .child(
+        _userId,
+      )
+          .child("cName")
+          .once()
+          .then((DataSnapshot snapshot) {
+        setState(() {
+          if (snapshot.value != null) {
+            setState(() {
+              _username=snapshot.value;
+            });
+          }
+
+        });
+      });
+
+      //  Toast.show(_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
       final databaseFav =
       FirebaseDatabase.instance.reference().child("userFavourits");
@@ -345,7 +361,24 @@ setState(() {
 
                                            });
                                           } else {
+                                            DateTime now = DateTime.now();
+                                            String b=now.month.toString();
+                                            if(b.length<2){b="0"+b;}
+                                            String c=now.day.toString();
+                                            if(c.length<2){c="0"+c;}
+                                            String d=now.hour.toString();
+                                            if(d.length<2){d="0"+d;}
+                                            String e=now.minute.toString();
+                                            if(e.length<2){e="0"+e;}
+                                            String f=now.second.toString();
+                                            if(f.length<2){f="0"+f;}
+
 //////////*******************************************
+                                            final databasealarm = FirebaseDatabase
+                                                .instance
+                                                .reference()
+                                                .child("Alarm")
+                                                .child(widget.cId);
                                             final databaseFav = FirebaseDatabase
                                                 .instance
                                                 .reference()
@@ -357,7 +390,14 @@ setState(() {
                                                 'FavChecked': favcheck,
                                                 'cDateID':widget.cDateID,
                                               });
-
+                                              databasealarm.push().set({
+                                                'alarmid': databasealarm.push().key,
+                                                'wid': widget.cId,
+                                                'Name': _username,
+                                                'cType': "love",
+                                                'cDateID':"${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
+                                                'arrange':int.parse("${now.year.toString()}${b}${c}${d}${e}${f}")
+                                              });
                                               Toast.show(
                                                   "${widget.cName}تم اضافتة فى المفضلة ", context,
                                                   duration: Toast.LENGTH_SHORT,
@@ -814,7 +854,9 @@ setState(() {
                                   child: Container(
                                     height:300,
                                    //color: Colors.red[300],
-                                    child:  Expanded(
+                                    child:
+
+                                    Expanded(
                                         child: Center(
                                           child: commentlist.length == 0
                                               ? new Text(
@@ -864,71 +906,7 @@ setState(() {
 //                                                    }
                                                     );
                                               }),
-                                         /** new ListView.builder(
-                                              key: refreshKey,
-                                              physics: BouncingScrollPhysics(),
-                                              //controller: _controller,
-                                              itemCount: commentlist.length,
-                                              itemBuilder: (_, index) {
-                                                return Dismissible(
-                                                  key: Key(commentlist[index].cId),
-                                                  background: Container(
-                                                      color: Colors.red,
-                                                      padding: EdgeInsets.only(left: 20),
-                                                      child: Align(
-                                                        alignment: Alignment.centerLeft,
-                                                        child: Icon(
-                                                          Icons.delete_forever,
-                                                          color: Colors.white,
-                                                          size: 60,
-                                                        ),
-                                                      )),
-                                                  direction: DismissDirection.startToEnd,
-                                                  onDismissed: (direction) {
-                                                    setState(() {
-                                                      setState(() {
-                                                        commentlist.removeAt(index);
-                                                     });
-                                                     // commentlist.removeAt(index);
-                                                      //Toast.show(userfavlist[index].cId+"//"+_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-                                                      if(_userId==commentlist[index].cuserid){
-                                                        FirebaseDatabase.instance
-                                                            .reference()
-                                                            .child("commentsdata")
-                                                            .child(widget.cId)
-                                                            .child(commentlist[index].cheaddate)
-                                                            .remove()
-                                                            .whenComplete(() {
 
-//                                                          setState(() {
-//                                                            commentlist.removeAt(index);
-//                                                          });
-                                                          Toast.show("تم حذف التعليق", context,
-                                                              duration: Toast.LENGTH_SHORT,
-                                                              gravity: Toast.BOTTOM);
-                                                        });
-                                                      }
-                                       else{
-                                                        Toast.show("ليس تعليقك", context,
-                                                            duration: Toast.LENGTH_SHORT,
-                                                            gravity: Toast.BOTTOM);
-                                                      }
-                                                    });
-                                                  },
-                                                  child:
-                                                  _firebasedata(
-                                                    index,
-                                                    commentlist.length,
-                                                    commentlist[index].cId,
-                                                    commentlist[index].cuserid,
-                                                    commentlist[index].cdate,
-                                                    commentlist[index].cheaddate,
-                                                    commentlist[index].ccoment,
-                                                    commentlist[index].cname,
-
-                                                  ),
-                                                );
-                                              }),**/
                                         )),
                                   ),
                                 ),
@@ -1043,9 +1021,24 @@ setState(() {
   }
 
   void createRecord() {
+//    DateTime now = DateTime.now();
+//    String b=now.month.toString();
+//    if(b.length<2){b="0"+b;}
+//    String c=now.day.toString();
+//    if(c.length<2){c="0"+c;}
+//    String d=now.hour.toString();
+//    if(d.length<2){d="0"+d;}
+//    String e=now.minute.toString();
+//    if(e.length<2){e="0"+e;}
+//    String f=now.second.toString();
+//    if(f.length<2){f="0"+f;}
+//    final databasealarm = FirebaseDatabase
+//        .instance
+//        .reference()
+//        .child("Alarm")
+//        .child(widget.cId);
 
-
-      final userdatabaseReference =
+    final userdatabaseReference =
       FirebaseDatabase.instance.reference().child("userdata");
       userdatabaseReference
           .child(_userId)
@@ -1069,10 +1062,11 @@ setState(() {
                 'ccoment':_commentController.text,
                 'cname': snapshot5.value,
               }).whenComplete(() {
+
                 Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
                 CommentClass commentclass =
                 new CommentClass(
-                    widget.cId,
+                  widget.cId,
                   _userId,
                   now.toString(),
                   _userId+date,
@@ -1082,15 +1076,48 @@ setState(() {
                 setState(() {
                   commentlist.add(commentclass);
                   _commentController.text="";
-            //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
+                  //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
 
                   _controller.animateTo(                                      // NEW
-                    _controller.position.maxScrollExtent*1.1,                     // NEW
+                    _controller.position.maxScrollExtent*1.2,                     // NEW
                     duration: const Duration(milliseconds: 500),                    // NEW
                     curve: Curves.ease,                                             // NEW
                   );
                 });
+                /**
+                databasealarm.push().set({
+                  'alarmid': databasealarm.push().key,
+                  'wid': widget.cId,
+                  'Name': snapshot5.value,
+                  'cType': "profilecomment",
+                  'cDateID':"${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
+                  'arrange':int.parse("${now.year.toString()}${b}${c}${d}${e}${f}")
+                }).whenComplete(() {
 
+                  Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                  CommentClass commentclass =
+                  new CommentClass(
+                    widget.cId,
+                    _userId,
+                    now.toString(),
+                    _userId+date,
+                    _commentController.text,
+                    snapshot5.value,
+                  );
+                  setState(() {
+                    commentlist.add(commentclass);
+                    _commentController.text="";
+                    //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
+
+                    _controller.animateTo(                                      // NEW
+                      _controller.position.maxScrollExtent*1.1,                     // NEW
+                      duration: const Duration(milliseconds: 500),                    // NEW
+                      curve: Curves.ease,                                             // NEW
+                    );
+                  });
+                });
+
+**/
               //  _controller.animateTo(0.0,curve: Curves.easeInOut, duration: Duration(seconds: 1));
               }).catchError((e) {
                 Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);

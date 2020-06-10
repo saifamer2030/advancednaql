@@ -181,47 +181,6 @@ class _AllOrderState extends State<AllOrder> {
                   });
                 });
               });
-              ///////////////////////////////////
-              //String  cName;
-//                    final userdatabaseReference =
-//                        FirebaseDatabase.instance.reference().child("userdata");
-//                    userdatabaseReference
-//                        .child(
-//                          DATA[individualkey]['cId'],
-//                        )
-//                        .child("cName")
-//                        .once()
-//                        .then((DataSnapshot snapshot5) {
-//                      setState(() {
-//                        if (snapshot5.value != null) {
-//
-//                        }
-//                        else {
-//                          setState(() {
-//                            OrderNameClass ordernameclass = new OrderNameClass(
-//                              DATA[individualkey]['cId'],
-//                              DATA[individualkey]['cdate'],
-//                              DATA[individualkey]['clat1'],
-//                              DATA[individualkey]['clong1'],
-//                              DATA[individualkey]['clat2'],
-//                              DATA[individualkey]['clong2'],
-//                              DATA[individualkey]['cType'],
-//                              DATA[individualkey]['cCategory'],
-//                              DATA[individualkey]['cpayload'],
-//                              DATA[individualkey]['cnocars'],
-//                              DATA[individualkey]['ctime'],
-//                              DATA[individualkey]['cpublished'],
-//                              DATA[individualkey]['cstarttraveltime'],
-//                              DATA[individualkey]['curi'],
-//                              "no name",
-//                              individualkey,
-//                            );
-//                            orderlist.add(ordernameclass);
-//                            costantList.add(ordernameclass);
-//                          });
-//                        }
-//                      });
-//                    });
             }
           });
         }
@@ -631,8 +590,8 @@ class _AllOrderState extends State<AllOrder> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text(
-                                  "الواجهة: ",
+                            (clat1==""||clat1==null)?Text(""): Text(
+                                  "$clat1",
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
@@ -640,12 +599,18 @@ class _AllOrderState extends State<AllOrder> {
                                       fontSize: 10.0,
                                       fontStyle: FontStyle.normal),
                                 ),
+                                (clat1==""||clat1==null)?Text(""):  new Icon(
+                                  Icons.location_on,
+                                  color: Colors.blue,
+                                  size: 15,
+                                ),
                                 SizedBox(
                                   height: _minimumPadding,
-                                  width: _minimumPadding,
+                                  width: _minimumPadding*4,
                                 ),
-                                Text(
-                                  "الواجهة: ",
+
+                                (clat2==""||clat2==null)?Text(""):  Text(
+                                  "الواجهة:$clat2",
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(

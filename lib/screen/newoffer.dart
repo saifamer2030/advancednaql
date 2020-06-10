@@ -1,3 +1,4 @@
+import 'package:advancednaql/classes/CityClass.dart';
 import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,14 @@ class _newoffer extends State<NewOffer> {
   bool photoselected13=false;
   bool photoselected14=false;
   List<String> urlList = [];
+  String city1;
+  String city2;
+  String city3;
+
+ bool _travelcheck = false;
+  bool Agrcheck=false;
+  bool _advcheck=false;
+  bool _nocheck = false;
 
   bool _load2 = false;
   final orderdatabaseReference =
@@ -81,8 +90,9 @@ class _newoffer extends State<NewOffer> {
     "18",
     "19",
     "20",
+    "حدد",
   ];
-
+  TextEditingController _noController = TextEditingController();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _modelController = TextEditingController();
   TextEditingController _companyController = TextEditingController();
@@ -112,6 +122,8 @@ class _newoffer extends State<NewOffer> {
       child: SpinKitCircle(color: Colors.blue),
     )
         : new Container();
+    TextStyle textStyle = Theme.of(context).textTheme.subtitle;
+
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: Stack(children: <Widget>[
@@ -532,7 +544,7 @@ class _newoffer extends State<NewOffer> {
                       mainAxisAlignment:
                       MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
+                        (_advcheck==true||Agrcheck==true)?Text(""):Container(
                           color: const Color(0xffF4F4F4),
                           child: Row(
                             mainAxisAlignment:
@@ -624,10 +636,48 @@ class _newoffer extends State<NewOffer> {
                       ],
                     ),
                   ),
+                  _nocheck == true
+                      ? Padding(
+                      padding: EdgeInsets.only(
+                        right:20 ,left: 20,
+                          top: _minimumPadding,
+                          bottom: _minimumPadding),
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: TextFormField(
+                          textAlign: TextAlign.right,
+                          keyboardType: TextInputType.number,
+                          style: textStyle,
+                          //textDirection: TextDirection.rtl,
+                          controller: _noController,
+                          validator: (String value) {
+                            if ((_nocheck) && (value.isEmpty)) {
+                              return Translations.of(context).translate('please_enter_the_number_of_trucks');
+                            }
+                          },
+                          decoration: InputDecoration(
+                            labelText: Translations.of(context).translate('number_of_trucks'),
+                            //hintText: 'Name',
+                            labelStyle: textStyle,
+                            errorStyle: TextStyle(
+                                color: Colors.red, fontSize: 15.0),
+                            // border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))
+                          ),
+                        ),
+                      ))
+                      : Text(
+                    '',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat'),
+                  ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
+                      _travelcheck==true?Text(""): Container(
 
                         color: const Color(0xff43A2CC),
                         child: DropdownButtonHideUnderline(
@@ -720,54 +770,155 @@ class _newoffer extends State<NewOffer> {
                       Container(
 
                         color: const Color(0xff43A2CC),
-                        child: DropdownButtonHideUnderline(
-                            child: ButtonTheme(
-                              alignedDropdown: true,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: 50,
+                              height: 48,
+                              color: const Color(0xff43A2CC),
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  DropdownButton<String>(
-                                    items: _cityarray
-                                        .map((String value) {
-                                      return new DropdownMenuItem<String>(
-                                        value: value,
-                                        child: new Text(value),
-                                      );
-                                    }).toList(),
-                                    value: _citycurrentItemSelected,
-                                    onChanged:
-                                        (String newValueSelected) {
-                                      // Your code to execute, when a menu item is selected from dropdown
-                                      _onDropDownItemSelectedcity(
-                                          newValueSelected);
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => MyForm2("",
+                                                onSubmit2: onSubmit2));
+                                      });
+//showBottomSheet();
                                     },
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        alignment: Alignment.center,
-                                        matchTextDirection: true,
-                                        repeat:
-                                        ImageRepeat.noRepeat,
-                                        image: AssetImage(
-                                            "assets/images/ic_wlocation.png"),
+                                    child: Text(
+                                     "مدينتك",
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          //fontWeight: FontWeight.bold
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                            )),
+                            ),
+                          ],
+                        ),
+
                       ),
                     ],
                   ),
+                 SizedBox(
+                    height: 2*_minimumPadding,
+                    width: _minimumPadding,
+                  ) ,
+                  (Agrcheck==true)?Text(""):Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 150,
+                            height: 40,
+                            color: const Color(0xffe7e7e7),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => MyForm4("",
+                                              onSubmit4: onSubmit4));
+                                    });
+//showBottomSheet();
+                                  },
+                                  child: Text(
+                                    Translations.of(context).translate('place_of_delivery'),
+                                    textDirection: TextDirection.rtl,
+                                    style: TextStyle(
+                                        color: const Color(0xff4fc3f7),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 25.0,
+                                    height: 25.0,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: const AssetImage(
+                                            'assets/images/ic_location.png'),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: _minimumPadding,
+                            width: _minimumPadding,
+                          ),
+                          Container(
+                            width: 150,
+                            height: 40,
+                            color: const Color(0xffe7e7e7),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => MyForm3("",
+                                              onSubmit3: onSubmit3));
+                                    });
+//showBottomSheet();
+                                  },
+                                  child: Text(
+                                    Translations.of(context).translate('download_place'),
+                                    textDirection: TextDirection.rtl,
+                                    style: TextStyle(
+                                        color: const Color(0xff4fc3f7),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 25.0,
+                                    height: 25.0,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: const AssetImage(
+                                            'assets/images/ic_location2.png'),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
                   SizedBox(
                     height: 2*_minimumPadding,
                     width: _minimumPadding,
-                  ),
+                  ) ,
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -797,7 +948,7 @@ class _newoffer extends State<NewOffer> {
                           ),
                         ),
                       ),
-                      Padding(
+                      (_advcheck==true||Agrcheck==true)?Text(""): Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
@@ -862,7 +1013,7 @@ class _newoffer extends State<NewOffer> {
                           ),
                         ),
                       ),
-                      Padding(
+                      (_advcheck==true||Agrcheck==true)?Text(""):Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
@@ -991,23 +1142,30 @@ class _newoffer extends State<NewOffer> {
                         color: const Color(0xff43A2CC),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            if (sampleImage11 != null && sampleImage12 != null && sampleImage13 != null && sampleImage14 != null&& sampleImage1 != null) {
+                            if (sampleImage11 != null && ((sampleImage12 != null)&&(!_advcheck||!Agrcheck))
+                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck))
+                                && sampleImage1 != null) {
+    if((((city1==""||city1==null)||(city2==""||city2==null))&&(!Agrcheck))||(city3==""||city3==null)){
+    Toast.show("برجاء ادخال المدينة", context,
+    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
-                              try {
-                                final result = await InternetAddress.lookup('google.com');
-                                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                                  uploadpp11();
+    }else {
+      try {
+        final result = await InternetAddress.lookup('google.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          uploadpp11();
 
-                                  setState(() {
-                                    _load2 = true;
-                                  });
-                                }
-                              } on SocketException catch (_) {
-                                //  print('not connected');
-                                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
-                              }
-
+          setState(() {
+            _load2 = true;
+          });
+        }
+      } on SocketException catch (_) {
+        //  print('not connected');
+        Toast.show(
+            Translations.of(context).translate('please_see_network_connection'),
+            context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }
+    }
                             }else{
                             Toast.show(Translations.of(context).translate('please_add_the_required_images'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
@@ -1036,8 +1194,31 @@ class _newoffer extends State<NewOffer> {
   }
 
   void _onDropDownItemSelectedcat(String newValueSelected) {
+//    'نقل خفيف',
+//    'نقل متوسط',
+//    'نقل ثقيل',
+//    'معدات ثقيلة',
+//    'معدات زراعية',
+//    'نقل ركاب'
+
     setState(() {
       this._CategorycurrentItemSelected = newValueSelected;
+      if (newValueSelected == 'نقل ركاب') {
+        setState(() {
+          _travelcheck = true;
+          Agrcheck=false;
+
+        });
+      } else if(newValueSelected == 'معدات زراعية'){
+        setState(() {
+          _travelcheck = false;
+          Agrcheck=true;
+        });
+      }else{
+        _travelcheck = false;
+        Agrcheck=false;
+
+      }
     });
   }
 
@@ -1049,12 +1230,30 @@ class _newoffer extends State<NewOffer> {
   void _onDropDownItemSelectedno(String newValueSelected) {
     setState(() {
       this.__noarraycurrentItemSelected = newValueSelected;
+      if (newValueSelected == "حدد") {
+        setState(() {
+          _nocheck = true;
+        });
+      } else {
+        setState(() {
+          _nocheck = false;
+        });
+      }
     });
   }
 
   void _onDropDownItemSelectedadv(String newValueSelected) {
     setState(() {
       this.__advarraycurrentItemSelected = newValueSelected;
+      if (newValueSelected == "أيجار") {
+        setState(() {
+          _advcheck = true;
+        });
+      } else {
+        setState(() {
+          _advcheck = false;
+        });
+      }
     });
   }
   void _onDropDownItemSelectedcity(String newValueSelected) {
@@ -1074,20 +1273,20 @@ class _newoffer extends State<NewOffer> {
       orderdatabaseReference.child(_userId).child(date).set({
         'cId': _userId,
         'cdate': date1,
-        'clat1':"a",
+        'clat1':city2,
         'clong1':"a",
-        'clat2': "a",
+        'clat2': city1,
         'clong2': "a",
         'cType': Translations.of(context).translate('show'),
         'cCategory': _CategorycurrentItemSelected,
-        'cpayload': _PayloadcurrentItemSelected,
-        'cnocars':__noarraycurrentItemSelected,
+        'cpayload':_travelcheck?"": _PayloadcurrentItemSelected,
+        'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
         'ctime':"a",
         'cpublished': false,
         'cstarttraveltime': "",
         'curi': url13,
         //////////////////////////
-        'ccity': _citycurrentItemSelected,
+        'ccity': city3,
         'cadv': __advarraycurrentItemSelected,
         'ctitle': _titleController.text,
         'ccompany': _companyController.text,
@@ -1097,7 +1296,7 @@ class _newoffer extends State<NewOffer> {
         'cshort': _shortController.text,
         'cdetail': _detailController.text,
         'curi11': url11,
-        'curi13': url12,
+        'curi12': url12,
         'curi14': url14,
         'curilist': urlList.toString(),
 
@@ -1124,7 +1323,12 @@ class _newoffer extends State<NewOffer> {
           __advarraycurrentItemSelected= _advarray[0];
           __noarraycurrentItemSelected = _noarray[0];
           _citycurrentItemSelected = _cityarray[0];
-
+city2="";city1="";city3="";
+_nocheck=false;
+           _travelcheck = false;
+           Agrcheck=false;
+           _advcheck=false;
+          urlList.clear();
         });
         showAlertDialog( context);
       }).catchError((e) {
@@ -1497,6 +1701,369 @@ class _newoffer extends State<NewOffer> {
     });
   }
 
+  void onSubmit2(String result) {
+    Toast.show("${result}", context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    setState(() {
+      city3=result;
+    });
+  }
+  void onSubmit4(String result) {
+    Toast.show("${result}", context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    setState(() {
+      city1=result;
+    });
+  }
+  void onSubmit3(String result) {
+    Toast.show("${result}", context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    setState(() {
+      city2=result;
+    });
+  }
+}
+//////////////////////////////////
+
+typedef void MyFormCallback2(String result);
+
+class MyForm2 extends StatefulWidget {
+  final MyFormCallback2 onSubmit2;
+  String quarter11;
+
+  MyForm2(this.quarter11, {this.onSubmit2});
+
+  @override
+  _MyForm2State createState() => _MyForm2State();
+}
+
+class _MyForm2State extends State<MyForm2> {
+  String _currentValue = '';
+  List<CityClass> regionlist = [];
 
 
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.quarter11;
+
+    final regiondatabaseReference =
+    FirebaseDatabase.instance.reference().child("City");
+    regiondatabaseReference.once().then((DataSnapshot snapshot) {
+      var KEYS = snapshot.value.keys;
+      var DATA = snapshot.value;
+      //Toast.show("${snapshot.value.keys}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      regionlist.clear();
+      for (var individualkey in KEYS) {
+        CityClass regionclass =new CityClass(
+          DATA[individualkey]['ccid'],
+          DATA[individualkey]['ccity'],
+          DATA[individualkey]['cregion'],
+
+        );
+        setState(() {
+          regionlist.add(regionclass);
+        });
+
+      }
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("إلغاء"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+        });
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("حفظ"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+          widget.onSubmit2(_currentValue.toString());
+        });
+      },
+    );
+    return AlertDialog(
+      title: Text(
+        "المدينة",
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textDirection: TextDirection.rtl,
+      ),
+      content:new ListView.builder(
+        itemCount: regionlist.length,
+        itemBuilder: (context, i) {
+          return new ExpansionTile(
+            title: new Text(regionlist[i].cregion, style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+            children: <Widget>[
+              Column(
+                // padding: EdgeInsets.all(8.0),
+                children: regionlist[i].ccity.split(",")
+                    .map((value) => RadioListTile(
+                  groupValue: _currentValue,
+                  title: Text(
+                    value,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  value: value,
+                  onChanged: (val) {
+                    setState(() {
+                      debugPrint('VAL = $val');
+                      _currentValue = val;
+                    });
+                  },
+                ))
+                    .toList(),
+              ),
+
+            ],
+          );
+        },
+      ),
+
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+  }
+}
+
+
+
+
+//////////////////////////////////
+
+typedef void MyFormCallback4(String result);
+
+class MyForm4 extends StatefulWidget {
+  final MyFormCallback4 onSubmit4;
+  String quarter11;
+
+  MyForm4(this.quarter11, {this.onSubmit4});
+
+  @override
+  _MyForm4State createState() => _MyForm4State();
+}
+
+class _MyForm4State extends State<MyForm4> {
+  String _currentValue = '';
+  List<CityClass> regionlist = [];
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.quarter11;
+
+    final regiondatabaseReference =
+    FirebaseDatabase.instance.reference().child("City");
+    regiondatabaseReference.once().then((DataSnapshot snapshot) {
+      var KEYS = snapshot.value.keys;
+      var DATA = snapshot.value;
+      //Toast.show("${snapshot.value.keys}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      regionlist.clear();
+      for (var individualkey in KEYS) {
+        CityClass regionclass =new CityClass(
+          DATA[individualkey]['ccid'],
+          DATA[individualkey]['ccity'],
+          DATA[individualkey]['cregion'],
+
+        );
+        setState(() {
+          regionlist.add(regionclass);
+        });
+
+      }
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("إلغاء"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+        });
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("حفظ"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+          widget.onSubmit4(_currentValue.toString());
+        });
+      },
+    );
+    return AlertDialog(
+      title: Text(
+        "المدينة",
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textDirection: TextDirection.rtl,
+      ),
+      content:new ListView.builder(
+        itemCount: regionlist.length,
+        itemBuilder: (context, i) {
+          return new ExpansionTile(
+            title: new Text(regionlist[i].cregion, style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+            children: <Widget>[
+              Column(
+                // padding: EdgeInsets.all(8.0),
+                children: regionlist[i].ccity.split(",")
+                    .map((value) => RadioListTile(
+                  groupValue: _currentValue,
+                  title: Text(
+                    value,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  value: value,
+                  onChanged: (val) {
+                    setState(() {
+                      debugPrint('VAL = $val');
+                      _currentValue = val;
+                    });
+                  },
+                ))
+                    .toList(),
+              ),
+//              new Column(
+//                children:
+//                _buildExpandableContent(regionlist[i]),
+//              ),
+            ],
+          );
+        },
+      ),
+
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+  }
+}
+
+//////////////////////////////////
+
+typedef void MyFormCallback3(String result);
+
+class MyForm3 extends StatefulWidget {
+  final MyFormCallback3 onSubmit3;
+  String quarter11;
+
+  MyForm3(this.quarter11, {this.onSubmit3});
+
+  @override
+  _MyForm3State createState() => _MyForm3State();
+}
+
+class _MyForm3State extends State<MyForm3> {
+  String _currentValue = '';
+  List<CityClass> regionlist = [];
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.quarter11;
+
+    final regiondatabaseReference =
+    FirebaseDatabase.instance.reference().child("City");
+    regiondatabaseReference.once().then((DataSnapshot snapshot) {
+      var KEYS = snapshot.value.keys;
+      var DATA = snapshot.value;
+      //Toast.show("${snapshot.value.keys}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      regionlist.clear();
+      for (var individualkey in KEYS) {
+        CityClass regionclass =new CityClass(
+          DATA[individualkey]['ccid'],
+          DATA[individualkey]['ccity'],
+          DATA[individualkey]['cregion'],
+
+        );
+        setState(() {
+          regionlist.add(regionclass);
+        });
+
+      }
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("إلغاء"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+        });
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("حفظ"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+          widget.onSubmit3(_currentValue.toString());
+        });
+      },
+    );
+    return AlertDialog(
+      title: Text(
+        "المدينة",
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textDirection: TextDirection.rtl,
+      ),
+      content:new ListView.builder(
+        itemCount: regionlist.length,
+        itemBuilder: (context, i) {
+          return new ExpansionTile(
+            title: new Text(regionlist[i].cregion, style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+            children: <Widget>[
+              Column(
+                // padding: EdgeInsets.all(8.0),
+                children: regionlist[i].ccity.split(",")
+                    .map((value) => RadioListTile(
+                  groupValue: _currentValue,
+                  title: Text(
+                    value,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  value: value,
+                  onChanged: (val) {
+                    setState(() {
+                      debugPrint('VAL = $val');
+                      _currentValue = val;
+                    });
+                  },
+                ))
+                    .toList(),
+              ),
+//              new Column(
+//                children:
+//                _buildExpandableContent(regionlist[i]),
+//              ),
+            ],
+          );
+        },
+      ),
+
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+  }
 }

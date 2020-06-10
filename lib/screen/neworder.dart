@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:advancednaql/classes/CityClass.dart';
 import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -30,7 +31,7 @@ class _newOrderState extends State<newOrder> {
     '600-700 كيلو',
     '800-900 كيلو'
   ];
-  var _timearray = ['خلال 6 ساعات', 'خلال 24 ساعة', 'حالا', 'حدد'];
+  var _timearray = ['خلال 6 ساعات', 'خلال 24 ساعة', 'حالا', 'غير محدد'];
   var _noarray = [
     "1",
     "2",
@@ -52,26 +53,6 @@ class _newOrderState extends State<newOrder> {
     "18",
     "19",
     "20",
-    "21",
-    "22",
-    "23",
-    "24",
-    "25",
-    "26",
-    "27",
-    "28",
-    "29",
-    "30",
-    "31",
-    "32",
-    "33",
-    "34",
-    "35",
-    "36",
-    "37",
-    "38",
-    "39",
-    "40",
     "حدد"
   ];
 
@@ -85,10 +66,12 @@ class _newOrderState extends State<newOrder> {
   String _userId;
   bool _timecheck = false;
   bool _nocheck = false;
-
   bool _load2 = false;
+  String city1;
+  String city2;
+
   final orderdatabaseReference =
-      FirebaseDatabase.instance.reference().child("orderdata");
+  FirebaseDatabase.instance.reference().child("orderdata");
 
   @override
   void initState() {
@@ -179,10 +162,16 @@ class _newOrderState extends State<newOrder> {
                                 children: <Widget>[
                                   InkWell(
                                     onTap: () {
-//
+                                      setState(() {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => MyForm4("",
+                                                onSubmit4: onSubmit4));
+                                      });
+//showBottomSheet();
                                     },
                                     child: Text(
-                                        Translations.of(context).translate('place_of_delivery'),
+                                      Translations.of(context).translate('place_of_delivery'),
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
@@ -219,9 +208,17 @@ class _newOrderState extends State<newOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => MyForm3("",
+                                                onSubmit3: onSubmit3));
+                                      });
+//showBottomSheet();
+                                    },
                                     child: Text(
-                                        Translations.of(context).translate('download_place'),
+                                      Translations.of(context).translate('download_place'),
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
@@ -268,7 +265,7 @@ class _newOrderState extends State<newOrder> {
                                   children: <Widget>[
                                     Material(
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                        BorderRadius.circular(5.0),
                                         shadowColor: const Color(0xffdddddd),
                                         color: const Color(0xffe7e7e7),
                                         elevation: 2.0,
@@ -276,25 +273,25 @@ class _newOrderState extends State<newOrder> {
                                           alignment: Alignment.centerRight,
                                           child: Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             children: <Widget>[
                                               DropdownButton<String>(
                                                 items: _timearray
                                                     .map((String value) {
                                                   return DropdownMenuItem<
-                                                          String>(
+                                                      String>(
                                                       value: value,
                                                       child: Text(
                                                         value,
                                                         textDirection:
-                                                            TextDirection.rtl,
+                                                        TextDirection.rtl,
                                                         style: TextStyle(
                                                             color: const Color(
                                                                 0xff4fc3f7),
                                                             fontSize: 15,
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                            FontWeight
+                                                                .bold),
                                                       ));
                                                 }).toList(),
                                                 value: _timecurrentItemSelected,
@@ -347,25 +344,25 @@ class _newOrderState extends State<newOrder> {
                                       alignment: Alignment.centerRight,
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         children: <Widget>[
                                           DropdownButton<String>(
                                             items: _Categoryarray.map(
-                                                (String value) {
-                                              return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(
-                                                    value,
-                                                    textDirection:
+                                                    (String value) {
+                                                  return DropdownMenuItem<String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        textDirection:
                                                         TextDirection.rtl,
-                                                    style: TextStyle(
-                                                        color: const Color(
-                                                            0xff4fc3f7),
-                                                        fontSize: 15,
-                                                        fontWeight:
+                                                        style: TextStyle(
+                                                            color: const Color(
+                                                                0xff4fc3f7),
+                                                            fontSize: 15,
+                                                            fontWeight:
                                                             FontWeight.bold),
-                                                  ));
-                                            }).toList(),
+                                                      ));
+                                                }).toList(),
                                             value: _CategorycurrentItemSelected,
                                             onChanged:
                                                 (String newValueSelected) {
@@ -422,7 +419,7 @@ class _newOrderState extends State<newOrder> {
                                       alignment: Alignment.centerRight,
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         children: <Widget>[
                                           DropdownButton<String>(
                                             items: _noarray.map((String value) {
@@ -431,13 +428,13 @@ class _newOrderState extends State<newOrder> {
                                                   child: Text(
                                                     value,
                                                     textDirection:
-                                                        TextDirection.rtl,
+                                                    TextDirection.rtl,
                                                     style: TextStyle(
                                                         color: const Color(
                                                             0xff4fc3f7),
                                                         fontSize: 15,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                        FontWeight.bold),
                                                   ));
                                             }).toList(),
                                             value: __noarraycurrentItemSelected,
@@ -487,25 +484,25 @@ class _newOrderState extends State<newOrder> {
                                       alignment: Alignment.centerRight,
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         children: <Widget>[
                                           DropdownButton<String>(
                                             items: _Payloadarray.map(
-                                                (String value) {
-                                              return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(
-                                                    value,
-                                                    textDirection:
+                                                    (String value) {
+                                                  return DropdownMenuItem<String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        textDirection:
                                                         TextDirection.rtl,
-                                                    style: TextStyle(
-                                                        color: const Color(
-                                                            0xff4fc3f7),
-                                                        fontSize: 15,
-                                                        fontWeight:
+                                                        style: TextStyle(
+                                                            color: const Color(
+                                                                0xff4fc3f7),
+                                                            fontSize: 15,
+                                                            fontWeight:
                                                             FontWeight.bold),
-                                                  ));
-                                            }).toList(),
+                                                      ));
+                                                }).toList(),
                                             value: _PayloadcurrentItemSelected,
                                             onChanged:
                                                 (String newValueSelected) {
@@ -539,80 +536,80 @@ class _newOrderState extends State<newOrder> {
                       ),
                       _nocheck == true
                           ? Padding(
-                              padding: EdgeInsets.only(
-                                  top: _minimumPadding,
-                                  bottom: _minimumPadding),
-                              child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: TextFormField(
-                                  textAlign: TextAlign.right,
-                                  keyboardType: TextInputType.text,
-                                  style: textStyle,
-                                  //textDirection: TextDirection.rtl,
-                                  controller: _noController,
-                                  validator: (String value) {
-                                    if ((_nocheck) && (value.isEmpty)) {
-                                      return Translations.of(context).translate('please_enter_the_number_of_trucks');
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    labelText: Translations.of(context).translate('number_of_trucks'),
-                                    //hintText: 'Name',
-                                    labelStyle: textStyle,
-                                    errorStyle: TextStyle(
-                                        color: Colors.red, fontSize: 15.0),
-                                    // border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))
-                                  ),
-                                ),
-                              ))
-                          : Text(
-                              '',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat'),
+                          padding: EdgeInsets.only(
+                              top: _minimumPadding,
+                              bottom: _minimumPadding),
+                          child: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: TextFormField(
+                              textAlign: TextAlign.right,
+                              keyboardType: TextInputType.number,
+                              style: textStyle,
+                              //textDirection: TextDirection.rtl,
+                              controller: _noController,
+                              validator: (String value) {
+                                if ((_nocheck) && (value.isEmpty)) {
+                                  return Translations.of(context).translate('please_enter_the_number_of_trucks');
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: Translations.of(context).translate('number_of_trucks'),
+                                //hintText: 'Name',
+                                labelStyle: textStyle,
+                                errorStyle: TextStyle(
+                                    color: Colors.red, fontSize: 15.0),
+                                // border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))
+                              ),
                             ),
+                          ))
+                          : Text(
+                        '',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat'),
+                      ),
                       SizedBox(
                         height: _minimumPadding,
                         width: _minimumPadding,
                       ),
                       _timecheck == true
                           ? Padding(
-                              padding: EdgeInsets.only(
-                                  top: _minimumPadding,
-                                  bottom: _minimumPadding),
-                              child: Directionality(
-                                textDirection: TextDirection.rtl,
-                                child: TextFormField(
-                                  textAlign: TextAlign.right,
-                                  keyboardType: TextInputType.emailAddress,
-                                  style: textStyle,
-                                  //textDirection: TextDirection.rtl,
-                                  controller: _timeController,
-                                  validator: (String value) {
-                                    if ((_timecheck) && (value.isEmpty)) {
-                                      return Translations.of(context).translate('please_enter_the_order_time');
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                    labelText: Translations.of(context).translate('request_time'),
-                                    //hintText: 'Name',
-                                    labelStyle: textStyle,
-                                    errorStyle: TextStyle(
-                                        color: Colors.red, fontSize: 15.0),
-                                    // border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))
-                                  ),
-                                ),
-                              ))
-                          : Text(
-                              '',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Montserrat'),
+                          padding: EdgeInsets.only(
+                              top: _minimumPadding,
+                              bottom: _minimumPadding),
+                          child: Directionality(
+                            textDirection: TextDirection.rtl,
+                            child: TextFormField(
+                              textAlign: TextAlign.right,
+                              keyboardType: TextInputType.emailAddress,
+                              style: textStyle,
+                              //textDirection: TextDirection.rtl,
+                              controller: _timeController,
+                              validator: (String value) {
+                                if ((_timecheck) && (value.isEmpty)) {
+                                  return Translations.of(context).translate('please_enter_the_order_time');
+                                }
+                              },
+                              decoration: InputDecoration(
+                                labelText: Translations.of(context).translate('request_time'),
+                                //hintText: 'Name',
+                                labelStyle: textStyle,
+                                errorStyle: TextStyle(
+                                    color: Colors.red, fontSize: 15.0),
+                                // border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))
+                              ),
                             ),
+                          ))
+                          : Text(
+                        '',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Montserrat'),
+                      ),
 
                       SizedBox(
                         height: _minimumPadding,
@@ -632,19 +629,24 @@ class _newOrderState extends State<newOrder> {
                             child: InkWell(
                               onTap: () async {
                                 if (_formKey.currentState.validate()) {
-                                  try {
-                                    final result = await InternetAddress.lookup('google.com');
-                                    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                                      createRecord();
-                                      setState(() {
-                                        _load2 = true;
-                                      });
-                                    }
-                                  } on SocketException catch (_) {
-                                    //  print('not connected');
-                                    Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                  if((city1==""||city1==null)||(city2==""||city2==null)){
+                                    Toast.show("برجاء ادخال المدينة", context,
+                                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
-                                  }
+                                  }else{
+                                      try {
+                                        final result = await InternetAddress.lookup('google.com');
+                                        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                          createRecord();
+                                          setState(() {
+                                            _load2 = true;
+                                          });
+                                        }
+                                      } on SocketException catch (_) {
+                                        //  print('not connected');
+                                        Toast.show("برجاء مراجعة الاتصال بالشبكة",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                                      }}
 
                                 } else
                                   print('correct');
@@ -681,40 +683,40 @@ class _newOrderState extends State<newOrder> {
     FirebaseAuth.instance.currentUser().then((user) => user == null
         ?null
         :setState(() {
-          _userId = user.uid;
-          DateTime now = DateTime.now();
-String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
-String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
+      _userId = user.uid;
+      DateTime now = DateTime.now();
+      String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
+      String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
 
-          orderdatabaseReference.child(_userId).child(date).set({
-      'cId': _userId,
-      'cdate': date1,
-      'clat1':"31",
-      'clong1':"31",
-       'clat2': "30",
-       'clong2': "30",
-      'cType': Translations.of(context).translate('order'),
-      'cCategory': _CategorycurrentItemSelected,
-      'cpayload': _PayloadcurrentItemSelected,
-      'cpayload': _PayloadcurrentItemSelected,
-      'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
-      'ctime':_timecheck?_timeController.text:_timecurrentItemSelected,
-      'cpublished': false,
-       'cstarttraveltime': "",
-            'curi': "a",
-    }).whenComplete(() {
-            showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
-            setState(() {
-        _load2 = false;
+      orderdatabaseReference.child(_userId).child(date).set({
+        'cId': _userId,
+        'cdate': date1,
+        'clat1':city2,
+        'clong1':"31",
+        'clat2': city1,
+        'clong2': "30",
+        'cType': Translations.of(context).translate('order'),
+        'cCategory': _CategorycurrentItemSelected,
+        'cpayload': _PayloadcurrentItemSelected,
+        'cpayload': _PayloadcurrentItemSelected,
+        'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
+        'ctime':_timecheck?_timeController.text:_timecurrentItemSelected,
+        'cpublished': false,
+        'cstarttraveltime': "",
+        'curi': "a",
+      }).whenComplete(() {
+        showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
+        setState(() {
+          _load2 = false;
+        });
+      }).catchError((e) {
+        Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+        setState(() {
+          _load2 = false;
+        });
       });
-    }).catchError((e) {
-            Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-            setState(() {
-              _load2 = false;
-            });
-          });
 
-        })
+    })
     );
 
 
@@ -768,5 +770,251 @@ String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-0
         });
       }
     });
+  }
+  void onSubmit4(String result) {
+    Toast.show("${result}", context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    setState(() {
+      city1=result;
+    });
+  }
+  void onSubmit3(String result) {
+    Toast.show("${result}", context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    setState(() {
+      city2=result;
+    });
+  }
+}
+
+
+
+//////////////////////////////////
+
+typedef void MyFormCallback4(String result);
+
+class MyForm4 extends StatefulWidget {
+  final MyFormCallback4 onSubmit4;
+  String quarter11;
+
+  MyForm4(this.quarter11, {this.onSubmit4});
+
+  @override
+  _MyForm4State createState() => _MyForm4State();
+}
+
+class _MyForm4State extends State<MyForm4> {
+  String _currentValue = '';
+  List<CityClass> regionlist = [];
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.quarter11;
+
+    final regiondatabaseReference =
+    FirebaseDatabase.instance.reference().child("City");
+    regiondatabaseReference.once().then((DataSnapshot snapshot) {
+      var KEYS = snapshot.value.keys;
+      var DATA = snapshot.value;
+      //Toast.show("${snapshot.value.keys}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      regionlist.clear();
+      for (var individualkey in KEYS) {
+        CityClass regionclass =new CityClass(
+          DATA[individualkey]['ccid'],
+          DATA[individualkey]['ccity'],
+          DATA[individualkey]['cregion'],
+
+        );
+        setState(() {
+          regionlist.add(regionclass);
+        });
+
+      }
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("إلغاء"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+        });
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("حفظ"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+          widget.onSubmit4(_currentValue.toString());
+        });
+      },
+    );
+    return AlertDialog(
+      title: Text(
+        "المدينة",
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textDirection: TextDirection.rtl,
+      ),
+      content:new ListView.builder(
+        itemCount: regionlist.length,
+        itemBuilder: (context, i) {
+          return new ExpansionTile(
+            title: new Text(regionlist[i].cregion, style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+            children: <Widget>[
+              Column(
+               // padding: EdgeInsets.all(8.0),
+                children: regionlist[i].ccity.split(",")
+                    .map((value) => RadioListTile(
+                  groupValue: _currentValue,
+                  title: Text(
+                    value,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  value: value,
+                  onChanged: (val) {
+                    setState(() {
+                      debugPrint('VAL = $val');
+                      _currentValue = val;
+                    });
+                  },
+                ))
+                    .toList(),
+              ),
+//              new Column(
+//                children:
+//                _buildExpandableContent(regionlist[i]),
+//              ),
+            ],
+          );
+        },
+      ),
+
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+  }
+}
+
+//////////////////////////////////
+
+typedef void MyFormCallback3(String result);
+
+class MyForm3 extends StatefulWidget {
+  final MyFormCallback3 onSubmit3;
+  String quarter11;
+
+  MyForm3(this.quarter11, {this.onSubmit3});
+
+  @override
+  _MyForm3State createState() => _MyForm3State();
+}
+
+class _MyForm3State extends State<MyForm3> {
+  String _currentValue = '';
+  List<CityClass> regionlist = [];
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _currentValue = widget.quarter11;
+
+    final regiondatabaseReference =
+    FirebaseDatabase.instance.reference().child("City");
+    regiondatabaseReference.once().then((DataSnapshot snapshot) {
+      var KEYS = snapshot.value.keys;
+      var DATA = snapshot.value;
+      //Toast.show("${snapshot.value.keys}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      regionlist.clear();
+      for (var individualkey in KEYS) {
+        CityClass regionclass =new CityClass(
+          DATA[individualkey]['ccid'],
+          DATA[individualkey]['ccity'],
+          DATA[individualkey]['cregion'],
+
+        );
+        setState(() {
+          regionlist.add(regionclass);
+        });
+
+      }
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    Widget cancelButton = FlatButton(
+      child: Text("إلغاء"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+        });
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text("حفظ"),
+      onPressed: () {
+        setState(() {
+          Navigator.pop(context);
+          widget.onSubmit3(_currentValue.toString());
+        });
+      },
+    );
+    return AlertDialog(
+      title: Text(
+        "المدينة",
+        style: TextStyle(fontWeight: FontWeight.bold),
+        textDirection: TextDirection.rtl,
+      ),
+      content:new ListView.builder(
+        itemCount: regionlist.length,
+        itemBuilder: (context, i) {
+          return new ExpansionTile(
+            title: new Text(regionlist[i].cregion, style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),),
+            children: <Widget>[
+              Column(
+                // padding: EdgeInsets.all(8.0),
+                children: regionlist[i].ccity.split(",")
+                    .map((value) => RadioListTile(
+                  groupValue: _currentValue,
+                  title: Text(
+                    value,
+                    textDirection: TextDirection.rtl,
+                  ),
+                  value: value,
+                  onChanged: (val) {
+                    setState(() {
+                      debugPrint('VAL = $val');
+                      _currentValue = val;
+                    });
+                  },
+                ))
+                    .toList(),
+              ),
+//              new Column(
+//                children:
+//                _buildExpandableContent(regionlist[i]),
+//              ),
+            ],
+          );
+        },
+      ),
+
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
   }
 }
