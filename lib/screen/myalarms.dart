@@ -21,13 +21,12 @@ class MyAlarms extends StatefulWidget {
 
 class _MyAlarmsState extends State<MyAlarms> {
   List<AlarmaClass> alarmlist = [];
+
   //List<String> namelist = [];
   bool _load = false;
- String _userId;
-  final databasealarm = FirebaseDatabase
-      .instance
-      .reference()
-      .child("Alarm");
+  String _userId;
+  final databasealarm = FirebaseDatabase.instance.reference().child("Alarm");
+
   @override
   void initState() {
     super.initState();
@@ -44,38 +43,34 @@ class _MyAlarmsState extends State<MyAlarms> {
 //            orderdatabaseReference.once().then((DataSnapshot data) {
 //              var uuId = data.value.keys;
 
-
-           //   for (var id in uuId) {
-      databasealarm
-                    .child(_userId)
-                    .once()
-                    .then((DataSnapshot data1) {
-                  var DATA = data1.value;
-                  var keys = data1.value.keys;
-                  alarmlist.clear();
-                //  namelist.clear();
-                  for (var individualkey in keys) {
-                    AlarmaClass alarmaalass = new AlarmaClass(
-                      DATA[individualkey]['alarmid'],
-                      DATA[individualkey]['wid'],
-                      DATA[individualkey]['Name'],
-                      DATA[individualkey]['cType'],
-                      DATA[individualkey]['cDateID'],
-                      DATA[individualkey]['arrange'],
-                     );
-                    setState(() {
-                      alarmlist.add(alarmaalass);
-                      setState(() {
-                        print("size of list : 5");
-                        alarmlist.sort((alarm1, alarm2) =>
-                            alarm1.arrange.compareTo(alarm2.arrange));
-                      });
-                    });
-                      print("kkkkkkk${DATA[individualkey]['arrange']}");
-                  }
+            //   for (var id in uuId) {
+            databasealarm.child(_userId).once().then((DataSnapshot data1) {
+              var DATA = data1.value;
+              var keys = data1.value.keys;
+              alarmlist.clear();
+              //  namelist.clear();
+              for (var individualkey in keys) {
+                AlarmaClass alarmaalass = new AlarmaClass(
+                  DATA[individualkey]['alarmid'],
+                  DATA[individualkey]['wid'],
+                  DATA[individualkey]['Name'],
+                  DATA[individualkey]['cType'],
+                  DATA[individualkey]['cDateID'],
+                  DATA[individualkey]['arrange'],
+                );
+                setState(() {
+                  alarmlist.add(alarmaalass);
+                  setState(() {
+                    print("size of list : 5");
+                    alarmlist.sort((alarm1, alarm2) =>
+                        alarm1.arrange.compareTo(alarm2.arrange));
+                  });
                 });
-             // }
-          //  });
+                print("kkkkkkk${DATA[individualkey]['arrange']}");
+              }
+            });
+            // }
+            //  });
           }));
   }
 
@@ -111,23 +106,22 @@ class _MyAlarmsState extends State<MyAlarms> {
           ),
         ),
       ),
-      body: Column(
+      body: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
               Container(
-                width:  MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
                 height: 86.0,
                 decoration: BoxDecoration(
-
                   color: const Color(0xff4fc3f7),
                 ),
               ),
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
+                    // Adobe XD layer: 'logoBox' (shape)
+                    Center(
                   child: Container(
                     width: 166.0,
                     height: 67.0,
@@ -146,29 +140,31 @@ class _MyAlarmsState extends State<MyAlarms> {
               ),
             ],
           ),
-          Expanded(
-              child: Center(
-                child: alarmlist.length == 0
-                    ? new Text(
-                  "لا يوجد بيانات",
-                )
-                    : new ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    controller: _controller,
-                    // reverse: true,
-                    itemCount: alarmlist.length,
-                    itemBuilder: (BuildContext ctxt, int index) {
-                      return InkWell(
-                        child:  _firebasedata(
-                          index,
-                          alarmlist.length,
-                          alarmlist[index].alarmid,
-                          alarmlist[index].wid,
-                          alarmlist[index].Name,
-                          alarmlist[index].cType,
-                          alarmlist[index].cDateID,
-                          alarmlist[index].arrange,
-                        ),
+          Padding(
+            padding: const EdgeInsets.only(top: 100),
+            child: Expanded(
+                child: Center(
+              child: alarmlist.length == 0
+                  ? new Text(
+                      "لا يوجد بيانات",
+                    )
+                  : new ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      controller: _controller,
+                      // reverse: true,
+                      itemCount: alarmlist.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return InkWell(
+                          child: _firebasedata(
+                            index,
+                            alarmlist.length,
+                            alarmlist[index].alarmid,
+                            alarmlist[index].wid,
+                            alarmlist[index].Name,
+                            alarmlist[index].cType,
+                            alarmlist[index].cDateID,
+                            alarmlist[index].arrange,
+                          ),
 //                                                    onTap: () {
 //                                                      if(_userId==commentlist[index].cuserid){
 //                                                        FirebaseDatabase.instance
@@ -193,36 +189,35 @@ class _MyAlarmsState extends State<MyAlarms> {
 //                                                            gravity: Toast.BOTTOM);
 //                                                      }
 //                                                    }
-                      );
-                    }),
+                        );
+                      }),
+            )),
+          ),
 
-              )),
-
-
-         /** Expanded(
+          /** Expanded(
               child: alarmlist.length == 0
-                  ? Center(
-                      child:  loadingIndicator,)
-                  : new ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      controller: _controller,
-                      itemCount: alarmlist.length,
-                      itemBuilder: (BuildContext ctxt, int index) {
-                        return InkWell(
-                            child: firebasedata(
-                              index,
-                              alarmlist.length,
-                              alarmlist[index].alarmid,
-                              alarmlist[index].wid,
-                              alarmlist[index].Name,
-                              alarmlist[index].cType,
-                              alarmlist[index].cDateID,
-                              alarmlist[index].arrange,
-                           ),
-                            onTap: () {});
-                      })
+              ? Center(
+              child:  loadingIndicator,)
+              : new ListView.builder(
+              physics: BouncingScrollPhysics(),
+              controller: _controller,
+              itemCount: alarmlist.length,
+              itemBuilder: (BuildContext ctxt, int index) {
+              return InkWell(
+              child: firebasedata(
+              index,
+              alarmlist.length,
+              alarmlist[index].alarmid,
+              alarmlist[index].wid,
+              alarmlist[index].Name,
+              alarmlist[index].cType,
+              alarmlist[index].cDateID,
+              alarmlist[index].arrange,
+              ),
+              onTap: () {});
+              })
 
-          )**/
+              )**/
         ],
       ),
     );
@@ -231,13 +226,12 @@ class _MyAlarmsState extends State<MyAlarms> {
   Widget _firebasedata(
     int position,
     int length,
-  String alarmid,
-  String wid,
-  String Name,
-  String cType,
-  String cDateID,
-      int arrange,
-
+    String alarmid,
+    String wid,
+    String Name,
+    String cType,
+    String cDateID,
+    int arrange,
   ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -250,81 +244,89 @@ class _MyAlarmsState extends State<MyAlarms> {
         margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
         child: InkWell(
           onTap: () {
-          setState(() {
-if(cType=="chat"){
-  final userdatabaseReference =
-  FirebaseDatabase.instance.reference().child("userdata");
-  userdatabaseReference
-      .child(wid)
-      .child("cName")
-      .once()
-      .then((DataSnapshot snapshot5) {
-    setState(() {
-      if (snapshot5.value != null) {
-        setState(() {
-          Navigator.push(
-            context,
-            new MaterialPageRoute(
-                builder: (BuildContext context) =>
-                new ChatPage(
-                    name: snapshot5.value ,
-                    uid: wid
-                )),
-          );        });
-      }
-
-    });
-  });
-
-
-}
-          });
+            setState(() {
+              if (cType == "chat") {
+                final userdatabaseReference =
+                    FirebaseDatabase.instance.reference().child("userdata");
+                userdatabaseReference
+                    .child(wid)
+                    .child("cName")
+                    .once()
+                    .then((DataSnapshot snapshot5) {
+                  setState(() {
+                    if (snapshot5.value != null) {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (BuildContext context) => new ChatPage(
+                                  name: snapshot5.value, uid: wid)),
+                        );
+                      });
+                    }
+                  });
+                });
+              }
+            });
           },
           child: Container(
-              padding: EdgeInsets.all(0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  cType=="love"?  new Icon(
-                    Icons.favorite,
-                    color: Colors.blue,
-                  ): new Icon(
-                    Icons.mail_outline,
-                    color: Colors.blue,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                    children: <Widget>[
-
-                      cType=="love"? Text(
-                        " $Name منحك اعجاب ",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                        //    fontWeight: FontWeight.bold
-                        ),
-                      ):Text(
-                        " رسالة جديدة من $Name",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          //    fontWeight: FontWeight.bold
-                        ),
+            height: 70,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: cType == "love"
+                          ? new Icon(
+                              Icons.favorite,
+                              color: Colors.blue,
+                            )
+                          : new Icon(
+                              Icons.mail_outline,
+                              color: Colors.blue,
+                            ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: cType == "love"
+                                ? Text(
+                                    " $Name منحك اعجاب ",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 13,
+                                      //    fontWeight: FontWeight.bold
+                                    ),
+                                  )
+                                : Text(
+                                    " رسالة جديدة من $Name",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 13,
+                                      //    fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                          ),
+                          new Icon(
+                            Icons.person,
+                            color: Colors.blue,
+                          ),
+                        ],
                       ),
-                      new Icon(
-                        Icons.person,
-                        color: Colors.blue,
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               )),
         ),
       ),
     );
   }
-
 }

@@ -14,6 +14,12 @@ class AlarmaClass {
       this.arrange,
 
       );
-
+  AlarmaClass.fromJson(Map model) {
+    this.alarmid = model["alarmid"];
+    this.Name = model["Name"];
+    this.cType = model["cType"];
+    this.cDateID = model['cDateID'];
+    this.arrange = model['arrange'];
+  }
 
 }

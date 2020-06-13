@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'dart:io';
-import 'package:advancednaql/classes/AlarmClass.dart';
+import 'package:advancednaql/classes/AlarmaClass.dart';
 import 'package:advancednaql/screen/ModelsForChating/state.dart';
 import 'package:advancednaql/screen/UserRating/RatingClass.dart';
 import 'package:advancednaql/screen/UserRating/UserRatingPage.dart';
@@ -136,6 +136,18 @@ class _ChatState extends State<ChatPage> {
                   decoration: BoxDecoration(
                     color: const Color(0xff4fc3f7),
                   ),
+                  child: InkWell(
+                    onTap: () => Navigator.pop(context),
+
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      width: 20,
+                      height: 20,
+                      child: InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: Icon(Icons.arrow_back)),
+                    ),
+                  ),
                 ),
                 Transform.translate(
                   offset: Offset(124.0, 39.0),
@@ -187,7 +199,7 @@ class _ChatState extends State<ChatPage> {
                               context,
                               new MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                  new UserRatingPage(Rating(widget.uid,"" , ""))),
+                                  new UserRatingPage(Rating(widget.uid,"" , "",))),
                             );
                           },
 
@@ -429,17 +441,17 @@ class _ChatState extends State<ChatPage> {
       print('Error: ${error.code} ${error.message}');
     });
 
-    reference5.onChildAdded.listen((Event event) {
-      Map map = event.snapshot.value;
-
-      AlarmClass A = AlarmClass.fromJson(map);
-      setState(() {
-        isLoaded = true;
-      });
-    }, onError: (Object o) {
-      final DatabaseError error = o;
-      print('Error: ${error.code} ${error.message}');
-    });
+//    reference5.onChildAdded.listen((Event event) {
+//      Map map = event.snapshot.value;
+//
+//      AlarmaClass A = AlarmaClass.fromJson(map);
+//      setState(() {
+//        isLoaded = true;
+//      });
+//    }, onError: (Object o) {
+//      final DatabaseError error = o;
+//      print('Error: ${error.code} ${error.message}');
+//    });
     // here you write the codes to input the data into firestore
   }
 
@@ -449,6 +461,7 @@ class _ChatState extends State<ChatPage> {
     DateTime now = DateTime.now();
     int dateNow =
     int.parse('${now.year}${now.month}${now.day}${now.hour}${now.minute}');
+
     if (msg != "") {
       setState(() {
         isLoaded = true;
@@ -461,15 +474,34 @@ class _ChatState extends State<ChatPage> {
       map.putIfAbsent("recevdUser", () => widget.uid);
       map.putIfAbsent("recevdName", () => widget.name);
       map.putIfAbsent("timeData", () => time);
-      mapalarm.putIfAbsent("userId", () => user.uid);
-      mapalarm.putIfAbsent("Name", () => _cName);
-      mapalarm.putIfAbsent("cType", () => "chat");
-      mapalarm.putIfAbsent("timeData", () => "$dateNow");
+
+
+
+//      mapalarm.putIfAbsent("alarmid", () => widget.uid);
+//      mapalarm.putIfAbsent("Name", () => _cName);
+//      mapalarm.putIfAbsent("arrange", () => "$dateNow");
+//      mapalarm.putIfAbsent("cDateID", () => "$dateNow2");
+//      mapalarm.putIfAbsent("cType", () => "chat");
       reference1.push().set(map);
       reference2.push().set(map);
       reference3.set(widget.uid);
       reference4.set(user.uid);
-      reference5.set(mapalarm);
+      //reference5.push().set(mapalarm);
+      final databasealarm = FirebaseDatabase
+          .instance
+          .reference()
+          .child("Alarm")
+          .child(widget.uid);
+
+      databasealarm.push().set({
+        'alarmid': databasealarm.push().key,
+        'wid': widget.uid,
+        'Name': _cName,
+        'cType': "chat",
+        'cDateID':"$now",
+        'arrange':int.parse("$dateNow")
+      });
+
       _controller.clear();
     } else {
       Fluttertoast.showToast(

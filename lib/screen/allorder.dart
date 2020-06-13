@@ -221,72 +221,76 @@ class _AllOrderState extends State<AllOrder> {
           ),
         ),
       ),
-      body: Column(
+      body: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 86.0,
-                decoration: BoxDecoration(
-                  color: const Color(0xff4fc3f7),
-                ),
-              ),
-              Transform.translate(
-                offset: Offset(0.0, -42.0),
-                child:
-                    // Adobe XD layer: 'logoBox' (shape)
-                    Center(
-                  child: Container(
-                    width: 166.0,
-                    height: 67.0,
+
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 86.0,
                     decoration: BoxDecoration(
-                      image: DecorationImage(
-                        alignment: Alignment.center,
-                        matchTextDirection: true,
-                        repeat: ImageRepeat.noRepeat,
-                        image: AssetImage("assets/logowhite.png"),
-                      ),
-                      borderRadius: BorderRadius.circular(21.0),
                       color: const Color(0xff4fc3f7),
                     ),
                   ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            height: 40.0,
-            decoration: BoxDecoration(color: Colors.white),
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: 150,
-                    height: 40,
-                    color: Colors.grey[500],
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: TextField(
-                        style: TextStyle(color: Colors.black),
-                        onChanged: (value) {
-                          filterSearchResults(value);
-                        },
-                        controller: searchcontroller,
-                        // focusNode: focus,
-                        decoration: InputDecoration(
-                          labelText:
-                              searchcontroller.text.isEmpty ? "بحث بالاسم" : '',
-                          labelStyle:
-                              TextStyle(color: Colors.black, fontSize: 18.0),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.black,
+                  Transform.translate(
+                    offset: Offset(0.0, -42.0),
+                    child:
+                    // Adobe XD layer: 'logoBox' (shape)
+                    Center(
+                      child: Container(
+                        width: 166.0,
+                        height: 67.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            alignment: Alignment.center,
+                            matchTextDirection: true,
+                            repeat: ImageRepeat.noRepeat,
+                            image: AssetImage("assets/logowhite.png"),
                           ),
-                          suffixIcon: searchcontroller.text.isNotEmpty
-                              ? IconButton(
+                          borderRadius: BorderRadius.circular(21.0),
+                          color: const Color(0xff4fc3f7),
+                        ),
+                      ),
+                    ),
+
+              ),
+             Container(
+                  height: 40.0,
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: 150,
+                          height: 40,
+                          decoration: BoxDecoration(
+
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.grey[500],
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: TextField(
+                              style: TextStyle(color: Colors.black),
+                              onChanged: (value) {
+                                filterSearchResults(value);
+                              },
+                              controller: searchcontroller,
+                              // focusNode: focus,
+                              decoration: InputDecoration(
+                                labelText:
+                                searchcontroller.text.isEmpty ? "بحث بالاسم" : '',
+                                labelStyle:
+                                TextStyle(color: Colors.black, fontSize: 18.0),
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                ),
+                                suffixIcon: searchcontroller.text.isNotEmpty
+                                    ? IconButton(
                                   icon: Icon(Icons.cancel, color: Colors.black),
                                   onPressed: () {
                                     setState(() {
@@ -295,80 +299,90 @@ class _AllOrderState extends State<AllOrder> {
                                     });
                                   },
                                 )
-                              : null,
-                          errorStyle: TextStyle(color: Colors.blue),
-                          enabled: true,
-                          alignLabelWithHint: true,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 120,
-                    height: 40,
-                    color: Colors.grey[500],
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: RaisedButton(
-                        color: Colors.grey[500],
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              "الخريطة",
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+                                    : null,
+                                errorStyle: TextStyle(color: Colors.blue),
+                                enabled: true,
+                                alignLabelWithHint: true,
+                              ),
                             ),
-                            Icon(
-                              Icons.location_on,
-                              color: Colors.black,
-                              size: 25.0,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 70,
-                    height: 40,
-                    color: const Color(0xff43A2CC),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: DropdownButton<String>(
-                        items: _typearray.map((String value) {
-                          return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                textDirection: TextDirection.rtl,
-                                style: TextStyle(
+                        Container(
+                          width: 120,
+                          height: 40,
+                          decoration: BoxDecoration(
+
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.grey[500],
+                          ),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: RaisedButton(
+                              color: Colors.grey[500],
+                              onPressed: () {},
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    "الخريطة",
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Icon(
+                                    Icons.location_on,
                                     color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              ));
-                        }).toList(),
-                        value: _typecurrentItemSelected,
-                        onChanged: (String newValueSelected) {
-                          // Your code to execute, when a menu item is selected from dropdown
-                          _onDropDownItemSelectedtype(newValueSelected);
-                        },
-                      ),
+                                    size: 25.0,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 70,
+                          height: 40,
+                          decoration: BoxDecoration(
+
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: const Color(0xff43A2CC),
+                          ),
+
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: DropdownButton<String>(
+                              items: _typearray.map((String value) {
+                                return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ));
+                              }).toList(),
+                              value: _typecurrentItemSelected,
+                              onChanged: (String newValueSelected) {
+                                // Your code to execute, when a menu item is selected from dropdown
+                                _onDropDownItemSelectedtype(newValueSelected);
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-              child: orderlist.length == 0
-                  ? Center(
-                      child: loadingIndicator,
-                    )
-                  : new ListView.builder(
+                ),
+
+              Expanded(
+                  child: orderlist.length == 0
+                      ? Center(
+                    child: loadingIndicator,
+                  )
+                      : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,
                       itemCount: orderlist.length,
@@ -398,6 +412,8 @@ class _AllOrderState extends State<AllOrder> {
                             ),
                             onTap: () {});
                       }))
+            ],
+          ),
         ],
       ),
     );
@@ -478,6 +494,7 @@ class _AllOrderState extends State<AllOrder> {
               child: Row(
                 children: <Widget>[
                   Container(
+
                     color: Colors.grey[100],
                     child: Center(
                       child: Padding(
@@ -503,9 +520,15 @@ class _AllOrderState extends State<AllOrder> {
                           top: 0,
                           left: 0,
                           child: Container(
+
                             height: 30,
                             width: 50,
-                            color: cType == "طلب" ? Colors.green : Colors.red,
+                            decoration: BoxDecoration(
+
+                              borderRadius: BorderRadius.circular(4.0),
+                              color: cType == "طلب" ? Colors.green : Colors.red,
+                            ),
+
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
@@ -516,6 +539,7 @@ class _AllOrderState extends State<AllOrder> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
+
                           ),
                         ),
                         Positioned(

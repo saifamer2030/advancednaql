@@ -6,7 +6,6 @@ class AddNewAds extends StatefulWidget {
   _adsState createState() => _adsState();
 }
 
-
 @override
 class _adsState extends State<AddNewAds> {
   final double _minimumPadding = 5.0;
@@ -20,18 +19,25 @@ class _adsState extends State<AddNewAds> {
           Column(
             children: <Widget>[
               Container(
-                width:  MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
                 height: 86.0,
                 decoration: BoxDecoration(
-
                   color: const Color(0xff4fc3f7),
+                ),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  width: 20,
+                  height: 20,
+                  child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(Icons.arrow_back)),
                 ),
               ),
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
+                    // Adobe XD layer: 'logoBox' (shape)
+                    Center(
                   child: Container(
                     width: 166.0,
                     height: 67.0,
@@ -50,119 +56,124 @@ class _adsState extends State<AddNewAds> {
               ),
             ],
           ),
-
           Form(
             child: Padding(
               padding: EdgeInsets.only(
-                  top: _minimumPadding * 50, left: _minimumPadding * 10),
-              child: Container(
-                width: 300,
-                height: 250,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: (){
-                        Navigator.of(context)
-                            .pushNamed('/neworder');
-                      },
-                      child: Column(
-                        children: <Widget>[
-
-                          Container(
-                            width: 100.0,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: const AssetImage(
-                                    'assets/images/ic_typeuser.png'),
-                                fit: BoxFit.fill,
+                top: _minimumPadding * 30,
+              ),
+              child: Center(
+                child: Container(
+                  width: 300,
+                  height: 250,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/department');
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: const AssetImage(
+                                      'assets/images/ic_typeuser.png'),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          Stack(
-                            children: <Widget>[
-                              Container(
-                                width: 100.0,
-                                height: 30.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  color: const Color(0xffeaeaea),
-                                ),
-                              ),
-                              Positioned.fill(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'تبحث عن خدمة؟',
-                                    style: TextStyle(
-                                      fontFamily: 'DroidArabicKufi',
-                                      fontSize: 10,
-                                      color: const Color(0xff41a0cb),
-                                      height: 1.2000000762939453,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: <Widget>[
+                                  Container(
+                                    width: 100.0,
+                                    height: 30.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: const Color(0xffeaeaea),
                                     ),
-                                    textAlign: TextAlign.right,
                                   ),
-                                ),
+                                  Positioned.fill(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'تبحث عن خدمة؟',
+                                        style: TextStyle(
+                                          fontFamily: 'DroidArabicKufi',
+                                          fontSize: 10,
+                                          color: const Color(0xff41a0cb),
+                                          height: 1.2000000762939453,
+                                        ),
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.of(context)
-                            .pushNamed('/pledge');
-                      },
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            width: 100.0,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: const AssetImage(
-                                    'assets/images/ic_typeprovider.png'),
-                                fit: BoxFit.fill,
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed('/department');
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              width: 100.0,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: const AssetImage(
+                                      'assets/images/ic_typeprovider.png'),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                          ),
-                          Stack(
-                            children: <Widget>[
-                              Container(
-                                width: 100.0,
-                                height: 30.0,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  color: const Color(0xffeaeaea),
-                                ),
-                              ),
-                              Positioned.fill(
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'لديك معدة ترغب بتشغيلهاأو تأجيرها؟',
-                                    style: TextStyle(
-                                      fontFamily: 'DroidArabicKufi',
-                                      fontSize: 10,
-                                      color: const Color(0xff41a0cb),
-                                      height: 1.2000000762939453,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: <Widget>[
+                                  Container(
+                                    width: 100.0,
+                                    height: 30.0,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: const Color(0xffeaeaea),
                                     ),
-                                    textAlign: TextAlign.right,
                                   ),
-                                ),
+                                  Positioned.fill(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'لديك معدة ترغب بتشغيلهاأو تأجيرها؟',
+                                        style: TextStyle(
+                                          fontFamily: 'DroidArabicKufi',
+                                          fontSize: 10,
+                                          color: const Color(0xff41a0cb),
+                                          height: 1.2000000762939453,
+                                        ),
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

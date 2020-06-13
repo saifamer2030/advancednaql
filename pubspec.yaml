@@ -112,6 +112,12 @@ flutter:
    - assets/images/ic_ads.png
    - assets/images/image_privcy_policy.png
    - assets/images/image_terms_use.png
+   - assets/images/ic_agricultural_equipment.png
+   - assets/images/ic_average_transfer.png
+   - assets/images/ic_heavy_Equipment.png
+   - assets/images/ic_heavy_transport.png
+   - assets/images/ic_light_transmission.png
+   - assets/images/ic_passenger_transport.png
    - lang/en.json
    - lang/ar.json
   # An image asset can refer to one or more resolution-specific "variants", see
