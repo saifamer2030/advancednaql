@@ -1,4 +1,5 @@
 import 'package:advancednaql/classes/AlarmaClass.dart';
+import 'package:advancednaql/classes/MyOrderClass.dart';
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
 import 'package:advancednaql/classes/UserRateClass.dart';
@@ -14,18 +15,18 @@ import 'package:toast/toast.dart';
 
 import 'ModelsForChating/chat.dart';
 
-class MyAlarms extends StatefulWidget {
+class myOrder extends StatefulWidget {
   @override
-  _MyAlarmsState createState() => _MyAlarmsState();
+  _myOrderState createState() => _myOrderState();
 }
 
-class _MyAlarmsState extends State<MyAlarms> {
-  List<AlarmaClass> alarmlist = [];
+class _myOrderState extends State<myOrder> {
+  List<MyOrderClass> alarmlist = [];
 
   //List<String> namelist = [];
   bool _load = false;
   String _userId;
-  final databasealarm = FirebaseDatabase.instance.reference().child("Alarm");
+  final databasealarm = FirebaseDatabase.instance.reference().child("MyOrder");
 
   @override
   void initState() {
@@ -39,7 +40,7 @@ class _MyAlarmsState extends State<MyAlarms> {
         : setState(() {
             _userId = user.uid;
             final databasealarm =
-                FirebaseDatabase.instance.reference().child("Alarm");
+                FirebaseDatabase.instance.reference().child("MyOrder");
 //            orderdatabaseReference.once().then((DataSnapshot data) {
 //              var uuId = data.value.keys;
 
@@ -50,23 +51,22 @@ class _MyAlarmsState extends State<MyAlarms> {
               alarmlist.clear();
               //  namelist.clear();
               for (var individualkey in keys) {
-                AlarmaClass alarmaalass = new AlarmaClass(
-                  DATA[individualkey]['alarmid'],
+                MyOrderClass alarmaalass = new MyOrderClass(
                   DATA[individualkey]['wid'],
                   DATA[individualkey]['Name'],
+                  DATA[individualkey]['title'],
+                  DATA[individualkey]['statusOrder'],
+                  DATA[individualkey]['cadv'],
+                  DATA[individualkey]['curl'],
                   DATA[individualkey]['cType'],
-                  DATA[individualkey]['cDateID'],
-                  DATA[individualkey]['arrange'],
                 );
+
+
+
                 setState(() {
                   alarmlist.add(alarmaalass);
-                  setState(() {
-                    print("size of list : 5");
-                    alarmlist.sort((alarm1, alarm2) =>
-                        alarm1.arrange.compareTo(alarm2.arrange));
-                  });
+
                 });
-                print("kkkkkkk${DATA[individualkey]['arrange']}");
               }
             });
             // }
@@ -158,13 +158,18 @@ class _MyAlarmsState extends State<MyAlarms> {
                           child: _firebasedata(
                             index,
                             alarmlist.length,
-                            alarmlist[index].alarmid,
                             alarmlist[index].wid,
                             alarmlist[index].Name,
+                            alarmlist[index].title,
+                            alarmlist[index].statusOrder,
+                            alarmlist[index].cadv,
+                            alarmlist[index].curl,
                             alarmlist[index].cType,
-                            alarmlist[index].cDateID,
-                            alarmlist[index].arrange,
                           ),
+
+
+
+
 //                                                    onTap: () {
 //                                                      if(_userId==commentlist[index].cuserid){
 //                                                        FirebaseDatabase.instance
@@ -226,12 +231,13 @@ class _MyAlarmsState extends State<MyAlarms> {
   Widget _firebasedata(
     int position,
     int length,
-    String alarmid,
     String wid,
     String Name,
+    String titel,
+    int statusOrder,
+    String cadv,
+    String curl,
     String cType,
-    String cDateID,
-    int arrange,
   ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),

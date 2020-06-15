@@ -5,9 +5,11 @@ import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderDetailClass.dart';
 import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 //import 'package:simple_slider/simple_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:toast/toast.dart';
@@ -16,29 +18,35 @@ import 'package:connectivity/connectivity.dart';
 
 import 'ModelsForChating/chat.dart';
 import 'allorder.dart';
-class providerProlile  extends StatefulWidget {
+
+class providerProlile extends StatefulWidget {
   String cId;
   String cName;
   String cDateID;
+
   providerProlile(this.cId, this.cDateID, this.cName);
+
   @override
   _providerProlileState createState() => _providerProlileState();
 }
 
 class _providerProlileState extends State<providerProlile> {
-  String _userId;String _username;
+  String _userId;
+  String _username;
   var _formKey1 = GlobalKey<FormState>();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _launched;
   var _controller = ScrollController();
-  bool favcheck=false;
+  bool favcheck = false;
+
   //List<OrderDetailClass> orderlist = [];
   List<CommentClass> commentlist = [];
+
   //var _controller = ScrollController();
 
   OrderDetailClass orderclass;
   final double _minimumPadding = 5.0;
-  bool _load=false;
+  bool _load = false;
   String cPhone;
   TextEditingController _commentController = TextEditingController();
   List<String> _imageUrls;
@@ -47,25 +55,27 @@ class _providerProlileState extends State<providerProlile> {
   void initState() {
     super.initState();
     final userdatabaseReference =
-    FirebaseDatabase.instance.reference().child("userdata");
-      userdatabaseReference
+        FirebaseDatabase.instance.reference().child("userdata");
+    userdatabaseReference
         .child(
-     widget.cId,
-    )
+          widget.cId,
+        )
         .child("cPhone")
         .once()
         .then((DataSnapshot snapshot5) {
       setState(() {
         if (snapshot5.value != null) {
           setState(() {
-            cPhone=snapshot5.value;
+            cPhone = snapshot5.value;
           });
         }
-
       });
     });
-    final commentdatabaseReference =
-    FirebaseDatabase.instance.reference().child("commentsdata").child(widget.cId).child(widget.cDateID);
+    final commentdatabaseReference = FirebaseDatabase.instance
+        .reference()
+        .child("commentsdata")
+        .child(widget.cId)
+        .child(widget.cDateID);
     commentdatabaseReference.once().then((DataSnapshot snapshot) {
       var KEYS = snapshot.value.keys;
       var DATA = snapshot.value;
@@ -74,159 +84,164 @@ class _providerProlileState extends State<providerProlile> {
       commentlist.clear();
 
       for (var individualkey in KEYS) {
-       // if (!blockList.contains(individualkey) &&user.uid != individualkey) {
-          CommentClass commentclass =
-          new CommentClass(
-            DATA[individualkey]['cId'],
-            DATA[individualkey]['cuserid'],
-            DATA[individualkey]['cdate'],
-            DATA[individualkey]['cheaddate'],
-            DATA[individualkey]['ccoment'],
-            DATA[individualkey]['cname'],
-          );
+        // if (!blockList.contains(individualkey) &&user.uid != individualkey) {
+        CommentClass commentclass = new CommentClass(
+          DATA[individualkey]['cId'],
+          DATA[individualkey]['cuserid'],
+          DATA[individualkey]['cdate'],
+          DATA[individualkey]['cheaddate'],
+          DATA[individualkey]['ccoment'],
+          DATA[individualkey]['cname'],
+        );
 
         setState(() {
-              commentlist.add(commentclass);
+          commentlist.add(commentclass);
 //              Toast.show("${favchecklist.length}/${coiffurelist.length}",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-            });
-       // }
+        });
+        // }
       }
     });
     FirebaseAuth.instance.currentUser().then((user) => user == null
-        ?
-    setState(() {
-      setState(() {
-        favcheck=false;
-      });
-      //_userId = user.uid;
-
-      /////////////////////////////////////
-      final orderdatabaseReference =
-      FirebaseDatabase.instance.reference().child("orderdata");
-
-      orderdatabaseReference
-          .child(widget.cId).child(widget.cDateID)
-          .once()
-          .then((DataSnapshot data1) {
-        var DATA = data1.value;
-        setState(() {
-          orderclass = new OrderDetailClass(
-            DATA['cId'],
-            DATA['cdate'],
-            DATA['clat1'],
-            DATA['clong1'],
-            DATA['clat2'],
-            DATA['clong2'],
-            DATA['cType'],
-            DATA['cCategory'],
-            DATA['cpayload'],
-            DATA['cnocars'],
-            DATA['ctime'],
-            DATA['cpublished'],
-            DATA['cstarttraveltime'],
-            DATA['curi'],
-            ////
-            DATA['ccity'],
-            DATA['cadv'],
-            DATA['ctitle'],
-            DATA['ccompany'],
-            DATA['cowner'],
-            DATA['cmodel'],
-            DATA['cdriver'],
-            DATA['cshort'],
-            DATA['cdetail'],
-            DATA['curilist'],
-          );
-          _imageUrls=DATA['curilist'].replaceAll(" ", "").replaceAll("[", "").replaceAll("]", "").split(",");
-
-        });
-      });
-    })
-        :
-    setState(() {
-      _userId = user.uid;
-      userdatabaseReference
-          .child(
-        _userId,
-      )
-          .child("cName")
-          .once()
-          .then((DataSnapshot snapshot) {
-        setState(() {
-          if (snapshot.value != null) {
+        ? setState(() {
             setState(() {
-              _username=snapshot.value;
+              favcheck = false;
             });
-          }
+            //_userId = user.uid;
 
-        });
-      });
+            /////////////////////////////////////
+            final orderdatabaseReference =
+                FirebaseDatabase.instance.reference().child("orderdata");
 
-      //  Toast.show(_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-      final databaseFav =
-      FirebaseDatabase.instance.reference().child("userFavourits");
-      databaseFav
-          .child(_userId).child(widget.cId+widget.cDateID).child("FavChecked")
-          .once()
-          .then((DataSnapshot snapshot5) {
-        setState(() {
-          if (snapshot5.value != null) {
-            setState(() {
-              favcheck=snapshot5.value;
+            orderdatabaseReference
+                .child(widget.cId)
+                .child(widget.cDateID)
+                .once()
+                .then((DataSnapshot data1) {
+              var DATA = data1.value;
+              setState(() {
+                orderclass = new OrderDetailClass(
+                  DATA['cId'],
+                  DATA['cdate'],
+                  DATA['clat1'],
+                  DATA['clong1'],
+                  DATA['clat2'],
+                  DATA['clong2'],
+                  DATA['cType'],
+                  DATA['cCategory'],
+                  DATA['cpayload'],
+                  DATA['cnocars'],
+                  DATA['ctime'],
+                  DATA['cpublished'],
+                  DATA['cstarttraveltime'],
+                  DATA['curi'],
+                  ////
+                  DATA['ccity'],
+                  DATA['cadv'],
+                  DATA['ctitle'],
+                  DATA['ccompany'],
+                  DATA['cowner'],
+                  DATA['cmodel'],
+                  DATA['cdriver'],
+                  DATA['cshort'],
+                  DATA['cdetail'],
+                  DATA['curilist'],
+                );
+                _imageUrls = DATA['curilist']
+                    .replaceAll(" ", "")
+                    .replaceAll("[", "")
+                    .replaceAll("]", "")
+                    .split(",");
+              });
             });
-          }else{
-            setState(() {
-              favcheck=false;
+          })
+        : setState(() {
+            _userId = user.uid;
+            userdatabaseReference
+                .child(
+                  _userId,
+                )
+                .child("cName")
+                .once()
+                .then((DataSnapshot snapshot) {
+              setState(() {
+                if (snapshot.value != null) {
+                  setState(() {
+                    _username = snapshot.value;
+                  });
+                }
+              });
             });
-          }
 
-        });
-      });
-      /////////////////////////////////////
-      final orderdatabaseReference =
-      FirebaseDatabase.instance.reference().child("orderdata");
+            //  Toast.show(_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
-orderdatabaseReference
-              .child(widget.cId).child(widget.cDateID)
-              .once()
-              .then((DataSnapshot data1) {
-            var DATA = data1.value;
-setState(() {
-   orderclass = new OrderDetailClass(
-    DATA['cId'],
-    DATA['cdate'],
-    DATA['clat1'],
-    DATA['clong1'],
-    DATA['clat2'],
-    DATA['clong2'],
-    DATA['cType'],
-    DATA['cCategory'],
-    DATA['cpayload'],
-    DATA['cnocars'],
-    DATA['ctime'],
-    DATA['cpublished'],
-    DATA['cstarttraveltime'],
-    DATA['curi'],
-     ////
-     DATA['ccity'],
-     DATA['cadv'],
-     DATA['ctitle'],
-     DATA['ccompany'],
-     DATA['cowner'],
-     DATA['cmodel'],
-     DATA['cdriver'],
-     DATA['cshort'],
-     DATA['cdetail'],
-    DATA['curilist'],
-  );
-   _imageUrls=DATA['curilist'].replaceAll(" ", "").replaceAll("[", "").replaceAll("]", "").split(",");
+            final databaseFav =
+                FirebaseDatabase.instance.reference().child("userFavourits");
+            databaseFav
+                .child(_userId)
+                .child(widget.cId + widget.cDateID)
+                .child("FavChecked")
+                .once()
+                .then((DataSnapshot snapshot5) {
+              setState(() {
+                if (snapshot5.value != null) {
+                  setState(() {
+                    favcheck = snapshot5.value;
+                  });
+                } else {
+                  setState(() {
+                    favcheck = false;
+                  });
+                }
+              });
+            });
+            /////////////////////////////////////
+            final orderdatabaseReference =
+                FirebaseDatabase.instance.reference().child("orderdata");
 
-});
-          });
-    })
-    );
+            orderdatabaseReference
+                .child(widget.cId)
+                .child(widget.cDateID)
+                .once()
+                .then((DataSnapshot data1) {
+              var DATA = data1.value;
+              setState(() {
+                orderclass = new OrderDetailClass(
+                  DATA['cId'],
+                  DATA['cdate'],
+                  DATA['clat1'],
+                  DATA['clong1'],
+                  DATA['clat2'],
+                  DATA['clong2'],
+                  DATA['cType'],
+                  DATA['cCategory'],
+                  DATA['cpayload'],
+                  DATA['cnocars'],
+                  DATA['ctime'],
+                  DATA['cpublished'],
+                  DATA['cstarttraveltime'],
+                  DATA['curi'],
+                  ////
+                  DATA['ccity'],
+                  DATA['cadv'],
+                  DATA['ctitle'],
+                  DATA['ccompany'],
+                  DATA['cowner'],
+                  DATA['cmodel'],
+                  DATA['cdriver'],
+                  DATA['cshort'],
+                  DATA['cdetail'],
+                  DATA['curilist'],
+                );
+                _imageUrls = DATA['curilist']
+                    .replaceAll(" ", "")
+                    .replaceAll("[", "")
+                    .replaceAll("]", "")
+                    .split(",");
+              });
+            });
+          }));
   }
+
   @override
   Widget build(BuildContext context) {
 //    Widget loadingIndicator = _load
@@ -244,15 +259,13 @@ setState(() {
             Column(
               children: <Widget>[
                 Container(
-                  width:  MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width,
                   height: 86.0,
                   decoration: BoxDecoration(
-
                     color: const Color(0xff4fc3f7),
                   ),
                   child: InkWell(
                     onTap: () => Navigator.pop(context),
-
                     child: Container(
                       alignment: Alignment.centerLeft,
                       width: 20,
@@ -266,8 +279,8 @@ setState(() {
                 Transform.translate(
                   offset: Offset(0.0, -42.0),
                   child:
-                  // Adobe XD layer: 'logoBox' (shape)
-                  Center(
+                      // Adobe XD layer: 'logoBox' (shape)
+                      Center(
                     child: Container(
                       width: 166.0,
                       height: 67.0,
@@ -287,64 +300,66 @@ setState(() {
               ],
             ),
 
-
             Form(
               key: _formKey1,
               child: Padding(
-                  padding: EdgeInsets.only(top:_minimumPadding * 20,bottom: _minimumPadding * 0, right: _minimumPadding * 0,left: _minimumPadding * 0),
+                  padding: EdgeInsets.only(
+                      top: _minimumPadding * 20,
+                      bottom: _minimumPadding * 0,
+                      right: _minimumPadding * 0,
+                      left: _minimumPadding * 0),
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     children: <Widget>[
                       //getImageAsset(),
 
                       Container(
-                        //color: Colors.grey[200],
-                          width: 300,height: 200,
-                       child: _imageUrls==null?
-                       SpinKitThreeBounce(
-                         size: 35,
-                         color: Colors.blue,
-                       ):Swiper(
-                         loop: false,
-                         duration: 1000,
-                         autoplay: true,
-                         autoplayDelay: 15000,
-                         itemCount: _imageUrls.length,
-                         pagination:
-                         new SwiperPagination(
-                           margin: new EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                             builder: new DotSwiperPaginationBuilder(
-                                 color: Colors.grey,
-                                 activeColor: Colors.blue,
-                                 size: 8.0,
-                                 activeSize: 8.0),
-                         ),
-
-                         control: new SwiperControl(),
-                         viewportFraction: 1,
-                         scale: 0.1,
-                         outer: true,
-                         itemBuilder:
-                             (BuildContext context,
-                             int index) {
-                           return  Image.network(_imageUrls[index],
-                               fit: BoxFit.fill, loadingBuilder: (BuildContext context,
-                                   Widget child, ImageChunkEvent loadingProgress) {
-                                 if (loadingProgress == null) return child;
-                                 return SpinKitThreeBounce(
-                                   color: Colors.blue,
-                                   size: 35,
-                                 );
-                               });
-                         },
-                       )
-
-
-                      ),
+                          //color: Colors.grey[200],
+                          width: 300,
+                          height: 200,
+                          child: _imageUrls == null
+                              ? SpinKitThreeBounce(
+                                  size: 35,
+                                  color: Colors.blue,
+                                )
+                              : Swiper(
+                                  loop: false,
+                                  duration: 1000,
+                                  autoplay: true,
+                                  autoplayDelay: 15000,
+                                  itemCount: _imageUrls.length,
+                                  pagination: new SwiperPagination(
+                                    margin: new EdgeInsets.fromLTRB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    builder: new DotSwiperPaginationBuilder(
+                                        color: Colors.grey,
+                                        activeColor: Colors.blue,
+                                        size: 8.0,
+                                        activeSize: 8.0),
+                                  ),
+                                  control: new SwiperControl(),
+                                  viewportFraction: 1,
+                                  scale: 0.1,
+                                  outer: true,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Image.network(_imageUrls[index],
+                                        fit: BoxFit.fill,
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return SpinKitThreeBounce(
+                                        color: Colors.blue,
+                                        size: 35,
+                                      );
+                                    });
+                                  },
+                                )),
                       Card(
-
                         shape: new RoundedRectangleBorder(
-                            side: new BorderSide(color:Colors.grey[400], width: 3.0),
+                            side: new BorderSide(
+                                color: Colors.grey[400], width: 3.0),
                             borderRadius: BorderRadius.circular(10.0)),
                         //borderOnForeground: true,
                         elevation: 10.0,
@@ -363,61 +378,82 @@ setState(() {
                                       onTap: () {
                                         setState(() {
                                           setState(() {
-                                            favcheck=!favcheck; //boolean value
+                                            favcheck =
+                                                !favcheck; //boolean value
                                           });
                                           if (_userId == null) {
                                             //if(favchecklist[position] ){
-                                            Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-                                           setState(() {
-                                             favcheck = false; //boolean value
-
-                                           });
+                                            Toast.show(
+                                                "يجب عليك تسجيل الدخول أولا",
+                                                context,
+                                                duration: Toast.LENGTH_LONG,
+                                                gravity: Toast.BOTTOM);
+                                            setState(() {
+                                              favcheck = false; //boolean value
+                                            });
                                           } else {
                                             DateTime now = DateTime.now();
-                                            String b=now.month.toString();
-                                            if(b.length<2){b="0"+b;}
-                                            String c=now.day.toString();
-                                            if(c.length<2){c="0"+c;}
-                                            String d=now.hour.toString();
-                                            if(d.length<2){d="0"+d;}
-                                            String e=now.minute.toString();
-                                            if(e.length<2){e="0"+e;}
-                                            String f=now.second.toString();
-                                            if(f.length<2){f="0"+f;}
+                                            String b = now.month.toString();
+                                            if (b.length < 2) {
+                                              b = "0" + b;
+                                            }
+                                            String c = now.day.toString();
+                                            if (c.length < 2) {
+                                              c = "0" + c;
+                                            }
+                                            String d = now.hour.toString();
+                                            if (d.length < 2) {
+                                              d = "0" + d;
+                                            }
+                                            String e = now.minute.toString();
+                                            if (e.length < 2) {
+                                              e = "0" + e;
+                                            }
+                                            String f = now.second.toString();
+                                            if (f.length < 2) {
+                                              f = "0" + f;
+                                            }
 
 //////////*******************************************
-                                            final databasealarm = FirebaseDatabase
-                                                .instance
-                                                .reference()
-                                                .child("Alarm")
-                                                .child(widget.cId);
+                                            final databasealarm =
+                                                FirebaseDatabase.instance
+                                                    .reference()
+                                                    .child("Alarm")
+                                                    .child(widget.cId);
                                             final databaseFav = FirebaseDatabase
                                                 .instance
                                                 .reference()
                                                 .child("userFavourits")
-                                                .child(_userId).child(widget.cId+widget.cDateID);
+                                                .child(_userId)
+                                                .child(widget.cId +
+                                                    widget.cDateID);
                                             if (favcheck) {
                                               databaseFav.set({
                                                 'cId': widget.cId,
                                                 'FavChecked': favcheck,
-                                                'cDateID':widget.cDateID,
+                                                'cDateID': widget.cDateID,
                                               });
                                               databasealarm.push().set({
-                                                'alarmid': databasealarm.push().key,
+                                                'alarmid':
+                                                    databasealarm.push().key,
                                                 'wid': widget.cId,
                                                 'Name': _username,
                                                 'cType': "love",
-                                                'cDateID':"${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
-                                                'arrange':int.parse("${now.year.toString()}${b}${c}${d}${e}${f}")
+                                                'cDateID':
+                                                    "${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
+                                                'arrange': int.parse(
+                                                    "${now.year.toString()}${b}${c}${d}${e}${f}")
                                               });
                                               Toast.show(
-                                                  "${widget.cName}تم اضافتة فى المفضلة ", context,
+                                                  "${widget.cName}تم اضافتة فى المفضلة ",
+                                                  context,
                                                   duration: Toast.LENGTH_SHORT,
                                                   gravity: Toast.BOTTOM);
                                             } else {
                                               databaseFav.set(null);
 
-                                              Toast.show("تم الحذف فى المفضلة", context,
+                                              Toast.show("تم الحذف فى المفضلة",
+                                                  context,
                                                   duration: Toast.LENGTH_SHORT,
                                                   gravity: Toast.BOTTOM);
                                             }
@@ -429,46 +465,45 @@ setState(() {
                                       child: Container(
                                         //decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
                                         child: Padding(
-                                          padding:
-                                          const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                                          padding: const EdgeInsets.only(
+                                              top: 10.0, bottom: 10.0),
                                           child: favcheck
                                               ? Icon(
-                                            Icons.favorite,
-                                            size: 40.0,
-                                            color: Colors.red,
-                                          )
+                                                  Icons.favorite,
+                                                  size: 40.0,
+                                                  color: Colors.red,
+                                                )
 ////
-                                              :
-                                          Column(
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.favorite_border,
-                                                size: 40.0,
-                                                color: Colors.red,
-                                              ),
-
-                                            ],
-                                          ),
+                                              : Column(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.favorite_border,
+                                                      size: 40.0,
+                                                      color: Colors.red,
+                                                    ),
+                                                  ],
+                                                ),
                                         ),
                                       ),
                                     )),
-
                                 Positioned(
                                   top: 0,
                                   right: 5,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child: orderclass==null?Text(""):Text(
-                                      "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
-                                      textDirection: TextDirection.rtl,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontFamily: 'Gamja Flower',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15.0,
-                                          fontStyle: FontStyle.normal),
-                                    ),
+                                    child: orderclass == null
+                                        ? Text("")
+                                        : Text(
+                                            "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                            textDirection: TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                color: Colors.blue,
+                                                fontFamily: 'Gamja Flower',
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15.0,
+                                                fontStyle: FontStyle.normal),
+                                          ),
                                   ),
                                 ),
                                 Positioned(
@@ -478,25 +513,28 @@ setState(() {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
-
-                                        orderclass==null?Text(""):
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("خلال: ${ orderclass.cmodel}",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
-
+                                        orderclass == null
+                                            ? Text("")
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0),
+                                                child: Text(
+                                                  "خلال: ${orderclass.cmodel}",
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontFamily:
+                                                          'Gamja Flower',
+                                                      fontStyle:
+                                                          FontStyle.normal),
+                                                ),
+                                              ),
                                       ],
                                     ),
                                   ),
                                 ),
-
                                 Positioned(
                                   top: 20,
                                   right: 5,
@@ -504,19 +542,24 @@ setState(() {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
-
-                                        orderclass==null?Text(""):
-                                             Padding(
-                                               padding: const EdgeInsets.only(top:8.0),
-                                               child: Text("المالك: ${ widget.cName}",
-                                          textDirection: TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                        ),
-                                             ),
+                                        orderclass == null
+                                            ? Text("")
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0),
+                                                child: Text(
+                                                  "المالك: ${widget.cName}",
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontFamily:
+                                                          'Gamja Flower',
+                                                      fontStyle:
+                                                          FontStyle.normal),
+                                                ),
+                                              ),
                                         Icon(
                                           Icons.person,
                                           color: Colors.grey,
@@ -532,19 +575,24 @@ setState(() {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
-
-                                        orderclass==null?Text(""):
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("الماركة: ${ orderclass.ccompany}",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
+                                        orderclass == null
+                                            ? Text("")
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0),
+                                                child: Text(
+                                                  "الماركة: ${orderclass.ccompany}",
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontFamily:
+                                                          'Gamja Flower',
+                                                      fontStyle:
+                                                          FontStyle.normal),
+                                                ),
+                                              ),
                                         Icon(
                                           Icons.drive_eta,
                                           color: Colors.grey,
@@ -560,19 +608,24 @@ setState(() {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
-
-                                        orderclass==null?Text(""):
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("الموديل: ${ orderclass.cmodel}",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
+                                        orderclass == null
+                                            ? Text("")
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0),
+                                                child: Text(
+                                                  "الموديل: ${orderclass.cmodel}",
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontFamily:
+                                                          'Gamja Flower',
+                                                      fontStyle:
+                                                          FontStyle.normal),
+                                                ),
+                                              ),
                                         Icon(
                                           Icons.calendar_today,
                                           color: Colors.grey,
@@ -588,19 +641,24 @@ setState(() {
                                     padding: const EdgeInsets.all(5.0),
                                     child: Row(
                                       children: <Widget>[
-
-                                        orderclass==null?Text(""):
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("من: الى: ",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
+                                        orderclass == null
+                                            ? Text("")
+                                            : Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0),
+                                                child: Text(
+                                                  "من: الى: ",
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  textAlign: TextAlign.right,
+                                                  style: TextStyle(
+                                                      fontSize: 15.0,
+                                                      fontFamily:
+                                                          'Gamja Flower',
+                                                      fontStyle:
+                                                          FontStyle.normal),
+                                                ),
+                                              ),
                                         Icon(
                                           Icons.location_on,
                                           color: Colors.grey,
@@ -609,25 +667,23 @@ setState(() {
                                     ),
                                   ),
                                 ),
-
-
-
-
-
                               ],
                             )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          child:orderclass==null?Text(""): Text(orderclass.cdetail,
-                            textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                                fontSize: 15.0,
-                                fontFamily: 'Gamja Flower',
-                                fontStyle: FontStyle.normal),
-                          ),
+                          child: orderclass == null
+                              ? Text("")
+                              : Text(
+                                  orderclass.cdetail,
+                                  textDirection: TextDirection.rtl,
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontFamily: 'Gamja Flower',
+                                      fontStyle: FontStyle.normal),
+                                ),
                         ),
                       ),
                       Padding(
@@ -641,28 +697,95 @@ setState(() {
                               children: <Widget>[
                                 new Text("الطلب"),
                                 Padding(
-                                  padding: const EdgeInsets.only(left:10.0),
-                                  child: Icon(Icons.check,color: Colors.white,),
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ],
                             ),
 
-                          textColor: Colors.white,
-                          color: const Color(0xff43A2CC),
+                            textColor: Colors.white,
+                            color: const Color(0xff43A2CC),
                             onPressed: () {
                               if (_userId == null) {
-                                Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
+                                Toast.show(
+                                    "يجب عليك تسجيل الدخول أولا", context,
+                                    duration: Toast.LENGTH_LONG,
+                                    gravity: Toast.BOTTOM);
                               } else {
-                                Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                      new ChatPage(
-                                          name:  widget.cName,
-                                          uid: widget.cId
-                                      )),
+                                final databasemyorder = FirebaseDatabase
+                                    .instance
+                                    .reference()
+                                    .child("MyOrder")
+                                    .child(widget.cId);
+                                final databasemyorder2 = FirebaseDatabase
+                                    .instance
+                                    .reference()
+                                    .child("MyOrder")
+                                    .child(_userId);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      new CupertinoAlertDialog(
+                                    title: new Text("تنبية"),
+                                    content:
+                                        new Text("سوف يتم إرسال طلبك الان ؟"),
+                                    actions: [
+                                      CupertinoDialogAction(
+                                          isDefaultAction: false,
+                                          child: new FlatButton(
+                                            onPressed: () => databasemyorder
+                                                .child(_userId)
+                                                .push()
+                                                .set({
+                                              'Uid': _userId,
+                                              'Name': _username,
+                                              'title':
+                                                  "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                              'statusOrder': 0,
+                                              'cadv': "${orderclass.cadv}",
+                                              'curl': "${orderclass.curi}",
+                                              'cType': "provider",
+                                            }).whenComplete(() =>
+                                                    databasemyorder2
+                                                        .child(widget.cId)
+                                                        .push()
+                                                        .set({
+                                                      'wid': widget.cId,
+                                                      'Name': _username,
+                                                      'title':
+                                                          "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                                      'statusOrder': 0,
+                                                      'cadv':
+                                                          "${orderclass.cadv}",
+                                                      'curl':
+                                                          "${orderclass.curi}",
+                                                      'cType': "user",
+                                                    })).then((value) => Navigator.pop(context)),
+                                            child: Text("موافق"),
+                                          )),
+                                      CupertinoDialogAction(
+                                          isDefaultAction: false,
+                                          child: new FlatButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: Text("إلغاء"),
+                                          )),
+                                    ],
+                                  ),
                                 );
+
+//                                Navigator.push(
+//                                  context,
+//                                  new MaterialPageRoute(
+//                                      builder: (BuildContext context) =>
+//                                      new ChatPage(
+//                                          name:  widget.cName,
+//                                          uid: widget.cId
+//                                      )),
+//                                );
                               }
                             },
 //
@@ -672,184 +795,217 @@ setState(() {
                         ),
                       ),
                       SizedBox(
-                        height: 2*_minimumPadding,
+                        height: 2 * _minimumPadding,
                         width: _minimumPadding,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(left:10.0),
+                            padding: const EdgeInsets.only(left: 10.0),
                             child: Container(
                               width: 150 /*MediaQuery.of(context).size.width*/,
                               height: 40,
                               child: new RaisedButton(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
-                                    new Text("تواصل عبر الدردشة",
+                                    new Text(
+                                      "تواصل عبر الدردشة",
                                       style: TextStyle(
                                         color: Colors.blue,
                                         fontSize: 10,
-                                      ),),
-                                    Icon(Icons.mail_outline,color: Colors.blue,),
-                                  ],
-                                ),
-                                textColor: Colors.black54,
-                                color: Colors.grey[400],
-                                onPressed: () {
-    if (_userId == null) {
-    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
-    } else {
-      Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) =>
-            new ChatPage(
-                name:  widget.cName,
-                uid: widget.cId
-            )),
-      );
-    }
-                                },
-
-//
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:10.0),
-                            child: Container(
-                              width: 150 /*MediaQuery.of(context).size.width*/,
-                              height: 40,
-                              child: new RaisedButton(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    new Text("تواصل برقم الجوال",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 10,
-                                      ),),
-                                    Icon(Icons.phone,color: Colors.blue,),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.mail_outline,
+                                      color: Colors.blue,
+                                    ),
                                   ],
                                 ),
                                 textColor: Colors.black54,
                                 color: Colors.grey[400],
                                 onPressed: () {
                                   if (_userId == null) {
-                                    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+                                    Toast.show(
+                                        "يجب عليك تسجيل الدخول أولا", context,
+                                        duration: Toast.LENGTH_LONG,
+                                        gravity: Toast.BOTTOM);
                                   } else {
-                                    if(cPhone!=null){
-                                      _makePhoneCall('tel:$cPhone');
-                                    }else{
-                                      Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
-                                    }
+                                    Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              new ChatPage(
+                                                  name: widget.cName,
+                                                  uid: widget.cId)),
+                                    );
                                   }
-
-
-
                                 },
+
 //
                                 shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0)),
                               ),
                             ),
                           ),
-
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Container(
+                              width: 150 /*MediaQuery.of(context).size.width*/,
+                              height: 40,
+                              child: new RaisedButton(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    new Text(
+                                      "تواصل برقم الجوال",
+                                      style: TextStyle(
+                                        color: Colors.blue,
+                                        fontSize: 10,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.phone,
+                                      color: Colors.blue,
+                                    ),
+                                  ],
+                                ),
+                                textColor: Colors.black54,
+                                color: Colors.grey[400],
+                                onPressed: () {
+                                  if (_userId == null) {
+                                    Toast.show(
+                                        "يجب عليك تسجيل الدخول أولا", context,
+                                        duration: Toast.LENGTH_LONG,
+                                        gravity: Toast.BOTTOM);
+                                  } else {
+                                    if (cPhone != null) {
+                                      _makePhoneCall('tel:$cPhone');
+                                    } else {
+                                      Toast.show("حاول مرة اخرى", context,
+                                          duration: Toast.LENGTH_LONG,
+                                          gravity: Toast.BOTTOM);
+                                    }
+                                  }
+                                },
+//
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0)),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(
-                        height: 2*_minimumPadding,
+                        height: 2 * _minimumPadding,
                         width: _minimumPadding,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(left:10.0),
+                            padding: const EdgeInsets.only(left: 10.0),
                             child: Container(
                               width: 150 /*MediaQuery.of(context).size.width*/,
                               height: 40,
                               child: new RaisedButton(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
-                                    new Text("مشاركة عبر التطبيق",
+                                    new Text(
+                                      "مشاركة عبر التطبيق",
                                       style: TextStyle(
                                         color: Colors.blue,
                                         fontSize: 10,
-                                      ),),
-                                    Icon(Icons.exit_to_app,color: Colors.blue,),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.exit_to_app,
+                                      color: Colors.blue,
+                                    ),
                                   ],
                                 ),
                                 textColor: Colors.black54,
                                 color: Colors.grey[400],
-                                onPressed: () {
-                                },
+                                onPressed: () {},
 //
                                 shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0)),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left:10.0),
+                            padding: const EdgeInsets.only(left: 10.0),
                             child: Container(
                               width: 150 /*MediaQuery.of(context).size.width*/,
                               height: 40,
                               child: new RaisedButton(
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
-                                    new Text("تواصل عن طريق الواتساب",
+                                    new Text(
+                                      "تواصل عن طريق الواتساب",
                                       style: TextStyle(
                                         color: Colors.blue,
                                         fontSize: 8,
-                                      ),),
-                                    Icon(Icons.call,color: Colors.blue,),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.call,
+                                      color: Colors.blue,
+                                    ),
                                   ],
                                 ),
                                 textColor: Colors.black54,
                                 color: Colors.grey[400],
                                 onPressed: () {
                                   if (_userId == null) {
-                                    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
+                                    Toast.show(
+                                        "يجب عليك تسجيل الدخول أولا", context,
+                                        duration: Toast.LENGTH_LONG,
+                                        gravity: Toast.BOTTOM);
                                   } else {
-                                    if(cPhone!=null){
+                                    if (cPhone != null) {
                                       //var phone="01003208785";
-                                      var whatsappUrl ="whatsapp://send?phone=+2$cPhone";
-                                      canLaunch(whatsappUrl) != null? launch(whatsappUrl):print("open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
-                                    }else{
-                                      Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
+                                      var whatsappUrl =
+                                          "whatsapp://send?phone=+2$cPhone";
+                                      canLaunch(whatsappUrl) != null
+                                          ? launch(whatsappUrl)
+                                          : print(
+                                              "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
+                                    } else {
+                                      Toast.show("حاول مرة اخرى", context,
+                                          duration: Toast.LENGTH_LONG,
+                                          gravity: Toast.BOTTOM);
                                     }
                                   }
-
-                                    },
+                                },
 
 //
                                 shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
+                                    borderRadius:
+                                        new BorderRadius.circular(10.0)),
                               ),
                             ),
                           ),
-
                         ],
                       ),
                       SizedBox(
-                        height: 2*_minimumPadding,
+                        height: 2 * _minimumPadding,
                         width: _minimumPadding,
                       ),
                       Card(
-
                         shape: new RoundedRectangleBorder(
-                            side: new BorderSide(color:Colors.grey[400], width: 3.0),
+                            side: new BorderSide(
+                                color: Colors.grey[400], width: 3.0),
                             borderRadius: BorderRadius.circular(10.0)),
                         //borderOnForeground: true,
                         elevation: 10.0,
@@ -862,36 +1018,36 @@ setState(() {
                               alignment: Alignment.bottomCenter,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(top:0.0,bottom: 65),
+                                  padding: const EdgeInsets.only(
+                                      top: 0.0, bottom: 65),
                                   child: Container(
-                                    height:300,
-                                   //color: Colors.red[300],
-                                    child:
-
-                                    Expanded(
+                                    height: 300,
+                                    //color: Colors.red[300],
+                                    child: Expanded(
                                         child: Center(
-                                          child: commentlist.length == 0
-                                              ? new Text(
-                                            "لا يوجد بيانات",
-                                          )
-                                              : new ListView.builder(
+                                      child: commentlist.length == 0
+                                          ? new Text(
+                                              "لا يوجد بيانات",
+                                            )
+                                          : new ListView.builder(
                                               physics: BouncingScrollPhysics(),
                                               controller: _controller,
-                                             // reverse: true,
+                                              // reverse: true,
                                               itemCount: commentlist.length,
-                                              itemBuilder: (BuildContext ctxt, int index) {
+                                              itemBuilder: (BuildContext ctxt,
+                                                  int index) {
                                                 return InkWell(
-                                                    child:  _firebasedata(
-                                                      index,
-                                                      commentlist.length,
-                                                      commentlist[index].cId,
-                                                      commentlist[index].cuserid,
-                                                      commentlist[index].cdate,
-                                                      commentlist[index].cheaddate,
-                                                      commentlist[index].ccoment,
-                                                      commentlist[index].cname,
-
-                                                    ),
+                                                  child: _firebasedata(
+                                                    index,
+                                                    commentlist.length,
+                                                    commentlist[index].cId,
+                                                    commentlist[index].cuserid,
+                                                    commentlist[index].cdate,
+                                                    commentlist[index]
+                                                        .cheaddate,
+                                                    commentlist[index].ccoment,
+                                                    commentlist[index].cname,
+                                                  ),
 //                                                    onTap: () {
 //                                                      if(_userId==commentlist[index].cuserid){
 //                                                        FirebaseDatabase.instance
@@ -916,17 +1072,16 @@ setState(() {
 //                                                            gravity: Toast.BOTTOM);
 //                                                      }
 //                                                    }
-                                                    );
+                                                );
                                               }),
-
-                                        )),
+                                    )),
                                   ),
                                 ),
                                 Positioned(
                                   bottom: 5,
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child:  Row(
+                                    child: Row(
                                       children: <Widget>[
                                         Container(
                                           width: 320,
@@ -937,15 +1092,20 @@ setState(() {
                                               elevation: 0.0,
                                               color: Colors.white,
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(5),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
                                               ),
                                               child: Directionality(
-                                                textDirection: TextDirection.rtl,
+                                                textDirection:
+                                                    TextDirection.rtl,
                                                 child: TextFormField(
                                                   textAlign: TextAlign.right,
-                                                  keyboardType: TextInputType.text,
-                                                  textDirection: TextDirection.rtl,
-                                                   controller: _commentController,
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  controller:
+                                                      _commentController,
                                                   validator: (String value) {
                                                     if ((value.isEmpty)) {
                                                       return 'برجاء ادخال التعليق';
@@ -955,18 +1115,21 @@ setState(() {
                                                   onChanged: (value) {},
                                                   //  controller: controller,
                                                   decoration: InputDecoration(
-                                                      errorStyle: TextStyle(color: Colors.red, fontSize: 15.0),
+                                                      errorStyle: TextStyle(
+                                                          color: Colors.red,
+                                                          fontSize: 15.0),
                                                       labelText: "التعليق",
-                                                     // hintText: "التعليق",
+                                                      // hintText: "التعليق",
 
 //                                prefixIcon: Icon(
 //                                  Icons.phone_iphone,
 //                                  color: Colors.pinkAccent,
 //                                ),
                                                       border: OutlineInputBorder(
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(5.0)))
-                                                  ),
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      5.0)))),
                                                 ),
                                               ),
                                             ),
@@ -974,26 +1137,34 @@ setState(() {
                                         ),
                                         InkWell(
                                           onTap: () async {
-                                            if (_formKey1.currentState.validate()) {
+                                            if (_formKey1.currentState
+                                                .validate()) {
                                               try {
-                                                final result = await InternetAddress.lookup('google.com');
-                                                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                                final result =
+                                                    await InternetAddress
+                                                        .lookup('google.com');
+                                                if (result.isNotEmpty &&
+                                                    result[0]
+                                                        .rawAddress
+                                                        .isNotEmpty) {
                                                   createRecord();
-
                                                 }
                                               } on SocketException catch (_) {
                                                 //  print('not connected');
-                                                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
+                                                Toast.show(
+                                                    Translations.of(context)
+                                                        .translate(
+                                                            'please_see_network_connection'),
+                                                    context,
+                                                    duration: Toast.LENGTH_LONG,
+                                                    gravity: Toast.BOTTOM);
                                               }
 
 //                                                setState(() {
 //                                                  _load2 = true;
 //                                                });
 
-
                                             }
-
                                           },
                                           child: Icon(
                                             Icons.add_comment,
@@ -1002,22 +1173,11 @@ setState(() {
                                         ),
                                       ],
                                     ),
-
-
-
-
-
                                   ),
                                 ),
-
-
-
-
-
                               ],
                             )),
                       ),
-
                     ],
                   )),
             ),
@@ -1025,7 +1185,6 @@ setState(() {
 //              child: loadingIndicator,
 //              alignment: FractionalOffset.center,
 //            ),
-
           ],
         ),
       ),
@@ -1051,119 +1210,119 @@ setState(() {
 //        .child(widget.cId);
 
     final userdatabaseReference =
-      FirebaseDatabase.instance.reference().child("userdata");
-      userdatabaseReference
-          .child(_userId)
-          .child("cName")
-          .once()
-          .then((DataSnapshot snapshot5) {
-        setState(() {
-          if (snapshot5.value != null) {
-            setState(() {
-              DateTime now = DateTime.now();
+        FirebaseDatabase.instance.reference().child("userdata");
+    userdatabaseReference
+        .child(_userId)
+        .child("cName")
+        .once()
+        .then((DataSnapshot snapshot5) {
+      setState(() {
+        if (snapshot5.value != null) {
+          setState(() {
+            DateTime now = DateTime.now();
 
-              // String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
-              String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00';
-              final commentbaseReference =
-              FirebaseDatabase.instance.reference().child("commentsdata");
-              commentbaseReference.child(widget.cId).child(widget.cDateID).child(_userId+date).set({
-                'cId': widget.cId,
-                'cuserid': _userId,
-                'cdate':now.toString(),
-                'cheaddate':_userId+date,
-                'ccoment':_commentController.text,
-                'cname': snapshot5.value,
-              }).whenComplete(() {
+            // String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
+            String date =
+                '${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00';
+            final commentbaseReference =
+                FirebaseDatabase.instance.reference().child("commentsdata");
+            commentbaseReference
+                .child(widget.cId)
+                .child(widget.cDateID)
+                .child(_userId + date)
+                .set({
+              'cId': widget.cId,
+              'cuserid': _userId,
+              'cdate': now.toString(),
+              'cheaddate': _userId + date,
+              'ccoment': _commentController.text,
+              'cname': snapshot5.value,
+            }).whenComplete(() {
+              Toast.show("تم التعليق بنجاح", context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+              CommentClass commentclass = new CommentClass(
+                widget.cId,
+                _userId,
+                now.toString(),
+                _userId + date,
+                _commentController.text,
+                snapshot5.value,
+              );
+              setState(() {
+                commentlist.add(commentclass);
+                _commentController.text = "";
+                //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
 
-                Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-                CommentClass commentclass =
-                new CommentClass(
-                  widget.cId,
-                  _userId,
-                  now.toString(),
-                  _userId+date,
-                  _commentController.text,
-                  snapshot5.value,
+                _controller.animateTo(
+                  // NEW
+                  _controller.position.maxScrollExtent * 1.2, // NEW
+                  duration: const Duration(milliseconds: 500), // NEW
+                  curve: Curves.ease, // NEW
                 );
-                setState(() {
-                  commentlist.add(commentclass);
-                  _commentController.text="";
-                  //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
-
-                  _controller.animateTo(                                      // NEW
-                    _controller.position.maxScrollExtent*1.2,                     // NEW
-                    duration: const Duration(milliseconds: 500),                    // NEW
-                    curve: Curves.ease,                                             // NEW
-                  );
-                });
-                /**
-                databasealarm.push().set({
+              });
+              /**
+                  databasealarm.push().set({
                   'alarmid': databasealarm.push().key,
                   'wid': widget.cId,
                   'Name': snapshot5.value,
                   'cType': "profilecomment",
                   'cDateID':"${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
                   'arrange':int.parse("${now.year.toString()}${b}${c}${d}${e}${f}")
-                }).whenComplete(() {
+                  }).whenComplete(() {
 
                   Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
                   CommentClass commentclass =
                   new CommentClass(
-                    widget.cId,
-                    _userId,
-                    now.toString(),
-                    _userId+date,
-                    _commentController.text,
-                    snapshot5.value,
+                  widget.cId,
+                  _userId,
+                  now.toString(),
+                  _userId+date,
+                  _commentController.text,
+                  snapshot5.value,
                   );
                   setState(() {
-                    commentlist.add(commentclass);
-                    _commentController.text="";
-                    //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
+                  commentlist.add(commentclass);
+                  _commentController.text="";
+                  //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
 
-                    _controller.animateTo(                                      // NEW
-                      _controller.position.maxScrollExtent*1.1,                     // NEW
-                      duration: const Duration(milliseconds: 500),                    // NEW
-                      curve: Curves.ease,                                             // NEW
-                    );
+                  _controller.animateTo(                                      // NEW
+                  _controller.position.maxScrollExtent*1.1,                     // NEW
+                  duration: const Duration(milliseconds: 500),                    // NEW
+                  curve: Curves.ease,                                             // NEW
+                  );
                   });
-                });
+                  });
 
-**/
+               **/
               //  _controller.animateTo(0.0,curve: Curves.easeInOut, duration: Duration(seconds: 1));
-              }).catchError((e) {
-                Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-                setState(() {
-                  //  _load2 = false;
-                });
+            }).catchError((e) {
+              Toast.show(e, context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+              setState(() {
+                //  _load2 = false;
               });
-
             });
-          }
-        });
+          });
+        }
       });
+    });
 
-
-   // })
-   // );
-
-
-
+    // })
+    // );
   }
+
   Widget _firebasedata(
-  index,
-  length,
-  cId,
-  cuserid,
-  cdate,
-  cheaddate,
-  ccoment,
-  cname,
-
-
-      ) {
+    index,
+    length,
+    cId,
+    cuserid,
+    cdate,
+    cheaddate,
+    ccoment,
+    cname,
+  ) {
     return Padding(
-      padding: const EdgeInsets.only(top:5.0,right: 5.0, left: 5.0),
+      padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 5.0),
       child: Card(
         shape: new RoundedRectangleBorder(
             side: new BorderSide(color: Colors.grey, width: 3.0),
@@ -1174,31 +1333,26 @@ setState(() {
         child: InkWell(
           onTap: () {
             setState(() {
-
-                print("kkkkkkkkkkkk");
-                if(_userId==commentlist[index].cuserid){
-                  FirebaseDatabase.instance
-                      .reference()
-                      .child("commentsdata")
-                      .child(widget.cId)
-                      .child(commentlist[index].cheaddate)
-                      .remove()
-                      .whenComplete(() {
-
-                    setState(() {
-                      commentlist.removeAt(index);
-                    });
-                    Toast.show("تم حذف التعليق", context,
-                        duration: Toast.LENGTH_SHORT,
-                        gravity: Toast.BOTTOM);
+              print("kkkkkkkkkkkk");
+              if (_userId == commentlist[index].cuserid) {
+                FirebaseDatabase.instance
+                    .reference()
+                    .child("commentsdata")
+                    .child(widget.cId)
+                    .child(commentlist[index].cheaddate)
+                    .remove()
+                    .whenComplete(() {
+                  setState(() {
+                    commentlist.removeAt(index);
                   });
-                }
-                else{
-                  Toast.show("ليس تعليقك", context,
-                      duration: Toast.LENGTH_SHORT,
-                      gravity: Toast.BOTTOM);
-                }
-           //   }),
+                  Toast.show("تم حذف التعليق", context,
+                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                });
+              } else {
+                Toast.show("ليس تعليقك", context,
+                    duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+              }
+              //   }),
 //            Navigator.push(
 //                context,
 //                MaterialPageRoute(
@@ -1209,7 +1363,7 @@ setState(() {
           child: Container(
               padding: EdgeInsets.all(8),
               child: Container(
-                  width:350 ,
+                  width: 350,
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -1217,15 +1371,17 @@ setState(() {
                         child: Row(
                           children: <Widget>[
                             Container(
-                              width:300,
+                              width: 300,
                               child: Align(
                                   alignment: Alignment.topRight,
-                                  child: Text(cname,
+                                  child: Text(
+                                    cname,
                                     style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 15,
                                     ),
-                                    textDirection: TextDirection.rtl,)),
+                                    textDirection: TextDirection.rtl,
+                                  )),
                             ),
                             Icon(
                               Icons.person,
@@ -1236,22 +1392,26 @@ setState(() {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:2.0, right: 30.0,bottom: 2,left: 2.0),
-                        child:Align(
+                        padding: const EdgeInsets.only(
+                            top: 2.0, right: 30.0, bottom: 2, left: 2.0),
+                        child: Align(
                             alignment: Alignment.topRight,
-                            child: Text(ccoment,textDirection: TextDirection.rtl,
+                            child: Text(
+                              ccoment,
+                              textDirection: TextDirection.rtl,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 15,
-                              ),)),
+                              ),
+                            )),
                       ),
                     ],
-                  )
-              )),
+                  ))),
         ),
       ),
     );
   }
+
   Future<void> _makePhoneCall(String url) async {
     if (await canLaunch(url)) {
       await launch(url);

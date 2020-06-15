@@ -79,18 +79,15 @@ class _AllOrderState extends State<AllOrder> {
     FirebaseAuth.instance.currentUser().then((user) => user == null
         ? null
         : setState(() {
-      _userId = user.uid;
-    }));
+            _userId = user.uid;
+          }));
 
-
-      // get Token :
-      firebaseMessaging.getToken().then((token) {
-        if(_userId != null){
-          update(token);
-        }
-
-      }).then((_) {});
-
+    // get Token :
+    firebaseMessaging.getToken().then((token) {
+      if (_userId != null) {
+        update(token);
+      }
+    }).then((_) {});
 
     setState(() {
       _load = true;
@@ -225,37 +222,37 @@ class _AllOrderState extends State<AllOrder> {
         children: <Widget>[
           Column(
             children: <Widget>[
-
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 86.0,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 86.0,
+                decoration: BoxDecoration(
+                  color: const Color(0xff4fc3f7),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(0.0, -42.0),
+                child:
+                    // Adobe XD layer: 'logoBox' (shape)
+                    Center(
+                  child: Container(
+                    width: 166.0,
+                    height: 67.0,
                     decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        matchTextDirection: true,
+                        repeat: ImageRepeat.noRepeat,
+                        image: AssetImage("assets/logowhite.png"),
+                      ),
+                      borderRadius: BorderRadius.circular(21.0),
                       color: const Color(0xff4fc3f7),
                     ),
                   ),
-                  Transform.translate(
-                    offset: Offset(0.0, -42.0),
-                    child:
-                    // Adobe XD layer: 'logoBox' (shape)
-                    Center(
-                      child: Container(
-                        width: 166.0,
-                        height: 67.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            alignment: Alignment.center,
-                            matchTextDirection: true,
-                            repeat: ImageRepeat.noRepeat,
-                            image: AssetImage("assets/logowhite.png"),
-                          ),
-                          borderRadius: BorderRadius.circular(21.0),
-                          color: const Color(0xff4fc3f7),
-                        ),
-                      ),
-                    ),
-
+                ),
               ),
-             Container(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
                   height: 40.0,
                   decoration: BoxDecoration(color: Colors.white),
                   child: Padding(
@@ -267,13 +264,14 @@ class _AllOrderState extends State<AllOrder> {
                           width: 150,
                           height: 40,
                           decoration: BoxDecoration(
-
                             borderRadius: BorderRadius.circular(5.0),
                             color: Colors.grey[500],
                           ),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: TextField(
+                              keyboardType: TextInputType.multiline,
+                              textInputAction: TextInputAction.search,
                               style: TextStyle(color: Colors.black),
                               onChanged: (value) {
                                 filterSearchResults(value);
@@ -281,24 +279,28 @@ class _AllOrderState extends State<AllOrder> {
                               controller: searchcontroller,
                               // focusNode: focus,
                               decoration: InputDecoration(
-                                labelText:
-                                searchcontroller.text.isEmpty ? "بحث بالاسم" : '',
-                                labelStyle:
-                                TextStyle(color: Colors.black, fontSize: 18.0),
+                                labelText: searchcontroller.text.isEmpty
+                                    ? "بحث بالاسم"
+                                    : '',
+                                labelStyle: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold),
                                 prefixIcon: Icon(
                                   Icons.search,
                                   color: Colors.black,
                                 ),
                                 suffixIcon: searchcontroller.text.isNotEmpty
                                     ? IconButton(
-                                  icon: Icon(Icons.cancel, color: Colors.black),
-                                  onPressed: () {
-                                    setState(() {
-                                      searchcontroller.clear();
-                                      filterSearchResults('');
-                                    });
-                                  },
-                                )
+                                        icon: Icon(Icons.cancel,
+                                            color: Colors.black),
+                                        onPressed: () {
+                                          setState(() {
+                                            searchcontroller.clear();
+                                            filterSearchResults('');
+                                          });
+                                        },
+                                      )
                                     : null,
                                 errorStyle: TextStyle(color: Colors.blue),
                                 enabled: true,
@@ -311,7 +313,6 @@ class _AllOrderState extends State<AllOrder> {
                           width: 120,
                           height: 40,
                           decoration: BoxDecoration(
-
                             borderRadius: BorderRadius.circular(5.0),
                             color: Colors.grey[500],
                           ),
@@ -344,11 +345,9 @@ class _AllOrderState extends State<AllOrder> {
                           width: 70,
                           height: 40,
                           decoration: BoxDecoration(
-
                             borderRadius: BorderRadius.circular(5.0),
                             color: const Color(0xff43A2CC),
                           ),
-
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: DropdownButton<String>(
@@ -376,42 +375,42 @@ class _AllOrderState extends State<AllOrder> {
                     ),
                   ),
                 ),
-
+              ),
               Expanded(
                   child: orderlist.length == 0
                       ? Center(
-                    child: loadingIndicator,
-                  )
+                          child: loadingIndicator,
+                        )
                       : new ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      controller: _controller,
-                      itemCount: orderlist.length,
-                      itemBuilder: (BuildContext ctxt, int index) {
-                        return InkWell(
-                            child: firebasedata(
-                              index,
-                              orderlist.length,
-                              orderlist[index].cId,
-                              orderlist[index].cdate,
-                              orderlist[index].clat1,
-                              orderlist[index].clong1,
-                              orderlist[index].clat2,
-                              orderlist[index].clong2,
-                              orderlist[index].cType,
-                              orderlist[index].cCategory,
-                              orderlist[index].cpayload,
-                              orderlist[index].cnocars,
-                              orderlist[index].ctime,
-                              orderlist[index].cpublished,
-                              orderlist[index].cstarttraveltime,
-                              orderlist[index].curi,
-                              orderlist[index].cName,
-                              orderlist[index].rating,
-                              orderlist[index].custRate,
-                              orderlist[index].cDateID,
-                            ),
-                            onTap: () {});
-                      }))
+                          physics: BouncingScrollPhysics(),
+                          controller: _controller,
+                          itemCount: orderlist.length,
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            return InkWell(
+                                child: firebasedata(
+                                  index,
+                                  orderlist.length,
+                                  orderlist[index].cId,
+                                  orderlist[index].cdate,
+                                  orderlist[index].clat1,
+                                  orderlist[index].clong1,
+                                  orderlist[index].clat2,
+                                  orderlist[index].clong2,
+                                  orderlist[index].cType,
+                                  orderlist[index].cCategory,
+                                  orderlist[index].cpayload,
+                                  orderlist[index].cnocars,
+                                  orderlist[index].ctime,
+                                  orderlist[index].cpublished,
+                                  orderlist[index].cstarttraveltime,
+                                  orderlist[index].curi,
+                                  orderlist[index].cName,
+                                  orderlist[index].rating,
+                                  orderlist[index].custRate,
+                                  orderlist[index].cDateID,
+                                ),
+                                onTap: () {});
+                          }))
             ],
           ),
         ],
@@ -494,7 +493,6 @@ class _AllOrderState extends State<AllOrder> {
               child: Row(
                 children: <Widget>[
                   Container(
-
                     color: Colors.grey[100],
                     child: Center(
                       child: Padding(
@@ -520,15 +518,12 @@ class _AllOrderState extends State<AllOrder> {
                           top: 0,
                           left: 0,
                           child: Container(
-
                             height: 30,
                             width: 50,
                             decoration: BoxDecoration(
-
                               borderRadius: BorderRadius.circular(4.0),
                               color: cType == "طلب" ? Colors.green : Colors.red,
                             ),
-
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
@@ -539,7 +534,6 @@ class _AllOrderState extends State<AllOrder> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-
                           ),
                         ),
                         Positioned(
@@ -614,34 +608,39 @@ class _AllOrderState extends State<AllOrder> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                            (clat1==""||clat1==null)?Text(""): Text(
-                                  "$clat1",
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontFamily: 'Gamja Flower',
-                                      fontSize: 10.0,
-                                      fontStyle: FontStyle.normal),
-                                ),
-                                (clat1==""||clat1==null)?Text(""):  new Icon(
-                                  Icons.location_on,
-                                  color: Colors.blue,
-                                  size: 15,
-                                ),
+                                (clat1 == "" || clat1 == null)
+                                    ? Text("")
+                                    : Text(
+                                        "$clat1",
+                                        textDirection: TextDirection.rtl,
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            fontFamily: 'Gamja Flower',
+                                            fontSize: 10.0,
+                                            fontStyle: FontStyle.normal),
+                                      ),
+                                (clat1 == "" || clat1 == null)
+                                    ? Text("")
+                                    : new Icon(
+                                        Icons.location_on,
+                                        color: Colors.blue,
+                                        size: 15,
+                                      ),
                                 SizedBox(
                                   height: _minimumPadding,
-                                  width: _minimumPadding*4,
+                                  width: _minimumPadding * 4,
                                 ),
-
-                                (clat2==""||clat2==null)?Text(""):  Text(
-                                  "الواجهة:$clat2",
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontFamily: 'Gamja Flower',
-                                      fontSize: 10.0,
-                                      fontStyle: FontStyle.normal),
-                                ),
+                                (clat2 == "" || clat2 == null)
+                                    ? Text("")
+                                    : Text(
+                                        "الواجهة:$clat2",
+                                        textDirection: TextDirection.rtl,
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            fontFamily: 'Gamja Flower',
+                                            fontSize: 10.0,
+                                            fontStyle: FontStyle.normal),
+                                      ),
                                 SizedBox(
                                   height: _minimumPadding,
                                   width: _minimumPadding,
