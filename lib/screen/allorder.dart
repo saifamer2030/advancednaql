@@ -1,6 +1,7 @@
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
 import 'package:advancednaql/classes/UserRateClass.dart';
+import 'package:advancednaql/map/map.dart';
 import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -320,7 +321,11 @@ class _AllOrderState extends State<AllOrder> {
                             alignment: Alignment.centerRight,
                             child: RaisedButton(
                               color: Colors.grey[500],
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => MyHomePage()),);
+                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[

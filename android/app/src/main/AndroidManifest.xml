@@ -5,10 +5,19 @@
          In most cases you can leave this as-is, but you if you want to provide
          additional functionality it is fine to subclass or reimplement
          FlutterApplication and put your custom class here. -->
+
+        <!-- map permision -->
+         <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Naql"
         android:icon="@drawable/ic_launcher">
+
+        <!-- maps -->
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyASpc8HqIa7OPmBeSJu7szAStFHeKpbC2U"/>
+            
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
