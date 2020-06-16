@@ -109,6 +109,18 @@ class _HomePageState extends State<HomePage> {
           decoration: BoxDecoration(
             color: const Color(0xff4fc3f7),
           ),
+          child: InkWell(
+            onTap: () => Navigator.pop(context),
+
+            child: Container(
+              alignment: Alignment.centerLeft,
+              width: 20,
+              height: 20,
+              child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(Icons.arrow_back)),
+            ),
+          ),
         ),
         Transform.translate(
           offset: Offset(124.0, 39.0),

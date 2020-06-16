@@ -1,3 +1,4 @@
+import 'package:advancednaql/screen/Departmentwedgit.dart';
 import 'package:advancednaql/screen/ModelsForChating/home.dart';
 import 'package:advancednaql/screen/addNewAds.dart';
 import 'package:advancednaql/screen/myadvertisement.dart';
@@ -85,6 +86,7 @@ class _MyAppState extends State<MyApp> {
         '/conection':(BuildContext context)=>new ConnectionScreen(),
         '/termsuse':(BuildContext context)=>new TermsUse(),
         '/privcypolicy':(BuildContext context)=>new PrivcyPolicy(),
+        '/department':(BuildContext context)=>new Department(),
       },
       localizationsDelegates: [
               _localeOverrideDelegate,

@@ -136,6 +136,18 @@ class _newoffer extends State<NewOffer> {
 
                 color: const Color(0xff4fc3f7),
               ),
+              child: InkWell(
+                onTap: () => Navigator.pop(context),
+
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  width: 20,
+                  height: 20,
+                  child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(Icons.arrow_back)),
+                ),
+              ),
             ),
             Transform.translate(
               offset: Offset(0.0, -42.0),
@@ -169,6 +181,8 @@ class _newoffer extends State<NewOffer> {
                 top: _minimumPadding * 22,
               ),
               child: ListView(
+                physics: BouncingScrollPhysics(),
+
                 children: <Widget>[
                   Center(
                     child: new InkWell(

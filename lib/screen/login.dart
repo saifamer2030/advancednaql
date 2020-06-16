@@ -105,7 +105,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                 elevation: 5.0,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0)),
-                                color: Theme.of(context).accentColor,
+                                color: const Color(0xff4fc3f7),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -184,7 +184,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                 elevation: 5.0,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0)),
-                                color: Theme.of(context).accentColor,
+                                color: const Color(0xff4fc3f7),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -250,7 +250,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                               "هل نسيت كلمة السر؟",
                               textDirection: TextDirection.ltr,
                               style:
-                                  TextStyle(color: Colors.blue, fontSize: 15),
+                                  TextStyle(color: const Color(0xff4fc3f7), fontSize: 15),
                             ),
                           )),
                       Padding(
@@ -264,7 +264,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                           child: Material(
                             borderRadius: BorderRadius.circular(20.0),
                             shadowColor: const Color(0xffF4E41E),
-                            color: Theme.of(context).accentColor,
+                            color: const Color(0xff4fc3f7),
                             elevation: 7.0,
                             child: GestureDetector(
                               onTap: () async {
@@ -363,7 +363,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                 child: Text(
                                   "حساب جديد",
                                   style: TextStyle(
-                                    color: Colors.blue,
+                                    color: const Color(0xff4fc3f7),
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
@@ -478,7 +478,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                     FlatButton(
                       child: Text("Confirm"),
                       textColor: Colors.white,
-                      color: Colors.blue,
+                      color: const Color(0xff4fc3f7),
                       onPressed: () async{
                         final code = _codeController.text.trim();
                         AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationId, smsCode: code);
