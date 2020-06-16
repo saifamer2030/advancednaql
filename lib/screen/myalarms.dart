@@ -145,8 +145,8 @@ class _MyAlarmsState extends State<MyAlarms> {
             child: Expanded(
                 child: Center(
               child: alarmlist.length == 0
-                  ? new Text(
-                      "لا يوجد بيانات",
+                  ? new Center(
+                     child: loadingIndicator,
                     )
                   : new ListView.builder(
                       physics: BouncingScrollPhysics(),

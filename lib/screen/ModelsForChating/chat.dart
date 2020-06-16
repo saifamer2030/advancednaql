@@ -125,35 +125,34 @@ class _ChatState extends State<ChatPage> {
 //
       body: Stack(
         children: <Widget>[
-          new Container(
-            color: Colors.white,
-            child: new Stack(
-              //alignment:new Alignment(x, y)
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 86.0,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff4fc3f7),
-                  ),
-                  child: InkWell(
-                    onTap: () => Navigator.pop(context),
+          Column(
+            children: <Widget>[
+              Container(
+                width:  MediaQuery.of(context).size.width,
+                height: 86.0,
+                decoration: BoxDecoration(
 
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      width: 20,
-                      height: 20,
-                      child: InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Icon(Icons.arrow_back)),
-                    ),
+                  color: const Color(0xff4fc3f7),
+                ),
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 20,
+                    height: 20,
+                    child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(Icons.arrow_back)),
                   ),
                 ),
-                Transform.translate(
-                  offset: Offset(124.0, 39.0),
-                  child:
-                  // Adobe XD layer: 'logoBox' (shape)
-                  Container(
+              ),
+              Transform.translate(
+                offset: Offset(0.0, -42.0),
+                child:
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
+                  child: Container(
                     width: 166.0,
                     height: 67.0,
                     decoration: BoxDecoration(
@@ -168,6 +167,9 @@ class _ChatState extends State<ChatPage> {
                     ),
                   ),
                 ),
+              ),
+            ],
+          ),
                 Padding(
                   padding: EdgeInsets.only(
                       top: _minimumPadding * 22,
@@ -388,9 +390,8 @@ class _ChatState extends State<ChatPage> {
                         margin: EdgeInsets.all(10.0),
                       ),
                     ))
-              ],
-            ),
-          ),
+
+
         ],
       ),
     );

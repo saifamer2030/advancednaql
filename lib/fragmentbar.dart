@@ -5,6 +5,7 @@ import 'package:advancednaql/screen/ModelsForChating/home.dart';
 import 'package:advancednaql/screen/allorder.dart';
 import 'package:advancednaql/screen/login.dart';
 import 'package:advancednaql/screen/morewidget.dart';
+import 'package:advancednaql/screen/myOrder.dart';
 import 'package:advancednaql/screen/myalarms.dart';
 import 'package:advancednaql/screen/myfavourits.dart';
 import 'package:advancednaql/screen/neworder.dart';
@@ -53,7 +54,7 @@ class _fragmentState extends State<Fragmentnaql> {
       MoreWidget(),
       MyAlarms(),
       MyFav(),
-      NewOffer(),
+      myOrder(),
       AllOrder(),
     ];
     return
