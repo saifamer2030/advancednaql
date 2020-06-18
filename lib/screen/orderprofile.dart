@@ -6,6 +6,7 @@ import 'package:advancednaql/classes/OrderDetailClass.dart';
 import 'package:advancednaql/classes/UserRegDataClass.dart';
 import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -94,8 +95,11 @@ class _orderProfileState extends State<orderProfile> {
 
       });
     });
-    final commentdatabaseReference =
-    FirebaseDatabase.instance.reference().child("commentsdata").child(widget.cId);
+    final commentdatabaseReference = FirebaseDatabase.instance
+        .reference()
+        .child("commentsdata")
+        .child(widget.cId)
+        .child(widget.cDateID);
     commentdatabaseReference.once().then((DataSnapshot snapshot) {
       var KEYS = snapshot.value.keys;
       var DATA = snapshot.value;
@@ -113,6 +117,8 @@ class _orderProfileState extends State<orderProfile> {
           DATA[individualkey]['cheaddate'],
           DATA[individualkey]['ccoment'],
           DATA[individualkey]['cname'],
+          DATA[individualkey]['cadvID'],
+
         );
 
         setState(() {
@@ -659,6 +665,7 @@ class _orderProfileState extends State<orderProfile> {
                                                     commentlist[index].cheaddate,
                                                     commentlist[index].ccoment,
                                                     commentlist[index].cname,
+                                                    commentlist[index].cadvID,
 
                                                   ),
 //                                                    onTap: () {
@@ -899,13 +906,15 @@ class _orderProfileState extends State<orderProfile> {
             String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00';
             final commentbaseReference =
             FirebaseDatabase.instance.reference().child("commentsdata");
-            commentbaseReference.child(widget.cId).child(_userId+date).set({
+            commentbaseReference.child(widget.cId).child(widget.cDateID).child(_userId+date).set({
               'cId': widget.cId,
               'cuserid': _userId,
               'cdate':now.toString(),
               'cheaddate':_userId+date,
               'ccoment':_commentController.text,
               'cname': snapshot5.value,
+              'cadvID': widget.cDateID,
+
             }).whenComplete(() {
 
               Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
@@ -917,8 +926,10 @@ class _orderProfileState extends State<orderProfile> {
                 _userId+date,
                 _commentController.text,
                 snapshot5.value,
+                widget.cDateID
               );
               setState(() {
+                
                 commentlist.add(commentclass);
                 _commentController.text="";
                 //      var cursor = (5/commentlist.length)* _controller.position.maxScrollExtent;//specific item
@@ -981,6 +992,7 @@ class _orderProfileState extends State<orderProfile> {
 
 
   }
+
   Widget _firebasedata(
       index,
       length,
@@ -990,7 +1002,7 @@ class _orderProfileState extends State<orderProfile> {
       cheaddate,
       ccoment,
       cname,
-
+      cadvID,
 
       ) {
     return Padding(
@@ -1004,77 +1016,151 @@ class _orderProfileState extends State<orderProfile> {
         margin: EdgeInsets.all(1),
         child: InkWell(
           onTap: () {
-            setState(() {
 
-              print("kkkkkkkkkkkk");
-              if(_userId==commentlist[index].cuserid){
-                FirebaseDatabase.instance
-                    .reference()
-                    .child("commentsdata")
-                    .child(widget.cId)
-                    .child(commentlist[index].cheaddate)
-                    .remove()
-                    .whenComplete(() {
-
-                  setState(() {
-                    commentlist.removeAt(index);
-                  });
-                  Toast.show("تم حذف التعليق", context,
-                      duration: Toast.LENGTH_SHORT,
-                      gravity: Toast.BOTTOM);
-                });
-              }
-              else{
-                Toast.show("ليس تعليقك", context,
-                    duration: Toast.LENGTH_SHORT,
-                    gravity: Toast.BOTTOM);
-              }
-              //   }),
-//            Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                    builder: (context) =>
-//                        CoifUserProlile(cId, curi, cName, _userId)));
-            });
           },
           child: Container(
               padding: EdgeInsets.all(8),
               child: Container(
                   width:350 ,
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width:300,
-                              child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Text(cname,
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 15,
-                                    ),
-                                    textDirection: TextDirection.rtl,)),
+                      _userId==commentlist[index].cuserid? FlatButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                            new CupertinoAlertDialog(
+                              title: new Text("تنبية"),
+                              content:
+                              new Text("سوف يتم حذف تعليقك؟"),
+                              actions: [
+                                CupertinoDialogAction(
+                                    isDefaultAction: false,
+                                    child: new FlatButton(
+                                      onPressed: () {
+                                        setState(() {
+
+                                          print("kkkkkkkkkkkk");
+                                          if(_userId==commentlist[index].cuserid){
+                                            FirebaseDatabase.instance
+                                                .reference()
+                                                .child("commentsdata")
+                                                .child(widget.cId).child(cadvID)
+                                                .child(commentlist[index].cheaddate)
+                                                .remove()
+                                                .whenComplete(() {
+
+                                              setState(() {
+                                                commentlist.removeAt(index);
+                                              });
+                                              Toast.show("تم حذف التعليق", context,
+                                                  duration: Toast.LENGTH_SHORT,
+                                                  gravity: Toast.BOTTOM);
+                                            }).then((value) => Navigator.pop(context));
+                                          }
+                                          else{
+                                            Toast.show("ليس تعليقك", context,
+                                                duration: Toast.LENGTH_SHORT,
+                                                gravity: Toast.BOTTOM);
+                                          }
+                                          //   }),
+//            Navigator.push(
+//                context,
+//                MaterialPageRoute(
+//                    builder: (context) =>
+//                        CoifUserProlile(cId, curi, cName, _userId)));
+                                        });
+                                      }
+//                                      => databasemyorder.child(pid)
+//                                          .set({
+//                                        'Uid': _userId,
+//                                        'wid': widget.cId,
+//                                        'pid': pid,
+//
+//                                        'Name': _username,
+//                                        'title':
+//                                        "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+//                                        'statusOrder': "قيد الانتظار",
+//                                        'cadv': "${orderclass.cadv}",
+//                                        'curl': "${orderclass.curi}",
+//                                        'cType': "provider",
+//                                      }).whenComplete(() =>
+//                                          databasemyorder2.child(pid)
+//                                          // .child(widget.cId)
+//                                              .set({
+//                                            'Uid': _userId,
+//                                            'wid': widget.cId,
+//                                            'pid': pid,
+//                                            'Name': widget.cName,
+//                                            'title':
+//                                            "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+//                                            'statusOrder': "قيد الانتظار",
+//                                            'cadv':
+//                                            "${orderclass.cadv}",
+//                                            'curl':
+//                                            "${orderclass.curi}",
+//                                            'cType': "user",
+//                                          })).then((value) => Navigator.pop(context)),
+                                      ,child: Text("موافق"),
+                                    )),
+                                CupertinoDialogAction(
+                                    isDefaultAction: false,
+                                    child: new FlatButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context),
+                                      child: Text("إلغاء"),
+                                    )),
+                              ],
                             ),
-                            Icon(
-                              Icons.person,
-                              size: 25,
-                              color: Colors.black,
-                            ),
-                          ],
+                          );
+                          //ResetPasswordDialog();
+                          //FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text);
+                        },
+                        child:  Icon(
+                          Icons.more_vert,
+                          color: Colors.black,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top:2.0, right: 30.0,bottom: 2,left: 2.0),
-                        child:Align(
-                            alignment: Alignment.topRight,
-                            child: Text(ccoment,textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),)),
+                      ):Container(),
+
+                      Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Row(
+                              children: <Widget>[
+
+                                Container(
+                                  width:200,
+                                  child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: Text(cname,
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 15,
+                                        ),
+                                        textDirection: TextDirection.rtl,)),
+                                ),
+                                Icon(
+                                  Icons.person,
+                                  size: 25,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top:2.0, right: 0.0,bottom: 2,left: 2.0),
+                            child:Align(
+                                alignment: Alignment.topRight,
+                                child: Text(ccoment,textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),)),
+                          ),
+                        ],
                       ),
                     ],
                   )
@@ -1083,6 +1169,7 @@ class _orderProfileState extends State<orderProfile> {
       ),
     );
   }
+
   Future<void> _makePhoneCall(String url) async {
     if (await canLaunch(url)) {
       await launch(url);

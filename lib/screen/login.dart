@@ -252,7 +252,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
                               style:
                                   TextStyle(color: const Color(0xff4fc3f7), fontSize: 15),
                             ),
-                          )),
+                          )
+                      ),
                       Padding(
                         padding: EdgeInsets.only(
                             top: _minimumPadding, bottom: _minimumPadding),

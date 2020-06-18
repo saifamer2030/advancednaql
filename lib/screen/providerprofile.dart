@@ -92,6 +92,8 @@ class _providerProlileState extends State<providerProlile> {
           DATA[individualkey]['cheaddate'],
           DATA[individualkey]['ccoment'],
           DATA[individualkey]['cname'],
+          DATA[individualkey]['cadvID'],
+
         );
 
         setState(() {
@@ -1050,6 +1052,8 @@ class _providerProlileState extends State<providerProlile> {
                                                         .cheaddate,
                                                     commentlist[index].ccoment,
                                                     commentlist[index].cname,
+                                                    commentlist[index].cadvID,
+
                                                   ),
 //                                                    onTap: () {
 //                                                      if(_userId==commentlist[index].cuserid){
@@ -1240,6 +1244,8 @@ class _providerProlileState extends State<providerProlile> {
               'cheaddate': _userId + date,
               'ccoment': _commentController.text,
               'cname': snapshot5.value,
+              'cadvID': widget.cDateID,
+
             }).whenComplete(() {
               Toast.show("تم التعليق بنجاح", context,
                   duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -1250,6 +1256,8 @@ class _providerProlileState extends State<providerProlile> {
                 _userId + date,
                 _commentController.text,
                 snapshot5.value,
+                widget.cDateID,
+
               );
               setState(() {
                 commentlist.add(commentclass);
@@ -1315,17 +1323,19 @@ class _providerProlileState extends State<providerProlile> {
   }
 
   Widget _firebasedata(
-    index,
-    length,
-    cId,
-    cuserid,
-    cdate,
-    cheaddate,
-    ccoment,
-    cname,
-  ) {
+      index,
+      length,
+      cId,
+      cuserid,
+      cdate,
+      cheaddate,
+      ccoment,
+      cname,
+      cadvID,
+
+      ) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5.0, right: 5.0, left: 5.0),
+      padding: const EdgeInsets.only(top:5.0,right: 5.0, left: 5.0),
       child: Card(
         shape: new RoundedRectangleBorder(
             side: new BorderSide(color: Colors.grey, width: 3.0),
@@ -1335,86 +1345,159 @@ class _providerProlileState extends State<providerProlile> {
         margin: EdgeInsets.all(1),
         child: InkWell(
           onTap: () {
-            setState(() {
-              print("kkkkkkkkkkkk");
-              if (_userId == commentlist[index].cuserid) {
-                FirebaseDatabase.instance
-                    .reference()
-                    .child("commentsdata")
-                    .child(widget.cId)
-                    .child(commentlist[index].cheaddate)
-                    .remove()
-                    .whenComplete(() {
-                  setState(() {
-                    commentlist.removeAt(index);
-                  });
-                  Toast.show("تم حذف التعليق", context,
-                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-                });
-              } else {
-                Toast.show("ليس تعليقك", context,
-                    duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
-              }
-              //   }),
+
+          },
+          child: Container(
+              padding: EdgeInsets.all(8),
+              child: Container(
+                  width:350 ,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                    children: <Widget>[
+                      _userId==commentlist[index].cuserid? FlatButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                            new CupertinoAlertDialog(
+                              title: new Text("تنبية"),
+                              content:
+                              new Text("سوف يتم حذف تعليقك؟"),
+                              actions: [
+                                CupertinoDialogAction(
+                                    isDefaultAction: false,
+                                    child: new FlatButton(
+                                      onPressed: () {
+                                        setState(() {
+
+                                          print("kkkkkkkkkkkk");
+                                          if(_userId==commentlist[index].cuserid){
+                                            FirebaseDatabase.instance
+                                                .reference()
+                                                .child("commentsdata")
+                                                .child(widget.cId).child(cadvID)
+                                                .child(commentlist[index].cheaddate)
+                                                .remove()
+                                                .whenComplete(() {
+
+                                              setState(() {
+                                                commentlist.removeAt(index);
+                                              });
+                                              Toast.show("تم حذف التعليق", context,
+                                                  duration: Toast.LENGTH_SHORT,
+                                                  gravity: Toast.BOTTOM);
+                                            }).then((value) => Navigator.pop(context));
+                                          }
+                                          else{
+                                            Toast.show("ليس تعليقك", context,
+                                                duration: Toast.LENGTH_SHORT,
+                                                gravity: Toast.BOTTOM);
+                                          }
+                                          //   }),
 //            Navigator.push(
 //                context,
 //                MaterialPageRoute(
 //                    builder: (context) =>
 //                        CoifUserProlile(cId, curi, cName, _userId)));
-            });
-          },
-          child: Container(
-              padding: EdgeInsets.all(8),
-              child: Container(
-                  width: 350,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 300,
-                              child: Align(
-                                  alignment: Alignment.topRight,
-                                  child: Text(
-                                    cname,
-                                    style: TextStyle(
-                                      color: Colors.blue,
-                                      fontSize: 15,
-                                    ),
-                                    textDirection: TextDirection.rtl,
-                                  )),
+                                        });
+                                      }
+//                                      => databasemyorder.child(pid)
+//                                          .set({
+//                                        'Uid': _userId,
+//                                        'wid': widget.cId,
+//                                        'pid': pid,
+//
+//                                        'Name': _username,
+//                                        'title':
+//                                        "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+//                                        'statusOrder': "قيد الانتظار",
+//                                        'cadv': "${orderclass.cadv}",
+//                                        'curl': "${orderclass.curi}",
+//                                        'cType': "provider",
+//                                      }).whenComplete(() =>
+//                                          databasemyorder2.child(pid)
+//                                          // .child(widget.cId)
+//                                              .set({
+//                                            'Uid': _userId,
+//                                            'wid': widget.cId,
+//                                            'pid': pid,
+//                                            'Name': widget.cName,
+//                                            'title':
+//                                            "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+//                                            'statusOrder': "قيد الانتظار",
+//                                            'cadv':
+//                                            "${orderclass.cadv}",
+//                                            'curl':
+//                                            "${orderclass.curi}",
+//                                            'cType': "user",
+//                                          })).then((value) => Navigator.pop(context)),
+                                      ,child: Text("موافق"),
+                                    )),
+                                CupertinoDialogAction(
+                                    isDefaultAction: false,
+                                    child: new FlatButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context),
+                                      child: Text("إلغاء"),
+                                    )),
+                              ],
                             ),
-                            Icon(
-                              Icons.person,
-                              size: 25,
-                              color: Colors.black,
-                            ),
-                          ],
+                          );
+                          //ResetPasswordDialog();
+                          //FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text);
+                        },
+                        child:  Icon(
+                          Icons.more_vert,
+                          color: Colors.black,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 2.0, right: 30.0, bottom: 2, left: 2.0),
-                        child: Align(
-                            alignment: Alignment.topRight,
-                            child: Text(
-                              ccoment,
-                              textDirection: TextDirection.rtl,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),
-                            )),
+                      ):Container(),
+
+                      Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: Row(
+                              children: <Widget>[
+
+                                Container(
+                                  width:200,
+                                  child: Align(
+                                      alignment: Alignment.topRight,
+                                      child: Text(cname,
+                                        style: TextStyle(
+                                          color: Colors.blue,
+                                          fontSize: 15,
+                                        ),
+                                        textDirection: TextDirection.rtl,)),
+                                ),
+                                Icon(
+                                  Icons.person,
+                                  size: 25,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top:2.0, right: 0.0,bottom: 2,left: 2.0),
+                            child:Align(
+                                alignment: Alignment.topRight,
+                                child: Text(ccoment,textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  ),)),
+                          ),
+                        ],
                       ),
                     ],
-                  ))),
+                  )
+              )),
         ),
       ),
     );
   }
-
   Future<void> _makePhoneCall(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
