@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../translation/helper_func.dart';
 import 'login.dart';
+import 'newoffer.dart';
 
 class MoreWidget extends StatefulWidget {
   MoreWidget({
@@ -111,8 +112,12 @@ class _MoreWidget extends State<MoreWidget> {
                           ],
                         ),
                         InkWell(
-                          onTap: () =>
-                              Navigator.of(context).pushNamed('/addnewads'),
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      NewOffer())),
+                              //Navigator.of(context).pushNamed('/addnewads'),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[

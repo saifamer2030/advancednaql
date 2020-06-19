@@ -13,13 +13,49 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
-class NewOffer extends StatefulWidget {
+class EditOffer extends StatefulWidget {
+  int position;
+  int length;
+  String cId;
+  String cdate;
+  String clat1;
+  String clong1;
+  String clat2;
+  String clong2;
+  String cType;
+  String cCategory;
+  String cpayload;
+  String cnocars;
+  String ctime;
+  bool cpublished;
+  String cstarttraveltime;
+  String curi;
+  String cname;
+  String  cDateID;
+  EditOffer(this.position, this.length, this.cId,
+      this.cdate,
+      this.clat1,
+      this.clong1,
+      this.clat2,
+      this.clong2,
+      this.cType,
+      this.cCategory,
+      this.cpayload,
+      this.cnocars,
+      this.ctime,
+  this. cpublished,
+  this. cstarttraveltime,
+  this. curi,
+      this.cname,
+      this.cDateID,
+      );
+
   @override
-  _newoffer createState() => _newoffer();
+  _EditOffer createState() => _EditOffer();
 }
 
 @override
-class _newoffer extends State<NewOffer> {
+class _EditOffer extends State<EditOffer> {
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -1027,7 +1063,7 @@ class _newoffer extends State<NewOffer> {
                           ),
                         ),
                       ),
-                      (_advcheck==true||Agrcheck==true||isSwitched==false)?Text(""):Padding(
+                      (_advcheck==true||Agrcheck==true)?Text(""):Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
@@ -1152,13 +1188,12 @@ class _newoffer extends State<NewOffer> {
                             Icon(Icons.check,color: Colors.white,),
                           ],
                         ),
-                        //_advcheck==true||Agrcheck==true||isSwitched==false
                         textColor: Colors.white,
                         color: const Color(0xff43A2CC),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             if (sampleImage11 != null && ((sampleImage12 != null)&&(!_advcheck||!Agrcheck))
-                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck||isSwitched))
+                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck))
                                 && sampleImage1 != null) {
     if((((city1==""||city1==null)||(city2==""||city2==null))&&(!Agrcheck))||(city3==""||city3==null)){
     Toast.show("برجاء ادخال المدينة", context,
