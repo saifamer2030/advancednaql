@@ -242,7 +242,6 @@ class _myOrderState extends State<myOrder> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        color: Colors.grey[300],
         shape: new RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0)),
         //borderOnForeground: true,
@@ -250,86 +249,209 @@ class _myOrderState extends State<myOrder> {
         margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
         child: InkWell(
           onTap: () {
-            setState(() {
-              if (cType == "chat") {
-                final userdatabaseReference =
-                    FirebaseDatabase.instance.reference().child("userdata");
-                userdatabaseReference
-                    .child(wid)
-                    .child("cName")
-                    .once()
-                    .then((DataSnapshot snapshot5) {
-                  setState(() {
-                    if (snapshot5.value != null) {
-                      setState(() {
-                        Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (BuildContext context) => new ChatPage(
-                                  name: snapshot5.value, uid: wid)),
-                        );
-                      });
-                    }
-                  });
-                });
-              }
-            });
+
           },
           child: Container(
-            height: 70,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: cType == "love"
-                          ? new Icon(
-                              Icons.favorite,
-                              color: Colors.blue,
-                            )
-                          : new Icon(
-                              Icons.mail_outline,
-                              color: Colors.blue,
-                            ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: cType == "love"
-                                ? Text(
-                                    " $Name منحك اعجاب ",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      //    fontWeight: FontWeight.bold
-                                    ),
-                                  )
-                                : Text(
-                                    " رسالة جديدة من $Name",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      //    fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                          ),
-                          new Icon(
-                            Icons.person,
-                            color: Colors.blue,
-                          ),
-                        ],
+              padding: EdgeInsets.all(0),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    color: Colors.grey[100],
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: curl == null
+                            ? new Image.asset("assets/images/ic_bluecar.png",
+                            fit: BoxFit.fill)
+                            : new Image.network(
+                          curl,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                    width: 100,
+                    height: 130,
+                  ),
+                  Container(
+                    height: 130,
+                    child: Stack(
+                      //alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+//                        Positioned(
+//                          top: 0,
+//                          left: 0,
+//                          child: Container(
+//                            height: 30,
+//                            width: 50,
+//                            decoration: BoxDecoration(
+//                              borderRadius: BorderRadius.circular(4.0),
+//                              color: cType == "طلب" ? Colors.green : Colors.red,
+//                            ),
+//                            child: Padding(
+//                              padding: const EdgeInsets.all(5.0),
+//                              child: Text(
+//                                cType,
+//                                style: TextStyle(
+//                                    color: Colors.white,
+//                                    fontFamily: 'Gamja Flower',
+//                                    fontWeight: FontWeight.bold),
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              titel,
+                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontFamily: 'Gamja Flower',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15.0,
+                                  fontStyle: FontStyle.normal),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 20,
+                          right: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Name != null
+                                ? Text(
+                              Name,
+                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontFamily: 'Gamja Flower',
+                                  fontStyle: FontStyle.normal),
+                            )
+                                : Text(" "),
+                          ),
+                        ),
+//                        Positioned(
+//                          top: 40,
+//                          right: 0,
+//                          child: Padding(
+//                            padding: const EdgeInsets.all(5.0),
+//                            child: cRate > 0.0
+//                                ? SmoothStarRating(
+//                                allowHalfRating: true,
+//                                onRated: (v) {},
+//                                starCount: 5,
+//                                rating: cRate,
+//                                isReadOnly: true,
+//                                //not changed
+//                                //setting value
+//                                size: 20.0,
+//                                color: Colors.amber,
+//                                borderColor: Colors.amber,
+//                                spacing: 0.0)
+//                                : new Text(
+//                              'منضم حديثا',
+//                              style: TextStyle(
+//                                  color: Colors.lightBlue,
+//                                  fontFamily: 'Gamja Flower',
+//                                  fontWeight: FontWeight.bold,
+//                                  fontSize: 15.0,
+//                                  fontStyle: FontStyle.normal),
+//                            ),
+//                          ),
+//                        ),
+//                        Positioned(
+//                          top: 100,
+//                          right: 0,
+//                          child: Padding(
+//                            padding: const EdgeInsets.all(5.0),
+//                            child: Row(
+//                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                              children: <Widget>[
+//                                (clat1 == "" || clat1 == null)
+//                                    ? Text("")
+//                                    : Text(
+//                                  "$clat1",
+//                                  textDirection: TextDirection.rtl,
+//                                  textAlign: TextAlign.right,
+//                                  style: TextStyle(
+//                                      fontFamily: 'Gamja Flower',
+//                                      fontSize: 10.0,
+//                                      fontStyle: FontStyle.normal),
+//                                ),
+//                                (clat1 == "" || clat1 == null)
+//                                    ? Text("")
+//                                    : new Icon(
+//                                  Icons.location_on,
+//                                  color: Colors.blue,
+//                                  size: 15,
+//                                ),
+//                                SizedBox(
+//                                  height: _minimumPadding,
+//                                  width: _minimumPadding * 4,
+//                                ),
+//                                (clat2 == "" || clat2 == null)
+//                                    ? Text("")
+//                                    : Text(
+//                                  "الواجهة:$clat2",
+//                                  textDirection: TextDirection.rtl,
+//                                  textAlign: TextAlign.right,
+//                                  style: TextStyle(
+//                                      fontFamily: 'Gamja Flower',
+//                                      fontSize: 10.0,
+//                                      fontStyle: FontStyle.normal),
+//                                ),
+//                                SizedBox(
+//                                  height: _minimumPadding,
+//                                  width: _minimumPadding,
+//                                ),
+//                                Text(
+//                                  "وقت التحرك: ",
+//                                  textDirection: TextDirection.rtl,
+//                                  textAlign: TextAlign.right,
+//                                  style: TextStyle(
+//                                      fontFamily: 'Gamja Flower',
+//                                      fontSize: 10.0,
+//                                      fontStyle: FontStyle.normal),
+//                                ),
+//                                SizedBox(
+//                                  height: _minimumPadding,
+//                                  width: _minimumPadding,
+//                                ),
+//                                Text(
+//                                  "منذ: $cdate",
+//                                  textDirection: TextDirection.rtl,
+//                                  textAlign: TextAlign.right,
+//                                  style: TextStyle(
+//                                      fontFamily: 'Gamja Flower',
+//                                      fontSize: 10.0,
+//                                      fontStyle: FontStyle.normal),
+//                                ),
+//                              ],
+//                            ),
+//                          ),
+//                        ),
+//                        Column(
+//                          crossAxisAlignment: CrossAxisAlignment.start,
+//                          children: <Widget>[
+//                            Padding(
+//                              padding: const EdgeInsets.only(
+//                                  left: 10, right: 5, top: 5, bottom: 5),
+//                              child: Text(
+//                                " حالة الطلب :",
+//                                textDirection: TextDirection.rtl,
+//                                textAlign: TextAlign.right,
+//                              ),
+//                            ),
+//                          ],
+//                        ),
+                      ],
+                    ),
+                  ),
+                ],
               )),
         ),
       ),
