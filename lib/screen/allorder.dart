@@ -225,7 +225,7 @@ class _AllOrderState extends State<AllOrder> {
             children: <Widget>[
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 86.0,
+                height: 68.0,
                 decoration: BoxDecoration(
                   color: const Color(0xff4fc3f7),
                 ),
@@ -236,8 +236,8 @@ class _AllOrderState extends State<AllOrder> {
                     // Adobe XD layer: 'logoBox' (shape)
                     Center(
                   child: Container(
-                    width: 166.0,
-                    height: 67.0,
+                    width: MediaQuery.of(context).size.width ,
+                    height: 66.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
@@ -252,7 +252,7 @@ class _AllOrderState extends State<AllOrder> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(3.0),
                 child: Container(
                   height: 40.0,
                   decoration: BoxDecoration(color: Colors.white),
@@ -262,8 +262,8 @@ class _AllOrderState extends State<AllOrder> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
-                          width: 150,
-                          height: 40,
+                          width:  ( MediaQuery.of(context).size.width / 6 ) * 2.4,
+                          height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
                             color: Colors.grey[500],
@@ -311,8 +311,8 @@ class _AllOrderState extends State<AllOrder> {
                           ),
                         ),
                         Container(
-                          width: 120,
-                          height: 40,
+                           width: ( MediaQuery.of(context).size.width / 6 ) * 1.8 ,
+                          height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
                             color: Colors.grey[500],
@@ -339,7 +339,7 @@ class _AllOrderState extends State<AllOrder> {
                                   Icon(
                                     Icons.location_on,
                                     color: Colors.black,
-                                    size: 25.0,
+                                    size: 20.0,
                                   ),
                                 ],
                               ),
@@ -347,8 +347,9 @@ class _AllOrderState extends State<AllOrder> {
                           ),
                         ),
                         Container(
-                          width: 70,
-                          height: 40,
+                          padding: EdgeInsets.only(left: 5.0),
+                           width: ( MediaQuery.of(context).size.width / 6) * 1.3,
+                          height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5.0),
                             color: const Color(0xff43A2CC),
@@ -364,7 +365,7 @@ class _AllOrderState extends State<AllOrder> {
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 15,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.bold),
                                     ));
                               }).toList(),

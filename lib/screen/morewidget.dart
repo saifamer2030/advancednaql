@@ -112,7 +112,8 @@ class _MoreWidget extends State<MoreWidget> {
                         ),
                         InkWell(
                           onTap: () =>
-                              Navigator.of(context).pushNamed('/addnewads'),
+                              // Navigator.of(context).pushNamed('/addnewads'),
+                              Navigator.of(context).pushNamed('/newoffer'),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
