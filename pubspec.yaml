@@ -17,7 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter:
+  flutter: 
     sdk: flutter
 
 
@@ -48,6 +48,11 @@ dependencies:
   firebase_messaging: ^5.1.2
   flutter_local_notifications:
   fimber: ^0.4.0
+  google_maps_flutter: 
+  geoflutterfire: ^2.0.3+2
+  location: ^2.3.5
+  flutter_slidable: ^0.5.4
+  audioplayers: ^0.13.2
 
   #simple_slider: ^0.0.2
   rxdart:
@@ -91,6 +96,7 @@ flutter:
    - assets/images/antenna.png
    - assets/logo.png
    - assets/logowhite.png
+   - assets/carhorn.mp3
    - assets/images/ic_lang.png
    - assets/images/ic_policy.png
    - assets/images/ic_privcy.png
@@ -118,6 +124,7 @@ flutter:
    - assets/images/ic_heavy_transport.png
    - assets/images/ic_light_transmission.png
    - assets/images/ic_passenger_transport.png
+   - assets/images/ic_person.png
    - lang/en.json
    - lang/ar.json
   # An image asset can refer to one or more resolution-specific "variants", see

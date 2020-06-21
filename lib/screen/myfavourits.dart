@@ -384,7 +384,7 @@ class _MyFavState extends State<MyFav> {
       cRate = double.parse(rating) / custRate;
     }
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(5.0),
       child: Card(
         shape: new RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0)),

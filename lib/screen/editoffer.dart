@@ -13,13 +13,49 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
-class NewOffer extends StatefulWidget {
+class EditOffer extends StatefulWidget {
+  int position;
+  int length;
+  String cId;
+  String cdate;
+  String clat1;
+  String clong1;
+  String clat2;
+  String clong2;
+  String cType;
+  String cCategory;
+  String cpayload;
+  String cnocars;
+  String ctime;
+  bool cpublished;
+  String cstarttraveltime;
+  String curi;
+  String cname;
+  String  cDateID;
+  EditOffer(this.position, this.length, this.cId,
+      this.cdate,
+      this.clat1,
+      this.clong1,
+      this.clat2,
+      this.clong2,
+      this.cType,
+      this.cCategory,
+      this.cpayload,
+      this.cnocars,
+      this.ctime,
+  this. cpublished,
+  this. cstarttraveltime,
+  this. curi,
+      this.cname,
+      this.cDateID,
+      );
+
   @override
-  _newoffer createState() => _newoffer();
+  _EditOffer createState() => _EditOffer();
 }
 
 @override
-class _newoffer extends State<NewOffer> {
+class _EditOffer extends State<EditOffer> {
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -947,7 +983,6 @@ class _newoffer extends State<NewOffer> {
                                 new Text(Translations.of(context).translate('copy_of_the_car_form'),
                                   style: TextStyle(
                                     fontSize: 10,
-                                    color:const Color(0xff1891C7),
                                   ),),
                                 photoselected11?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
                               ],
@@ -974,7 +1009,6 @@ class _newoffer extends State<NewOffer> {
                               children: <Widget>[
                                 new Text(Translations.of(context).translate('iD_photo'),
                                   style: TextStyle(
-                                    color:const Color(0xff1891C7),
                                     fontSize: 10,
                                   ),),
                                 photoselected12?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
@@ -1013,7 +1047,6 @@ class _newoffer extends State<NewOffer> {
                               children: <Widget>[
                                 new Text(Translations.of(context).translate('equipment_image'),
                                   style: TextStyle(
-                                    color:const Color(0xff1891C7),
                                     fontSize: 10,
                                   ),),
                                 photoselected13?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
@@ -1030,7 +1063,7 @@ class _newoffer extends State<NewOffer> {
                           ),
                         ),
                       ),
-                      (_advcheck==true||Agrcheck==true||isSwitched==false)?Text(""):Padding(
+                      (_advcheck==true||Agrcheck==true)?Text(""):Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
@@ -1042,7 +1075,6 @@ class _newoffer extends State<NewOffer> {
                                 new Text(Translations.of(context).translate('copy_of_the_drivers_license'),
                                   style: TextStyle(
                                       fontSize: 10,
-                                    color:const Color(0xff1891C7),
                                       ),),
                                 photoselected14?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
                               ],
@@ -1075,7 +1107,6 @@ class _newoffer extends State<NewOffer> {
                           keyboardType: TextInputType.multiline,
                           textInputAction: TextInputAction.newline,
                           maxLines: null,
-                          maxLength: 50,
                           controller: _shortController,
                           textDirection: TextDirection.rtl,
                           validator: (String value) {
@@ -1120,7 +1151,6 @@ class _newoffer extends State<NewOffer> {
                           maxLines: null,
                           controller: _detailController,
                           textDirection: TextDirection.rtl,
-                          maxLength: 100,
                           onChanged: (value) {},
                           //  controller: controller,
                           validator: (String value) {
@@ -1158,13 +1188,12 @@ class _newoffer extends State<NewOffer> {
                             Icon(Icons.check,color: Colors.white,),
                           ],
                         ),
-                        //_advcheck==true||Agrcheck==true||isSwitched==false
                         textColor: Colors.white,
                         color: const Color(0xff43A2CC),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
                             if (sampleImage11 != null && ((sampleImage12 != null)&&(!_advcheck||!Agrcheck))
-                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck||isSwitched))
+                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck))
                                 && sampleImage1 != null) {
     if((((city1==""||city1==null)||(city2==""||city2==null))&&(!Agrcheck))||(city3==""||city3==null)){
     Toast.show("برجاء ادخال المدينة", context,
@@ -1298,8 +1327,7 @@ class _newoffer extends State<NewOffer> {
         'clong1':"a",
         'clat2': city1,
         'clong2': "a",
-        // 'cType': Translations.of(context).translate('show'),
-        'cType': 'عرض',
+        'cType': Translations.of(context).translate('show'),
         'cCategory': _CategorycurrentItemSelected,
         'cpayload':_travelcheck?"": _PayloadcurrentItemSelected,
         'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,

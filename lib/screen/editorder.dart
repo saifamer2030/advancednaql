@@ -8,12 +8,47 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class newOrder extends StatefulWidget {
+class EditOrder extends StatefulWidget {
+  int position;
+      int length;
+  String cId;
+      String cdate;
+  String clat1;
+      String clong1;
+  String clat2;
+      String clong2;
+  String cType;
+      String cCategory;
+  String cpayload;
+      String cnocars;
+  String ctime;
+      bool cpublished;
+  String cstarttraveltime;
+      String curi;
+  String cname;
+      String  cDateID;
+  EditOrder(this.position, this.length, this.cId,
+      this.cdate,
+      this.clat1,
+      this.clong1,
+      this.clat2,
+      this.clong2,
+      this.cType,
+      this.cCategory,
+      this.cpayload,
+      this.cnocars,
+      this.ctime,
+      this. cpublished,
+      this. cstarttraveltime,
+      this. curi,
+      this.cname,
+      this.cDateID,
+      );
   @override
-  _newOrderState createState() => _newOrderState();
+  _EditOrderState createState() => _EditOrderState();
 }
 
-class _newOrderState extends State<newOrder> {
+class _EditOrderState extends State<EditOrder> {
   var _formKey = GlobalKey<FormState>();
   final double _minimumPadding = 5.0;
   var _Categoryarray = [
@@ -707,8 +742,7 @@ class _newOrderState extends State<newOrder> {
         'clong1':"31",
         'clat2': city1,
         'clong2': "30",
-        // 'cType': Translations.of(context).translate('order'),
-        'cType': 'طلب',
+        'cType': Translations.of(context).translate('order'),
         'cCategory': _CategorycurrentItemSelected,
         'cpayload': _PayloadcurrentItemSelected,
         'cpayload': _PayloadcurrentItemSelected,

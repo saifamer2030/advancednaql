@@ -9,6 +9,7 @@ import 'package:advancednaql/screen/myOrder.dart';
 import 'package:advancednaql/screen/myalarms.dart';
 import 'package:advancednaql/screen/myfavourits.dart';
 import 'package:advancednaql/screen/neworder.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:fimber/fimber_base.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,7 +37,8 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 class _fragmentState extends State<Fragmentnaql> {
   int _currentIndex = 4;
   bool con = true;
-
+  AudioPlayer audioPlugin = AudioPlayer();
+  String mp3Uri;
   @override
   void initState() {
     super.initState();
@@ -376,19 +378,26 @@ class _fragmentState extends State<Fragmentnaql> {
   }
 
   void showNotification(message) async {
+    String sound = 'assets/carhon.mp3';
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+
       Platform.isAndroid
-          ? 'ccom.topstylesa.topstyle'
-          : 'com.topstylesa.topstyle',
-      'topstyle',
-      'your channel description',
+          ? 'com.arabdevelopers.advancednaql'
+          : 'com.arabdevelopers.advancednaql',
+      'naql',
+      'com.arabdevelopers.advancednaql',
       playSound: true,
+
+
+
       enableVibration: true,
       importance: Importance.Max,
       priority: Priority.High,
+
     );
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails(sound: sound);
     var platformChannelSpecifics = new NotificationDetails(
+
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(0, message['title'].toString(),
         message['body'].toString(), platformChannelSpecifics,
@@ -405,12 +414,12 @@ class _fragmentState extends State<Fragmentnaql> {
       if (view == 'cart_screen') {
         Navigator.push(
           context,
-          new MaterialPageRoute(builder: (context) => HomePage()),
+          new MaterialPageRoute(builder: (context) => MyAlarms()),
         );
       } else if (view == 'categories_screen') {
         Navigator.push(
           context,
-          new MaterialPageRoute(builder: (context) => HomePage()),
+          new MaterialPageRoute(builder: (context) => MyAlarms()),
         );
       }
     }
@@ -435,12 +444,13 @@ class _fragmentState extends State<Fragmentnaql> {
   }
 
   Future selectNotification(String payload) async {
-    if (payload == 'cart') {
-      debugPrint('notification payload: ' + payload);
-      await Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
-    }
+//    if (payload == 'cart') {
+//
+//    }
+    debugPrint('notification payload: ' + payload);
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MyAlarms()),
+    );
   }
 }

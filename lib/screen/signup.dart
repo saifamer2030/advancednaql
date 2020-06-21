@@ -508,7 +508,7 @@ class _SignUpState extends State<SignUp> {
           createRecord(result.user.uid);
 
           //FirebaseUser user = result.user;
-          Navigator.of(context).pushReplacementNamed('/fragmentnaql');
+         // Navigator.of(context).pushReplacementNamed('/fragmentnaql');
 
 //          if(user != null){
 //            Navigator.push(context, MaterialPageRoute(

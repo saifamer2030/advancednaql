@@ -5,11 +5,15 @@ import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toast/toast.dart';
+
+import 'editoffer.dart';
+import 'editorder.dart';
 
 class MyAdvertisement extends StatefulWidget {
   @override
@@ -372,8 +376,151 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                       controller: _controller,
                       itemCount: orderlist.length,
                       itemBuilder: (BuildContext ctxt, int index) {
-                        return Dismissible(
-                          key: Key(orderlist[index].cId),
+                        return Slidable(
+                            actionPane: SlidableDrawerDismissal(),
+                            child:   firebasedata(
+                              index,
+                              orderlist.length,
+                              orderlist[index].cId,
+                              orderlist[index].cdate,
+                              orderlist[index].clat1,
+                              orderlist[index].clong1,
+                              orderlist[index].clat2,
+                              orderlist[index].clong2,
+                              orderlist[index].cType,
+                              orderlist[index].cCategory,
+                              orderlist[index].cpayload,
+                              orderlist[index].cnocars,
+                              orderlist[index].ctime,
+                              orderlist[index].cpublished,
+                              orderlist[index].cstarttraveltime,
+                              orderlist[index].curi,
+                              orderlist[index].cName,
+                              orderlist[index].rating,
+                              orderlist[index].custRate,
+                              orderlist[index].cDateID,
+                            ),
+                            actions: <Widget>[
+                              Container(
+                                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                child: IconSlideAction(
+                                  caption: 'Edit',
+                                  color: Colors.green,
+                                  icon: Icons.edit,
+                                  onTap: () {
+                                    if(orderlist[index].cType=="طلب"){
+                                      Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                            new EditOrder(
+                                              index,
+                                              orderlist.length,
+                                              orderlist[index].cId,
+                                              orderlist[index].cdate,
+                                              orderlist[index].clat1,
+                                              orderlist[index].clong1,
+                                              orderlist[index].clat2,
+                                              orderlist[index].clong2,
+                                              orderlist[index].cType,
+                                              orderlist[index].cCategory,
+                                              orderlist[index].cpayload,
+                                              orderlist[index].cnocars,
+                                              orderlist[index].ctime,
+                                              orderlist[index].cpublished,
+                                              orderlist[index].cstarttraveltime,
+                                              orderlist[index].curi,
+                                              orderlist[index].cName,
+                                              orderlist[index].cDateID,
+                                            )),
+                                      );
+
+                                    }else{
+                                      Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                            new EditOffer(
+                                              index,
+                                              orderlist.length,
+                                              orderlist[index].cId,
+                                              orderlist[index].cdate,
+                                              orderlist[index].clat1,
+                                              orderlist[index].clong1,
+                                              orderlist[index].clat2,
+                                              orderlist[index].clong2,
+                                              orderlist[index].cType,
+                                              orderlist[index].cCategory,
+                                              orderlist[index].cpayload,
+                                              orderlist[index].cnocars,
+                                              orderlist[index].ctime,
+                                              orderlist[index].cpublished,
+                                              orderlist[index].cstarttraveltime,
+                                              orderlist[index].curi,
+                                              orderlist[index].cName,
+                                              orderlist[index].cDateID,
+
+                                            )),
+                                      );
+
+                                    }
+                                  },
+                                ),
+                              )
+                            ],
+                            secondaryActions: <Widget>[
+                              Container(
+                                  padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                                  child: IconSlideAction(
+                                    caption: 'Delete',
+                                    color: Colors.red,
+                                    icon: Icons.delete,
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                        new CupertinoAlertDialog(
+                                          title: new Text("تنبية"),
+                                          content: new Text("تبغي تحذف اعلانك؟"),
+                                          actions: [
+                                            CupertinoDialogAction(
+                                                isDefaultAction: false,
+                                                child: new FlatButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      FirebaseDatabase.instance.reference()
+                                                          .child("orderdata").child(_userId).child(orderlist[index].cDateID)
+                                                          .remove().whenComplete(() =>
+                                                          Toast.show("تم الحذف فى المفضلة", context,
+                                                              duration: Toast.LENGTH_SHORT,
+                                                              gravity: Toast.BOTTOM));
+                                                      setState(() {
+                                                        orderlist.removeAt(index);
+                                                        Navigator.pop(context);
+                                                      });
+                                                    });
+
+                                                  }
+                                                  ,
+                                                  child: Text("موافق"),
+                                                )),
+                                            CupertinoDialogAction(
+                                                isDefaultAction: false,
+                                                child: new FlatButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: Text("إلغاء"),
+                                                )),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  )),
+                            ],
+                          );
+
+                        /**Dismissible(
+                          key: Key(orderlist[index].cDateID),
                           background: Container(
                               color: Colors.red,
                               padding: EdgeInsets.only(left: 20),
@@ -400,15 +547,6 @@ setState(() {
                             });
                           },
 
-
-
-
-
-
-
-
-
-
                           child: InkWell(
                               child: firebasedata(
                                 index,
@@ -433,7 +571,7 @@ setState(() {
                                 orderlist[index].cDateID,
                               ),
                               onTap: () {}),
-                        );
+                        );**/
                       })
 
           )

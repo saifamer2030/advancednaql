@@ -5,6 +5,7 @@ class CommentClass {
   String cheaddate;
   String ccoment;
   String cname;
+  String cadvID;
 
 
 
@@ -15,6 +16,7 @@ class CommentClass {
   this.cheaddate,
   this.ccoment,
   this.cname,
+      this.cadvID,
 
      );
 

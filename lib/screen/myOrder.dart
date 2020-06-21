@@ -21,12 +21,12 @@ class myOrder extends StatefulWidget {
 }
 
 class _myOrderState extends State<myOrder> {
-  List<MyOrderClass> alarmlist = [];
+  List<MyOrderClass> myorderlist = [];
 
   //List<String> namelist = [];
   bool _load = false;
   String _userId;
-  final databasealarm = FirebaseDatabase.instance.reference().child("MyOrder");
+  final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
 
   @override
   void initState() {
@@ -38,40 +38,37 @@ class _myOrderState extends State<myOrder> {
     FirebaseAuth.instance.currentUser().then((user) => user == null
         ? null
         : setState(() {
-            _userId = user.uid;
-            final databasealarm =
-                FirebaseDatabase.instance.reference().child("MyOrder");
-//            orderdatabaseReference.once().then((DataSnapshot data) {
+      _userId = user.uid;
+      final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
+//           orderdatabaseReference.once().then((DataSnapshot data) {
 //              var uuId = data.value.keys;
 
-            //   for (var id in uuId) {
-            databasealarm.child(_userId).once().then((DataSnapshot data1) {
-              var DATA = data1.value;
-              var keys = data1.value.keys;
-              alarmlist.clear();
-              //  namelist.clear();
-              for (var individualkey in keys) {
-                MyOrderClass alarmaalass = new MyOrderClass(
-                  DATA[individualkey]['wid'],
-                  DATA[individualkey]['Name'],
-                  DATA[individualkey]['title'],
-                  DATA[individualkey]['statusOrder'],
-                  DATA[individualkey]['cadv'],
-                  DATA[individualkey]['curl'],
-                  DATA[individualkey]['cType'],
-                );
-
-
-
-                setState(() {
-                  alarmlist.add(alarmaalass);
-
-                });
-              }
-            });
-            // }
-            //  });
-          }));
+      //   for (var id in uuId) {
+      databasemyorder.child(_userId).once().then((DataSnapshot data1) {
+        var DATA = data1.value;
+        var keys = data1.value.keys;
+        myorderlist.clear();
+        //  namelist.clear();
+        for (var individualkey in keys) {
+          MyOrderClass myorderclass = new MyOrderClass(
+            DATA[individualkey]['Uid'],
+            DATA[individualkey]['wid'],
+            DATA[individualkey]['pid'],
+            DATA[individualkey]['Name'],
+            DATA[individualkey]['title'],
+            DATA[individualkey]['statusOrder'],
+            DATA[individualkey]['cadv'],
+            DATA[individualkey]['curl'],
+            DATA[individualkey]['cType'],
+          );
+          setState(() {
+            myorderlist.add(myorderclass);
+          });
+        }
+      });
+      // }
+      //  });
+    }));
   }
 
   final double _minimumPadding = 5.0;
@@ -81,8 +78,8 @@ class _myOrderState extends State<myOrder> {
   Widget build(BuildContext context) {
     Widget loadingIndicator = _load
         ? new Container(
-            child: SpinKitCircle(color: Colors.blue),
-          )
+      child: SpinKitCircle(color: Colors.blue),
+    )
         : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
     return Scaffold(
@@ -120,8 +117,8 @@ class _myOrderState extends State<myOrder> {
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                    // Adobe XD layer: 'logoBox' (shape)
-                    Center(
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
                   child: Container(
                     width: 166.0,
                     height: 67.0,
@@ -144,104 +141,57 @@ class _myOrderState extends State<myOrder> {
             padding: const EdgeInsets.only(top: 100),
             child: Expanded(
                 child: Center(
-              child: alarmlist.length == 0
-                  ? new Center(
-                     child: loadingIndicator,
-                    )
-                  : new ListView.builder(
+                  child: myorderlist.length == 0
+                      ? new Center(
+                    child: loadingIndicator,
+                  )
+                      : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,
                       // reverse: true,
-                      itemCount: alarmlist.length,
+                      itemCount: myorderlist.length,
                       itemBuilder: (BuildContext ctxt, int index) {
                         return InkWell(
                           child: _firebasedata(
                             index,
-                            alarmlist.length,
-                            alarmlist[index].wid,
-                            alarmlist[index].Name,
-                            alarmlist[index].title,
-                            alarmlist[index].statusOrder,
-                            alarmlist[index].cadv,
-                            alarmlist[index].curl,
-                            alarmlist[index].cType,
+                            myorderlist.length,
+                            myorderlist[index].Uid,
+                            myorderlist[index].wid,
+                            myorderlist[index].pid,
+                            myorderlist[index].Name,
+                            myorderlist[index].title,
+                            myorderlist[index].statusOrder,
+                            myorderlist[index].cadv,
+                            myorderlist[index].curl,
+                            myorderlist[index].cType,
                           ),
-
-
-
-
-//                                                    onTap: () {
-//                                                      if(_userId==commentlist[index].cuserid){
-//                                                        FirebaseDatabase.instance
-//                                                            .reference()
-//                                                            .child("commentsdata")
-//                                                            .child(widget.cId)
-//                                                            .child(commentlist[index].cheaddate)
-//                                                            .remove()
-//                                                            .whenComplete(() {
-//
-//                                                          setState(() {
-//                                                            commentlist.removeAt(index);
-//                                                          });
-//                                                          Toast.show("تم حذف التعليق", context,
-//                                                              duration: Toast.LENGTH_SHORT,
-//                                                              gravity: Toast.BOTTOM);
-//                                                        });
-//                                                      }
-//                                                      else{
-//                                                        Toast.show("ليس تعليقك", context,
-//                                                            duration: Toast.LENGTH_SHORT,
-//                                                            gravity: Toast.BOTTOM);
-//                                                      }
-//                                                    }
                         );
                       }),
-            )),
+                )),
           ),
 
-          /** Expanded(
-              child: alarmlist.length == 0
-              ? Center(
-              child:  loadingIndicator,)
-              : new ListView.builder(
-              physics: BouncingScrollPhysics(),
-              controller: _controller,
-              itemCount: alarmlist.length,
-              itemBuilder: (BuildContext ctxt, int index) {
-              return InkWell(
-              child: firebasedata(
-              index,
-              alarmlist.length,
-              alarmlist[index].alarmid,
-              alarmlist[index].wid,
-              alarmlist[index].Name,
-              alarmlist[index].cType,
-              alarmlist[index].cDateID,
-              alarmlist[index].arrange,
-              ),
-              onTap: () {});
-              })
-
-              )**/
         ],
       ),
     );
   }
 
   Widget _firebasedata(
-    int position,
-    int length,
-    String wid,
-    String Name,
-    String titel,
-    int statusOrder,
-    String cadv,
-    String curl,
-    String cType,
-  ) {
+      int position,
+      int length,
+      String Uid,
+      String wid,
+      String pid,
+      String Name,
+      String titel,
+      String statusOrder,
+      String cadv,
+      String curl,
+      String cType,
+      ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
+        color: Colors.grey[300],
         shape: new RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0)),
         //borderOnForeground: true,
@@ -249,209 +199,230 @@ class _myOrderState extends State<myOrder> {
         margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
         child: InkWell(
           onTap: () {
+            setState(() {
 
+            });
           },
           child: Container(
-              padding: EdgeInsets.all(0),
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    color: Colors.grey[100],
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: curl == null
-                            ? new Image.asset("assets/images/ic_bluecar.png",
-                            fit: BoxFit.fill)
-                            : new Image.network(
-                          curl,
-                          fit: BoxFit.cover,
+              height: 200,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      color: Colors.grey[100],
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: curl == null
+                              ? new Image.asset("assets/images/ic_bluecar.png",
+                              fit: BoxFit.fill)
+                              : new Image.network(
+                            curl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
+                      width: 100,
+                      height: 130,
                     ),
-                    width: 100,
-                    height: 130,
-                  ),
-                  Container(
-                    height: 130,
-                    child: Stack(
-                      //alignment: Alignment.bottomCenter,
+
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-//                        Positioned(
-//                          top: 0,
-//                          left: 0,
-//                          child: Container(
-//                            height: 30,
-//                            width: 50,
-//                            decoration: BoxDecoration(
-//                              borderRadius: BorderRadius.circular(4.0),
-//                              color: cType == "طلب" ? Colors.green : Colors.red,
-//                            ),
-//                            child: Padding(
-//                              padding: const EdgeInsets.all(5.0),
-//                              child: Text(
-//                                cType,
-//                                style: TextStyle(
-//                                    color: Colors.white,
-//                                    fontFamily: 'Gamja Flower',
-//                                    fontWeight: FontWeight.bold),
-//                              ),
-//                            ),
-//                          ),
-//                        ),
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              titel,
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontFamily: 'Gamja Flower',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
-                                  fontStyle: FontStyle.normal),
+                        Container(
+                          width: 225,
+                          child: Text(
+                            " $titel",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontFamily: 'Gamja Flower',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15.0,
+                                fontStyle: FontStyle.normal),
+                          ),
+                        ),
+                        Container(
+                          width: 225,
+                          child: Text(
+                            " $Name",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 13,
+
+                              //    fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 20,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Name != null
-                                ? Text(
-                              Name,
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontFamily: 'Gamja Flower',
-                                  fontStyle: FontStyle.normal),
-                            )
-                                : Text(" "),
+                        Container(
+                          width: 225,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              SizedBox(width: 100,),
+                              Text(
+                                " $cadv",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: 'Gamja Flower',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                    fontStyle: FontStyle.normal),
+                              ),
+                              Text(
+                                ": نوع الطلب",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: 'Gamja Flower',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                    fontStyle: FontStyle.normal),
+                              ),
+
+                            ],
                           ),
                         ),
-//                        Positioned(
-//                          top: 40,
-//                          right: 0,
-//                          child: Padding(
-//                            padding: const EdgeInsets.all(5.0),
-//                            child: cRate > 0.0
-//                                ? SmoothStarRating(
-//                                allowHalfRating: true,
-//                                onRated: (v) {},
-//                                starCount: 5,
-//                                rating: cRate,
-//                                isReadOnly: true,
-//                                //not changed
-//                                //setting value
-//                                size: 20.0,
-//                                color: Colors.amber,
-//                                borderColor: Colors.amber,
-//                                spacing: 0.0)
-//                                : new Text(
-//                              'منضم حديثا',
-//                              style: TextStyle(
-//                                  color: Colors.lightBlue,
-//                                  fontFamily: 'Gamja Flower',
-//                                  fontWeight: FontWeight.bold,
-//                                  fontSize: 15.0,
-//                                  fontStyle: FontStyle.normal),
-//                            ),
-//                          ),
-//                        ),
-//                        Positioned(
-//                          top: 100,
-//                          right: 0,
-//                          child: Padding(
-//                            padding: const EdgeInsets.all(5.0),
-//                            child: Row(
-//                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                              children: <Widget>[
-//                                (clat1 == "" || clat1 == null)
-//                                    ? Text("")
-//                                    : Text(
-//                                  "$clat1",
-//                                  textDirection: TextDirection.rtl,
-//                                  textAlign: TextAlign.right,
-//                                  style: TextStyle(
-//                                      fontFamily: 'Gamja Flower',
-//                                      fontSize: 10.0,
-//                                      fontStyle: FontStyle.normal),
-//                                ),
-//                                (clat1 == "" || clat1 == null)
-//                                    ? Text("")
-//                                    : new Icon(
-//                                  Icons.location_on,
-//                                  color: Colors.blue,
-//                                  size: 15,
-//                                ),
-//                                SizedBox(
-//                                  height: _minimumPadding,
-//                                  width: _minimumPadding * 4,
-//                                ),
-//                                (clat2 == "" || clat2 == null)
-//                                    ? Text("")
-//                                    : Text(
-//                                  "الواجهة:$clat2",
-//                                  textDirection: TextDirection.rtl,
-//                                  textAlign: TextAlign.right,
-//                                  style: TextStyle(
-//                                      fontFamily: 'Gamja Flower',
-//                                      fontSize: 10.0,
-//                                      fontStyle: FontStyle.normal),
-//                                ),
-//                                SizedBox(
-//                                  height: _minimumPadding,
-//                                  width: _minimumPadding,
-//                                ),
-//                                Text(
-//                                  "وقت التحرك: ",
-//                                  textDirection: TextDirection.rtl,
-//                                  textAlign: TextAlign.right,
-//                                  style: TextStyle(
-//                                      fontFamily: 'Gamja Flower',
-//                                      fontSize: 10.0,
-//                                      fontStyle: FontStyle.normal),
-//                                ),
-//                                SizedBox(
-//                                  height: _minimumPadding,
-//                                  width: _minimumPadding,
-//                                ),
-//                                Text(
-//                                  "منذ: $cdate",
-//                                  textDirection: TextDirection.rtl,
-//                                  textAlign: TextAlign.right,
-//                                  style: TextStyle(
-//                                      fontFamily: 'Gamja Flower',
-//                                      fontSize: 10.0,
-//                                      fontStyle: FontStyle.normal),
-//                                ),
-//                              ],
-//                            ),
-//                          ),
-//                        ),
-//                        Column(
-//                          crossAxisAlignment: CrossAxisAlignment.start,
-//                          children: <Widget>[
-//                            Padding(
-//                              padding: const EdgeInsets.only(
-//                                  left: 10, right: 5, top: 5, bottom: 5),
-//                              child: Text(
-//                                " حالة الطلب :",
-//                                textDirection: TextDirection.rtl,
-//                                textAlign: TextAlign.right,
-//                              ),
-//                            ),
-//                          ],
-//                        ),
+                        Container(
+                          width: 225,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              SizedBox(width: 100,),
+                              Text(
+                                " $statusOrder",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  color:  statusOrder=="قيد الانتظار"? Colors.blue:statusOrder=="مقبول"?  Colors.green:Colors.red,
+                                  fontSize: 13,
+                                  //    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                              Text(
+                                ": حالة الطلب",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontFamily: 'Gamja Flower',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                    fontStyle: FontStyle.normal),
+                              ),
+
+                            ],
+                          ),
+                        ),
+                        cType=="provider" ?Row(
+                          //  crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                width: 100 /*MediaQuery.of(context).size.width*/,
+                                height: 40,
+                                child: new RaisedButton(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text("قبول"),
+                                      SizedBox(
+                                        height: _minimumPadding,
+                                        width: _minimumPadding,
+                                      ),
+                                      Icon(Icons.check,color: Colors.white,),
+                                    ],
+                                  ),
+                                  textColor: Colors.white,
+                                  color: Colors.green,
+                                  onPressed: () async {
+                                    FirebaseDatabase
+                                        .instance
+                                        .reference()
+                                        .child("MyOrder")
+                                        .child(Uid).child(pid).update({
+                                      "statusOrder":"مقبول",
+                                    }).then((_) {
+
+                                      FirebaseDatabase
+                                          .instance
+                                          .reference()
+                                          .child("MyOrder")
+                                          .child(wid).child(pid).update({
+                                        "statusOrder":"مقبول",
+                                      }).then((_) {
+
+                                        setState(() {
+                                          myorderlist[position].statusOrder="مقبول";
+
+                                        });
+                                      });});
+                                  },
+//
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(100.0)),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                width: 100 /*MediaQuery.of(context).size.width*/,
+                                height: 40,
+                                child: new RaisedButton(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      new Text("رفض"),
+                                      SizedBox(
+                                        height: _minimumPadding,
+                                        width: _minimumPadding,
+                                      ),
+                                      Icon(Icons.close,color: Colors.white,),
+                                    ],
+                                  ),
+                                  textColor: Colors.white,
+                                  color: Colors.red,
+                                  onPressed: () async {
+                                    FirebaseDatabase
+                                        .instance
+                                        .reference()
+                                        .child("MyOrder")
+                                        .child(Uid).child(pid).update({
+                                      "statusOrder":"مرفوض",
+                                    }).then((_) {
+
+                                      FirebaseDatabase
+                                          .instance
+                                          .reference()
+                                          .child("MyOrder")
+                                          .child(wid).child(pid).update({
+                                        "statusOrder":"مرفوض",
+                                      }).then((_) {
+
+                                        setState(() {
+                                          myorderlist[position].statusOrder="مرفوض";
+                                        });
+                                      });});
+
+
+
+
+                                  },
+//
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(100.0)),
+                                ),
+                              ),
+                            ),
+
+                          ],
+                        ):Container(),
+
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )),
         ),
       ),
