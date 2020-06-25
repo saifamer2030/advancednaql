@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
               _localeOverrideDelegate,
               const TranslationsDelegate(),
               GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
+         //     GlobalWidgetsLocalizations.delegate,
             ],
             supportedLocales: applic.supportedLocales(),
     );
