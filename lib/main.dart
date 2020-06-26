@@ -12,6 +12,7 @@ import 'fragmentbar.dart';
 import 'screen/Splash.dart';
 import 'screen/login.dart';
 import 'screen/network_connection.dart';
+import 'screen/newoffer.dart';
 import 'screen/signup.dart';
 import 'screen/neworder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,15 +29,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-//language
- //set def lang or retrieve saved
+  //language
+  //set def lang or retrieve saved
   void checkDefLang() async {
     SharedPreferences sPref = await SharedPreferences.getInstance();
     Locale curLoc;
     if (sPref.getString('defLangCode') == null &&
         sPref.getString('defLangCountry') == null) {
       HelperFunc.setFirstLang();
-      curLoc = new Locale('ar', 'EG');
+      // curLoc = new Locale('ar', 'EG');
+      curLoc = new Locale('en', 'US');
     } else {
       curLoc = new Locale(
           sPref.getString('defLangCode'), sPref.getString('defLangCountry'));
@@ -82,18 +84,17 @@ class _MyAppState extends State<MyApp> {
         '/myadvertisement':(BuildContext context)=>new MyAdvertisement(),
         '/homechatroom':(BuildContext context)=>new HomePage(),
         '/pledge':(BuildContext context)=>new Pledge(),
-        '/neworder':(BuildContext context)=>new newOrder(),
+       // '/neworder':(BuildContext context)=>new newOrder(),
         '/conection':(BuildContext context)=>new ConnectionScreen(),
         '/termsuse':(BuildContext context)=>new TermsUse(),
         '/privcypolicy':(BuildContext context)=>new PrivcyPolicy(),
-        '/department':(BuildContext context)=>new Department(),
+      //  '/newoffer':(BuildContext context)=>new NewOffer(),
       },
       localizationsDelegates: [
               _localeOverrideDelegate,
               const TranslationsDelegate(),
               GlobalMaterialLocalizations.delegate,
-         //     GlobalWidgetsLocalizations.delegate,
-            ],
+],
             supportedLocales: applic.supportedLocales(),
     );
   }

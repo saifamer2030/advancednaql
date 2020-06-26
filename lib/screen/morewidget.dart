@@ -1,3 +1,5 @@
+import 'package:advancednaql/screen/addNewAds.dart';
+import 'package:advancednaql/screen/personal_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -15,8 +17,9 @@ class MoreWidget extends StatefulWidget {
   @override
   _MoreWidget createState() => _MoreWidget();
 }
-  final double _minimumPadding = 5.0;
-  String _userId;
+
+final double _minimumPadding = 5.0;
+String _userId;
 
 class _MoreWidget extends State<MoreWidget> {
   @override
@@ -26,16 +29,12 @@ class _MoreWidget extends State<MoreWidget> {
     FirebaseAuth.instance.currentUser().then((user) => user == null
         ? null
         : setState(() {
-      _userId = user.uid;
-    }));
+            _userId = user.uid;
+          }));
   }
 
   @override
   Widget build(BuildContext context) {
-
-
-
-
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: Stack(
@@ -111,8 +110,18 @@ class _MoreWidget extends State<MoreWidget> {
                           ],
                         ),
                         InkWell(
-                          onTap: () =>
-                              Navigator.of(context).pushNamed('/addnewads'),
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed('/pledge');
+//                            Navigator.push(
+//                              context,
+//                              MaterialPageRoute(
+//                                  builder: (context) => AddNewAds()),
+//                            );
+                          },
+
+                          // Navigator.of(context).pushNamed('/addnewads'),
+//                              Navigator.of(context).pushNamed('/newoffer'),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
@@ -253,38 +262,47 @@ class _MoreWidget extends State<MoreWidget> {
                           height: .2,
                           color: Colors.grey,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Icon(
-                              Icons.keyboard_arrow_left,
-                              color: const Color(0xff3F9DC7),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Text(
-                                  'الصفحه الشخصية',
-                                  style: TextStyle(
-                                    fontFamily: 'DroidArabicKufi',
-                                    fontSize: 13,
-                                    color: const Color(0xff3F9DC7),
-                                    height: 1.2307692307692308,
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PersonalPage()),
+                            );
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Icon(
+                                Icons.keyboard_arrow_left,
+                                color: const Color(0xff3F9DC7),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'الصفحه الشخصية',
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 13,
+                                      color: const Color(0xff3F9DC7),
+                                      height: 1.2307692307692308,
+                                    ),
+                                    textAlign: TextAlign.right,
                                   ),
-                                  textAlign: TextAlign.right,
-                                ),
 
-                                // Adobe XD layer: 'world-wide-web-icon…' (shape)
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: new Icon(
-                                    Icons.account_circle,
-                                    color: Colors.grey,
+                                  // Adobe XD layer: 'world-wide-web-icon…' (shape)
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: new Icon(
+                                      Icons.account_circle,
+                                      color: Colors.grey,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
 
                         Container(
@@ -612,25 +630,25 @@ class _MoreWidget extends State<MoreWidget> {
 ////                            ),
                               _userId == null
                                   ? Text(
-                                'تسجيل الدخول',
-                                style: TextStyle(
-                                  fontFamily: 'DroidArabicKufi',
-                                  fontSize: 13,
-                                  color: const Color(0xff3F9DC7),
-                                  height: 1.2307692307692308,
-                                ),
-                                textAlign: TextAlign.right,
-                              )
+                                      'تسجيل الدخول',
+                                      style: TextStyle(
+                                        fontFamily: 'DroidArabicKufi',
+                                        fontSize: 13,
+                                        color: const Color(0xff3F9DC7),
+                                        height: 1.2307692307692308,
+                                      ),
+                                      textAlign: TextAlign.right,
+                                    )
                                   : Text(
-                                'تسجيل خروج',
-                                style: TextStyle(
-                                  fontFamily: 'DroidArabicKufi',
-                                  fontSize: 13,
-                                  color: const Color(0xff3F9DC7),
-                                  height: 1.2307692307692308,
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
+                                      'تسجيل خروج',
+                                      style: TextStyle(
+                                        fontFamily: 'DroidArabicKufi',
+                                        fontSize: 13,
+                                        color: const Color(0xff3F9DC7),
+                                        height: 1.2307692307692308,
+                                      ),
+                                      textAlign: TextAlign.right,
+                                    ),
 
                               // Adobe XD layer: 'world-wide-web-icon…' (shape)
                               Padding(

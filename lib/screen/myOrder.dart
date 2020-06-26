@@ -38,37 +38,37 @@ class _myOrderState extends State<myOrder> {
     FirebaseAuth.instance.currentUser().then((user) => user == null
         ? null
         : setState(() {
-            _userId = user.uid;
-            final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
+      _userId = user.uid;
+      final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
 //           orderdatabaseReference.once().then((DataSnapshot data) {
 //              var uuId = data.value.keys;
 
-            //   for (var id in uuId) {
+      //   for (var id in uuId) {
       databasemyorder.child(_userId).once().then((DataSnapshot data1) {
-              var DATA = data1.value;
-              var keys = data1.value.keys;
-              myorderlist.clear();
-              //  namelist.clear();
-              for (var individualkey in keys) {
-                MyOrderClass myorderclass = new MyOrderClass(
-                  DATA[individualkey]['Uid'],
-                  DATA[individualkey]['wid'],
-                  DATA[individualkey]['pid'],
-                  DATA[individualkey]['Name'],
-                  DATA[individualkey]['title'],
-                  DATA[individualkey]['statusOrder'],
-                  DATA[individualkey]['cadv'],
-                  DATA[individualkey]['curl'],
-                  DATA[individualkey]['cType'],
-                );
-                setState(() {
-                  myorderlist.add(myorderclass);
-                });
-              }
-            });
-            // }
-            //  });
-          }));
+        var DATA = data1.value;
+        var keys = data1.value.keys;
+        myorderlist.clear();
+        //  namelist.clear();
+        for (var individualkey in keys) {
+          MyOrderClass myorderclass = new MyOrderClass(
+            DATA[individualkey]['Uid'],
+            DATA[individualkey]['wid'],
+            DATA[individualkey]['pid'],
+            DATA[individualkey]['Name'],
+            DATA[individualkey]['title'],
+            DATA[individualkey]['statusOrder'],
+            DATA[individualkey]['cadv'],
+            DATA[individualkey]['curl'],
+            DATA[individualkey]['cType'],
+          );
+          setState(() {
+            myorderlist.add(myorderclass);
+          });
+        }
+      });
+      // }
+      //  });
+    }));
   }
 
   final double _minimumPadding = 5.0;
@@ -78,8 +78,8 @@ class _myOrderState extends State<myOrder> {
   Widget build(BuildContext context) {
     Widget loadingIndicator = _load
         ? new Container(
-            child: SpinKitCircle(color: Colors.blue),
-          )
+      child: SpinKitCircle(color: Colors.blue),
+    )
         : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
     return Scaffold(
@@ -117,8 +117,8 @@ class _myOrderState extends State<myOrder> {
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                    // Adobe XD layer: 'logoBox' (shape)
-                    Center(
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
                   child: Container(
                     width: 166.0,
                     height: 67.0,
@@ -141,11 +141,11 @@ class _myOrderState extends State<myOrder> {
             padding: const EdgeInsets.only(top: 100),
             child: Expanded(
                 child: Center(
-              child: myorderlist.length == 0
-                  ? new Center(
-                     child: loadingIndicator,
-                    )
-                  : new ListView.builder(
+                  child: myorderlist.length == 0
+                      ? new Center(
+                    child: loadingIndicator,
+                  )
+                      : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,
                       // reverse: true,
@@ -167,7 +167,7 @@ class _myOrderState extends State<myOrder> {
                           ),
                         );
                       }),
-            )),
+                )),
           ),
 
         ],
@@ -176,18 +176,18 @@ class _myOrderState extends State<myOrder> {
   }
 
   Widget _firebasedata(
-    int position,
-    int length,
+      int position,
+      int length,
       String Uid,
-    String wid,
+      String wid,
       String pid,
       String Name,
-    String titel,
+      String titel,
       String statusOrder,
-    String cadv,
-    String curl,
-    String cType,
-  ) {
+      String cadv,
+      String curl,
+      String cType,
+      ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -314,7 +314,7 @@ class _myOrderState extends State<myOrder> {
                           ),
                         ),
                         cType=="provider" ?Row(
-                       //  crossAxisAlignment: CrossAxisAlignment.start,
+                          //  crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(
                               padding: const EdgeInsets.all(5.0),
@@ -384,26 +384,26 @@ class _myOrderState extends State<myOrder> {
                                   textColor: Colors.white,
                                   color: Colors.red,
                                   onPressed: () async {
-    FirebaseDatabase
-        .instance
-        .reference()
-        .child("MyOrder")
-        .child(Uid).child(pid).update({
-    "statusOrder":"مرفوض",
-    }).then((_) {
+                                    FirebaseDatabase
+                                        .instance
+                                        .reference()
+                                        .child("MyOrder")
+                                        .child(Uid).child(pid).update({
+                                      "statusOrder":"مرفوض",
+                                    }).then((_) {
 
-    FirebaseDatabase
-        .instance
-        .reference()
-        .child("MyOrder")
-        .child(wid).child(pid).update({
-    "statusOrder":"مرفوض",
-    }).then((_) {
+                                      FirebaseDatabase
+                                          .instance
+                                          .reference()
+                                          .child("MyOrder")
+                                          .child(wid).child(pid).update({
+                                        "statusOrder":"مرفوض",
+                                      }).then((_) {
 
-    setState(() {
-      myorderlist[position].statusOrder="مرفوض";
-    });
-    });});
+                                        setState(() {
+                                          myorderlist[position].statusOrder="مرفوض";
+                                        });
+                                      });});
 
 
 

@@ -1,3 +1,4 @@
+import 'package:advancednaql/screen/Departmentwedgit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +71,14 @@ class _adsState extends State<AddNewAds> {
                     children: <Widget>[
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/department');
+                          String user = "user";
+                          print("##############$user##############");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Department(user)),
+                          );
+//                          Navigator.of(context).pushNamed('/department');
                         },
                         child: Column(
                           children: <Widget>[
@@ -120,7 +128,16 @@ class _adsState extends State<AddNewAds> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/department');
+
+                          String user = "provider";
+                          print("##############$user##############");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Department(user)),
+                          );
+
+//                          Navigator.of(context).pushNamed('/department');
                         },
                         child: Column(
                           children: <Widget>[

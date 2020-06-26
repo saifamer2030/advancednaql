@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class Department extends StatelessWidget {
-  Department({
-    Key key,
-  }) : super(key: key);
+import 'newoffer.dart';
+import 'neworder.dart';
+
+class Department extends StatefulWidget {
+  String user;
+  Department(this.user);
+
+  @override
+  _DepartmentState createState() => _DepartmentState();
+}
+class _DepartmentState extends State<Department> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +28,6 @@ class Department extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () => Navigator.pop(context),
-
                   child: Container(
                     alignment: Alignment.centerLeft,
                     width: 20,
@@ -63,144 +69,23 @@ class Department extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Container(
-                      width: 155.2,
-                      height: 162.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: const Color(0xfff7f7f7),
-                        border: Border.all(
-                            width: 1.0, color: const Color(0xffdddddd)),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Container(
-                              width: 50.0,
-                              height: 30.0,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: const AssetImage(
-                                      'assets/images/ic_average_transfer.png'),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25),
-                            child: Text(
-                              'نقل متوسط',
-                              style: TextStyle(
-                                fontFamily: 'DroidArabicKufi',
-                                fontSize: 18,
-                                color: const Color(0xff41a0cb),
-                                height: 1.2222222222222223,
-                              ),
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: SizedBox(
-                              width: 33.0,
-                              child: Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                    fontFamily: 'DroidArabicKufi',
-                                    fontSize: 10,
-                                    color: const Color(0xff606060),
-                                    height: 1.1578947368421053,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: '١-٧ طن',
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 155.2,
-                      height: 162.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: const Color(0xfff7f7f7),
-                        border: Border.all(
-                            width: 1.0, color: const Color(0xffdddddd)),
-                      ),
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: Container(
-                              width: 50.0,
-                              height: 21.5,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: const AssetImage(
-                                      'assets/images/ic_light_transmission.png'),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 25),
-                            child: SizedBox(
-                              width: 74.0,
-                              child: Text(
-                                'نقل خفيف',
-                                style: TextStyle(
-                                  fontFamily: 'DroidArabicKufi',
-                                  fontSize: 18,
-                                  color: const Color(0xff41a0cb),
-                                  height: 1.2222222222222223,
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: SizedBox(
-                              width: 33.0,
-                              child: Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                    fontFamily: 'DroidArabicKufi',
-                                    fontSize: 10,
-                                    color: const Color(0xff606060),
-                                    height: 1.1578947368421053,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: '١ طن',
-                                    ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.right,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
+                    InkWell(
+                      onTap: () {
+                     if(widget.user == "user"){
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(
+                             builder: (context) => newOrder('نقل متوسط',1)),
+                       );
+                     }else{
+                       Navigator.push(
+                         context,
+                         MaterialPageRoute(
+                             builder: (context) => NewOffer('نقل متوسط',1)),
+                       );
+                     }
+                      },
+                      child: Container(
                         width: 155.2,
                         height: 162.0,
                         decoration: BoxDecoration(
@@ -219,7 +104,7 @@ class Department extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: const AssetImage(
-                                        'assets/images/ic_agricultural_equipment.png'),
+                                        'assets/images/ic_average_transfer.png'),
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -228,7 +113,7 @@ class Department extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 25),
                               child: Text(
-                                'معدات ثقيلة',
+                                'نقل متوسط',
                                 style: TextStyle(
                                   fontFamily: 'DroidArabicKufi',
                                   fontSize: 18,
@@ -238,10 +123,49 @@ class Department extends StatelessWidget {
                                 textAlign: TextAlign.right,
                               ),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15),
+                              child: SizedBox(
+                                width: 33.0,
+                                child: Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 10,
+                                      color: const Color(0xff606060),
+                                      height: 1.1578947368421053,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: '١-٧ طن',
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      Container(
+                    ),
+                    InkWell(
+                      onTap: () {
+                        if(widget.user == "user"){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => newOrder('نقل خفيف',0)),
+                          );
+                        }else{
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewOffer('نقل خفيف',0)),
+                          );
+                        }
+                      },
+                      child: Container(
                         width: 155.2,
                         height: 162.0,
                         decoration: BoxDecoration(
@@ -260,7 +184,7 @@ class Department extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
                                     image: const AssetImage(
-                                        'assets/images/ic_heavy_transport.png'),
+                                        'assets/images/ic_light_transmission.png'),
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -271,7 +195,7 @@ class Department extends StatelessWidget {
                               child: SizedBox(
                                 width: 74.0,
                                 child: Text(
-                                  'نقل ثقيل',
+                                  'نقل خفيف',
                                   style: TextStyle(
                                     fontFamily: 'DroidArabicKufi',
                                     fontSize: 18,
@@ -284,161 +208,355 @@ class Department extends StatelessWidget {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 15),
-                              child: Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                    fontFamily: 'DroidArabicKufi',
-                                    fontSize: 10,
-                                    color: const Color(0xff606060),
-                                    height: 1.1578947368421053,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: ' ٧ طن واكثر',
+                              child: SizedBox(
+                                width: 33.0,
+                                child: Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 10,
+                                      color: const Color(0xff606060),
+                                      height: 1.1578947368421053,
                                     ),
-                                  ],
+                                    children: [
+                                      TextSpan(
+                                        text: '١ طن',
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.right,
                                 ),
-                                textAlign: TextAlign.right,
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
-                        width: 155.2,
-                        height: 162.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: const Color(0xfff7f7f7),
-                          border: Border.all(
-                              width: 1.0, color: const Color(0xffdddddd)),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Container(
-                                width: 50.0,
-                                height: 30.0,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: const AssetImage(
-                                        'assets/images/ic_passenger_transport.png'),
-                                    fit: BoxFit.fill,
+                      InkWell(
+                        onTap: () {
+                          if(widget.user == "user"){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => newOrder('معدات ثقيلة',3)),
+                            );
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewOffer('معدات ثقيلة',3)),
+                            );
+                          }
+                        },
+                        child: Container(
+                          width: 155.2,
+                          height: 162.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: const Color(0xfff7f7f7),
+                            border: Border.all(
+                                width: 1.0, color: const Color(0xffdddddd)),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  width: 50.0,
+                                  height: 30.0,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: const AssetImage(
+                                          'assets/images/ic_agricultural_equipment.png'),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: Text(
-                                'نقل ركاب',
-                                style: TextStyle(
-                                  fontFamily: 'DroidArabicKufi',
-                                  fontSize: 18,
-                                  color: const Color(0xff41a0cb),
-                                  height: 1.2222222222222223,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 25),
+                                child: Text(
+                                  'معدات ثقيلة',
+                                  style: TextStyle(
+                                    fontFamily: 'DroidArabicKufi',
+                                    fontSize: 18,
+                                    color: const Color(0xff41a0cb),
+                                    height: 1.2222222222222223,
+                                  ),
+                                  textAlign: TextAlign.right,
                                 ),
-                                textAlign: TextAlign.right,
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        width: 155.2,
-                        height: 162.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: const Color(0xfff7f7f7),
-                          border: Border.all(
-                              width: 1.0, color: const Color(0xffdddddd)),
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Container(
-                                width: 50.0,
-                                height: 30.0,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: const AssetImage(
-                                        'assets/images/ic_heavy_Equipment.png'),
-                                    fit: BoxFit.fill,
+                      InkWell(
+                        onTap: () {
+                          if(widget.user == "user"){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => newOrder('نقل ثقيل',2)),
+                            );
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewOffer('نقل ثقيل',2)),
+                            );
+                          }
+                        },
+                        child: Container(
+                          width: 155.2,
+                          height: 162.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: const Color(0xfff7f7f7),
+                            border: Border.all(
+                                width: 1.0, color: const Color(0xffdddddd)),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  width: 50.0,
+                                  height: 21.5,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: const AssetImage(
+                                          'assets/images/ic_heavy_transport.png'),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: Text(
-                                'معدات زاعية',
-                                style: TextStyle(
-                                  fontFamily: 'DroidArabicKufi',
-                                  fontSize: 18,
-                                  color: const Color(0xff41a0cb),
-                                  height: 1.2222222222222223,
+                              Padding(
+                                padding: const EdgeInsets.only(top: 25),
+                                child: SizedBox(
+                                  width: 74.0,
+                                  child: Text(
+                                    'نقل ثقيل',
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 18,
+                                      color: const Color(0xff41a0cb),
+                                      height: 1.2222222222222223,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
                                 ),
-                                textAlign: TextAlign.right,
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 10,
+                                      color: const Color(0xff606060),
+                                      height: 1.1578947368421053,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: ' ٧ طن واكثر',
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-
-
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () {
+                          if(widget.user == "user"){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => newOrder('نقل ركاب',5)),
+                            );
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewOffer('نقل ركاب',5)),
+                            );
+                          }
+                        },
+                        child: Container(
+                          width: 155.2,
+                          height: 162.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: const Color(0xfff7f7f7),
+                            border: Border.all(
+                                width: 1.0, color: const Color(0xffdddddd)),
+                          ),
+                          child: Column(
+                            children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.only(top: 20),
                                 child: Container(
-                            height: 65.2,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                color: const Color(0xfff7f7f7),
-                                border: Border.all(
-                                    width: 1.0, color: const Color(0xffdddddd)),
-                            ),
-                                  child: Center(
-                                    child: Text.rich(
-                                      TextSpan(
-                                        style: TextStyle(
-                                          fontFamily: 'DroidArabicKufi',
-                                          fontSize: 16,
-                                          color: const Color(0xff41a0cb),
-                                          height: 1.1875,
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text: 'أخرى ',
-                                          ),
-                                          TextSpan(
-                                            text: '...',
-                                            style: TextStyle(
-                                              fontFamily: 'MyriadArabic-Regular',
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      textAlign: TextAlign.right,
+                                  width: 50.0,
+                                  height: 30.0,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: const AssetImage(
+                                          'assets/images/ic_passenger_transport.png'),
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
-
-                          ),
+                                ),
                               ),
-
-
+                              Padding(
+                                padding: const EdgeInsets.only(top: 25),
+                                child: Text(
+                                  'نقل ركاب',
+                                  style: TextStyle(
+                                    fontFamily: 'DroidArabicKufi',
+                                    fontSize: 18,
+                                    color: const Color(0xff41a0cb),
+                                    height: 1.2222222222222223,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if(widget.user == "user"){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => newOrder('معدات زراعية',4)),
+                            );
+                          }else{
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NewOffer('معدات زراعية',4)),
+                            );
+                          }
+                        },
+                        child: Container(
+                          width: 155.2,
+                          height: 162.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            color: const Color(0xfff7f7f7),
+                            border: Border.all(
+                                width: 1.0, color: const Color(0xffdddddd)),
+                          ),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Container(
+                                  width: 50.0,
+                                  height: 30.0,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: const AssetImage(
+                                          'assets/images/ic_heavy_Equipment.png'),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 25),
+                                child: Text(
+                                  'معدات زاعية',
+                                  style: TextStyle(
+                                    fontFamily: 'DroidArabicKufi',
+                                    fontSize: 18,
+                                    color: const Color(0xff41a0cb),
+                                    height: 1.2222222222222223,
+                                  ),
+                                  textAlign: TextAlign.right,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: InkWell(
+                    onTap: () {
+                      if(widget.user == "user"){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => newOrder('أخرى',6)),
+                        );
+                      }else{
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NewOffer('أخرى',6)),
+                        );
+                      }
+                    },
+                    child: Container(
+                      height: 65.2,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: const Color(0xfff7f7f7),
+                        border: Border.all(
+                            width: 1.0, color: const Color(0xffdddddd)),
+                      ),
+                      child: Center(
+                        child: Text.rich(
+                          TextSpan(
+                            style: TextStyle(
+                              fontFamily: 'DroidArabicKufi',
+                              fontSize: 16,
+                              color: const Color(0xff41a0cb),
+                              height: 1.1875,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: 'أخرى',
+                              ),
+                              TextSpan(
+                                text: '...',
+                                style: TextStyle(
+                                  fontFamily: 'MyriadArabic-Regular',
+                                ),
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
