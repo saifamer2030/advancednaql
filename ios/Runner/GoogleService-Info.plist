@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1064652075744-hum9499q0k39ppnea474084cahh7mn53.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1064652075744-hum9499q0k39ppnea474084cahh7mn53</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1064652075744-5pdbphn637quh2bdlbvp873pu4er5fg1.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAqm_qU-ddR-r2MXlETO3kBL8wQ5XpdsBw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1064652075744</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.arabdevelopers.advancednaql</string>
+	<key>PROJECT_ID</key>
+	<string>advancednaql</string>
+	<key>STORAGE_BUCKET</key>
+	<string>advancednaql.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1064652075744:ios:f6fc7c09dfc56a3eb69685</string>
+	<key>DATABASE_URL</key>
+	<string>https://advancednaql.firebaseio.com</string>
+</dict>
+</plist>

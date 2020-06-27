@@ -30,7 +30,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -41,9 +40,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
 	<key>io.flutter.embedded_views_preview</key>
-    <string>YES</string>
+	<string>YES</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Allow access to your device's location</string>
+    <key>NSCameraUsageDescription</key>
+    	<string>You must allow access to your camera in order to send pictures via chat or upload them as personal photos</string>
+    	<key>NSLocationAlwaysUsageDescription</key>
+    	<string>You must be allowed to use your site to view your nearest hairdresser لاستخدام موقعك يتيح لك مشاهدة اقرب مزود خدمة لك </string>
+    	<key>NSPhotoLibraryUsageDescription</key>
+        	<string>You must allow access to your studio in order to send pictures via chat or upload them as personal photos</string>
+
 
 </dict>
 </plist>
