@@ -434,6 +434,7 @@ class __PersonalPageState extends State<PersonalPage> {
   }
 
   showAlertDialogname(BuildContext context, name) {
+    nameController = TextEditingController(text: name);
 
     // set up the buttons
     Widget cancelButton = FlatButton(
@@ -515,7 +516,8 @@ class __PersonalPageState extends State<PersonalPage> {
   }
 
 
-  showAlertDialogemail(BuildContext context, name) {
+  showAlertDialogemail(BuildContext context, mail) {
+    emailController = TextEditingController(text: mail);
 
     // set up the buttons
     Widget cancelButton = FlatButton(
@@ -599,7 +601,8 @@ class __PersonalPageState extends State<PersonalPage> {
 
 
 
-  showAlertDialogphone(BuildContext context, name) {
+  showAlertDialogphone(BuildContext context, phone) {
+    phoneController = TextEditingController(text: phone);
 
     // set up the buttons
     Widget cancelButton = FlatButton(

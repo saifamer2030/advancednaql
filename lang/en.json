@@ -69,12 +69,12 @@
   "please_enter_the_brand_name":"Please Enter The Brand Name",
   "brand":"Brand",
   "please_enter_the_owners_name":"Please Enter The Owner's Name",
-  "the_owners_name":"The Owner's Name",
-  "with_the_driver":"With The Driver",
+  "the_owners_name":"Owner",
+  "with_the_driver":"With Driver",
   "copy_of_the_car_form":"Copy Of The Car Form",
   "iD_photo":"ID Photo",
   "equipment_image":"Equipment Image",
-  "copy_of_the_drivers_license":"A Copy Of The Driver's License",
+  "copy_of_the_drivers_license":"Driver's License",
   "please_enter_brief_description":"Please Enter A Brief Description",
   "brief_description":"   Brief Description: ",
   "please_enter_additional_details":"Please Enter Additional Details",
@@ -89,5 +89,7 @@
   "the_photo_has_been_uploaded_the_car_form":"The Photo Has Been Uploaded The Car Form",
   "id_photo_uploaded":"ID Photo Uploaded",
   "equipment_image_uploaded":"Equipment Image Uploaded",
-  "Photo_Drivers_license_uploaded":"Photo: Driver's License Uploaded"
+  "Photo_Drivers_license_uploaded":"Photo: Driver's License Uploaded",
+  "update_1":"update"
+
 }

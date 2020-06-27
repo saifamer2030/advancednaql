@@ -9,6 +9,10 @@ import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class newOrder extends StatefulWidget {
+  String dep;
+  int index;
+  newOrder(this.dep, this.index);
+
   @override
   _newOrderState createState() => _newOrderState();
 }
@@ -22,7 +26,8 @@ class _newOrderState extends State<newOrder> {
     'نقل ثقيل',
     'معدات ثقيلة',
     'معدات زراعية',
-    'نقل ركاب'
+    'نقل ركاب',
+    'أخرى'
   ];
   var _Payloadarray = [
     '100-200 كيلو',
@@ -76,7 +81,7 @@ class _newOrderState extends State<newOrder> {
   @override
   void initState() {
     super.initState();
-    _CategorycurrentItemSelected = _Categoryarray[0];
+    _CategorycurrentItemSelected = _Categoryarray[widget.index];
     _PayloadcurrentItemSelected = _Payloadarray[0];
     _timecurrentItemSelected = _timearray[0];
     __noarraycurrentItemSelected = _noarray[0];
@@ -187,7 +192,7 @@ class _newOrderState extends State<newOrder> {
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
-                                          fontSize: 15,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -234,7 +239,7 @@ class _newOrderState extends State<newOrder> {
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
-                                          fontSize: 15,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -704,9 +709,9 @@ class _newOrderState extends State<newOrder> {
         'cId': _userId,
         'cdate': date1,
         'clat1':city2,
-        'clong1':"31",
+        'clong1':date,
         'clat2': city1,
-        'clong2': "30",
+        'clong2': date,
         // 'cType': Translations.of(context).translate('order'),
         'cType': 'طلب',
         'cCategory': _CategorycurrentItemSelected,

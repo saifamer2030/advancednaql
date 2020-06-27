@@ -289,10 +289,9 @@ class __pledgeState extends State<Pledge> {
 
   Future<void> _counterButtonPress() async {
     if (isSwitched && isSwitched2 && isSwitched3) {
-      Navigator.push(
-          context, new MaterialPageRoute(builder: (context) => NewOffer()));
-
-      print("go_______");
+      Navigator.of(context)
+          .pushNamed('/addnewads');
+    //  print("go_______");
 //      setState(() {
 //        Navigator.of(context).pushNamed('/addnewads');
 //      });

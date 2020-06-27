@@ -111,11 +111,13 @@ class _MoreWidget extends State<MoreWidget> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddNewAds()),
-                            );
+                            Navigator.of(context)
+                                .pushNamed('/pledge');
+//                            Navigator.push(
+//                              context,
+//                              MaterialPageRoute(
+//                                  builder: (context) => AddNewAds()),
+//                            );
                           },
 
                           // Navigator.of(context).pushNamed('/addnewads'),

@@ -14,6 +14,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
 class NewOffer extends StatefulWidget {
+  String dep;
+  int index;
+  NewOffer(this.dep, this.index);
+
   @override
   _newoffer createState() => _newoffer();
 }
@@ -58,7 +62,8 @@ class _newoffer extends State<NewOffer> {
     'نقل ثقيل',
     'معدات ثقيلة',
     'معدات زراعية',
-    'نقل ركاب'
+    'نقل ركاب',
+    'أخرى'
   ];
   var _Payloadarray = [
     '100-200 كيلو',
@@ -108,11 +113,40 @@ class _newoffer extends State<NewOffer> {
   @override
   void initState() {
     super.initState();
-    _CategorycurrentItemSelected = _Categoryarray[0];
+//        for( var i = 0 ; i > _Categoryarray.length; i++ ) {
+//      if(_Categoryarray[i]== widget.dep){
+//        setState(() {
+//          _CategorycurrentItemSelected = _Categoryarray[i];
+//        });
+//  }
+//}
     _PayloadcurrentItemSelected = _Payloadarray[0];
     __advarraycurrentItemSelected= _advarray[0];
     __noarraycurrentItemSelected = _noarray[0];
     _citycurrentItemSelected = _cityarray[0];
+
+    _CategorycurrentItemSelected = _Categoryarray[widget.index];
+
+    //  setState(() {
+       // this._CategorycurrentItemSelected = newValueSelected;
+        if (_CategorycurrentItemSelected == 'نقل ركاب') {
+          setState(() {
+            _travelcheck = true;
+            Agrcheck=false;
+
+          });
+        } else if(_CategorycurrentItemSelected == 'معدات زراعية'){
+          setState(() {
+            _travelcheck = false;
+            Agrcheck=true;
+          });
+        }else{
+          _travelcheck = false;
+          Agrcheck=false;
+
+        }
+     // });
+   // }
 
   }
   @override
@@ -529,7 +563,7 @@ class _newoffer extends State<NewOffer> {
                                       Translations.of(context).translate('the_owners_name'),
                                       style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 10),
+                                          fontSize: 12),
                                     ),
                                     Container(
                                       width: 20,
@@ -576,7 +610,10 @@ class _newoffer extends State<NewOffer> {
                                 const Color(0xff1891C7),
                                 activeColor: Colors.lightBlueAccent,
                               ),
-                              Text(Translations.of(context).translate('with_the_driver'),),
+                              Text(Translations.of(context).translate('with_the_driver'),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12),),
                               Container(
                                 width: 20,
                                 height: 20,
@@ -855,7 +892,7 @@ class _newoffer extends State<NewOffer> {
                                     textDirection: TextDirection.rtl,
                                     style: TextStyle(
                                         color: const Color(0xff4fc3f7),
-                                        fontSize: 15,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -902,7 +939,7 @@ class _newoffer extends State<NewOffer> {
                                     textDirection: TextDirection.rtl,
                                     style: TextStyle(
                                         color: const Color(0xff4fc3f7),
-                                        fontSize: 15,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -1295,9 +1332,9 @@ class _newoffer extends State<NewOffer> {
         'cId': _userId,
         'cdate': date1,
         'clat1':city2,
-        'clong1':"a",
+        'clong1':date,
         'clat2': city1,
-        'clong2': "a",
+        'clong2': date,
         // 'cType': Translations.of(context).translate('show'),
         'cType': 'عرض',
         'cCategory': _CategorycurrentItemSelected,

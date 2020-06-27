@@ -84,18 +84,17 @@ class _MyAppState extends State<MyApp> {
         '/myadvertisement':(BuildContext context)=>new MyAdvertisement(),
         '/homechatroom':(BuildContext context)=>new HomePage(),
         '/pledge':(BuildContext context)=>new Pledge(),
-        '/neworder':(BuildContext context)=>new newOrder(),
+       // '/neworder':(BuildContext context)=>new newOrder(),
         '/conection':(BuildContext context)=>new ConnectionScreen(),
         '/termsuse':(BuildContext context)=>new TermsUse(),
         '/privcypolicy':(BuildContext context)=>new PrivcyPolicy(),
-        '/newoffer':(BuildContext context)=>new NewOffer(),
+      //  '/newoffer':(BuildContext context)=>new NewOffer(),
       },
       localizationsDelegates: [
               _localeOverrideDelegate,
               const TranslationsDelegate(),
               GlobalMaterialLocalizations.delegate,
-             // GlobalWidgetsLocalizations.delegate,
-            ],
+],
             supportedLocales: applic.supportedLocales(),
     );
   }

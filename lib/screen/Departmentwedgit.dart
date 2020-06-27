@@ -75,13 +75,13 @@ class _DepartmentState extends State<Department> {
                        Navigator.push(
                          context,
                          MaterialPageRoute(
-                             builder: (context) => newOrder()),
+                             builder: (context) => newOrder('نقل متوسط',1)),
                        );
                      }else{
                        Navigator.push(
                          context,
                          MaterialPageRoute(
-                             builder: (context) => NewOffer()),
+                             builder: (context) => NewOffer('نقل متوسط',1)),
                        );
                      }
                       },
@@ -155,13 +155,13 @@ class _DepartmentState extends State<Department> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => newOrder()),
+                                builder: (context) => newOrder('نقل خفيف',0)),
                           );
                         }else{
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => NewOffer()),
+                                builder: (context) => NewOffer('نقل خفيف',0)),
                           );
                         }
                       },
@@ -245,13 +245,13 @@ class _DepartmentState extends State<Department> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => newOrder()),
+                                  builder: (context) => newOrder('معدات ثقيلة',3)),
                             );
                           }else{
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NewOffer()),
+                                  builder: (context) => NewOffer('معدات ثقيلة',3)),
                             );
                           }
                         },
@@ -303,13 +303,13 @@ class _DepartmentState extends State<Department> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => newOrder()),
+                                  builder: (context) => newOrder('نقل ثقيل',2)),
                             );
                           }else{
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NewOffer()),
+                                  builder: (context) => NewOffer('نقل ثقيل',2)),
                             );
                           }
                         },
@@ -391,13 +391,13 @@ class _DepartmentState extends State<Department> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => newOrder()),
+                                  builder: (context) => newOrder('نقل ركاب',5)),
                             );
                           }else{
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NewOffer()),
+                                  builder: (context) => NewOffer('نقل ركاب',5)),
                             );
                           }
                         },
@@ -449,13 +449,13 @@ class _DepartmentState extends State<Department> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => newOrder()),
+                                  builder: (context) => newOrder('معدات زراعية',4)),
                             );
                           }else{
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NewOffer()),
+                                  builder: (context) => NewOffer('معدات زراعية',4)),
                             );
                           }
                         },
@@ -512,13 +512,13 @@ class _DepartmentState extends State<Department> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => newOrder()),
+                              builder: (context) => newOrder('أخرى',6)),
                         );
                       }else{
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NewOffer()),
+                              builder: (context) => NewOffer('أخرى',6)),
                         );
                       }
                     },
@@ -541,7 +541,7 @@ class _DepartmentState extends State<Department> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'أخرى ',
+                                text: 'أخرى',
                               ),
                               TextSpan(
                                 text: '...',

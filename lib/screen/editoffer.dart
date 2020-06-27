@@ -13,6 +13,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
+import 'myadvertisement.dart';
+
 class EditOffer extends StatefulWidget {
   int position;
   int length;
@@ -30,8 +32,24 @@ class EditOffer extends StatefulWidget {
   bool cpublished;
   String cstarttraveltime;
   String curi;
+  String curi11;
+  String curi12;
+  String curi14;
+
   String cname;
   String  cDateID;
+
+  String ccity;
+  String cadv;
+  String ctitle;
+  String ccompany;
+  String cowner;
+  String cmodel;
+  bool cdriver;
+  String cshort;
+  String cdetail;
+  String curilist;
+
   EditOffer(this.position, this.length, this.cId,
       this.cdate,
       this.clat1,
@@ -46,8 +64,23 @@ class EditOffer extends StatefulWidget {
   this. cpublished,
   this. cstarttraveltime,
   this. curi,
+      this.curi11,
+      this.curi12,
+      this.curi14,
+
       this.cname,
       this.cDateID,
+
+      this.ccity,
+      this.cadv,
+      this.ctitle,
+      this.ccompany,
+      this.cowner,
+      this.cmodel,
+      this.cdriver,
+      this.cshort,
+      this.cdetail,
+      this.curilist,
       );
 
   @override
@@ -94,7 +127,8 @@ class _EditOffer extends State<EditOffer> {
     'نقل ثقيل',
     'معدات ثقيلة',
     'معدات زراعية',
-    'نقل ركاب'
+    'نقل ركاب',
+    'أخرى'
   ];
   var _Payloadarray = [
     '100-200 كيلو',
@@ -140,15 +174,75 @@ class _EditOffer extends State<EditOffer> {
   var _citycurrentItemSelected = '';
   var __noarraycurrentItemSelected = '';
   var __advarraycurrentItemSelected = '';
-
+  String _uri;
+  String _uri11;
+  String _uri12;
+  String _uri14;
+  String _urilist;
   @override
   void initState() {
     super.initState();
-    _CategorycurrentItemSelected = _Categoryarray[0];
-    _PayloadcurrentItemSelected = _Payloadarray[0];
-    __advarraycurrentItemSelected= _advarray[0];
-    __noarraycurrentItemSelected = _noarray[0];
-    _citycurrentItemSelected = _cityarray[0];
+    setState(() {
+      _CategorycurrentItemSelected = widget.cCategory;
+      _PayloadcurrentItemSelected = widget.cpayload;
+      __advarraycurrentItemSelected= widget.cadv;
+      __noarraycurrentItemSelected = widget.cnocars;
+    });
+   // _citycurrentItemSelected = _cityarray[0];
+    if (_CategorycurrentItemSelected == 'نقل ركاب') {
+      setState(() {
+        _travelcheck = true;
+        Agrcheck=false;
+
+      });
+    } else if(_CategorycurrentItemSelected == 'معدات زراعية'){
+      setState(() {
+        _travelcheck = false;
+        Agrcheck=true;
+      });
+    }else{
+      _travelcheck = false;
+      Agrcheck=false;
+
+    }
+   // setState(() {
+      if (__noarraycurrentItemSelected == "حدد") {
+        setState(() {
+          _nocheck = true;
+        });
+      } else {
+        setState(() {
+          _nocheck = false;
+        });
+      }
+    if (__advarraycurrentItemSelected == "أيجار") {
+      setState(() {
+        _advcheck = true;
+      });
+    } else {
+      setState(() {
+        _advcheck = false;
+      });
+    }
+    setState(() {
+      isSwitched=widget.cdriver;
+      city1=widget.clat2;
+      city2=widget.clat1;
+      city3=widget.ccity;
+      _noController = TextEditingController(text: widget.cnocars);
+      _titleController = TextEditingController(text: widget.ctitle);
+      _modelController = TextEditingController(text: widget.cmodel);
+      _companyController = TextEditingController(text: widget.ccompany);
+      _ownerController = TextEditingController(text: widget.cowner);
+      _shortController = TextEditingController(text: widget.cshort);
+      _detailController = TextEditingController(text: widget.cdetail);
+       _uri=widget.curi;
+       _uri11=widget.curi11;
+       _uri12=widget.curi12;
+       _uri14=widget.curi14;
+       _urilist=widget.curilist;
+
+    });
 
   }
   @override
@@ -835,7 +929,7 @@ class _EditOffer extends State<EditOffer> {
                                       setState(() {
                                         showDialog(
                                             context: context,
-                                            builder: (context) => MyForm2("",
+                                            builder: (context) => MyForm2(widget.ccity,
                                                 onSubmit2: onSubmit2));
                                       });
 //showBottomSheet();
@@ -881,7 +975,7 @@ class _EditOffer extends State<EditOffer> {
                                     setState(() {
                                       showDialog(
                                           context: context,
-                                          builder: (context) => MyForm4("",
+                                          builder: (context) => MyForm4(widget.clat2,
                                               onSubmit4: onSubmit4));
                                     });
 //showBottomSheet();
@@ -891,7 +985,7 @@ class _EditOffer extends State<EditOffer> {
                                     textDirection: TextDirection.rtl,
                                     style: TextStyle(
                                         color: const Color(0xff4fc3f7),
-                                        fontSize: 15,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -928,7 +1022,7 @@ class _EditOffer extends State<EditOffer> {
                                     setState(() {
                                       showDialog(
                                           context: context,
-                                          builder: (context) => MyForm3("",
+                                          builder: (context) => MyForm3(widget.clat1,
                                               onSubmit3: onSubmit3));
                                     });
 //showBottomSheet();
@@ -938,7 +1032,7 @@ class _EditOffer extends State<EditOffer> {
                                     textDirection: TextDirection.rtl,
                                     style: TextStyle(
                                         color: const Color(0xff4fc3f7),
-                                        fontSize: 15,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
@@ -1184,7 +1278,7 @@ class _EditOffer extends State<EditOffer> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Text(Translations.of(context).translate('addition'),),
+                            new Text(Translations.of(context).translate('update_1'),),
                             Icon(Icons.check,color: Colors.white,),
                           ],
                         ),
@@ -1192,9 +1286,9 @@ class _EditOffer extends State<EditOffer> {
                         color: const Color(0xff43A2CC),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            if (sampleImage11 != null && ((sampleImage12 != null)&&(!_advcheck||!Agrcheck))
-                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck))
-                                && sampleImage1 != null) {
+//                            if (sampleImage11 != null && ((sampleImage12 != null)&&(!_advcheck||!Agrcheck))
+//                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck))
+//                                && sampleImage1 != null) {
     if((((city1==""||city1==null)||(city2==""||city2==null))&&(!Agrcheck))||(city3==""||city3==null)){
     Toast.show("برجاء ادخال المدينة", context,
     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -1216,10 +1310,10 @@ class _EditOffer extends State<EditOffer> {
             context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       }
     }
-                            }else{
-                            Toast.show(Translations.of(context).translate('please_add_the_required_images'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-                            }
+//                            }else{
+//                            Toast.show(Translations.of(context).translate('please_add_the_required_images'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+//
+//                            }
 
                           }
                         },
@@ -1318,15 +1412,15 @@ class _EditOffer extends State<EditOffer> {
       _userId = user.uid;
       DateTime now = DateTime.now();
       String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
-      String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
+     // String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
 
-      orderdatabaseReference.child(_userId).child(date).set({
+      orderdatabaseReference.child(_userId).child(widget.clong1).update({
         'cId': _userId,
         'cdate': date1,
         'clat1':city2,
-        'clong1':"a",
+        'clong1':widget.clong1,
         'clat2': city1,
-        'clong2': "a",
+        'clong2': widget.clong1,
         'cType': Translations.of(context).translate('show'),
         'cCategory': _CategorycurrentItemSelected,
         'cpayload':_travelcheck?"": _PayloadcurrentItemSelected,
@@ -1348,37 +1442,28 @@ class _EditOffer extends State<EditOffer> {
         'curi11': url11,
         'curi12': url12,
         'curi14': url14,
-        'curilist': urlList.toString(),
+        'curilist':sampleImage1==null?_urilist: urlList.toString(),
 
       }).whenComplete(() {
      //   Toast.show("تم إرسال طلبك للمراجعه بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+/**
+    File sampleImage1;
+    File sampleImage2;
+    File sampleImage3;
+    File sampleImage11;
+    File sampleImage12;
+    File sampleImage13;
+    File sampleImage14;
 
+ * **/
         //showInSnackBar("تم إرسال طلبك للمراجعه بنجاح");
         setState(() {
-          _load2 = false;
-          isSwitched=false;
-           photoselected11=false;
-           photoselected12=false;
-           photoselected13=false;
-           photoselected14=false;
-           _titleController.text = "";
-          _modelController.text = "";
-          _companyController.text = "";
-          _ownerController.text = "";
-          _ownerController.text = "";
-          _shortController.text = "";
-          _detailController.text = "";
-          _CategorycurrentItemSelected = _Categoryarray[0];
-          _PayloadcurrentItemSelected = _Payloadarray[0];
-          __advarraycurrentItemSelected= _advarray[0];
-          __noarraycurrentItemSelected = _noarray[0];
-          _citycurrentItemSelected = _cityarray[0];
-city2="";city1="";city3="";
-_nocheck=false;
-           _travelcheck = false;
-           Agrcheck=false;
-           _advcheck=false;
-          urlList.clear();
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      MyAdvertisement()));
+
         });
         showAlertDialog( context);
       }).catchError((e) {
@@ -1428,32 +1513,38 @@ _nocheck=false;
     ));
   }
   Future uploadpp1(url11,url12,url13,url14) async {
-   // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-    final StorageReference storageRef =
-    FirebaseStorage.instance.ref().child('myimage');
-    DateTime now = DateTime.now();
+    // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    if (sampleImage1 == null) {
+      //uploadpp13(_uri11, _uri12);
+      createRecord(_uri11, _uri12, _uri, _uri14);
+    } else {
+      final StorageReference storageRef =
+      FirebaseStorage.instance.ref().child('myimage');
+      DateTime now = DateTime.now();
 
 //    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
-    final StorageUploadTask uploadTask =
-    storageRef.child('$now.jpg').putFile(sampleImage1);
-    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    String url1 = Imageurl.toString();
-    //print('URL Is $url1');
+      final StorageUploadTask uploadTask =
+      storageRef.child('$now.jpg').putFile(sampleImage1);
+      var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+      String url1 = Imageurl.toString();
+      //print('URL Is $url1');
 
-    Toast.show(Translations.of(context).translate('Image_1uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-    setState(() {
-      urlList.add(url1);
-       _load2 = false;
-    });    if(picno>=2){
-       uploadpp2(url11,url12,url13,url14);
-    }else if(picno==1){
-      createRecord(url11,url12,url13,url14);
+      Toast.show(Translations.of(context).translate('Image_1uploaded'), context,
+          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+      setState(() {
+        urlList.add(url1);
+        _load2 = false;
+      });
+      if (picno >= 2) {
+        uploadpp2(url11, url12, url13, url14);
+      } else if (picno == 1) {
+        createRecord(url11, url12, url13, url14);
+      }
+      // uploadpp1(url11,url12,url13,url14,url1);
+      setState(() {
+        _load2 = true;
+      });
     }
-   // uploadpp1(url11,url12,url13,url14,url1);
-    setState(() {
-      _load2 = true;
-    });
   }
   Future uploadpp2(url11,url12,url13,url14) async {
 
@@ -1513,6 +1604,9 @@ _nocheck=false;
     });
   }
   Future uploadpp11() async {
+    if (sampleImage11 == null) {
+      uploadpp12(_uri11);
+    } else {
     final StorageReference storageRef =
     FirebaseStorage.instance.ref().child('myimage');
     DateTime now = DateTime.now();
@@ -1524,18 +1618,24 @@ _nocheck=false;
     String url11 = Imageurl.toString();
     //print('URL Is $url');
     setState(() {
-       _load2 = false;
+      _load2 = false;
     });
-    Toast.show(Translations.of(context).translate('the_photo_has_been_uploaded_the_car_form'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate(
+        'the_photo_has_been_uploaded_the_car_form'), context,
+        duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     // uploadwp(url);
     uploadpp12(url11);
     setState(() {
-       _load2 = true;
+      _load2 = true;
     });
+  }
   }
   Future uploadpp12(String url11) async {
     // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    if (sampleImage12 == null) {
+      uploadpp13(_uri11, _uri12);
 
+    } else {
     final StorageReference storageRef =
     FirebaseStorage.instance.ref().child('myimage');
     DateTime now = DateTime.now();
@@ -1547,62 +1647,74 @@ _nocheck=false;
     String url12 = Imageurl.toString();
     //print('URL Is $url');
     setState(() {
-       _load2 = false;
+      _load2 = false;
     });
-    Toast.show(Translations.of(context).translate('id_photo_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    Toast.show(Translations.of(context).translate('id_photo_uploaded'), context,
+        duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
     // uploadwp(url);
-    uploadpp13(url11,url12);
+    uploadpp13(url11, url12);
     setState(() {
-       _load2 = true;
+      _load2 = true;
     });
+  }
   }
   Future uploadpp13(url11,url12) async {
     // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+    if (sampleImage13 == null) {
+      //uploadpp13(_uri11, _uri12);
+      uploadpp14(_uri11, _uri12, _uri);
 
-    final StorageReference storageRef =
-    FirebaseStorage.instance.ref().child('myimage');
-    DateTime now = DateTime.now();
+    } else {
+      final StorageReference storageRef =
+      FirebaseStorage.instance.ref().child('myimage');
+      DateTime now = DateTime.now();
 
 //    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
-    final StorageUploadTask uploadTask =
-    storageRef.child('$now.jpg').putFile(sampleImage13);
-    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    String url13 = Imageurl.toString();
-    //print('URL Is $url');
-    setState(() {
-       _load2 = false;
-    });
-    Toast.show(Translations.of(context).translate('equipment_image_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-    // uploadwp(url);
-    uploadpp14(url11,url12,url13);
-    setState(() {
-      _load2 = true;
-    });
+      final StorageUploadTask uploadTask =
+      storageRef.child('$now.jpg').putFile(sampleImage13);
+      var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+      String url13 = Imageurl.toString();
+      //print('URL Is $url');
+      setState(() {
+        _load2 = false;
+      });
+      Toast.show(Translations.of(context).translate('equipment_image_uploaded'),
+          context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+      // uploadwp(url);
+      uploadpp14(url11, url12, url13);
+      setState(() {
+        _load2 = true;
+      });
+    }
   }
   Future uploadpp14(url11,url12,url13) async {
-    // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-    final StorageReference storageRef =
-    FirebaseStorage.instance.ref().child('myimage');
-    DateTime now = DateTime.now();
+    if (sampleImage14 == null) {
+      //uploadpp13(_uri11, _uri12);
+      uploadpp1(_uri11, _uri12, _uri, _uri14);
+    } else {
+      final StorageReference storageRef =
+      FirebaseStorage.instance.ref().child('myimage');
+      DateTime now = DateTime.now();
 
 //    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
-    final StorageUploadTask uploadTask =
-    storageRef.child('$now.jpg').putFile(sampleImage14);
-    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    String url14 = Imageurl.toString();
-    //print('URL Is $url');
-    setState(() {
-       _load2 = false;
-    });
-    Toast.show(Translations.of(context).translate('Photo_Drivers_license_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-    // uploadwp(url);
-    uploadpp1(url11,url12,url13,url14);
-    setState(() {
-      _load2 = true;
-    });
+      final StorageUploadTask uploadTask =
+      storageRef.child('$now.jpg').putFile(sampleImage14);
+      var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+      String url14 = Imageurl.toString();
+      //print('URL Is $url');
+      setState(() {
+        _load2 = false;
+      });
+      Toast.show(
+          Translations.of(context).translate('Photo_Drivers_license_uploaded'),
+          context, duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+      // uploadwp(url);
+      uploadpp1(url11, url12, url13, url14);
+      setState(() {
+        _load2 = true;
+      });
+    }
   }
-
   Future getImage1() async {
     var tempImage1 = await ImagePicker.pickImage(source: ImageSource.gallery);
     ///***************************************

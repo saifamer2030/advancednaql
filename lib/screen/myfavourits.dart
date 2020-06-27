@@ -13,6 +13,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:toast/toast.dart';
 
 import 'login.dart';
+import 'orderprofile.dart';
 
 class MyFav extends StatefulWidget {
   @override
@@ -356,35 +357,34 @@ class _MyFavState extends State<MyFav> {
       ),
     );
   }
-
   Widget firebasedata(
-    int position,
-    int length,
-    String cId,
-    String cdate,
-    String clat1,
-    String clong1,
-    String clat2,
-    String clong2,
-    String cType,
-    String cCategory,
-    String cpayload,
-    String cnocars,
-    String ctime,
-    bool cpublished,
-    String cstarttraveltime,
-    String curi,
+      int position,
+      int length,
+      String cId,
+      String cdate,
+      String clat1,
+      String clong1,
+      String clat2,
+      String clong2,
+      String cType,
+      String cCategory,
+      String cpayload,
+      String cnocars,
+      String ctime,
+      bool cpublished,
+      String cstarttraveltime,
+      String curi,
       String cname,
       rating,
       custRate,
-      String  cDateID,
-  ) {
+      String cDateID,
+      ) {
     var cRate = 0.0;
     if (custRate > 0) {
       cRate = double.parse(rating) / custRate;
     }
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(2.0),
       child: Card(
         shape: new RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4.0)),
@@ -393,17 +393,39 @@ class _MyFavState extends State<MyFav> {
         margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
         child: InkWell(
           onTap: () {
-          setState(() {
-            if(cType=="عرض"){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => providerProlile(
-                          cId, cDateID, cname
-                          )));
-            }else{}
+            setState(() {
+              if (cType == "عرض") {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            providerProlile(cId, cDateID, cname)));
+                //Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(builder: (context) => providerProlile(cId, cDateID, cname), maintainState: false));
 
-          });
+              } else if (cType == "طلب") {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => orderProfile(
+                          cId,
+                          cdate,
+                          clat1,
+                          clong1,
+                          clat2,
+                          clong2,
+                          cType,
+                          cCategory,
+                          cpayload,
+                          cnocars,
+                          ctime,
+                          cpublished,
+                          cstarttraveltime,
+                          curi,
+                          cname,
+                          cDateID,
+                        )));
+              } else {}
+            });
           },
           child: Container(
               padding: EdgeInsets.all(0),
@@ -416,17 +438,18 @@ class _MyFavState extends State<MyFav> {
                         padding: const EdgeInsets.all(8.0),
                         child: curi == "a"
                             ? new Image.asset("assets/images/ic_bluecar.png",
-                                fit: BoxFit.fill)
+                            fit: BoxFit.fill)
                             : new Image.network(
-                                curi,
-                                fit: BoxFit.cover,
-                              ),
+                          curi,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     width: 100,
                     height: 130,
                   ),
                   Container(
+                    width: 250,
                     height: 130,
                     child: Stack(
                       //alignment: Alignment.bottomCenter,
@@ -437,14 +460,18 @@ class _MyFavState extends State<MyFav> {
                           child: Container(
                             height: 30,
                             width: 50,
-                            color: cType == "طلب" ? Colors.green : Colors.red,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.0),
+                              color: cType == "طلب" ? Colors.green : Colors.red,
+                            ),
                             child: Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding: const EdgeInsets.only(left: 10,top: 5),
                               child: Text(
                                 cType,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Gamja Flower',
+                                    fontSize: 10,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -463,7 +490,7 @@ class _MyFavState extends State<MyFav> {
                                   color: Colors.blue,
                                   fontFamily: 'Gamja Flower',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
+                                  fontSize: 13.0,
                                   fontStyle: FontStyle.normal),
                             ),
                           ),
@@ -475,13 +502,13 @@ class _MyFavState extends State<MyFav> {
                             padding: const EdgeInsets.all(5.0),
                             child: cname != null
                                 ? Text(
-                                    cname,
-                                    textDirection: TextDirection.rtl,
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                        fontFamily: 'Gamja Flower',
-                                        fontStyle: FontStyle.normal),
-                                  )
+                              cname,
+                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontFamily: 'Gamja Flower',
+                                  fontStyle: FontStyle.normal),
+                            )
                                 : Text(" "),
                           ),
                         ),
@@ -490,23 +517,23 @@ class _MyFavState extends State<MyFav> {
                           right: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child:  cRate > 0.0
+                            child: cRate > 0.0
                                 ? SmoothStarRating(
                                 allowHalfRating: true,
-                                onRated: (v) {
-                                },
+                                onRated: (v) {},
                                 starCount: 5,
                                 rating: cRate,
-                                isReadOnly:true,//not changed
+                                isReadOnly: true,
+                                //not changed
                                 //setting value
                                 size: 20.0,
-                                color: Colors.yellow,
-                                borderColor: Colors.yellow,
+                                color: Colors.amber,
+                                borderColor: Colors.amber,
                                 spacing: 0.0)
                                 : new Text(
                               'منضم حديثا',
                               style: TextStyle(
-                                  color: Colors.yellow,
+                                  color: Colors.lightBlue,
                                   fontFamily: 'Gamja Flower',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15.0,
@@ -522,8 +549,10 @@ class _MyFavState extends State<MyFav> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Text(
-                                  "الواجهة: ",
+                                (clat1 == "" || clat1 == null)
+                                    ? Text("")
+                                    : Text(
+                                  "$clat1",
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
@@ -531,12 +560,21 @@ class _MyFavState extends State<MyFav> {
                                       fontSize: 10.0,
                                       fontStyle: FontStyle.normal),
                                 ),
+                                (clat1 == "" || clat1 == null)
+                                    ? Text("")
+                                    : new Icon(
+                                  Icons.location_on,
+                                  color: Colors.blue,
+                                  size: 15,
+                                ),
                                 SizedBox(
                                   height: _minimumPadding,
-                                  width: _minimumPadding,
+                                  width: _minimumPadding * 4,
                                 ),
-                                Text(
-                                  "الواجهة: ",
+                                (clat2 == "" || clat2 == null)
+                                    ? Text("")
+                                    : Text(
+                                  "الواجهة:$clat2",
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
@@ -597,6 +635,7 @@ class _MyFavState extends State<MyFav> {
       ),
     );
   }
+
 
   void _onDropDownItemSelectedtype(String newValueSelected) {
     setState(() {

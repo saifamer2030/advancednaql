@@ -70,7 +70,7 @@
   "please_enter_the_brand_name":"برجاء ادخال اسم الماركة",
   "brand":"الماركة",
   "please_enter_the_owners_name":"برجاء ادخال اسم المالك",
-  "the_owners_name":"اسم المالك",
+  "the_owners_name":"المالك",
   "with_the_driver":"مع السائق",
   "copy_of_the_car_form":"صورة استمارة السيارة",
   "iD_photo":"صورة الهوية",
@@ -90,6 +90,7 @@
   "the_photo_has_been_uploaded_the_car_form":"تم تحميل الصورة استمارة السيارة",
   "id_photo_uploaded":"تم تحميل الصورة الهوية",
   "equipment_image_uploaded":"تم تحميل الصورة المعدة",
-  "Photo_Drivers_license_uploaded":"تم تحميل الصورة رخصة السائق"
+  "Photo_Drivers_license_uploaded":"تم تحميل الصورة رخصة السائق",
+  "update_1":"تعديل"
 
 }

@@ -8,6 +8,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import 'myadvertisement.dart';
+
 class EditOrder extends StatefulWidget {
   int position;
       int length;
@@ -57,7 +59,9 @@ class _EditOrderState extends State<EditOrder> {
     'نقل ثقيل',
     'معدات ثقيلة',
     'معدات زراعية',
-    'نقل ركاب'
+    'نقل ركاب',
+    'أخرى'
+
   ];
   var _Payloadarray = [
     '100-200 كيلو',
@@ -111,11 +115,18 @@ class _EditOrderState extends State<EditOrder> {
   @override
   void initState() {
     super.initState();
-    _CategorycurrentItemSelected = _Categoryarray[0];
-    _PayloadcurrentItemSelected = _Payloadarray[0];
-    _timecurrentItemSelected = _timearray[0];
-    __noarraycurrentItemSelected = _noarray[0];
-  }
+    _CategorycurrentItemSelected = widget.cCategory;
+    _PayloadcurrentItemSelected = widget.cpayload;
+    _timecurrentItemSelected = widget.ctime;
+    __noarraycurrentItemSelected = widget.cnocars;
+     city1=widget.clat1;
+     city2=widget.clat2;
+
+//    _CategorycurrentItemSelected = _Categoryarray[0];
+//    _PayloadcurrentItemSelected = _Payloadarray[0];
+//    _timecurrentItemSelected = _timearray[0];
+//    __noarraycurrentItemSelected = _noarray[0];
+ }
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -212,7 +223,7 @@ class _EditOrderState extends State<EditOrder> {
                                       setState(() {
                                         showDialog(
                                             context: context,
-                                            builder: (context) => MyForm4("",
+                                            builder: (context) => MyForm4(widget.clat1,
                                                 onSubmit4: onSubmit4));
                                       });
 //showBottomSheet();
@@ -222,7 +233,7 @@ class _EditOrderState extends State<EditOrder> {
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
-                                          fontSize: 15,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -259,7 +270,7 @@ class _EditOrderState extends State<EditOrder> {
                                       setState(() {
                                         showDialog(
                                             context: context,
-                                            builder: (context) => MyForm3("",
+                                            builder: (context) => MyForm3(widget.clat2,
                                                 onSubmit3: onSubmit3));
                                       });
 //showBottomSheet();
@@ -269,7 +280,7 @@ class _EditOrderState extends State<EditOrder> {
                                       textDirection: TextDirection.rtl,
                                       style: TextStyle(
                                           color: const Color(0xff4fc3f7),
-                                          fontSize: 15,
+                                          fontSize: 12,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -700,7 +711,7 @@ class _EditOrderState extends State<EditOrder> {
                               },
                               child: Center(
                                 child: Text(
-                                  Translations.of(context).translate('order'),
+                                  Translations.of(context).translate('update_1'),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -733,16 +744,17 @@ class _EditOrderState extends State<EditOrder> {
       _userId = user.uid;
       DateTime now = DateTime.now();
       String date1 ='${now.year}-${now.month}-${now.day}';// ${now.hour}:${now.minute}:00.000';
-      String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
+      //String date ='${now.year}-${now.month}-${now.day}-${now.hour}-${now.minute}-00-000';
 
-      orderdatabaseReference.child(_userId).child(date).set({
+      orderdatabaseReference.child(_userId).child(widget.clong1).update({
         'cId': _userId,
         'cdate': date1,
         'clat1':city2,
-        'clong1':"31",
+        'clong1':widget.clong1,
         'clat2': city1,
-        'clong2': "30",
-        'cType': Translations.of(context).translate('order'),
+        'clong2': widget.clong1,
+        //'cType': Translations.of(context).translate('order'),
+        'cType': 'طلب',
         'cCategory': _CategorycurrentItemSelected,
         'cpayload': _PayloadcurrentItemSelected,
         'cpayload': _PayloadcurrentItemSelected,
@@ -755,6 +767,12 @@ class _EditOrderState extends State<EditOrder> {
         showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
         setState(() {
           _load2 = false;
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      MyAdvertisement()));
+
         });
       }).catchError((e) {
         Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);

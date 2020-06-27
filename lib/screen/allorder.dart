@@ -516,6 +516,7 @@ class _AllOrderState extends State<AllOrder> {
                     height: 130,
                   ),
                   Container(
+                    width: 250,
                     height: 130,
                     child: Stack(
                       //alignment: Alignment.bottomCenter,
@@ -556,7 +557,7 @@ class _AllOrderState extends State<AllOrder> {
                                   color: Colors.blue,
                                   fontFamily: 'Gamja Flower',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
+                                  fontSize: 13.0,
                                   fontStyle: FontStyle.normal),
                             ),
                           ),
