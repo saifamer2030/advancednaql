@@ -14,6 +14,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:toast/toast.dart';
 
 import 'ModelsForChating/chat.dart';
+import 'login.dart';
 
 class myOrder extends StatefulWidget {
   @override
@@ -36,7 +37,9 @@ class _myOrderState extends State<myOrder> {
     });
 
     FirebaseAuth.instance.currentUser().then((user) => user == null
-        ? null
+        ?
+    Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
+        builder: (context) => LoginScreen2(), maintainState: false))
         : setState(() {
       _userId = user.uid;
       final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
@@ -138,36 +141,33 @@ class _myOrderState extends State<myOrder> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.only(top: 0),
             child: Expanded(
-                child: Center(
-                  child: myorderlist.length == 0
-                      ? new Center(
-                    child: loadingIndicator,
-                  )
-                      : new ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      controller: _controller,
-                      // reverse: true,
-                      itemCount: myorderlist.length,
-                      itemBuilder: (BuildContext ctxt, int index) {
-                        return InkWell(
-                          child: _firebasedata(
-                            index,
-                            myorderlist.length,
-                            myorderlist[index].Uid,
-                            myorderlist[index].wid,
-                            myorderlist[index].pid,
-                            myorderlist[index].Name,
-                            myorderlist[index].title,
-                            myorderlist[index].statusOrder,
-                            myorderlist[index].cadv,
-                            myorderlist[index].curl,
-                            myorderlist[index].cType,
-                          ),
-                        );
-                      }),
-                )),
+                child: myorderlist.length == 0
+                    ? new Center(
+                  child: loadingIndicator,
+                )
+                    : new ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    controller: _controller,
+                    itemCount: myorderlist.length,
+                    itemBuilder: (BuildContext ctxt, int index) {
+                      return InkWell(
+                        child: _firebasedata(
+                          index,
+                          myorderlist.length,
+                          myorderlist[index].Uid,
+                          myorderlist[index].wid,
+                          myorderlist[index].pid,
+                          myorderlist[index].Name,
+                          myorderlist[index].title,
+                          myorderlist[index].statusOrder,
+                          myorderlist[index].cadv,
+                          myorderlist[index].curl,
+                          myorderlist[index].cType,
+                        ),
+                      );
+                    })),
           ),
 
         ],
