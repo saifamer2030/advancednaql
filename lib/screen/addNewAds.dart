@@ -1,4 +1,5 @@
 import 'package:advancednaql/screen/Departmentwedgit.dart';
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -109,7 +110,7 @@ class _adsState extends State<AddNewAds> {
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        'تبحث عن خدمة؟',
+                                        Translations.of(context).translate('looking_for_a_service'),
                                         style: TextStyle(
                                           fontFamily: 'DroidArabicKufi',
                                           fontSize: 10,
@@ -168,7 +169,7 @@ class _adsState extends State<AddNewAds> {
                                     child: Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        'لديك معدة ترغب بتشغيلهاأو تأجيرها؟',
+                                        Translations.of(context).translate('have_equipment_you_want_to_operate_or_rent'),
                                         style: TextStyle(
                                           fontFamily: 'DroidArabicKufi',
                                           fontSize: 10,

@@ -91,6 +91,35 @@
   "id_photo_uploaded":"تم تحميل الصورة الهوية",
   "equipment_image_uploaded":"تم تحميل الصورة المعدة",
   "Photo_Drivers_license_uploaded":"تم تحميل الصورة رخصة السائق",
-  "update_1":"تعديل"
+  "update_1":"تعديل",
+  "history_chat":"لايوجد محاثات سابقه",
+  "tracking_request":"طلب التتبع",
+  "close_the_deal":"إتمام الصفقة",
+  "there_is_no_conversation":"لا توجد محادثة",
+  "type_a_message_here":"اكتب رساله هنا",
+  "an_empty_message_cannot_be_sent":"لا يمكن إرسال رسالة فارغة",
+  "your_rating_has_been_sent_successfully":"تم إرسال تقيمك بنجاح",
+  "please_add_a_comment_and_rating":"برجاء إضافة تعليق وتقييم",
+  "your_evaluation_of_the_service_provider_supports_improving_the_service":"تقييمك لمقدم الخدمة يدعم تحسين الخدمة",
+  "write_a_comment_here":"اكتب تعليق هنا",
+  "submit_evaluation":"إرسال التقييم",
+  "looking_for_a_service":"تبحث عن خدمة؟",
+  "have_equipment_you_want_to_operate_or_rent":"لديك معدة ترغب بتشغيلها أو تأجيرها؟",
+  "newly_joined":"منضم حديثا",
+  "average_transfer":"نقل متوسط",
+  "1_7_tons":"١-٧ طن",
+  "light_transmission":"نقل خفيف",
+  "1_ton":"١ طن",
+  "heavy_equipment":"معدات ثقيلة",
+  "heavy_transport":"نقل ثقيل",
+  "7_tons_and_more":" ٧ طن واكثر",
+  "passenger_transport":"نقل ركاب",
+  "agricultural_equipment":"معدات زاعية",
+  "other":"أخرى",
+  "warning":"تنبية",
+  "delete_your_ad":"تحذف اعلانك؟",
+  "deleted_from_favorites":"تم الحذف من المفضلة"
+
+
 
 }

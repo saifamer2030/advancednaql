@@ -1,5 +1,6 @@
 import 'package:advancednaql/classes/UserRegDataClass.dart';
 import 'package:advancednaql/screen/ModelsForChating/state.dart';
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,7 @@ class _HomePageState extends State<HomePage> {
               ),
               child: isLoaded
                   ? userList.length == 0
-                      ? Center(child: Text("لايوجد محاثات سابقه"))
+                      ? Center(child: Text(Translations.of(context).translate('history_chat')))
                       : ListView.builder(
                           physics: BouncingScrollPhysics(),
                           itemBuilder: (BuildContext ctxt, int index) {

@@ -1,3 +1,4 @@
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'newoffer.dart';
@@ -113,7 +114,7 @@ class _DepartmentState extends State<Department> {
                             Padding(
                               padding: const EdgeInsets.only(top: 25),
                               child: Text(
-                                'نقل متوسط',
+                                Translations.of(context).translate('average_transfer'),
                                 style: TextStyle(
                                   fontFamily: 'DroidArabicKufi',
                                   fontSize: 18,
@@ -137,7 +138,7 @@ class _DepartmentState extends State<Department> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '١-٧ طن',
+                                        text: Translations.of(context).translate('1_7_tons'),
                                       ),
                                     ],
                                   ),
@@ -195,7 +196,7 @@ class _DepartmentState extends State<Department> {
                               child: SizedBox(
                                 width: 74.0,
                                 child: Text(
-                                  'نقل خفيف',
+                                  Translations.of(context).translate('light_transmission'),
                                   style: TextStyle(
                                     fontFamily: 'DroidArabicKufi',
                                     fontSize: 18,
@@ -220,7 +221,7 @@ class _DepartmentState extends State<Department> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: '١ طن',
+                                        text: Translations.of(context).translate('1_ton'),
                                       ),
                                     ],
                                   ),
@@ -283,7 +284,7 @@ class _DepartmentState extends State<Department> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 25),
                                 child: Text(
-                                  'معدات ثقيلة',
+                                  Translations.of(context).translate('heavy_equipment'),
                                   style: TextStyle(
                                     fontFamily: 'DroidArabicKufi',
                                     fontSize: 18,
@@ -343,7 +344,7 @@ class _DepartmentState extends State<Department> {
                                 child: SizedBox(
                                   width: 74.0,
                                   child: Text(
-                                    'نقل ثقيل',
+                                    Translations.of(context).translate('heavy_transport'),
                                     style: TextStyle(
                                       fontFamily: 'DroidArabicKufi',
                                       fontSize: 18,
@@ -366,7 +367,7 @@ class _DepartmentState extends State<Department> {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: ' ٧ طن واكثر',
+                                        text: Translations.of(context).translate('7_tons_and_more'),
                                       ),
                                     ],
                                   ),
@@ -429,7 +430,7 @@ class _DepartmentState extends State<Department> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 25),
                                 child: Text(
-                                  'نقل ركاب',
+                                  Translations.of(context).translate('passenger_transport'),
                                   style: TextStyle(
                                     fontFamily: 'DroidArabicKufi',
                                     fontSize: 18,
@@ -487,7 +488,7 @@ class _DepartmentState extends State<Department> {
                               Padding(
                                 padding: const EdgeInsets.only(top: 25),
                                 child: Text(
-                                  'معدات زاعية',
+                                  Translations.of(context).translate('agricultural_equipment'),
                                   style: TextStyle(
                                     fontFamily: 'DroidArabicKufi',
                                     fontSize: 18,
@@ -541,7 +542,7 @@ class _DepartmentState extends State<Department> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'أخرى',
+                                text: Translations.of(context).translate('other'),
                               ),
                               TextSpan(
                                 text: '...',

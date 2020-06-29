@@ -4,6 +4,7 @@ import 'package:advancednaql/classes/AlarmaClass.dart';
 import 'package:advancednaql/screen/ModelsForChating/state.dart';
 import 'package:advancednaql/screen/UserRating/RatingClass.dart';
 import 'package:advancednaql/screen/UserRating/UserRatingPage.dart';
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -182,7 +183,7 @@ class _ChatState extends State<ChatPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         new RaisedButton(
-                          child: new Text("طلب تتبع"),
+                          child: new Text(Translations.of(context).translate('tracking_request')),
                           textColor: Colors.white,
                           color: Colors.grey,
                           onPressed: () {},
@@ -211,7 +212,7 @@ class _ChatState extends State<ChatPage> {
                           child: Row(
                             children: <Widget>[
                               Text(
-                                'إتمام الصفقة',
+                                Translations.of(context).translate('close_the_deal'),
                                 style: TextStyle(color: Colors.white),
                               ),
                               Icon(
@@ -305,7 +306,7 @@ class _ChatState extends State<ChatPage> {
                   child: new Positioned(
                       child: isLoaded
                           ? chatHolder.length == 0
-                          ? Center(child: Text("لا توجد محادثة"))
+                          ? Center(child: Text(Translations.of(context).translate('there_is_no_conversation')))
                           : ListView.builder(
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (BuildContext ctxt, int index) {
@@ -356,7 +357,7 @@ class _ChatState extends State<ChatPage> {
                                     textInputAction: TextInputAction.newline,
                                     maxLines: null,
                                     decoration: new InputDecoration.collapsed(
-                                      hintText: "اكتب رساله هنا",
+                                      hintText: Translations.of(context).translate('type_a_message_here'),
                                     ),
                                     controller: _controller,
                                   ),
@@ -506,7 +507,7 @@ class _ChatState extends State<ChatPage> {
       _controller.clear();
     } else {
       Fluttertoast.showToast(
-          msg: "لا يمكن إرسال رسالة فارغة",
+          msg: Translations.of(context).translate('an_empty_message_cannot_be_sent'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIos: 1,
