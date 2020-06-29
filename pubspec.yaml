@@ -52,7 +52,6 @@ dependencies:
   geoflutterfire: ^2.0.3+2
   location: ^2.3.5
   flutter_slidable: ^0.5.4
-  audioplayers: ^0.13.2
 
   #simple_slider: ^0.0.2
   rxdart:

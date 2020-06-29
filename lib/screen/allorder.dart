@@ -4,6 +4,7 @@ import 'package:advancednaql/classes/UserRateClass.dart';
 import 'package:advancednaql/map/map.dart';
 import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -598,7 +599,7 @@ class _AllOrderState extends State<AllOrder> {
                                     borderColor: Colors.amber,
                                     spacing: 0.0)
                                 : new Text(
-                                    'منضم حديثا',
+                              Translations.of(context).translate('newly_joined'),
                                     style: TextStyle(
                                         color: Colors.lightBlue,
                                         fontFamily: 'Gamja Flower',

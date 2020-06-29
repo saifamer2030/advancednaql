@@ -6,6 +6,7 @@ import 'package:advancednaql/classes/OrderPhotoDetailClass.dart';
 import 'package:advancednaql/classes/UserRateClass.dart';
 import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -531,8 +532,8 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                                         context: context,
                                         builder: (BuildContext context) =>
                                         new CupertinoAlertDialog(
-                                          title: new Text("تنبية"),
-                                          content: new Text("تبغي تحذف اعلانك؟"),
+                                          title: new Text(Translations.of(context).translate('warning')),
+                                          content: new Text(Translations.of(context).translate('delete_your_ad')),
                                           actions: [
                                             CupertinoDialogAction(
                                                 isDefaultAction: false,
@@ -542,7 +543,7 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                                                       FirebaseDatabase.instance.reference()
                                                           .child("orderdata").child(_userId).child(orderlist[index].cDateID)
                                                           .remove().whenComplete(() =>
-                                                          Toast.show("تم الحذف فى المفضلة", context,
+                                                          Toast.show(Translations.of(context).translate('deleted_from_favorites'), context,
                                                               duration: Toast.LENGTH_SHORT,
                                                               gravity: Toast.BOTTOM));
                                                       setState(() {
@@ -553,14 +554,14 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
 
                                                   }
                                                   ,
-                                                  child: Text("موافق"),
+                                                  child: Text(Translations.of(context).translate('oK')),
                                                 )),
                                             CupertinoDialogAction(
                                                 isDefaultAction: false,
                                                 child: new FlatButton(
                                                   onPressed: () =>
                                                       Navigator.pop(context),
-                                                  child: Text("إلغاء"),
+                                                  child: Text(Translations.of(context).translate('no')),
                                                 )),
                                           ],
                                         ),
@@ -805,7 +806,7 @@ setState(() {
                                 borderColor: Colors.amber,
                                 spacing: 0.0)
                                 : new Text(
-                              'منضم حديثا',
+                              Translations.of(context).translate('newly_joined'),
                               style: TextStyle(
                                   color: Colors.lightBlue,
                                   fontFamily: 'Gamja Flower',

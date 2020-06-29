@@ -37,8 +37,8 @@ class _MyAppState extends State<MyApp> {
     if (sPref.getString('defLangCode') == null &&
         sPref.getString('defLangCountry') == null) {
       HelperFunc.setFirstLang();
-      // curLoc = new Locale('ar', 'EG');
-      curLoc = new Locale('en', 'US');
+      curLoc = new Locale('ar', 'EG');
+    // curLoc = new Locale('en', 'US');
     } else {
       curLoc = new Locale(
           sPref.getString('defLangCode'), sPref.getString('defLangCountry'));

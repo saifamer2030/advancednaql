@@ -1,4 +1,5 @@
 
+import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
@@ -145,7 +146,7 @@ class _UserRatingPageState extends State<UserRatingPage> {
                     padding: const EdgeInsets.only(top: 50.0),
                     child: Center(
                         child: Text(
-                          "تقييمك لمقدم الخدمة يدعم تحسين الخدمة",
+                          Translations.of(context).translate('your_evaluation_of_the_service_provider_supports_improving_the_service'),
                           style: TextStyle(fontSize: 20.0),
                         )),
                   ),
@@ -187,8 +188,8 @@ class _UserRatingPageState extends State<UserRatingPage> {
                         onChanged: (value) {},
                         //  controller: controller,
                         decoration: InputDecoration(
-                            labelText: "اكتب تعليق هنا",
-                            hintText: "اكتب تعليق هنا",
+                            labelText: Translations.of(context).translate('write_a_comment_here'),
+                            hintText: Translations.of(context).translate('write_a_comment_here'),
                             prefixIcon: Icon(Icons.comment),
                             border: OutlineInputBorder(
                                 borderRadius:
@@ -203,7 +204,7 @@ class _UserRatingPageState extends State<UserRatingPage> {
                       child: Container(
                         width: width,
                         child: RaisedButton(
-                          child: new Text("إرسال التقييم",
+                          child: new Text(Translations.of(context).translate('submit_evaluation'),
                               style: TextStyle(fontSize: 15.0)),
                           textColor: Colors.white,
                           color:  const Color(0xff48B2E1),
@@ -240,7 +241,7 @@ class _UserRatingPageState extends State<UserRatingPage> {
       'custRate':_totalCust+1
       }).then((_) {
         Fluttertoast.showToast(
-            msg: "تم إرسال تقيمك بنجاح",
+            msg:Translations.of(context).translate('your_rating_has_been_sent_successfully'),
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIos: 1,
@@ -256,7 +257,7 @@ class _UserRatingPageState extends State<UserRatingPage> {
       });
     } else {
       Fluttertoast.showToast(
-          msg: "برجاء إضافة تعليق وتقييم",
+          msg: Translations.of(context).translate('please_add_a_comment_and_rating'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIos: 1,

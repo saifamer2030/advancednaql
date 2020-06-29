@@ -310,55 +310,55 @@ class _MoreWidget extends State<MoreWidget> {
                           height: .2,
                           color: Colors.grey,
                         ),
-//                        InkWell(
-//                          onTap: () {
-//                            HelperFunc.reopenSetting(context);
-//                          },
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                            children: <Widget>[
-//                              Icon(
-//                                Icons.keyboard_arrow_left,
-//                                color: const Color(0xff3F9DC7),
-//                              ),
-//                              Row(
-//                                mainAxisAlignment: MainAxisAlignment.end,
-//                                children: <Widget>[
-//                                  Text(
-//                                    'اللغة',
-//                                    style: TextStyle(
-//                                      fontFamily: 'DroidArabicKufi',
-//                                      fontSize: 13,
-//                                      color: const Color(0xff3F9DC7),
-//                                      height: 1.2307692307692308,
-//                                    ),
-//                                    textAlign: TextAlign.right,
+                        InkWell(
+                          onTap: () {
+                            HelperFunc.reopenSetting(context);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Icon(
+                                Icons.keyboard_arrow_left,
+                                color: const Color(0xff3F9DC7),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'اللغة',
+                                    style: TextStyle(
+                                      fontFamily: 'DroidArabicKufi',
+                                      fontSize: 13,
+                                      color: const Color(0xff3F9DC7),
+                                      height: 1.2307692307692308,
+                                    ),
+                                    textAlign: TextAlign.right,
+                                  ),
+
+                                  // Adobe XD layer: 'world-wide-web-icon…' (shape)
+                                  Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: new Icon(
+                                        Icons.public,
+                                        color: Colors.grey,
+                                      )
+//                              Container(
+//                                width: 25.0,
+//                                height: 25.0,
+//                                decoration: BoxDecoration(
+//                                  image: DecorationImage(
+//                                    image: const AssetImage(
+//                                        'assets/images/ic_lang.png'),
+//                                    fit: BoxFit.fill,
 //                                  ),
-//
-//                                  // Adobe XD layer: 'world-wide-web-icon…' (shape)
-//                                  Padding(
-//                                      padding: const EdgeInsets.all(8.0),
-//                                      child: new Icon(
-//                                        Icons.public,
-//                                        color: Colors.grey,
-//                                      )
-////                              Container(
-////                                width: 25.0,
-////                                height: 25.0,
-////                                decoration: BoxDecoration(
-////                                  image: DecorationImage(
-////                                    image: const AssetImage(
-////                                        'assets/images/ic_lang.png'),
-////                                    fit: BoxFit.fill,
-////                                  ),
-////                                ),
-////                              ),
-//                                      ),
-//                                ],
+//                                ),
 //                              ),
-//                            ],
-//                          ),
-//                        ),
+                                      ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
 
 //                        Container(
 //                          width: MediaQuery.of(context).size.width,

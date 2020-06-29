@@ -9,7 +9,6 @@ import 'package:advancednaql/screen/myOrder.dart';
 import 'package:advancednaql/screen/myalarms.dart';
 import 'package:advancednaql/screen/myfavourits.dart';
 import 'package:advancednaql/screen/neworder.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:fimber/fimber_base.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -37,7 +36,6 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 class _fragmentState extends State<Fragmentnaql> {
   int _currentIndex = 4;
   bool con = true;
-  AudioPlayer audioPlugin = AudioPlayer();
   String mp3Uri;
   @override
   void initState() {
