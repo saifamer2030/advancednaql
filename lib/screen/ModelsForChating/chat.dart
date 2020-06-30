@@ -37,7 +37,7 @@ class _ChatState extends State<ChatPage> {
   TextEditingController _controller;
   List<Message> chatHolder;
   File image;
-  String _cName =" ";
+  String _cName = " ";
   String _imgUrl = "";
   bool isLoaded = false;
 
@@ -49,7 +49,7 @@ class _ChatState extends State<ChatPage> {
     if (img != null) {
       int timestamp = new DateTime.now().millisecondsSinceEpoch;
       StorageReference storageReference =
-      FirebaseStorage.instance.ref().child("PhotoChating");
+          FirebaseStorage.instance.ref().child("PhotoChating");
 
       StorageUploadTask uploadTask = storageReference
           .child("img_" + timestamp.toString() + ".jpg")
@@ -129,15 +129,13 @@ class _ChatState extends State<ChatPage> {
           Column(
             children: <Widget>[
               Container(
-                width:  MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
                 height: 86.0,
                 decoration: BoxDecoration(
-
                   color: const Color(0xff4fc3f7),
                 ),
                 child: InkWell(
                   onTap: () => Navigator.pop(context),
-
                   child: Container(
                     alignment: Alignment.centerLeft,
                     width: 20,
@@ -151,11 +149,11 @@ class _ChatState extends State<ChatPage> {
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
+                    // Adobe XD layer: 'logoBox' (shape)
+                    Center(
                   child: Container(
-                    width: 166.0,
-                    height: 67.0,
+                    width: 156.0,
+                    height: 57.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
@@ -171,115 +169,116 @@ class _ChatState extends State<ChatPage> {
               ),
             ],
           ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: _minimumPadding * 22,
-                      left: _minimumPadding,
-                      right: _minimumPadding),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 80,
+          Padding(
+            padding: EdgeInsets.only(
+                top: _minimumPadding * 22,
+                left: _minimumPadding,
+                right: _minimumPadding),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  new RaisedButton(
+                    child: new Text(
+                        Translations.of(context).translate('tracking_request')),
+                    textColor: Colors.white,
+                    color: Colors.grey,
+                    onPressed: () {},
+
+                    //#48B2E1
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)),
+                  ),
+                  new RaisedButton(
+                    textColor: Colors.white,
+                    color: const Color(0xff48B2E1),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        new MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                new UserRatingPage(Rating(
+                                  widget.uid,
+                                  "",
+                                  "",
+                                ))),
+                      );
+                    },
+
+                    //#48B2E1
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0)),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        new RaisedButton(
-                          child: new Text(Translations.of(context).translate('tracking_request')),
-                          textColor: Colors.white,
-                          color: Colors.grey,
-                          onPressed: () {},
-
-                          //#48B2E1
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0)),
+                        Text(
+                          Translations.of(context).translate('close_the_deal'),
+                          style: TextStyle(color: Colors.white),
                         ),
-                        new RaisedButton(
-                          textColor: Colors.white,
-                          color: const Color(0xff48B2E1),
-                          onPressed: () {
-
-
-                            Navigator.push(
-                              context,
-                              new MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                  new UserRatingPage(Rating(widget.uid,"" , "",))),
-                            );
-                          },
-
-                          //#48B2E1
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(10.0)),
-                          child: Row(
-                            children: <Widget>[
-                              Text(
-                                Translations.of(context).translate('close_the_deal'),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Icon(
-                                Icons.thumb_up,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
-                        ),
+                        Icon(
+                          Icons.thumb_up,
+                          color: Colors.white,
+                        )
                       ],
                     ),
                   ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                top: _minimumPadding * 40,
+                left: _minimumPadding * 2,
+                right: _minimumPadding * 2),
+            child: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 80.0,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: const Color(0xffe5e5e5),
+                  boxShadow: [
+                    BoxShadow(color: const Color(0x33000000), blurRadius: 3)
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: _minimumPadding * 40,
-                      left: _minimumPadding * 2,
-                      right: _minimumPadding * 2),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: const Color(0xffe5e5e5),
-                        boxShadow: [
-                          BoxShadow(
-                              color: const Color(0x33000000), blurRadius: 3)
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Icon(
-                            Icons.call,
-                            color: Colors.lightBlueAccent,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(widget.name,
-                                    style: new TextStyle(
-                                      color: Colors.lightBlueAccent,
-                                      fontSize: 16,
-                                    )),
-                              ),
-                              new Container(
-                                child: new Text(widget.name[0],
-                                    style: new TextStyle(
-                                        color: Colors.lightBlueAccent,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.w900)),
-                                decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.grey[400]),
-                                padding: new EdgeInsets.all(20.0),
-                              ),
-                              Icon(
-                                Icons.keyboard_arrow_right,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(
+                      Icons.call,
+                      color: Colors.lightBlueAccent,
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(widget.name,
+                              style: new TextStyle(
                                 color: Colors.lightBlueAccent,
-                              ),
-                            ],
-                          ),
+                                fontSize: 16,
+                              )),
+                        ),
+                        new Container(
+                          child: new Text(widget.name[0],
+                              style: new TextStyle(
+                                  color: Colors.lightBlueAccent,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w900)),
+                          decoration: new BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.grey[400]),
+                          padding: new EdgeInsets.all(20.0),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_right,
+                          color: Colors.lightBlueAccent,
+                        ),
+                      ],
+                    ),
 
 //                        Container(
 //                          height: 50,
@@ -293,106 +292,100 @@ class _ChatState extends State<ChatPage> {
 //                                        "assets/images/ic_driver.png"),
 //                              )),
 //                        ),
-                        ],
+                  ],
+                ),
+              ),
+            ),
+          ),
+          new Positioned(
+
+              child: isLoaded
+                  ? chatHolder.length == 0
+                      ? Center(
+                          child: Text(Translations.of(context)
+                              .translate('there_is_no_conversation')))
+                      : Padding(
+                        padding: const EdgeInsets.only(top: 290),
+                        child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            itemBuilder: (BuildContext ctxt, int index) {
+                              if (chatHolder[index].senderUser == user.uid) {
+                                if (chatHolder[index].img != null) {
+                                  print("this Me =" + chatHolder[index].img);
+                                }
+                                return Bubble(
+                                  message: chatHolder[index].message,
+                                  time: chatHolder[index].timeData,
+                                  delivered: true,
+                                  isMe: true,
+                                  img: chatHolder[index].img,
+                                );
+                              } else {
+                                return new Bubble(
+                                  message: chatHolder[index].message,
+                                  time: chatHolder[index].timeData,
+                                  delivered: false,
+                                  isMe: false,
+                                  img: chatHolder[index].img,
+                                );
+                              }
+                            },
+                            itemCount: chatHolder.length,
+                            padding: new EdgeInsets.fromLTRB(0, 0, 0, 70),
+                          ),
+                      )
+                  : Center(
+                      child: SpinKitPumpingHeart(
+                        color: const Color(0xff4fc3f7),
                       ),
+                    )),
+          new Positioned(
+              child: new Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: new Container(
+              child: new Row(
+                children: <Widget>[
+                  Expanded(
+                    child: new Padding(
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: new TextField(
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.newline,
+                          maxLines: null,
+                          decoration: new InputDecoration.collapsed(
+                            hintText: Translations.of(context)
+                                .translate('type_a_message_here'),
+                          ),
+                          controller: _controller,
+                        ),
+                      ),
+                      padding: EdgeInsets.fromLTRB(10.0, 0, 10, 0),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: _minimumPadding * 60,
-                      left: _minimumPadding,
-                      right: _minimumPadding),
-                  child: new Positioned(
-                      child: isLoaded
-                          ? chatHolder.length == 0
-                          ? Center(child: Text(Translations.of(context).translate('there_is_no_conversation')))
-                          : ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (BuildContext ctxt, int index) {
-                          if (chatHolder[index].senderUser ==
-                              user.uid) {
-                            if (chatHolder[index].img != null) {
-                              print("this Me =" +
-                                  chatHolder[index].img);
-                            }
-                            return Bubble(
-                              message: chatHolder[index].message,
-                              time: chatHolder[index].timeData,
-                              delivered: true,
-                              isMe: true,
-                              img: chatHolder[index].img,
-                            );
-                          } else {
-                            return new Bubble(
-                              message: chatHolder[index].message,
-                              time: chatHolder[index].timeData,
-                              delivered: false,
-                              isMe: false,
-                              img: chatHolder[index].img,
-                            );
-                          }
-                        },
-                        itemCount: chatHolder.length,
-                        padding: new EdgeInsets.fromLTRB(0, 0, 0, 70),
-                      )
-                          : Center(
-                        child: SpinKitPumpingHeart(
-                          color: const Color(0xff4fc3f7),
-                        ),
-                      )),
-                ),
-                new Positioned(
-                    child: new Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: new Container(
-                        child: new Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: new Padding(
-                                child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: new TextField(
-                                    keyboardType: TextInputType.multiline,
-                                    textInputAction: TextInputAction.newline,
-                                    maxLines: null,
-                                    decoration: new InputDecoration.collapsed(
-                                      hintText: Translations.of(context).translate('type_a_message_here'),
-                                    ),
-                                    controller: _controller,
-                                  ),
-                                ),
-                                padding: EdgeInsets.fromLTRB(10.0, 0, 10, 0),
-                              ),
-                            ),
-                            new IconButton(
-                                icon: new Icon(
-                                  Icons.insert_photo,
-                                  color: const Color(0xff4fc3f7),
-                                ),
-                                onPressed: () => picker()),
-                            new IconButton(
-                              onPressed: () => sendMessage(
-                                  msg: _controller.text,
-                                  img: null,
-                                  time: formattedDate),
-                              icon: new Icon(
-                                Icons.send,
-                                color: const Color(0xff4fc3f7),
-                              ),
-                            ),
-                          ],
-                        ),
-                        decoration: new BoxDecoration(
-                            borderRadius:
-                            new BorderRadius.all(Radius.circular(25.0)),
-                            color: Colors.white,
-                            border: Border.all(color: Colors.black)),
-                        margin: EdgeInsets.all(10.0),
+                  new IconButton(
+                      icon: new Icon(
+                        Icons.insert_photo,
+                        color: const Color(0xff4fc3f7),
                       ),
-                    ))
-
-
+                      onPressed: () => picker()),
+                  new IconButton(
+                    onPressed: () => sendMessage(
+                        msg: _controller.text, img: null, time: formattedDate),
+                    icon: new Icon(
+                      Icons.send,
+                      color: const Color(0xff4fc3f7),
+                    ),
+                  ),
+                ],
+              ),
+              decoration: new BoxDecoration(
+                  borderRadius: new BorderRadius.all(Radius.circular(25.0)),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.black)),
+              margin: EdgeInsets.all(10.0),
+            ),
+          ))
         ],
       ),
     );
@@ -401,7 +394,7 @@ class _ChatState extends State<ChatPage> {
   getLoggedInUser() async {
     DateTime now = DateTime.now();
     int dateNow =
-    int.parse('${now.year}${now.month}${now.day}${now.hour}${now.minute}');
+        int.parse('${now.year}${now.month}${now.day}${now.hour}${now.minute}');
     user = await _auth.currentUser();
     reference1 = FirebaseDatabase.instance
         .reference()
@@ -462,7 +455,7 @@ class _ChatState extends State<ChatPage> {
 //    String formattedDate = DateFormat('yyyy-MM-dd hh:mm').format(time);
     DateTime now = DateTime.now();
     int dateNow =
-    int.parse('${now.year}${now.month}${now.day}${now.hour}${now.minute}');
+        int.parse('${now.year}${now.month}${now.day}${now.hour}${now.minute}');
 
     if (msg != "") {
       setState(() {
@@ -477,8 +470,6 @@ class _ChatState extends State<ChatPage> {
       map.putIfAbsent("recevdName", () => widget.name);
       map.putIfAbsent("timeData", () => time);
 
-
-
 //      mapalarm.putIfAbsent("alarmid", () => widget.uid);
 //      mapalarm.putIfAbsent("Name", () => _cName);
 //      mapalarm.putIfAbsent("arrange", () => "$dateNow");
@@ -489,8 +480,7 @@ class _ChatState extends State<ChatPage> {
       reference3.set(widget.uid);
       reference4.set(user.uid);
       //reference5.push().set(mapalarm);
-      final databasealarm = FirebaseDatabase
-          .instance
+      final databasealarm = FirebaseDatabase.instance
           .reference()
           .child("Alarm")
           .child(widget.uid);
@@ -500,14 +490,15 @@ class _ChatState extends State<ChatPage> {
         'wid': widget.uid,
         'Name': _cName,
         'cType': "chat",
-        'cDateID':"$now",
-        'arrange':int.parse("$dateNow")
+        'cDateID': "$now",
+        'arrange': int.parse("$dateNow")
       });
 
       _controller.clear();
     } else {
       Fluttertoast.showToast(
-          msg: Translations.of(context).translate('an_empty_message_cannot_be_sent'),
+          msg: Translations.of(context)
+              .translate('an_empty_message_cannot_be_sent'),
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIos: 1,
@@ -531,15 +522,15 @@ class Bubble extends StatelessWidget {
     final icon = delivered ? Icons.done : Icons.done;
     final radius = isMe
         ? BorderRadius.only(
-      topLeft: Radius.circular(10.0),
-      bottomLeft: Radius.circular(10.0),
-      bottomRight: Radius.circular(10.0),
-    )
+            topLeft: Radius.circular(10.0),
+            bottomLeft: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0),
+          )
         : BorderRadius.only(
 //            topRight: Radius.circular(10.0),
-      bottomLeft: Radius.circular(10.0),
-      bottomRight: Radius.circular(10.0),
-    );
+            bottomLeft: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0),
+          );
     return Column(
       crossAxisAlignment: align,
       children: <Widget>[
@@ -560,18 +551,18 @@ class Bubble extends StatelessWidget {
             children: <Widget>[
               img == null
                   ? Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Text(message),
-              )
+                      padding: EdgeInsets.all(15.0),
+                      child: Text(message),
+                    )
                   : Padding(
-                padding: EdgeInsets.all(15.0),
-                child: InkWell(
-                  onTap: () => null,
-                  child: Container(
-                    child: Image.network(img),
-                  ),
-                ),
-              ),
+                      padding: EdgeInsets.all(15.0),
+                      child: InkWell(
+                        onTap: () => null,
+                        child: Container(
+                          child: Image.network(img),
+                        ),
+                      ),
+                    ),
               Positioned(
                 bottom: 0.0,
                 right: 0.0,

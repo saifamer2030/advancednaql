@@ -237,8 +237,8 @@ class _AllOrderState extends State<AllOrder> {
                     // Adobe XD layer: 'logoBox' (shape)
                     Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width ,
-                    height: 66.0,
+                    width: 156.0,
+                    height: 57.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
