@@ -1851,7 +1851,7 @@ class _MyForm2State extends State<MyForm2> {
     );
     return AlertDialog(
       title: Text(
-        "المدينة",
+        "اختر المدينة:",
         style: TextStyle(fontWeight: FontWeight.bold),
         textDirection: TextDirection.rtl,
       ),
@@ -1966,7 +1966,7 @@ class _MyForm4State extends State<MyForm4> {
     );
     return AlertDialog(
       title: Text(
-        "المدينة",
+        "اختر المدينة:",
         style: TextStyle(fontWeight: FontWeight.bold),
         textDirection: TextDirection.rtl,
       ),
@@ -2081,7 +2081,7 @@ class _MyForm3State extends State<MyForm3> {
     );
     return AlertDialog(
       title: Text(
-        "المدينة",
+        "اختر المدينة:",
         style: TextStyle(fontWeight: FontWeight.bold),
         textDirection: TextDirection.rtl,
       ),

@@ -145,666 +145,556 @@ class _orderProfileState extends State<orderProfile> {
 
     return  Scaffold(
       backgroundColor: const Color(0xffffffff),
-      body: Container(
-        child: Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  width:  MediaQuery.of(context).size.width,
-                  height: 86.0,
-                  decoration: BoxDecoration(
-
-                    color: const Color(0xff4fc3f7),
+      body: Stack(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 86.0,
+                decoration: BoxDecoration(
+                  color: const Color(0xff4fc3f7),
+                ),
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 20,
+                    height: 20,
+                    child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(Icons.arrow_back)),
                   ),
-                  child: InkWell(
-                    onTap: () => Navigator.pop(context),
-
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      width: 20,
-                      height: 20,
-                      child: InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Icon(Icons.arrow_back)),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(0.0, -42.0),
+                child:
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
+                  child: Container(
+                    width: 166.0,
+                    height: 67.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        matchTextDirection: true,
+                        repeat: ImageRepeat.noRepeat,
+                        image: AssetImage("assets/logowhite.png"),
+                      ),
+                      borderRadius: BorderRadius.circular(21.0),
+                      color: const Color(0xff4fc3f7),
                     ),
                   ),
                 ),
-                Transform.translate(
-                  offset: Offset(0.0, -42.0),
-                  child:
-                  // Adobe XD layer: 'logoBox' (shape)
-                  Center(
-                    child: Container(
-                      width: 166.0,
-                      height: 67.0,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          alignment: Alignment.center,
-                          matchTextDirection: true,
-                          repeat: ImageRepeat.noRepeat,
-                          image: AssetImage("assets/logowhite.png"),
+              ),
+
+            ],
+          ),
+
+          Form(
+            key: _formKey1,
+            child: Padding(
+                padding: EdgeInsets.only(top:_minimumPadding * 20,bottom: _minimumPadding * 0, right: _minimumPadding * 0,left: _minimumPadding * 0),
+                child: ListView(
+                  physics: BouncingScrollPhysics(),
+                  children: <Widget>[
+
+                    Container(
+                      //color: Colors.grey[200],
+                        width: 300,height: 180,
+                        child:
+                        new Image.asset("assets/images/ic_bluecar.png",
+                            fit: BoxFit.contain)
+
+                    ),
+                    SizedBox(
+                      height: _minimumPadding,
+                      width: _minimumPadding,
+                    ),
+                    Card(
+
+                      shape: new RoundedRectangleBorder(
+                          side: new BorderSide(color:Colors.grey[400], width: 3.0),
+                          borderRadius: BorderRadius.circular(10.0)),
+                      //borderOnForeground: true,
+                      elevation: 10.0,
+                      margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
+                      child: Container(
+                          height: 110,
+                          color: Colors.grey[300],
+                          padding: EdgeInsets.all(0),
+                          child: Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: <Widget>[
+
+                              Positioned(
+                                top: 0,
+                                right: 5,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "شاحنة ${widget.cCategory} حمولة ${widget.cpayload}",
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontFamily: 'Gamja Flower',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0,
+                                        fontStyle: FontStyle.normal),
+                                  ),
+                                ),
+                              ),
+
+                              Positioned(
+                                top: 20,
+                                right: 5,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:8.0),
+                                        child: Text("الطالب: ${ widget.cname}",
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontFamily: 'Gamja Flower',
+                                              fontStyle: FontStyle.normal),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.grey,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              Positioned(
+                                top: 45,
+                                right: 5,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Row(
+                                    children: <Widget>[
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:8.0),
+                                        child: Text("الفترة: ${ widget.ctime}",
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontFamily: 'Gamja Flower',
+                                              fontStyle: FontStyle.normal),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.calendar_today,
+                                        color: Colors.grey,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                top: 70,
+                                right: 5,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Row(
+                                    children: <Widget>[
+
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:8.0),
+                                        child: Text("من:${widget.clat1} إلى: ${widget.clat2}",
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontFamily: 'Gamja Flower',
+                                              fontStyle: FontStyle.normal),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.location_on,
+                                        color: Colors.grey,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+
+
+
+
+                            ],
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        width: 300 /*MediaQuery.of(context).size.width*/,
+                        height: 40,
+                        child: new RaisedButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              new Text("الطلب"),
+                              Padding(
+                                padding: const EdgeInsets.only(left:10.0),
+                                child: Icon(Icons.check,color: Colors.white,),
+                              ),
+                            ],
+                          ),
+
+                          textColor: Colors.white,
+                          color: const Color(0xff43A2CC),
+                          onPressed: () {
+                            if (_userId == null) {
+                              Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+
+                            } else {
+                              Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                    new ChatPage(
+                                        name:  widget.cname,
+                                        uid: widget.cId
+                                    )),
+                              );
+                            }
+                          },
+//
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(10.0)),
                         ),
-                        borderRadius: BorderRadius.circular(21.0),
-                        color: const Color(0xff4fc3f7),
                       ),
                     ),
+                    SizedBox(
+                      height: 2*_minimumPadding,
+                      width: _minimumPadding,
+                    ),
 
-                  ),
-                ),
-              ],
-            ),
-
-
-            Form(
-              key: _formKey1,
-              child: Padding(
-                  padding: EdgeInsets.only(top:_minimumPadding * 20,bottom: _minimumPadding * 0, right: _minimumPadding * 0,left: _minimumPadding * 0),
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    children: <Widget>[
-
-                      Container(
-                        //color: Colors.grey[200],
-                          width: 300,height: 180,
-                          child:
-                          new Image.asset("assets/images/ic_bluecar.png",
-                              fit: BoxFit.contain)
-
-                      ),
-                      SizedBox(
-                        height: _minimumPadding,
-                        width: _minimumPadding,
-                      ),
-                      Card(
-
-                        shape: new RoundedRectangleBorder(
-                            side: new BorderSide(color:Colors.grey[400], width: 3.0),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        //borderOnForeground: true,
-                        elevation: 10.0,
-                        margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
-                        child: Container(
-                            height: 110,
-                            color: Colors.grey[300],
-                            padding: EdgeInsets.all(0),
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: <Widget>[
-
-                                Positioned(
-                                  top: 0,
-                                  right: 5,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Text(
-                                      "شاحنة ${widget.cCategory} حمولة ${widget.cpayload}",
-                                      textDirection: TextDirection.rtl,
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontFamily: 'Gamja Flower',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15.0,
-                                          fontStyle: FontStyle.normal),
-                                    ),
-                                  ),
-                                ),
-                                /**   Positioned(
-                                    top: 0,
-                                    left: 5,
-                                    child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                    children: <Widget>[
-
-                                    orderclass==null?Text(""):
-                                    Padding(
-                                    padding: const EdgeInsets.only(top:8.0),
-                                    child: Text("خلال: ${ widget.cmodel}",
-                                    textDirection: TextDirection.rtl,
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: 'Gamja Flower',
-                                    fontStyle: FontStyle.normal),
-                                    ),
-                                    ),
-
-                                    ],
-                                    ),
-                                    ),
-                                    ),**/
-
-                                Positioned(
-                                  top: 20,
-                                  right: 5,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("الطالب: ${ widget.cname}",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.person,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                /**  Positioned(
-                                    top: 45,
-                                    right: 5,
-                                    child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                    children: <Widget>[
-
-                                    orderclass==null?Text(""):
-                                    Padding(
-                                    padding: const EdgeInsets.only(top:8.0),
-                                    child: Text("الماركة: ${ orderclass.ccompany}",
-                                    textDirection: TextDirection.rtl,
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontFamily: 'Gamja Flower',
-                                    fontStyle: FontStyle.normal),
-                                    ),
-                                    ),
-                                    Icon(
-                                    Icons.drive_eta,
-                                    color: Colors.grey,
-                                    ),
-                                    ],
-                                    ),
-                                    ),
-                                    ),**/
-                                Positioned(
-                                  top: 45,
-                                  right: 5,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: <Widget>[
-
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("الفترة: ${ widget.ctime}",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.calendar_today,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 70,
-                                  right: 5,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: <Widget>[
-
-                                        Padding(
-                                          padding: const EdgeInsets.only(top:8.0),
-                                          child: Text("من: الى: ",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontFamily: 'Gamja Flower',
-                                                fontStyle: FontStyle.normal),
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.location_on,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-
-
-
-
-
-                              ],
-                            )),
-                      ),
-                      /**Padding(
-                          padding: const EdgeInsets.all(8.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left:10.0),
                           child: Container(
-                          child:orderclass==null?Text(""): Text(orderclass.cdetail,
-                          textDirection: TextDirection.rtl,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                          fontSize: 15.0,
-                          fontFamily: 'Gamja Flower',
-                          fontStyle: FontStyle.normal),
-                          ),
-                          <<<<<<< HEAD
-                          ),
-                          ),**/
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          width: 300 /*MediaQuery.of(context).size.width*/,
-                          height: 40,
-                          child: new RaisedButton(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Text("الطلب"),
-                                Padding(
-                                  padding: const EdgeInsets.only(left:10.0),
-                                  child: Icon(Icons.check,color: Colors.white,),
-                                ),
-                              ],
-                            ),
+                            width: 150 /*MediaQuery.of(context).size.width*/,
+                            height: 40,
+                            child: new RaisedButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  new Text("تواصل عبر الدردشة",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 10,
+                                    ),),
+                                  Icon(Icons.mail_outline,color: Colors.blue,),
+                                ],
+                              ),
+                              textColor: Colors.black54,
+                              color: Colors.grey[400],
+                              onPressed: () {
+                                if (_userId == null) {
+                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
 
-                            textColor: Colors.white,
-                            color: const Color(0xff43A2CC),
-                            onPressed: () {
-                              if (_userId == null) {
-                                Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                      new ChatPage(
-                                          name:  widget.cname,
-                                          uid: widget.cId
-                                      )),
-                                );
-                              }
-                            },
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                        new ChatPage(
+                                            name:  widget.cname,
+                                            uid: widget.cId
+                                        )),
+                                  );
+                                }
+                              },
 //
-                            shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0)),
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0)),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 2*_minimumPadding,
-                        width: _minimumPadding,
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:10.0),
+                          child: Container(
+                            width: 150 /*MediaQuery.of(context).size.width*/,
+                            height: 40,
+                            child: new RaisedButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  new Text("تواصل برقم الجوال",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 10,
+                                    ),),
+                                  Icon(Icons.phone,color: Colors.blue,),
+                                ],
+                              ),
+                              textColor: Colors.black54,
+                              color: Colors.grey[400],
+                              onPressed: () {
+                                if (_userId == null) {
+                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+                                } else {
+                                  if(cPhone!=null){
+                                    _makePhoneCall('tel:$cPhone');
+                                  }else{
+                                    Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left:10.0),
-                            child: Container(
-                              width: 150 /*MediaQuery.of(context).size.width*/,
-                              height: 40,
-                              child: new RaisedButton(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    new Text("تواصل عبر الدردشة",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 10,
-                                      ),),
-                                    Icon(Icons.mail_outline,color: Colors.blue,),
-                                  ],
-                                ),
-                                textColor: Colors.black54,
-                                color: Colors.grey[400],
-                                onPressed: () {
-                                  if (_userId == null) {
-                                    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
-                                  } else {
-                                    Navigator.push(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                          new ChatPage(
-                                              name:  widget.cname,
-                                              uid: widget.cId
-                                          )),
-                                    );
                                   }
-                                },
+                                }
+
+
+
+                              },
 //
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
-                              ),
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0)),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:10.0),
-                            child: Container(
-                              width: 150 /*MediaQuery.of(context).size.width*/,
-                              height: 40,
-                              child: new RaisedButton(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    new Text("تواصل برقم الجوال",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 10,
-                                      ),),
-                                    Icon(Icons.phone,color: Colors.blue,),
-                                  ],
-                                ),
-                                textColor: Colors.black54,
-                                color: Colors.grey[400],
-                                onPressed: () {
-                                  if (_userId == null) {
-                                    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-                                  } else {
-                                    if(cPhone!=null){
-                                      _makePhoneCall('tel:$cPhone');
-                                    }else{
-                                      Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                        ),
 
-                                    }
+                      ],
+                    ),
+                    SizedBox(
+                      height: 2*_minimumPadding,
+                      width: _minimumPadding,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left:10.0),
+                          child: Container(
+                            width: 150 /*MediaQuery.of(context).size.width*/,
+                            height: 40,
+                            child: new RaisedButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  new Text("مشاركة عبر التطبيق",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 10,
+                                    ),),
+                                  Icon(Icons.exit_to_app,color: Colors.blue,),
+                                ],
+                              ),
+                              textColor: Colors.black54,
+                              color: Colors.grey[400],
+                              onPressed: () {
+                              },
+//
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0)),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left:10.0),
+                          child: Container(
+                            width: 150 /*MediaQuery.of(context).size.width*/,
+                            height: 40,
+                            child: new RaisedButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  new Text("تواصل عن طريق الواتساب",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 8,
+                                    ),),
+                                  Icon(Icons.call,color: Colors.blue,),
+                                ],
+                              ),
+                              textColor: Colors.black54,
+                              color: Colors.grey[400],
+                              onPressed: () {
+                                if (_userId == null) {
+                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+
+                                } else {
+                                  if(cPhone!=null){
+                                    //var phone="01003208785";
+                                    var whatsappUrl ="whatsapp://send?phone=+2$cPhone";
+                                    canLaunch(whatsappUrl) != null? launch(whatsappUrl):print("open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
+                                  }else{
+                                    Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
                                   }
+                                }
 
-
-
-                                },
-//
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
-                              ),
-                            ),
-                          ),
-
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2*_minimumPadding,
-                        width: _minimumPadding,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(left:10.0),
-                            child: Container(
-                              width: 150 /*MediaQuery.of(context).size.width*/,
-                              height: 40,
-                              child: new RaisedButton(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    new Text("مشاركة عبر التطبيق",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 10,
-                                      ),),
-                                    Icon(Icons.exit_to_app,color: Colors.blue,),
-                                  ],
-                                ),
-                                textColor: Colors.black54,
-                                color: Colors.grey[400],
-                                onPressed: () {
-                                },
-//
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:10.0),
-                            child: Container(
-                              width: 150 /*MediaQuery.of(context).size.width*/,
-                              height: 40,
-                              child: new RaisedButton(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    new Text("تواصل عن طريق الواتساب",
-                                      style: TextStyle(
-                                        color: Colors.blue,
-                                        fontSize: 8,
-                                      ),),
-                                    Icon(Icons.call,color: Colors.blue,),
-                                  ],
-                                ),
-                                textColor: Colors.black54,
-                                color: Colors.grey[400],
-                                onPressed: () {
-                                  if (_userId == null) {
-                                    Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
-                                  } else {
-                                    if(cPhone!=null){
-                                      //var phone="01003208785";
-                                      var whatsappUrl ="whatsapp://send?phone=+2$cPhone";
-                                      canLaunch(whatsappUrl) != null? launch(whatsappUrl):print("open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
-                                    }else{
-                                      Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
-                                    }
-                                  }
-
-                                },
+                              },
 
 //
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0)),
-                              ),
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0)),
                             ),
                           ),
+                        ),
 
-                        ],
-                      ),
-                      SizedBox(
-                        height: 2*_minimumPadding,
-                        width: _minimumPadding,
-                      ),
-                      Card(
+                      ],
+                    ),
+                    SizedBox(
+                      height: 2*_minimumPadding,
+                      width: _minimumPadding,
+                    ),
+                    Card(
 
-                        shape: new RoundedRectangleBorder(
-                            side: new BorderSide(color:Colors.grey[400], width: 3.0),
-                            borderRadius: BorderRadius.circular(10.0)),
-                        //borderOnForeground: true,
-                        elevation: 10.0,
-                        margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
-                        child: Container(
-                            height: 330,
-                            color: Colors.grey[300],
-                            padding: EdgeInsets.all(0),
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: <Widget>[
+                      shape: new RoundedRectangleBorder(
+                          side: new BorderSide(color:Colors.grey[400], width: 3.0),
+                          borderRadius: BorderRadius.circular(10.0)),
+                      //borderOnForeground: true,
+                      elevation: 10.0,
+                      margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
+                      child: Container(
+                          height: 330,
+                          color: Colors.grey[300],
+                          padding: EdgeInsets.all(0),
+                          child: Column(
+                           // alignment: Alignment.bottomCenter,
+                            children: <Widget>[
+                               commentlist.length == 0
+                                      ? Center(
+                                    child: new Text(
+                                      "لا يوجد بيانات",
+                                    ),)
+                                      :
+                               Flexible(
+                                   child: new ListView.builder(
+                                       physics: BouncingScrollPhysics(),
+                                       controller: _controller,
+                                       itemCount: commentlist.length,
+                                       itemBuilder: (BuildContext ctxt, int index) {
+                                         return _firebasedata(
+                                           index,
+                                           commentlist.length,
+                                           commentlist[index].cId,
+                                           commentlist[index].cuserid,
+                                           commentlist[index].cdate,
+                                           commentlist[index].cheaddate,
+                                           commentlist[index].ccoment,
+                                           commentlist[index].cname,
+                                           commentlist[index].cadvID,
+                                         );
+                                       })
+
+                               ),
+
+
+
+
+
                                 Padding(
-                                  padding: const EdgeInsets.only(top:0.0,bottom: 65),
-                                  child: Container(
-                                    height:300,
-                                    //color: Colors.red[300],
-                                    child:           Expanded(
-                                        child: commentlist.length == 0
-                                            ? Center(
-                                          child: new Text(
-                                            "لا يوجد بيانات",
-                                          ),)
-                                            : new ListView.builder(
-                                            physics: BouncingScrollPhysics(),
-                                            controller: _controller,
-                                            itemCount: commentlist.length,
-                                            itemBuilder: (BuildContext ctxt, int index) {
-                                              return _firebasedata(
-                                                index,
-                                                commentlist.length,
-                                                commentlist[index].cId,
-                                                commentlist[index].cuserid,
-                                                commentlist[index].cdate,
-                                                commentlist[index].cheaddate,
-                                                commentlist[index].ccoment,
-                                                commentlist[index].cname,
-                                                commentlist[index].cadvID,
-                                              );
-                                            })
-
-                                    ),
-
-                                    /** Expanded(
-                                        child: Center(
-                                          child: commentlist.length == 0
-                                              ? new Text(
-                                            "لا يوجد بيانات",
-                                          )
-                                              : new ListView.builder(
-                                              physics: BouncingScrollPhysics(),
-                                              controller: _controller,
-                                              // reverse: true,
-                                              itemCount: commentlist.length,
-                                              itemBuilder: (BuildContext ctxt, int index) {
-                                                return InkWell(
-                                                  child:  _firebasedata(
-                                                    index,
-                                                    commentlist.length,
-                                                    commentlist[index].cId,
-                                                    commentlist[index].cuserid,
-                                                    commentlist[index].cdate,
-                                                    commentlist[index].cheaddate,
-                                                    commentlist[index].ccoment,
-                                                    commentlist[index].cname,
-                                                    commentlist[index].cadvID,
-
-                                                  ),
-
-                                                );
-                                              }),
-
-                                        )),**/
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 5,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child:  Row(
-                                      children: <Widget>[
-                                        Container(
-                                          width: 320,
-                                          height: 60,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: Card(
-                                              elevation: 0.0,
-                                              color: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(5),
-                                              ),
-                                              child: Directionality(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child:  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        width: 320,
+                                        height: 60,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5.0),
+                                          child: Card(
+                                            elevation: 0.0,
+                                            color: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(5),
+                                            ),
+                                            child: Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: TextFormField(
+                                                textAlign: TextAlign.right,
+                                                keyboardType: TextInputType.text,
                                                 textDirection: TextDirection.rtl,
-                                                child: TextFormField(
-                                                  textAlign: TextAlign.right,
-                                                  keyboardType: TextInputType.text,
-                                                  textDirection: TextDirection.rtl,
-                                                  controller: _commentController,
-                                                  validator: (String value) {
-                                                    if ((value.isEmpty)) {
-                                                      return 'برجاء ادخال التعليق';
-                                                    }
-                                                  },
+                                                controller: _commentController,
+                                                validator: (String value) {
+                                                  if ((value.isEmpty)) {
+                                                    return 'برجاء ادخال التعليق';
+                                                  }
+                                                },
 
-                                                  onChanged: (value) {},
-                                                  //  controller: controller,
-                                                  decoration: InputDecoration(
-                                                      errorStyle: TextStyle(color: Colors.red, fontSize: 15.0),
-                                                      labelText: "التعليق",
-                                                      // hintText: "التعليق",
+                                                onChanged: (value) {},
+                                                //  controller: controller,
+                                                decoration: InputDecoration(
+                                                    errorStyle: TextStyle(color: Colors.red, fontSize: 15.0),
+                                                    labelText: "التعليق",
+                                                    // hintText: "التعليق",
 
 //                                prefixIcon: Icon(
 //                                  Icons.phone_iphone,
 //                                  color: Colors.pinkAccent,
 //                                ),
-                                                      border: OutlineInputBorder(
-                                                          borderRadius: BorderRadius.all(
-                                                              Radius.circular(5.0)))
-                                                  ),
+                                                    border: OutlineInputBorder(
+                                                        borderRadius: BorderRadius.all(
+                                                            Radius.circular(5.0)))
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                        InkWell(
-                                          onTap: () async {
-                                            if (_formKey1.currentState.validate()) {
-                                              try {
-                                                final result = await InternetAddress.lookup('google.com');
-                                                if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                                                  createRecord();
-
-                                                }
-                                              } on SocketException catch (_) {
-                                                //  print('not connected');
-                                                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          if (_formKey1.currentState.validate()) {
+                                            try {
+                                              final result = await InternetAddress.lookup('google.com');
+                                              if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                                createRecord();
 
                                               }
+                                            } on SocketException catch (_) {
+                                              //  print('not connected');
+                                              Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+
+                                            }
 //                                                setState(() {
 //                                                  _load2 = true;
 //                                                });
 
 
-                                            }
+                                          }
 
-                                          },
-                                          child: Icon(
-                                            Icons.add_comment,
-                                            color: Colors.grey,
-                                          ),
+                                        },
+                                        child: Icon(
+                                          Icons.add_comment,
+                                          color: Colors.grey,
                                         ),
-                                      ],
-                                    ),
-
-
-
-
-
+                                      ),
+                                    ],
                                   ),
+
+
+
+
+
                                 ),
 
 
 
 
 
-                              ],
-                            )),
-                      ),
 
-                    ],
-                  )),
-            ),
-//            new Align(
-//              child: loadingIndicator,
-//              alignment: FractionalOffset.center,
-//            ),
+                            ],
+                          )),
+                    ),
 
-          ],
-        ),
+                  ],
+                )),
+          ),
+        ],
       ),
     );
   }
