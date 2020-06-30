@@ -256,52 +256,47 @@ class _providerProlileState extends State<providerProlile> {
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       body: Container(
-        child: Stack(
+        child: Column(
           children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 86.0,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 86.0,
+              decoration: BoxDecoration(
+                color: const Color(0xff4fc3f7),
+              ),
+              child: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  width: 20,
+                  height: 20,
+                  child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Icon(Icons.arrow_back)),
+                ),
+              ),
+            ),
+            Transform.translate(
+              offset: Offset(0.0, -42.0),
+              child:
+                  // Adobe XD layer: 'logoBox' (shape)
+                  Center(
+                child: Container(
+                  width: 166.0,
+                  height: 67.0,
                   decoration: BoxDecoration(
+                    image: DecorationImage(
+                      alignment: Alignment.center,
+                      matchTextDirection: true,
+                      repeat: ImageRepeat.noRepeat,
+                      image: AssetImage("assets/logowhite.png"),
+                    ),
+                    borderRadius: BorderRadius.circular(21.0),
                     color: const Color(0xff4fc3f7),
                   ),
-                  child: InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      width: 20,
-                      height: 20,
-                      child: InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: Icon(Icons.arrow_back)),
-                    ),
-                  ),
                 ),
-                Transform.translate(
-                  offset: Offset(0.0, -42.0),
-                  child:
-                      // Adobe XD layer: 'logoBox' (shape)
-                      Center(
-                    child: Container(
-                      width: 166.0,
-                      height: 67.0,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          alignment: Alignment.center,
-                          matchTextDirection: true,
-                          repeat: ImageRepeat.noRepeat,
-                          image: AssetImage("assets/logowhite.png"),
-                        ),
-                        borderRadius: BorderRadius.circular(21.0),
-                        color: const Color(0xff4fc3f7),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-
             Form(
               key: _formKey1,
               child: Padding(
@@ -316,48 +311,48 @@ class _providerProlileState extends State<providerProlile> {
                       //getImageAsset(),
 
                       Container(
-                          //color: Colors.grey[200],
+                        //color: Colors.grey[200],
                           width: 300,
                           height: 200,
                           child: _imageUrls == null
                               ? SpinKitThreeBounce(
-                                  size: 35,
-                                  color: Colors.blue,
-                                )
+                            size: 35,
+                            color: Colors.blue,
+                          )
                               : Swiper(
-                                  loop: false,
-                                  duration: 1000,
-                                  autoplay: true,
-                                  autoplayDelay: 15000,
-                                  itemCount: _imageUrls.length,
-                                  pagination: new SwiperPagination(
-                                    margin: new EdgeInsets.fromLTRB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    builder: new DotSwiperPaginationBuilder(
-                                        color: Colors.grey,
-                                        activeColor: Colors.blue,
-                                        size: 8.0,
-                                        activeSize: 8.0),
-                                  ),
-                                  control: new SwiperControl(),
-                                  viewportFraction: 1,
-                                  scale: 0.1,
-                                  outer: true,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Image.network(_imageUrls[index],
-                                        fit: BoxFit.fill,
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child,
-                                            ImageChunkEvent loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return SpinKitThreeBounce(
-                                        color: Colors.blue,
-                                        size: 35,
-                                      );
-                                    });
-                                  },
-                                )),
+                            loop: false,
+                            duration: 1000,
+                            autoplay: true,
+                            autoplayDelay: 15000,
+                            itemCount: _imageUrls.length,
+                            pagination: new SwiperPagination(
+                              margin: new EdgeInsets.fromLTRB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              builder: new DotSwiperPaginationBuilder(
+                                  color: Colors.grey,
+                                  activeColor: Colors.blue,
+                                  size: 8.0,
+                                  activeSize: 8.0),
+                            ),
+                            control: new SwiperControl(),
+                            viewportFraction: 1,
+                            scale: 0.1,
+                            outer: true,
+                            itemBuilder:
+                                (BuildContext context, int index) {
+                              return Image.network(_imageUrls[index],
+                                  fit: BoxFit.fill,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return SpinKitThreeBounce(
+                                      color: Colors.blue,
+                                      size: 35,
+                                    );
+                                  });
+                            },
+                          )),
                       Card(
                         shape: new RoundedRectangleBorder(
                             side: new BorderSide(
@@ -381,7 +376,7 @@ class _providerProlileState extends State<providerProlile> {
                                         setState(() {
                                           setState(() {
                                             favcheck =
-                                                !favcheck; //boolean value
+                                            !favcheck; //boolean value
                                           });
                                           if (_userId == null) {
                                             //if(favchecklist[position] ){
@@ -418,17 +413,17 @@ class _providerProlileState extends State<providerProlile> {
 
 //////////*******************************************
                                             final databasealarm =
-                                                FirebaseDatabase.instance
-                                                    .reference()
-                                                    .child("Alarm")
-                                                    .child(widget.cId);
+                                            FirebaseDatabase.instance
+                                                .reference()
+                                                .child("Alarm")
+                                                .child(widget.cId);
                                             final databaseFav = FirebaseDatabase
                                                 .instance
                                                 .reference()
                                                 .child("userFavourits")
                                                 .child(_userId)
                                                 .child(widget.cId +
-                                                    widget.cDateID);
+                                                widget.cDateID);
                                             if (favcheck) {
                                               databaseFav.set({
                                                 'cId': widget.cId,
@@ -437,12 +432,12 @@ class _providerProlileState extends State<providerProlile> {
                                               });
                                               databasealarm.push().set({
                                                 'alarmid':
-                                                    databasealarm.push().key,
+                                                databasealarm.push().key,
                                                 'wid': widget.cId,
                                                 'Name': _username,
                                                 'cType': "love",
                                                 'cDateID':
-                                                    "${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
+                                                "${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
                                                 'arrange': int.parse(
                                                     "${now.year.toString()}${b}${c}${d}${e}${f}")
                                               });
@@ -471,20 +466,20 @@ class _providerProlileState extends State<providerProlile> {
                                               top: 10.0, bottom: 10.0),
                                           child: favcheck
                                               ? Icon(
-                                                  Icons.favorite,
-                                                  size: 40.0,
-                                                  color: Colors.red,
-                                                )
+                                            Icons.favorite,
+                                            size: 40.0,
+                                            color: Colors.red,
+                                          )
 ////
                                               : Column(
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      Icons.favorite_border,
-                                                      size: 40.0,
-                                                      color: Colors.red,
-                                                    ),
-                                                  ],
-                                                ),
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.favorite_border,
+                                                size: 40.0,
+                                                color: Colors.red,
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     )),
@@ -496,16 +491,16 @@ class _providerProlileState extends State<providerProlile> {
                                     child: orderclass == null
                                         ? Text("")
                                         : Text(
-                                            "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
-                                            textDirection: TextDirection.rtl,
-                                            textAlign: TextAlign.right,
-                                            style: TextStyle(
-                                                color: Colors.blue,
-                                                fontFamily: 'Gamja Flower',
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15.0,
-                                                fontStyle: FontStyle.normal),
-                                          ),
+                                      "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                      textDirection: TextDirection.rtl,
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          color: Colors.blue,
+                                          fontFamily: 'Gamja Flower',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15.0,
+                                          fontStyle: FontStyle.normal),
+                                    ),
                                   ),
                                 ),
                                 Positioned(
@@ -518,21 +513,21 @@ class _providerProlileState extends State<providerProlile> {
                                         orderclass == null
                                             ? Text("")
                                             : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: Text(
-                                                  "خلال: ${orderclass.cmodel}",
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      fontSize: 15.0,
-                                                      fontFamily:
-                                                          'Gamja Flower',
-                                                      fontStyle:
-                                                          FontStyle.normal),
-                                                ),
-                                              ),
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0),
+                                          child: Text(
+                                            "خلال: ${orderclass.cmodel}",
+                                            textDirection:
+                                            TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily:
+                                                'Gamja Flower',
+                                                fontStyle:
+                                                FontStyle.normal),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -547,21 +542,21 @@ class _providerProlileState extends State<providerProlile> {
                                         orderclass == null
                                             ? Text("")
                                             : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: Text(
-                                                  "المالك: ${widget.cName}",
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      fontSize: 15.0,
-                                                      fontFamily:
-                                                          'Gamja Flower',
-                                                      fontStyle:
-                                                          FontStyle.normal),
-                                                ),
-                                              ),
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0),
+                                          child: Text(
+                                            "المالك: ${widget.cName}",
+                                            textDirection:
+                                            TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily:
+                                                'Gamja Flower',
+                                                fontStyle:
+                                                FontStyle.normal),
+                                          ),
+                                        ),
                                         Icon(
                                           Icons.person,
                                           color: Colors.grey,
@@ -580,21 +575,21 @@ class _providerProlileState extends State<providerProlile> {
                                         orderclass == null
                                             ? Text("")
                                             : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: Text(
-                                                  "الماركة: ${orderclass.ccompany}",
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      fontSize: 15.0,
-                                                      fontFamily:
-                                                          'Gamja Flower',
-                                                      fontStyle:
-                                                          FontStyle.normal),
-                                                ),
-                                              ),
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0),
+                                          child: Text(
+                                            "الماركة: ${orderclass.ccompany}",
+                                            textDirection:
+                                            TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily:
+                                                'Gamja Flower',
+                                                fontStyle:
+                                                FontStyle.normal),
+                                          ),
+                                        ),
                                         Icon(
                                           Icons.drive_eta,
                                           color: Colors.grey,
@@ -613,21 +608,21 @@ class _providerProlileState extends State<providerProlile> {
                                         orderclass == null
                                             ? Text("")
                                             : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: Text(
-                                                  "الموديل: ${orderclass.cmodel}",
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      fontSize: 15.0,
-                                                      fontFamily:
-                                                          'Gamja Flower',
-                                                      fontStyle:
-                                                          FontStyle.normal),
-                                                ),
-                                              ),
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0),
+                                          child: Text(
+                                            "الموديل: ${orderclass.cmodel}",
+                                            textDirection:
+                                            TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily:
+                                                'Gamja Flower',
+                                                fontStyle:
+                                                FontStyle.normal),
+                                          ),
+                                        ),
                                         Icon(
                                           Icons.calendar_today,
                                           color: Colors.grey,
@@ -646,21 +641,21 @@ class _providerProlileState extends State<providerProlile> {
                                         orderclass == null
                                             ? Text("")
                                             : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8.0),
-                                                child: Text(
-                                                  "من: الى: ",
-                                                  textDirection:
-                                                      TextDirection.rtl,
-                                                  textAlign: TextAlign.right,
-                                                  style: TextStyle(
-                                                      fontSize: 15.0,
-                                                      fontFamily:
-                                                          'Gamja Flower',
-                                                      fontStyle:
-                                                          FontStyle.normal),
-                                                ),
-                                              ),
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0),
+                                          child: Text(
+                                            "من: الى: ",
+                                            textDirection:
+                                            TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily:
+                                                'Gamja Flower',
+                                                fontStyle:
+                                                FontStyle.normal),
+                                          ),
+                                        ),
                                         Icon(
                                           Icons.location_on,
                                           color: Colors.grey,
@@ -678,14 +673,14 @@ class _providerProlileState extends State<providerProlile> {
                           child: orderclass == null
                               ? Text("")
                               : Text(
-                                  orderclass.cdetail,
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontFamily: 'Gamja Flower',
-                                      fontStyle: FontStyle.normal),
-                                ),
+                            orderclass.cdetail,
+                            textDirection: TextDirection.rtl,
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                                fontSize: 15.0,
+                                fontFamily: 'Gamja Flower',
+                                fontStyle: FontStyle.normal),
+                          ),
                         ),
                       ),
                       Padding(
@@ -731,10 +726,10 @@ class _providerProlileState extends State<providerProlile> {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) =>
-                                      new CupertinoAlertDialog(
+                                  new CupertinoAlertDialog(
                                     title: new Text("تنبية"),
                                     content:
-                                        new Text("سوف يتم إرسال طلبك الان ؟"),
+                                    new Text("سوف يتم إرسال طلبك الان ؟"),
                                     actions: [
                                       CupertinoDialogAction(
                                           isDefaultAction: false,
@@ -747,28 +742,28 @@ class _providerProlileState extends State<providerProlile> {
 
                                               'Name': _username,
                                               'title':
-                                                  "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                              "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
                                               'statusOrder': "قيد الانتظار",
                                               'cadv': "${orderclass.cadv}",
                                               'curl': "${orderclass.curi}",
                                               'cType': "provider",
                                             }).whenComplete(() =>
-                                                    databasemyorder2.child(pid)
-                                                       // .child(widget.cId)
-                                                        .set({
-                                                      'Uid': _userId,
-                                                      'wid': widget.cId,
-                                                      'pid': pid,
-                                                      'Name': widget.cName,
-                                                      'title':
-                                                          "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
-                                                      'statusOrder': "قيد الانتظار",
-                                                      'cadv':
-                                                          "${orderclass.cadv}",
-                                                      'curl':
-                                                          "${orderclass.curi}",
-                                                      'cType': "user",
-                                                    })).then((value) => Navigator.pop(context)),
+                                                databasemyorder2.child(pid)
+                                                // .child(widget.cId)
+                                                    .set({
+                                                  'Uid': _userId,
+                                                  'wid': widget.cId,
+                                                  'pid': pid,
+                                                  'Name': widget.cName,
+                                                  'title':
+                                                  "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                                  'statusOrder': "قيد الانتظار",
+                                                  'cadv':
+                                                  "${orderclass.cadv}",
+                                                  'curl':
+                                                  "${orderclass.curi}",
+                                                  'cType': "user",
+                                                })).then((value) => Navigator.pop(context)),
                                             child: Text("موافق"),
                                           )),
                                       CupertinoDialogAction(
@@ -814,7 +809,7 @@ class _providerProlileState extends State<providerProlile> {
                               child: new RaisedButton(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     new Text(
                                       "تواصل عبر الدردشة",
@@ -842,9 +837,9 @@ class _providerProlileState extends State<providerProlile> {
                                       context,
                                       new MaterialPageRoute(
                                           builder: (BuildContext context) =>
-                                              new ChatPage(
-                                                  name: widget.cName,
-                                                  uid: widget.cId)),
+                                          new ChatPage(
+                                              name: widget.cName,
+                                              uid: widget.cId)),
                                     );
                                   }
                                 },
@@ -852,7 +847,7 @@ class _providerProlileState extends State<providerProlile> {
 //
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(10.0)),
+                                    new BorderRadius.circular(10.0)),
                               ),
                             ),
                           ),
@@ -864,7 +859,7 @@ class _providerProlileState extends State<providerProlile> {
                               child: new RaisedButton(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     new Text(
                                       "تواصل برقم الجوال",
@@ -900,7 +895,7 @@ class _providerProlileState extends State<providerProlile> {
 //
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(10.0)),
+                                    new BorderRadius.circular(10.0)),
                               ),
                             ),
                           ),
@@ -921,7 +916,7 @@ class _providerProlileState extends State<providerProlile> {
                               child: new RaisedButton(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     new Text(
                                       "مشاركة عبر التطبيق",
@@ -942,7 +937,7 @@ class _providerProlileState extends State<providerProlile> {
 //
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(10.0)),
+                                    new BorderRadius.circular(10.0)),
                               ),
                             ),
                           ),
@@ -954,7 +949,7 @@ class _providerProlileState extends State<providerProlile> {
                               child: new RaisedButton(
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  MainAxisAlignment.spaceEvenly,
                                   children: <Widget>[
                                     new Text(
                                       "تواصل عن طريق الواتساب",
@@ -985,7 +980,7 @@ class _providerProlileState extends State<providerProlile> {
                                       canLaunch(whatsappUrl) != null
                                           ? launch(whatsappUrl)
                                           : print(
-                                              "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
+                                          "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
                                     } else {
                                       Toast.show("حاول مرة اخرى", context,
                                           duration: Toast.LENGTH_LONG,
@@ -997,7 +992,7 @@ class _providerProlileState extends State<providerProlile> {
 //
                                 shape: new RoundedRectangleBorder(
                                     borderRadius:
-                                        new BorderRadius.circular(10.0)),
+                                    new BorderRadius.circular(10.0)),
                               ),
                             ),
                           ),
@@ -1019,8 +1014,8 @@ class _providerProlileState extends State<providerProlile> {
                             height: 330,
                             color: Colors.grey[300],
                             padding: EdgeInsets.all(0),
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
+                            child: Column(
+                            //  alignment: Alignment.bottomCenter,
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.only(
@@ -1030,11 +1025,11 @@ class _providerProlileState extends State<providerProlile> {
                                     //color: Colors.red[300],
                                     child: Expanded(
                                         child: Center(
-                                      child: commentlist.length == 0
-                                          ? new Text(
-                                              "لا يوجد بيانات",
-                                            )
-                                          : new ListView.builder(
+                                          child: commentlist.length == 0
+                                              ? new Text(
+                                            "لا يوجد بيانات",
+                                          )
+                                              : new ListView.builder(
                                               physics: BouncingScrollPhysics(),
                                               controller: _controller,
                                               // reverse: true,
@@ -1081,7 +1076,7 @@ class _providerProlileState extends State<providerProlile> {
 //                                                    }
                                                 );
                                               }),
-                                    )),
+                                        )),
                                   ),
                                 ),
                                 Positioned(
@@ -1100,19 +1095,19 @@ class _providerProlileState extends State<providerProlile> {
                                               color: Colors.white,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                BorderRadius.circular(5),
                                               ),
                                               child: Directionality(
                                                 textDirection:
-                                                    TextDirection.rtl,
+                                                TextDirection.rtl,
                                                 child: TextFormField(
                                                   textAlign: TextAlign.right,
                                                   keyboardType:
-                                                      TextInputType.text,
+                                                  TextInputType.text,
                                                   textDirection:
-                                                      TextDirection.rtl,
+                                                  TextDirection.rtl,
                                                   controller:
-                                                      _commentController,
+                                                  _commentController,
                                                   validator: (String value) {
                                                     if ((value.isEmpty)) {
                                                       return 'برجاء ادخال التعليق';
@@ -1134,9 +1129,9 @@ class _providerProlileState extends State<providerProlile> {
 //                                ),
                                                       border: OutlineInputBorder(
                                                           borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      5.0)))),
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  5.0)))),
                                                 ),
                                               ),
                                             ),
@@ -1148,8 +1143,8 @@ class _providerProlileState extends State<providerProlile> {
                                                 .validate()) {
                                               try {
                                                 final result =
-                                                    await InternetAddress
-                                                        .lookup('google.com');
+                                                await InternetAddress
+                                                    .lookup('google.com');
                                                 if (result.isNotEmpty &&
                                                     result[0]
                                                         .rawAddress
@@ -1161,7 +1156,7 @@ class _providerProlileState extends State<providerProlile> {
                                                 Toast.show(
                                                     Translations.of(context)
                                                         .translate(
-                                                            'please_see_network_connection'),
+                                                        'please_see_network_connection'),
                                                     context,
                                                     duration: Toast.LENGTH_LONG,
                                                     gravity: Toast.BOTTOM);
@@ -1188,10 +1183,7 @@ class _providerProlileState extends State<providerProlile> {
                     ],
                   )),
             ),
-//            new Align(
-//              child: loadingIndicator,
-//              alignment: FractionalOffset.center,
-//            ),
+
           ],
         ),
       ),

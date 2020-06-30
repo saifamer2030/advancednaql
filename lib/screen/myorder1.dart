@@ -1,33 +1,26 @@
 import 'package:advancednaql/classes/AlarmaClass.dart';
 import 'package:advancednaql/classes/MyOrderClass.dart';
-import 'package:advancednaql/classes/OrderClass.dart';
-import 'package:advancednaql/classes/OrderNameClass.dart';
-import 'package:advancednaql/classes/UserRateClass.dart';
-import 'package:advancednaql/screen/orderprofile.dart';
-import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
-
-import 'package:toast/toast.dart';
-
 import 'ModelsForChating/chat.dart';
 import 'login.dart';
 
-class myOrder extends StatefulWidget {
+class myOrder1 extends StatefulWidget {
   @override
-  _myOrderState createState() => _myOrderState();
+  _myOrder1State createState() => _myOrder1State();
 }
 
-class _myOrderState extends State<myOrder> {
+class _myOrder1State extends State<myOrder1> {
   List<MyOrderClass> myorderlist = [];
 
   //List<String> namelist = [];
   bool _load = false;
   String _userId;
-  final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
+  final databasemyorder = FirebaseDatabase.instance.reference().child(
+      "MyOrder");
 
   @override
   void initState() {
@@ -36,13 +29,16 @@ class _myOrderState extends State<myOrder> {
       _load = true;
     });
 
-    FirebaseAuth.instance.currentUser().then((user) => user == null
+    FirebaseAuth.instance.currentUser().then((user) =>
+    user == null
         ?
     Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
         builder: (context) => LoginScreen2(), maintainState: false))
-        : setState(() {
+        :
+    setState(() {
       _userId = user.uid;
-      final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
+      final databasemyorder = FirebaseDatabase.instance.reference().child(
+          "MyOrder");
 //           orderdatabaseReference.once().then((DataSnapshot data) {
 //              var uuId = data.value.keys;
 
@@ -84,7 +80,10 @@ class _myOrderState extends State<myOrder> {
       child: SpinKitCircle(color: Colors.blue),
     )
         : new Container();
-    TextStyle textStyle = Theme.of(context).textTheme.subtitle;
+    TextStyle textStyle = Theme
+        .of(context)
+        .textTheme
+        .subtitle;
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       floatingActionButton: Container(
@@ -111,10 +110,26 @@ class _myOrderState extends State<myOrder> {
           Column(
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 height: 86.0,
                 decoration: BoxDecoration(
+
                   color: const Color(0xff4fc3f7),
+                ),
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 20,
+                    height: 20,
+                    child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(Icons.arrow_back)),
+                  ),
                 ),
               ),
               Transform.translate(
@@ -140,42 +155,37 @@ class _myOrderState extends State<myOrder> {
               ),
             ],
           ),
-            Expanded(
-            child: myorderlist.length == 0
-    ? new Center(
-    child: loadingIndicator,
-    )
-        : new ListView.builder(
-    physics: BouncingScrollPhysics(),
-    controller: _controller,
-    itemCount: myorderlist.length,
-    itemBuilder: (BuildContext ctxt, int index) {
-    return InkWell(
-    child: _firebasedata(
-    index,
-    myorderlist.length,
-    myorderlist[index].Uid,
-    myorderlist[index].wid,
-    myorderlist[index].pid,
-    myorderlist[index].Name,
-    myorderlist[index].title,
-    myorderlist[index].statusOrder,
-    myorderlist[index].cadv,
-    myorderlist[index].curl,
-    myorderlist[index].cType,
-    ),
-    );
-    })),
+          Expanded(
+              child: myorderlist.length == 0
+                  ? Center(
+                child: loadingIndicator,)
+                  : new ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  controller: _controller,
+                  itemCount: myorderlist.length,
+                  itemBuilder: (BuildContext ctxt, int index) {
+                    return _firebasedata(
+                      index,
+                      myorderlist.length,
+                      myorderlist[index].Uid,
+                      myorderlist[index].wid,
+                      myorderlist[index].pid,
+                      myorderlist[index].Name,
+                      myorderlist[index].title,
+                      myorderlist[index].statusOrder,
+                      myorderlist[index].cadv,
+                      myorderlist[index].curl,
+                      myorderlist[index].cType,
+                    );
+                  })
 
-
-
-    ],
+          )
+        ],
       ),
     );
   }
 
-  Widget _firebasedata(
-      int position,
+  Widget _firebasedata(int position,
       int length,
       String Uid,
       String wid,
@@ -185,8 +195,7 @@ class _myOrderState extends State<myOrder> {
       String statusOrder,
       String cadv,
       String curl,
-      String cType,
-      ) {
+      String cType,) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -294,7 +303,9 @@ class _myOrderState extends State<myOrder> {
                                 " $statusOrder",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  color:  statusOrder=="قيد الانتظار"? Colors.blue:statusOrder=="مقبول"?  Colors.green:Colors.red,
+                                  color: statusOrder == "قيد الانتظار" ? Colors
+                                      .blue : statusOrder == "مقبول" ? Colors
+                                      .green : Colors.red,
                                   fontSize: 13,
                                   //    fontWeight: FontWeight.bold
                                 ),
@@ -312,7 +323,7 @@ class _myOrderState extends State<myOrder> {
                             ],
                           ),
                         ),
-                        cType=="provider" ?Row(
+                        cType == "provider" ? Row(
                           //  crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(
@@ -329,7 +340,7 @@ class _myOrderState extends State<myOrder> {
                                         height: _minimumPadding,
                                         width: _minimumPadding,
                                       ),
-                                      Icon(Icons.check,color: Colors.white,),
+                                      Icon(Icons.check, color: Colors.white,),
                                     ],
                                   ),
                                   textColor: Colors.white,
@@ -340,26 +351,26 @@ class _myOrderState extends State<myOrder> {
                                         .reference()
                                         .child("MyOrder")
                                         .child(Uid).child(pid).update({
-                                      "statusOrder":"مقبول",
+                                      "statusOrder": "مقبول",
                                     }).then((_) {
-
                                       FirebaseDatabase
                                           .instance
                                           .reference()
                                           .child("MyOrder")
                                           .child(wid).child(pid).update({
-                                        "statusOrder":"مقبول",
+                                        "statusOrder": "مقبول",
                                       }).then((_) {
-
                                         setState(() {
-                                          myorderlist[position].statusOrder="مقبول";
-
+                                          myorderlist[position].statusOrder =
+                                          "مقبول";
                                         });
-                                      });});
+                                      });
+                                    });
                                   },
 //
                                   shape: new RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(100.0)),
+                                      borderRadius: new BorderRadius.circular(
+                                          100.0)),
                                 ),
                               ),
                             ),
@@ -377,7 +388,7 @@ class _myOrderState extends State<myOrder> {
                                         height: _minimumPadding,
                                         width: _minimumPadding,
                                       ),
-                                      Icon(Icons.close,color: Colors.white,),
+                                      Icon(Icons.close, color: Colors.white,),
                                     ],
                                   ),
                                   textColor: Colors.white,
@@ -388,35 +399,32 @@ class _myOrderState extends State<myOrder> {
                                         .reference()
                                         .child("MyOrder")
                                         .child(Uid).child(pid).update({
-                                      "statusOrder":"مرفوض",
+                                      "statusOrder": "مرفوض",
                                     }).then((_) {
-
                                       FirebaseDatabase
                                           .instance
                                           .reference()
                                           .child("MyOrder")
                                           .child(wid).child(pid).update({
-                                        "statusOrder":"مرفوض",
+                                        "statusOrder": "مرفوض",
                                       }).then((_) {
-
                                         setState(() {
-                                          myorderlist[position].statusOrder="مرفوض";
+                                          myorderlist[position].statusOrder =
+                                          "مرفوض";
                                         });
-                                      });});
-
-
-
-
+                                      });
+                                    });
                                   },
 //
                                   shape: new RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(100.0)),
+                                      borderRadius: new BorderRadius.circular(
+                                          100.0)),
                                 ),
                               ),
                             ),
 
                           ],
-                        ):Container(),
+                        ) : Container(),
 
                       ],
                     ),

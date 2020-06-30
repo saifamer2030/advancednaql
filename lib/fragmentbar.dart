@@ -6,8 +6,10 @@ import 'package:advancednaql/screen/allorder.dart';
 import 'package:advancednaql/screen/login.dart';
 import 'package:advancednaql/screen/morewidget.dart';
 import 'package:advancednaql/screen/myOrder.dart';
+import 'package:advancednaql/screen/myalarm1.dart';
 import 'package:advancednaql/screen/myalarms.dart';
 import 'package:advancednaql/screen/myfavourits.dart';
+import 'package:advancednaql/screen/myorder1.dart';
 import 'package:advancednaql/screen/neworder.dart';
 import 'package:fimber/fimber_base.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -52,7 +54,7 @@ class _fragmentState extends State<Fragmentnaql> {
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       MoreWidget(),
-      MyAlarms(),
+      MyAlarms1(),
       MyFav(),
       myOrder(),
       AllOrder(),

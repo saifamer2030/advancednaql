@@ -203,7 +203,6 @@ class _orderProfileState extends State<orderProfile> {
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     children: <Widget>[
-                      //getImageAsset(),
 
                       Container(
                         //color: Colors.grey[200],
@@ -643,7 +642,33 @@ class _orderProfileState extends State<orderProfile> {
                                   child: Container(
                                     height:300,
                                     //color: Colors.red[300],
-                                    child:  Expanded(
+                                    child:           Expanded(
+                                        child: commentlist.length == 0
+                                            ? Center(
+                                          child: new Text(
+                                            "لا يوجد بيانات",
+                                          ),)
+                                            : new ListView.builder(
+                                            physics: BouncingScrollPhysics(),
+                                            controller: _controller,
+                                            itemCount: commentlist.length,
+                                            itemBuilder: (BuildContext ctxt, int index) {
+                                              return _firebasedata(
+                                                index,
+                                                commentlist.length,
+                                                commentlist[index].cId,
+                                                commentlist[index].cuserid,
+                                                commentlist[index].cdate,
+                                                commentlist[index].cheaddate,
+                                                commentlist[index].ccoment,
+                                                commentlist[index].cname,
+                                                commentlist[index].cadvID,
+                                              );
+                                            })
+
+                                    ),
+
+                                    /** Expanded(
                                         child: Center(
                                           child: commentlist.length == 0
                                               ? new Text(
@@ -668,98 +693,11 @@ class _orderProfileState extends State<orderProfile> {
                                                     commentlist[index].cadvID,
 
                                                   ),
-//                                                    onTap: () {
-//                                                      if(_userId==commentlist[index].cuserid){
-//                                                        FirebaseDatabase.instance
-//                                                            .reference()
-//                                                            .child("commentsdata")
-//                                                            .child(widget.cId)
-//                                                            .child(commentlist[index].cheaddate)
-//                                                            .remove()
-//                                                            .whenComplete(() {
-//
-//                                                          setState(() {
-//                                                            commentlist.removeAt(index);
-//                                                          });
-//                                                          Toast.show("تم حذف التعليق", context,
-//                                                              duration: Toast.LENGTH_SHORT,
-//                                                              gravity: Toast.BOTTOM);
-//                                                        });
-//                                                      }
-//                                                      else{
-//                                                        Toast.show("ليس تعليقك", context,
-//                                                            duration: Toast.LENGTH_SHORT,
-//                                                            gravity: Toast.BOTTOM);
-//                                                      }
-//                                                    }
+
                                                 );
                                               }),
-                                          /** new ListView.builder(
-                                              key: refreshKey,
-                                              physics: BouncingScrollPhysics(),
-                                              //controller: _controller,
-                                              itemCount: commentlist.length,
-                                              itemBuilder: (_, index) {
-                                              return Dismissible(
-                                              key: Key(commentlist[index].cId),
-                                              background: Container(
-                                              color: Colors.red,
-                                              padding: EdgeInsets.only(left: 20),
-                                              child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Icon(
-                                              Icons.delete_forever,
-                                              color: Colors.white,
-                                              size: 60,
-                                              ),
-                                              )),
-                                              direction: DismissDirection.startToEnd,
-                                              onDismissed: (direction) {
-                                              setState(() {
-                                              setState(() {
-                                              commentlist.removeAt(index);
-                                              });
-                                              // commentlist.removeAt(index);
-                                              //Toast.show(userfavlist[index].cId+"//"+_userId,context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-                                              if(_userId==commentlist[index].cuserid){
-                                              FirebaseDatabase.instance
-                                              .reference()
-                                              .child("commentsdata")
-                                              .child(widget.cId)
-                                              .child(commentlist[index].cheaddate)
-                                              .remove()
-                                              .whenComplete(() {
 
-                                              //                                                          setState(() {
-                                              //                                                            commentlist.removeAt(index);
-                                              //                                                          });
-                                              Toast.show("تم حذف التعليق", context,
-                                              duration: Toast.LENGTH_SHORT,
-                                              gravity: Toast.BOTTOM);
-                                              });
-                                              }
-                                              else{
-                                              Toast.show("ليس تعليقك", context,
-                                              duration: Toast.LENGTH_SHORT,
-                                              gravity: Toast.BOTTOM);
-                                              }
-                                              });
-                                              },
-                                              child:
-                                              _firebasedata(
-                                              index,
-                                              commentlist.length,
-                                              commentlist[index].cId,
-                                              commentlist[index].cuserid,
-                                              commentlist[index].cdate,
-                                              commentlist[index].cheaddate,
-                                              commentlist[index].ccoment,
-                                              commentlist[index].cname,
-
-                                              ),
-                                              );
-                                              }),**/
-                                        )),
+                                        )),**/
                                   ),
                                 ),
                                 Positioned(

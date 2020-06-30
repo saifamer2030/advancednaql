@@ -220,207 +220,203 @@ class _AllOrderState extends State<AllOrder> {
           ),
         ),
       ),
-      body: Stack(
+      body: Column(
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Container(
-                width:  MediaQuery.of(context).size.width,
-                height: 86.0,
-                decoration: BoxDecoration(
+          Container(
+            width:  MediaQuery.of(context).size.width,
+            height: 86.0,
+            decoration: BoxDecoration(
 
+              color: const Color(0xff4fc3f7),
+            ),
+          ),
+          Transform.translate(
+            offset: Offset(0.0, -42.0),
+            child:
+            // Adobe XD layer: 'logoBox' (shape)
+            Center(
+              child: Container(
+                width: 166.0,
+                height: 67.0,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    alignment: Alignment.center,
+                    matchTextDirection: true,
+                    repeat: ImageRepeat.noRepeat,
+                    image: AssetImage("assets/logowhite.png"),
+                  ),
+                  borderRadius: BorderRadius.circular(21.0),
                   color: const Color(0xff4fc3f7),
                 ),
               ),
-              Transform.translate(
-                offset: Offset(0.0, -42.0),
-                child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
-                  child: Container(
-                    width: 166.0,
-                    height: 67.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        alignment: Alignment.center,
-                        matchTextDirection: true,
-                        repeat: ImageRepeat.noRepeat,
-                        image: AssetImage("assets/logowhite.png"),
-                      ),
-                      borderRadius: BorderRadius.circular(21.0),
-                      color: const Color(0xff4fc3f7),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Container(
-                  height: 40.0,
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          width:  ( MediaQuery.of(context).size.width / 6 ) * 2.4,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Colors.grey[500],
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: TextField(
-                              keyboardType: TextInputType.multiline,
-                              textInputAction: TextInputAction.search,
-                              style: TextStyle(color: Colors.black),
-                              onChanged: (value) {
-                                filterSearchResults(value);
-                              },
-                              controller: searchcontroller,
-                              // focusNode: focus,
-                              decoration: InputDecoration(
-                                labelText: searchcontroller.text.isEmpty
-                                    ? "بحث بالاسم"
-                                    : '',
-                                labelStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.bold),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.black,
-                                ),
-                                suffixIcon: searchcontroller.text.isNotEmpty
-                                    ? IconButton(
-                                        icon: Icon(Icons.cancel,
-                                            color: Colors.black),
-                                        onPressed: () {
-                                          setState(() {
-                                            searchcontroller.clear();
-                                            filterSearchResults('');
-                                          });
-                                        },
-                                      )
-                                    : null,
-                                errorStyle: TextStyle(color: Colors.blue),
-                                enabled: true,
-                                alignLabelWithHint: true,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                           width: ( MediaQuery.of(context).size.width / 6 ) * 1.8 ,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Colors.grey[500],
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: RaisedButton(
-                              color: Colors.grey[500],
-                              onPressed: () {
-                                Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => MyHomePage()),);
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    "الخريطة",
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Icon(
-                                    Icons.location_on,
-                                    color: Colors.black,
-                                    size: 20.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 5.0),
-                           width: ( MediaQuery.of(context).size.width / 6) * 1.3,
-                          height: 35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: const Color(0xff43A2CC),
-                          ),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: DropdownButton<String>(
-                              items: _typearray.map((String value) {
-                                return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ));
-                              }).toList(),
-                              value: _typecurrentItemSelected,
-                              onChanged: (String newValueSelected) {
-                                // Your code to execute, when a menu item is selected from dropdown
-                                _onDropDownItemSelectedtype(newValueSelected);
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                  child: orderlist.length == 0
-                      ? Center(
-                          child: loadingIndicator,
-                        )
-                      : new ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          controller: _controller,
-                          itemCount: orderlist.length,
-                          itemBuilder: (BuildContext ctxt, int index) {
-                            return InkWell(
-                                child: firebasedata(
-                                  index,
-                                  orderlist.length,
-                                  orderlist[index].cId,
-                                  orderlist[index].cdate,
-                                  orderlist[index].clat1,
-                                  orderlist[index].clong1,
-                                  orderlist[index].clat2,
-                                  orderlist[index].clong2,
-                                  orderlist[index].cType,
-                                  orderlist[index].cCategory,
-                                  orderlist[index].cpayload,
-                                  orderlist[index].cnocars,
-                                  orderlist[index].ctime,
-                                  orderlist[index].cpublished,
-                                  orderlist[index].cstarttraveltime,
-                                  orderlist[index].curi,
-                                  orderlist[index].cName,
-                                  orderlist[index].rating,
-                                  orderlist[index].custRate,
-                                  orderlist[index].cDateID,
-                                ),
-                                onTap: () {});
-                          }))
-            ],
+            ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Container(
+              height: 40.0,
+              decoration: BoxDecoration(color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                      width:  ( MediaQuery.of(context).size.width / 6 ) * 2.4,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[500],
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          textInputAction: TextInputAction.search,
+                          style: TextStyle(color: Colors.black),
+                          onChanged: (value) {
+                            filterSearchResults(value);
+                          },
+                          controller: searchcontroller,
+                          // focusNode: focus,
+                          decoration: InputDecoration(
+                            labelText: searchcontroller.text.isEmpty
+                                ? "بحث بالاسم"
+                                : '',
+                            labelStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.black,
+                            ),
+                            suffixIcon: searchcontroller.text.isNotEmpty
+                                ? IconButton(
+                                    icon: Icon(Icons.cancel,
+                                        color: Colors.black),
+                                    onPressed: () {
+                                      setState(() {
+                                        searchcontroller.clear();
+                                        filterSearchResults('');
+                                      });
+                                    },
+                                  )
+                                : null,
+                            errorStyle: TextStyle(color: Colors.blue),
+                            enabled: true,
+                            alignLabelWithHint: true,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                       width: ( MediaQuery.of(context).size.width / 6 ) * 1.8 ,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.grey[500],
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: RaisedButton(
+                          color: Colors.grey[500],
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MyHomePage()),);
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              Text(
+                                "الخريطة",
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Icon(
+                                Icons.location_on,
+                                color: Colors.black,
+                                size: 20.0,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 5.0),
+                       width: ( MediaQuery.of(context).size.width / 6) * 1.3,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: const Color(0xff43A2CC),
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: DropdownButton<String>(
+                          items: _typearray.map((String value) {
+                            return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(
+                                  value,
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ));
+                          }).toList(),
+                          value: _typecurrentItemSelected,
+                          onChanged: (String newValueSelected) {
+                            // Your code to execute, when a menu item is selected from dropdown
+                            _onDropDownItemSelectedtype(newValueSelected);
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+              child: orderlist.length == 0
+                  ? Center(
+                      child: loadingIndicator,
+                    )
+                  : new ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      controller: _controller,
+                      itemCount: orderlist.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return InkWell(
+                            child: firebasedata(
+                              index,
+                              orderlist.length,
+                              orderlist[index].cId,
+                              orderlist[index].cdate,
+                              orderlist[index].clat1,
+                              orderlist[index].clong1,
+                              orderlist[index].clat2,
+                              orderlist[index].clong2,
+                              orderlist[index].cType,
+                              orderlist[index].cCategory,
+                              orderlist[index].cpayload,
+                              orderlist[index].cnocars,
+                              orderlist[index].ctime,
+                              orderlist[index].cpublished,
+                              orderlist[index].cstarttraveltime,
+                              orderlist[index].curi,
+                              orderlist[index].cName,
+                              orderlist[index].rating,
+                              orderlist[index].custRate,
+                              orderlist[index].cDateID,
+                            ),
+                            onTap: () {});
+                      }))
         ],
       ),
     );
