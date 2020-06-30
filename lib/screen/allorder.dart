@@ -225,20 +225,23 @@ class _AllOrderState extends State<AllOrder> {
           Column(
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: 68.0,
+                width:  MediaQuery.of(context).size.width,
+                height: 86.0,
                 decoration: BoxDecoration(
+
                   color: const Color(0xff4fc3f7),
                 ),
               ),
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                    // Adobe XD layer: 'logoBox' (shape)
-                    Center(
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
                   child: Container(
+
                     width: 156.0,
                     height: 57.0,
+
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
@@ -449,7 +452,10 @@ class _AllOrderState extends State<AllOrder> {
   ) {
     var cRate = 0.0;
     if (custRate > 0) {
-      cRate = double.parse(rating) / custRate;
+      if(rating==null || custRate== null){
+      }else{
+        cRate = double.parse(rating) / custRate;
+      }
     }
     return Padding(
       padding: const EdgeInsets.all(2.0),
@@ -550,7 +556,7 @@ class _AllOrderState extends State<AllOrder> {
                           right: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: Text(
+                            child:(cCategory == null||cpayload == null)? Text(""):Text(
                               "$cCategory حمولة  $cpayload",
                               textDirection: TextDirection.rtl,
                               textAlign: TextAlign.right,
@@ -609,6 +615,24 @@ class _AllOrderState extends State<AllOrder> {
                                   ),
                           ),
                         ),
+                        cType == "طلب" ?   Positioned(
+                          top: 75,
+                          right: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ctime != null
+                                ? Text(  "وقت التحرك: $ctime ",
+                              textDirection: TextDirection.rtl,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 10.0,
+                                  fontFamily: 'Gamja Flower',
+                                  fontStyle: FontStyle.normal),
+                            )
+                                : Text(" "),
+                          ),
+                        ):Container(),
+
                         Positioned(
                           top: 100,
                           right: 0,
@@ -654,20 +678,7 @@ class _AllOrderState extends State<AllOrder> {
                                   height: _minimumPadding,
                                   width: _minimumPadding,
                                 ),
-                                Text(
-                                  "وقت التحرك: ",
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontFamily: 'Gamja Flower',
-                                      fontSize: 10.0,
-                                      fontStyle: FontStyle.normal),
-                                ),
-                                SizedBox(
-                                  height: _minimumPadding,
-                                  width: _minimumPadding,
-                                ),
-                                Text(
+                                 cdate == null? Text(""): Text(
                                   "منذ: $cdate",
                                   textDirection: TextDirection.rtl,
                                   textAlign: TextAlign.right,

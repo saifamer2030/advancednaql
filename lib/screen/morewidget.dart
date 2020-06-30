@@ -310,7 +310,7 @@ class _MoreWidget extends State<MoreWidget> {
                           height: .2,
                           color: Colors.grey,
                         ),
-                        InkWell(
+                       /** InkWell(
                           onTap: () {
                             HelperFunc.reopenSetting(context);
                           },
@@ -358,7 +358,7 @@ class _MoreWidget extends State<MoreWidget> {
                               ),
                             ],
                           ),
-                        ),
+                        ),**/
 
 //                        Container(
 //                          width: MediaQuery.of(context).size.width,

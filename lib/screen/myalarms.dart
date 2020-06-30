@@ -13,6 +13,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:toast/toast.dart';
 
 import 'ModelsForChating/chat.dart';
+import 'login.dart';
 
 class MyAlarms extends StatefulWidget {
   @override
@@ -35,7 +36,9 @@ class _MyAlarmsState extends State<MyAlarms> {
     });
 
     FirebaseAuth.instance.currentUser().then((user) => user == null
-        ? null
+        ?
+    Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
+        builder: (context) => LoginScreen2(), maintainState: false))
         : setState(() {
             _userId = user.uid;
             final databasealarm =
@@ -141,7 +144,7 @@ class _MyAlarmsState extends State<MyAlarms> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 100),
+            padding: const EdgeInsets.only(top: 0),
             child: Expanded(
                 child: Center(
               child: alarmlist.length == 0
@@ -151,7 +154,6 @@ class _MyAlarmsState extends State<MyAlarms> {
                   : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,
-                      // reverse: true,
                       itemCount: alarmlist.length,
                       itemBuilder: (BuildContext ctxt, int index) {
                         return InkWell(
