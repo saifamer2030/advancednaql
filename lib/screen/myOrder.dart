@@ -123,8 +123,8 @@ class _myOrderState extends State<myOrder> {
                 // Adobe XD layer: 'logoBox' (shape)
                 Center(
                   child: Container(
-                    width: 166.0,
-                    height: 67.0,
+                    width: 156.0,
+                    height: 57.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,

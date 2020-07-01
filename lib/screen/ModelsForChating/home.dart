@@ -128,8 +128,8 @@ class _HomePageState extends State<HomePage> {
           child:
               // Adobe XD layer: 'logoBox' (shape)
               Container(
-            width: 166.0,
-            height: 67.0,
+                width: 156.0,
+                height: 57.0,
             decoration: BoxDecoration(
               image: DecorationImage(
                 alignment: Alignment.center,

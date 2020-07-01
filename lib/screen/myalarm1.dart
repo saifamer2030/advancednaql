@@ -107,18 +107,6 @@ class _MyAlarms1State extends State<MyAlarms1> {
 
                   color: const Color(0xff4fc3f7),
                 ),
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 20,
-                    height: 20,
-                    child: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Icon(Icons.arrow_back)),
-                  ),
-                ),
               ),
               Transform.translate(
                 offset: Offset(0.0, -42.0),
@@ -126,8 +114,8 @@ class _MyAlarms1State extends State<MyAlarms1> {
                 // Adobe XD layer: 'logoBox' (shape)
                 Center(
                   child: Container(
-                    width: 166.0,
-                    height: 67.0,
+                    width: 156.0,
+                    height: 57.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,

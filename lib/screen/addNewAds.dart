@@ -41,8 +41,8 @@ class _adsState extends State<AddNewAds> {
                     // Adobe XD layer: 'logoBox' (shape)
                     Center(
                   child: Container(
-                    width: 166.0,
-                    height: 67.0,
+                    width: 156.0,
+                    height: 57.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
@@ -99,7 +99,7 @@ class _adsState extends State<AddNewAds> {
                               child: Stack(
                                 children: <Widget>[
                                   Container(
-                                    width: 100.0,
+                                    width: 120.0,
                                     height: 30.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5.0),
@@ -114,6 +114,7 @@ class _adsState extends State<AddNewAds> {
                                         style: TextStyle(
                                           fontFamily: 'DroidArabicKufi',
                                           fontSize: 10,
+                                          fontWeight: FontWeight.bold,
                                           color: const Color(0xff41a0cb),
                                           height: 1.2000000762939453,
                                         ),
@@ -158,7 +159,7 @@ class _adsState extends State<AddNewAds> {
                               child: Stack(
                                 children: <Widget>[
                                   Container(
-                                    width: 100.0,
+                                    width: 120.0,
                                     height: 30.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5.0),
@@ -173,6 +174,7 @@ class _adsState extends State<AddNewAds> {
                                         style: TextStyle(
                                           fontFamily: 'DroidArabicKufi',
                                           fontSize: 10,
+                                          fontWeight: FontWeight.bold,
                                           color: const Color(0xff41a0cb),
                                           height: 1.2000000762939453,
                                         ),

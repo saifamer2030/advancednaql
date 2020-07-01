@@ -57,8 +57,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
                   // Adobe XD layer: 'logoBox' (shape)
                   Center(
                     child: Container(
-                      width: 166.0,
-                      height: 67.0,
+                      width: 156.0,
+                      height: 57.0,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           alignment: Alignment.center,
@@ -128,46 +128,49 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                       height: 60,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8),
-                                        child: TextFormField(
-                                          keyboardType:
-                                              TextInputType.text,
-                                          style: textStyle,
+                                        child: Directionality(
                                           textDirection: TextDirection.rtl,
-                                          controller: _emailController,
-                                          validator: (String value) {
-                                            if (value.isEmpty) {
-                                              return 'برجاء إدخال البريد الإلكترونى';
-                                            }
-
-                                            Pattern pattern =r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                                            Pattern pattern1 =r'^(?:[+0]10)?[0-9]{11}$';//10,11 for 11 no
-                                                                //(?:[+0]n)?[0-9]{n+1}$'
-                                            RegExp regex = new RegExp(pattern);
-                                            RegExp regex1 = new RegExp(pattern1);
-                                            if ((regex.hasMatch(value))|| (regex1.hasMatch(value))) {
-                                              if (regex.hasMatch(value)) {
-                                                setState(() {
-                                                  _authtype=false;
-                                                });
-
-                                              }else if (regex1.hasMatch(value)) {
-                                                setState(() {
-                                                  _authtype=true;
-                                                });
+                                          child: TextFormField(
+                                            keyboardType:
+                                                TextInputType.text,
+                                            style: textStyle,
+                                            textDirection: TextDirection.rtl,
+                                            controller: _emailController,
+                                            validator: (String value) {
+                                              if (value.isEmpty) {
+                                                return 'برجاء إدخال البريد الإلكترونى';
                                               }
-                                            }else{
-                                              return Translations.of(context).translate('email_phone_error');
 
-                                            }
-                                          },
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: Translations.of(context).translate('email_phone'),
-                                            fillColor: Colors.white,
-                                            filled: true,
-                                            errorStyle: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15.0),
+                                              Pattern pattern =r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                              Pattern pattern1 =r'^(?:[+0]10)?[0-9]{11}$';//10,11 for 11 no
+                                                                  //(?:[+0]n)?[0-9]{n+1}$'
+                                              RegExp regex = new RegExp(pattern);
+                                              RegExp regex1 = new RegExp(pattern1);
+                                              if ((regex.hasMatch(value))|| (regex1.hasMatch(value))) {
+                                                if (regex.hasMatch(value)) {
+                                                  setState(() {
+                                                    _authtype=false;
+                                                  });
+
+                                                }else if (regex1.hasMatch(value)) {
+                                                  setState(() {
+                                                    _authtype=true;
+                                                  });
+                                                }
+                                              }else{
+                                                return Translations.of(context).translate('email_phone_error');
+
+                                              }
+                                            },
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: Translations.of(context).translate('email_phone'),
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              errorStyle: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15.0),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -207,30 +210,33 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                       height: 60,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8),
-                                        child: TextFormField(
-                                          // textAlign: TextAlign.right,
-                                          obscureText: true,
-                                          keyboardType: TextInputType.text,
-                                          style: textStyle,
-                                          textDirection: TextDirection.ltr,
-                                          controller: _passwordController,
-                                          validator: (String value) {
-                                            if (value.isEmpty) {
-                                              return 'برجاء إدخال كلمة السر';
-                                            }
-                                            if (value.length < 6) {
-                                              return ' كلمة السر لا تقل عن 6';
-                                            }
-                                          },
+                                        child: Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: TextFormField(
+                                            // textAlign: TextAlign.right,
+                                            obscureText: true,
+                                            keyboardType: TextInputType.text,
+                                            style: textStyle,
+                                            textDirection: TextDirection.rtl,
+                                            controller: _passwordController,
+                                            validator: (String value) {
+                                              if (value.isEmpty) {
+                                                return 'برجاء إدخال كلمة السر';
+                                              }
+                                              if (value.length < 6) {
+                                                return ' كلمة السر لا تقل عن 6';
+                                              }
+                                            },
 
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: 'كلمة السر',
-                                            fillColor: Colors.white,
-                                            filled: true,
-                                            errorStyle: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15.0),
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: 'كلمة السر',
+                                              fillColor: Colors.white,
+                                              filled: true,
+                                              errorStyle: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15.0),
+                                            ),
                                           ),
                                         ),
                                       ),

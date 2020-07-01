@@ -260,21 +260,11 @@ class _providerProlileState extends State<providerProlile> {
           Column(
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width,
+                width:  MediaQuery.of(context).size.width,
                 height: 86.0,
                 decoration: BoxDecoration(
+
                   color: const Color(0xff4fc3f7),
-                ),
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 20,
-                    height: 20,
-                    child: InkWell(
-                        onTap: () => Navigator.pop(context),
-                        child: Icon(Icons.arrow_back)),
-                  ),
                 ),
               ),
               Transform.translate(
@@ -283,8 +273,8 @@ class _providerProlileState extends State<providerProlile> {
                 // Adobe XD layer: 'logoBox' (shape)
                 Center(
                   child: Container(
-                    width: 166.0,
-                    height: 67.0,
+                    width: 156.0,
+                    height: 57.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
@@ -298,9 +288,9 @@ class _providerProlileState extends State<providerProlile> {
                   ),
                 ),
               ),
-
             ],
           ),
+
           Form(
             key: _formKey1,
             child: Padding(
@@ -1021,31 +1011,30 @@ class _providerProlileState extends State<providerProlile> {
                           child: Column(
                             // alignment: Alignment.bottomCenter,
                             children: <Widget>[
-                              commentlist.length == 0
-                                  ? Center(
-                                child: new Text(
-                                  "لا يوجد بيانات",
-                                ),)
-                                  :
                               Flexible(
-                                  child: new ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      controller: _controller,
-                                      itemCount: commentlist.length,
-                                      itemBuilder: (BuildContext ctxt, int index) {
-                                        return _firebasedata(
-                                          index,
-                                          commentlist.length,
-                                          commentlist[index].cId,
-                                          commentlist[index].cuserid,
-                                          commentlist[index].cdate,
-                                          commentlist[index].cheaddate,
-                                          commentlist[index].ccoment,
-                                          commentlist[index].cname,
-                                          commentlist[index].cadvID,
-                                        );
-                                      })
-
+                                child: commentlist.length == 0
+                                    ? Center(
+                                  child: new Text(
+                                    "لا يوجد بيانات",
+                                  ),)
+                                    :
+                                new ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    controller: _controller,
+                                    itemCount: commentlist.length,
+                                    itemBuilder: (BuildContext ctxt, int index) {
+                                      return _firebasedata(
+                                        index,
+                                        commentlist.length,
+                                        commentlist[index].cId,
+                                        commentlist[index].cuserid,
+                                        commentlist[index].cdate,
+                                        commentlist[index].cheaddate,
+                                        commentlist[index].ccoment,
+                                        commentlist[index].cname,
+                                        commentlist[index].cadvID,
+                                      );
+                                    }),
                               ),
 
 

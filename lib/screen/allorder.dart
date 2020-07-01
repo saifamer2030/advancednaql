@@ -222,6 +222,7 @@ class _AllOrderState extends State<AllOrder> {
       ),
       body: Column(
         children: <Widget>[
+
           Container(
             width:  MediaQuery.of(context).size.width,
             height: 86.0,
@@ -236,8 +237,8 @@ class _AllOrderState extends State<AllOrder> {
             // Adobe XD layer: 'logoBox' (shape)
             Center(
               child: Container(
-                width: 166.0,
-                height: 67.0,
+                width: 156.0,
+                height: 57.0,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     alignment: Alignment.center,
@@ -267,7 +268,7 @@ class _AllOrderState extends State<AllOrder> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         color: Colors.grey[500],
-                      ),
+  ),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: TextField(
