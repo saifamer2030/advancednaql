@@ -27,7 +27,8 @@ class _myOrderState extends State<myOrder> {
   //List<String> namelist = [];
   bool _load = false;
   String _userId;
-  final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
+  final databasemyorder =
+      FirebaseDatabase.instance.reference().child("MyOrder");
 
   @override
   void initState() {
@@ -37,41 +38,41 @@ class _myOrderState extends State<myOrder> {
     });
 
     FirebaseAuth.instance.currentUser().then((user) => user == null
-        ?
-    Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
-        builder: (context) => LoginScreen2(), maintainState: false))
+        ? Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
+            builder: (context) => LoginScreen2(), maintainState: false))
         : setState(() {
-      _userId = user.uid;
-      final databasemyorder = FirebaseDatabase.instance.reference().child("MyOrder");
+            _userId = user.uid;
+            final databasemyorder =
+                FirebaseDatabase.instance.reference().child("MyOrder");
 //           orderdatabaseReference.once().then((DataSnapshot data) {
 //              var uuId = data.value.keys;
 
-      //   for (var id in uuId) {
-      databasemyorder.child(_userId).once().then((DataSnapshot data1) {
-        var DATA = data1.value;
-        var keys = data1.value.keys;
-        myorderlist.clear();
-        //  namelist.clear();
-        for (var individualkey in keys) {
-          MyOrderClass myorderclass = new MyOrderClass(
-            DATA[individualkey]['Uid'],
-            DATA[individualkey]['wid'],
-            DATA[individualkey]['pid'],
-            DATA[individualkey]['Name'],
-            DATA[individualkey]['title'],
-            DATA[individualkey]['statusOrder'],
-            DATA[individualkey]['cadv'],
-            DATA[individualkey]['curl'],
-            DATA[individualkey]['cType'],
-          );
-          setState(() {
-            myorderlist.add(myorderclass);
-          });
-        }
-      });
-      // }
-      //  });
-    }));
+            //   for (var id in uuId) {
+            databasemyorder.child(_userId).once().then((DataSnapshot data1) {
+              var DATA = data1.value;
+              var keys = data1.value.keys;
+              myorderlist.clear();
+              //  namelist.clear();
+              for (var individualkey in keys) {
+                MyOrderClass myorderclass = new MyOrderClass(
+                  DATA[individualkey]['Uid'],
+                  DATA[individualkey]['wid'],
+                  DATA[individualkey]['pid'],
+                  DATA[individualkey]['Name'],
+                  DATA[individualkey]['title'],
+                  DATA[individualkey]['statusOrder'],
+                  DATA[individualkey]['cadv'],
+                  DATA[individualkey]['curl'],
+                  DATA[individualkey]['cType'],
+                );
+                setState(() {
+                  myorderlist.add(myorderclass);
+                });
+              }
+            });
+            // }
+            //  });
+          }));
   }
 
   final double _minimumPadding = 5.0;
@@ -81,8 +82,8 @@ class _myOrderState extends State<myOrder> {
   Widget build(BuildContext context) {
     Widget loadingIndicator = _load
         ? new Container(
-      child: SpinKitCircle(color: Colors.blue),
-    )
+            child: SpinKitCircle(color: Colors.blue),
+          )
         : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
     return Scaffold(
@@ -120,8 +121,8 @@ class _myOrderState extends State<myOrder> {
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                // Adobe XD layer: 'logoBox' (shape)
-                Center(
+                    // Adobe XD layer: 'logoBox' (shape)
+                    Center(
                   child: Container(
                     width: 156.0,
                     height: 57.0,
@@ -140,53 +141,56 @@ class _myOrderState extends State<myOrder> {
               ),
             ],
           ),
-            Expanded(
-            child: myorderlist.length == 0
-    ? new Center(
-    child: loadingIndicator,
-    )
-        : new ListView.builder(
-    physics: BouncingScrollPhysics(),
-    controller: _controller,
-    itemCount: myorderlist.length,
-    itemBuilder: (BuildContext ctxt, int index) {
-    return InkWell(
-    child: _firebasedata(
-    index,
-    myorderlist.length,
-    myorderlist[index].Uid,
-    myorderlist[index].wid,
-    myorderlist[index].pid,
-    myorderlist[index].Name,
-    myorderlist[index].title,
-    myorderlist[index].statusOrder,
-    myorderlist[index].cadv,
-    myorderlist[index].curl,
-    myorderlist[index].cType,
-    ),
-    );
-    })),
-
-
-
-    ],
+          Expanded(
+              child: myorderlist.length == 0
+                  ?
+              Center(
+                child: new Text(
+                  "لا يوجد بيانات",
+                ),
+              )
+//              new Center(
+//                      child: loadingIndicator,
+//                    )
+                  : new ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      controller: _controller,
+                      itemCount: myorderlist.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return InkWell(
+                          child: _firebasedata(
+                            index,
+                            myorderlist.length,
+                            myorderlist[index].Uid,
+                            myorderlist[index].wid,
+                            myorderlist[index].pid,
+                            myorderlist[index].Name,
+                            myorderlist[index].title,
+                            myorderlist[index].statusOrder,
+                            myorderlist[index].cadv,
+                            myorderlist[index].curl,
+                            myorderlist[index].cType,
+                          ),
+                        );
+                      })),
+        ],
       ),
     );
   }
 
   Widget _firebasedata(
-      int position,
-      int length,
-      String Uid,
-      String wid,
-      String pid,
-      String Name,
-      String titel,
-      String statusOrder,
-      String cadv,
-      String curl,
-      String cType,
-      ) {
+    int position,
+    int length,
+    String Uid,
+    String wid,
+    String pid,
+    String Name,
+    String titel,
+    String statusOrder,
+    String cadv,
+    String curl,
+    String cType,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -198,9 +202,7 @@ class _myOrderState extends State<myOrder> {
         margin: EdgeInsets.only(right: 1, left: 1, bottom: 2),
         child: InkWell(
           onTap: () {
-            setState(() {
-
-            });
+            setState(() {});
           },
           child: Container(
               height: 200,
@@ -215,17 +217,16 @@ class _myOrderState extends State<myOrder> {
                           padding: const EdgeInsets.all(8.0),
                           child: curl == null
                               ? new Image.asset("assets/images/ic_bluecar.png",
-                              fit: BoxFit.fill)
+                                  fit: BoxFit.fill)
                               : new Image.network(
-                            curl,
-                            fit: BoxFit.cover,
-                          ),
+                                  curl,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                       width: 100,
                       height: 130,
                     ),
-
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -260,7 +261,9 @@ class _myOrderState extends State<myOrder> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              SizedBox(width: 100,),
+                              SizedBox(
+                                width: 100,
+                              ),
                               Text(
                                 " $cadv",
                                 textAlign: TextAlign.right,
@@ -280,7 +283,6 @@ class _myOrderState extends State<myOrder> {
                                     fontSize: 15.0,
                                     fontStyle: FontStyle.normal),
                               ),
-
                             ],
                           ),
                         ),
@@ -289,12 +291,18 @@ class _myOrderState extends State<myOrder> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              SizedBox(width: 100,),
+                              SizedBox(
+                                width: 100,
+                              ),
                               Text(
                                 " $statusOrder",
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                  color:  statusOrder=="قيد الانتظار"? Colors.blue:statusOrder=="مقبول"?  Colors.green:Colors.red,
+                                  color: statusOrder == "قيد الانتظار"
+                                      ? Colors.blue
+                                      : statusOrder == "مقبول"
+                                          ? Colors.green
+                                          : Colors.red,
                                   fontSize: 13,
                                   //    fontWeight: FontWeight.bold
                                 ),
@@ -308,116 +316,128 @@ class _myOrderState extends State<myOrder> {
                                     fontSize: 15.0,
                                     fontStyle: FontStyle.normal),
                               ),
-
                             ],
                           ),
                         ),
-                        cType=="provider" ?Row(
-                          //  crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Container(
-                                width: 100 /*MediaQuery.of(context).size.width*/,
-                                height: 40,
-                                child: new RaisedButton(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Text("قبول"),
-                                      SizedBox(
-                                        height: _minimumPadding,
-                                        width: _minimumPadding,
-                                      ),
-                                      Icon(Icons.check,color: Colors.white,),
-                                    ],
-                                  ),
-                                  textColor: Colors.white,
-                                  color: Colors.green,
-                                  onPressed: () async {
-                                    FirebaseDatabase
-                                        .instance
-                                        .reference()
-                                        .child("MyOrder")
-                                        .child(Uid).child(pid).update({
-                                      "statusOrder":"مقبول",
-                                    }).then((_) {
-
-                                      FirebaseDatabase
-                                          .instance
-                                          .reference()
-                                          .child("MyOrder")
-                                          .child(wid).child(pid).update({
-                                        "statusOrder":"مقبول",
-                                      }).then((_) {
-
-                                        setState(() {
-                                          myorderlist[position].statusOrder="مقبول";
-
-                                        });
-                                      });});
-                                  },
+                        cType == "provider"
+                            ? Row(
+                                //  crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Container(
+                                      width:
+                                          100 /*MediaQuery.of(context).size.width*/,
+                                      height: 40,
+                                      child: new RaisedButton(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            new Text("قبول"),
+                                            SizedBox(
+                                              height: _minimumPadding,
+                                              width: _minimumPadding,
+                                            ),
+                                            Icon(
+                                              Icons.check,
+                                              color: Colors.white,
+                                            ),
+                                          ],
+                                        ),
+                                        textColor: Colors.white,
+                                        color: Colors.green,
+                                        onPressed: () async {
+                                          FirebaseDatabase.instance
+                                              .reference()
+                                              .child("MyOrder")
+                                              .child(Uid)
+                                              .child(pid)
+                                              .update({
+                                            "statusOrder": "مقبول",
+                                          }).then((_) {
+                                            FirebaseDatabase.instance
+                                                .reference()
+                                                .child("MyOrder")
+                                                .child(wid)
+                                                .child(pid)
+                                                .update({
+                                              "statusOrder": "مقبول",
+                                            }).then((_) {
+                                              setState(() {
+                                                myorderlist[position]
+                                                    .statusOrder = "مقبول";
+                                              });
+                                            });
+                                          });
+                                        },
 //
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(100.0)),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Container(
-                                width: 100 /*MediaQuery.of(context).size.width*/,
-                                height: 40,
-                                child: new RaisedButton(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Text("رفض"),
-                                      SizedBox(
-                                        height: _minimumPadding,
-                                        width: _minimumPadding,
+                                        shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(
+                                                    100.0)),
                                       ),
-                                      Icon(Icons.close,color: Colors.white,),
-                                    ],
+                                    ),
                                   ),
-                                  textColor: Colors.white,
-                                  color: Colors.red,
-                                  onPressed: () async {
-                                    FirebaseDatabase
-                                        .instance
-                                        .reference()
-                                        .child("MyOrder")
-                                        .child(Uid).child(pid).update({
-                                      "statusOrder":"مرفوض",
-                                    }).then((_) {
-
-                                      FirebaseDatabase
-                                          .instance
-                                          .reference()
-                                          .child("MyOrder")
-                                          .child(wid).child(pid).update({
-                                        "statusOrder":"مرفوض",
-                                      }).then((_) {
-
-                                        setState(() {
-                                          myorderlist[position].statusOrder="مرفوض";
-                                        });
-                                      });});
-
-
-
-
-                                  },
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Container(
+                                      width:
+                                          100 /*MediaQuery.of(context).size.width*/,
+                                      height: 40,
+                                      child: new RaisedButton(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            new Text("رفض"),
+                                            SizedBox(
+                                              height: _minimumPadding,
+                                              width: _minimumPadding,
+                                            ),
+                                            Icon(
+                                              Icons.close,
+                                              color: Colors.white,
+                                            ),
+                                          ],
+                                        ),
+                                        textColor: Colors.white,
+                                        color: Colors.red,
+                                        onPressed: () async {
+                                          FirebaseDatabase.instance
+                                              .reference()
+                                              .child("MyOrder")
+                                              .child(Uid)
+                                              .child(pid)
+                                              .update({
+                                            "statusOrder": "مرفوض",
+                                          }).then((_) {
+                                            FirebaseDatabase.instance
+                                                .reference()
+                                                .child("MyOrder")
+                                                .child(wid)
+                                                .child(pid)
+                                                .update({
+                                              "statusOrder": "مرفوض",
+                                            }).then((_) {
+                                              setState(() {
+                                                myorderlist[position]
+                                                    .statusOrder = "مرفوض";
+                                              });
+                                            });
+                                          });
+                                        },
 //
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(100.0)),
-                                ),
-                              ),
-                            ),
-
-                          ],
-                        ):Container(),
-
+                                        shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(
+                                                    100.0)),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Container(),
                       ],
                     ),
                   ],

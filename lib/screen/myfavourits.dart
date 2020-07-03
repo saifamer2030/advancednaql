@@ -319,8 +319,13 @@ class _MyFavState extends State<MyFav> {
           ),**/
           Expanded(
               child: orderlist.length == 0
-                  ? Center(
-                      child:  loadingIndicator,)
+                  ?Center(
+                child: new Text(
+                  "لا يوجد بيانات",
+                ),
+              )
+//              Center(
+//                      child:  loadingIndicator,)
                   : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,

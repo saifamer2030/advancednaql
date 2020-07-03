@@ -30,15 +30,13 @@ class __pledgeState extends State<Pledge> {
         Column(
           children: <Widget>[
             Container(
-              width:  MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width,
               height: 86.0,
               decoration: BoxDecoration(
-
                 color: const Color(0xff4fc3f7),
               ),
               child: InkWell(
                 onTap: () => Navigator.pop(context),
-
                 child: Container(
                   alignment: Alignment.centerLeft,
                   width: 20,
@@ -52,8 +50,8 @@ class __pledgeState extends State<Pledge> {
             Transform.translate(
               offset: Offset(0.0, -42.0),
               child:
-              // Adobe XD layer: 'logoBox' (shape)
-              Center(
+                  // Adobe XD layer: 'logoBox' (shape)
+                  Center(
                 child: Container(
                   width: 156.0,
                   height: 57.0,
@@ -72,12 +70,11 @@ class __pledgeState extends State<Pledge> {
             ),
           ],
         ),
-
         Form(
             child: Center(
           child: Padding(
             padding: EdgeInsets.only(
-                top: _minimumPadding * 30,
+                top: _minimumPadding * 20,
                 left: _minimumPadding,
                 right: _minimumPadding),
             child: ListView(
@@ -97,15 +94,17 @@ class __pledgeState extends State<Pledge> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 20.0,
+                              top: 10.0,
                             ),
-                            child: Text(
-                                "وَأَوْفُواْ بِعَهْدِ ٱللَّهِ إِذَا عَٰهَدتُّمْ وَلَا تَنقُضُواْ"
-                                " ٱلْأَيْمَٰنَ بَعْدَ تَوْكِيدِهَا وَقَدْ جَعَلْتُمُ ٱللَّهَ عَلَيْكُمْ كَفِيلًا ۚإِنَّ ٱللَّهَ يَعْلَمُ مَا تَفْعَلُون\nَ",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                )),
+                            child: Center(
+                              child: Text(
+                                  "وَأَوْفُواْ بِعَهْدِ ٱللَّهِ إِذَا عَٰهَدتُّمْ وَلَا تَنقُضُواْ"
+                                  " ٱلْأَيْمَٰنَ بَعْدَ تَوْكِيدِهَا وَقَدْ جَعَلْتُمُ ٱللَّهَ عَلَيْكُمْ كَفِيلًا ۚإِنَّ ٱللَّهَ يَعْلَمُ مَا تَفْعَلُون\nَ",
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
                           ),
                           Text(" صِّدٍَّقٍَّ آلِّلِّهِّ آلِّعََّظِِّيِّمِِّ",
                               style: TextStyle(
@@ -118,46 +117,51 @@ class __pledgeState extends State<Pledge> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 10.0,
+                              top: 5.0,
                             ),
                             child: Text(
                                 Translations.of(context).translate('pledge1'),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.bold,
                                 )),
                           ),
-                          Center(
-                            child: Switch(
-                              value: isSwitched,
-                              onChanged: (value) {
-                                setState(() {
-                                  isSwitched = value;
-                                  print(isSwitched);
-                                });
-                              },
-                              activeTrackColor: const Color(0xff4fc3f7),
-                              activeColor: const Color(0xff1891C7),
-                            ),
-                          ),
-                          Container(
-                            width: 100.0,
-                            height: 30.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: const Color(0xffeaeaea),
-                            ),
-                            child: Center(
-                                child: Text(
-                              isSwitched
-                                  ? Translations.of(context).translate('oK')
-                                  : data,
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Switch(
+                                  value: isSwitched,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isSwitched = value;
+                                      print(isSwitched);
+                                    });
+                                  },
+                                  activeTrackColor: const Color(0xff4fc3f7),
+                                  activeColor: const Color(0xff1891C7),
+                                ),
                               ),
-                            )),
+                              Container(
+                                width: 100.0,
+                                height: 30.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: const Color(0xffeaeaea),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                  isSwitched
+                                      ? Translations.of(context).translate('oK')
+                                      : data,
+                                  style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )),
+                              ),
+                            ],
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width,
@@ -166,46 +170,51 @@ class __pledgeState extends State<Pledge> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 10.0,
+                              top: 5.0,
                             ),
                             child: Text(
                                 Translations.of(context).translate('pledge2'),
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.bold,
                                 )),
                           ),
-                          Center(
-                            child: Switch(
-                              value: isSwitched2,
-                              onChanged: (value) {
-                                setState(() {
-                                  isSwitched2 = value;
-                                  print(isSwitched2);
-                                });
-                              },
-                              activeTrackColor: const Color(0xff4fc3f7),
-                              activeColor: const Color(0xff1891C7),
-                            ),
-                          ),
-                          Container(
-                            width: 100.0,
-                            height: 30.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: const Color(0xffeaeaea),
-                            ),
-                            child: Center(
-                                child: Text(
-                              isSwitched2
-                                  ? Translations.of(context).translate('oK')
-                                  : data,
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Center(
+                                child: Switch(
+                                  value: isSwitched2,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isSwitched2 = value;
+                                      print(isSwitched2);
+                                    });
+                                  },
+                                  activeTrackColor: const Color(0xff4fc3f7),
+                                  activeColor: const Color(0xff1891C7),
+                                ),
                               ),
-                            )),
+                              Container(
+                                width: 100.0,
+                                height: 30.0,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: const Color(0xffeaeaea),
+                                ),
+                                child: Center(
+                                    child: Text(
+                                      isSwitched2
+                                          ? Translations.of(context).translate('oK')
+                                          : data,
+                                      style: TextStyle(
+                                        fontStyle: FontStyle.italic,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )),
+                              ),
+                            ],
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width,
@@ -214,47 +223,52 @@ class __pledgeState extends State<Pledge> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 10.0,
+                              top: 5.0,
                             ),
-                            child:
-                                Text(Translations.of(context).translate('pledge3'),
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                            child: Text(
+                                Translations.of(context).translate('pledge3'),
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                )),
                           ),
-                          Center(
-                            child: Switch(
-                              value: isSwitched3,
-                              onChanged: (value) {
-                                setState(() {
-                                  isSwitched3 = value;
-                                  print(isSwitched3);
-                                });
-                              },
-                              activeTrackColor: const Color(0xff4fc3f7),
-                              activeColor: const Color(0xff1891C7),
-                            ),
-                          ),
-                          Container(
-                            width: 100.0,
-                            height: 30.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: const Color(0xffeaeaea),
-                            ),
-                            child: Center(
-                                child: Text(
-                              isSwitched3
-                                  ? Translations.of(context).translate('oK')
-                                  : data,
-                              style: TextStyle(
-                                fontStyle: FontStyle.italic,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )),
-                          ),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: <Widget>[
+                             Center(
+                               child: Switch(
+                                 value: isSwitched3,
+                                 onChanged: (value) {
+                                   setState(() {
+                                     isSwitched3 = value;
+                                     print(isSwitched3);
+                                   });
+                                 },
+                                 activeTrackColor: const Color(0xff4fc3f7),
+                                 activeColor: const Color(0xff1891C7),
+                               ),
+                             ),
+                             Container(
+                               width: 100.0,
+                               height: 30.0,
+                               decoration: BoxDecoration(
+                                 borderRadius: BorderRadius.circular(5.0),
+                                 color: const Color(0xffeaeaea),
+                               ),
+                               child: Center(
+                                   child: Text(
+                                     isSwitched3
+                                         ? Translations.of(context).translate('oK')
+                                         : data,
+                                     style: TextStyle(
+                                       fontStyle: FontStyle.italic,
+                                       fontSize: 13,
+                                       fontWeight: FontWeight.bold,
+                                     ),
+                                   )),
+                             ),
+                           ],
+                         ),
                           Container(
                             width: MediaQuery.of(context).size.width,
                             height: .5,
@@ -263,7 +277,8 @@ class __pledgeState extends State<Pledge> {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             child: new RaisedButton(
-                              child: new Text(Translations.of(context).translate('next')),
+                              child: new Text(
+                                  Translations.of(context).translate('next')),
                               textColor: Colors.white,
                               color: const Color(0xff48B2E1),
                               onPressed: _counterButtonPress,
@@ -289,14 +304,14 @@ class __pledgeState extends State<Pledge> {
 
   Future<void> _counterButtonPress() async {
     if (isSwitched && isSwitched2 && isSwitched3) {
-      Navigator.of(context)
-          .pushNamed('/addnewads');
-    //  print("go_______");
+      Navigator.of(context).pushNamed('/addnewads');
+      //  print("go_______");
 //      setState(() {
 //        Navigator.of(context).pushNamed('/addnewads');
 //      });
     } else {
-      return showInSnackBar(Translations.of(context).translate('please_agree_to_the_terms'));
+      return showInSnackBar(
+          Translations.of(context).translate('please_agree_to_the_terms'));
     }
   }
 

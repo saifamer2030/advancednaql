@@ -55,7 +55,7 @@ class _newoffer extends State<NewOffer> {
   final orderdatabaseReference =
   FirebaseDatabase.instance.reference().child("orderdata");
 
-  bool isSwitched = false;
+  bool isSwitched = true;
   var _Categoryarray = [
     'نقل خفيف',
     'نقل متوسط',
@@ -728,50 +728,56 @@ class _newoffer extends State<NewOffer> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      _travelcheck==true?Text(""): Container(
+                      _travelcheck==true?Text(""): Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
 
-                        color: const Color(0xff43A2CC),
-                        child: DropdownButtonHideUnderline(
-                            child: ButtonTheme(
-                              alignedDropdown: true,
-                              child: Row(
-                                children: <Widget>[
-                                  DropdownButton<String>(
-                                    items: _Payloadarray.map(
-                                            (String value) {
-                                          return new DropdownMenuItem<String>(
-                                            value: value,
-                                            child: new Text(value),
-                                          );
-                                        }).toList(),
-                                    value: _PayloadcurrentItemSelected,
-                                    onChanged:
-                                        (String newValueSelected) {
-                                      // Your code to execute, when a menu item is selected from dropdown
-                                      _onDropDownItemSelectedpay(
-                                          newValueSelected);
-                                    },
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        alignment: Alignment.center,
-                                        matchTextDirection: true,
-                                        repeat:
-                                        ImageRepeat.noRepeat,
-                                        image: AssetImage(
-                                            "assets/images/ic_wcar.png"),
+                          color: const Color(0xff43A2CC),
+                          child: DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: Row(
+                                  children: <Widget>[
+                                    DropdownButton<String>(
+                                      items: _Payloadarray.map(
+                                              (String value) {
+                                            return new DropdownMenuItem<String>(
+                                              value: value,
+                                              child: new Text(value),
+                                            );
+                                          }).toList(),
+                                      value: _PayloadcurrentItemSelected,
+                                      onChanged:
+                                          (String newValueSelected) {
+                                        // Your code to execute, when a menu item is selected from dropdown
+                                        _onDropDownItemSelectedpay(
+                                            newValueSelected);
+                                      },
+                                      style: new TextStyle(
+                                        color: Colors.black,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            )),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            alignment: Alignment.center,
+                                            matchTextDirection: true,
+                                            repeat:
+                                            ImageRepeat.noRepeat,
+                                            image: AssetImage(
+                                                "assets/images/ic_wcar.png"),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
                       ),
                       Container(
 
@@ -800,17 +806,20 @@ class _newoffer extends State<NewOffer> {
                                       color: Colors.black,
                                     ),
                                   ),
-                                  Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        alignment: Alignment.center,
-                                        matchTextDirection: true,
-                                        repeat:
-                                        ImageRepeat.noRepeat,
-                                        image: AssetImage(
-                                            "assets/images/ic_wbcar.png"),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 8),
+                                    child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          matchTextDirection: true,
+                                          repeat:
+                                          ImageRepeat.noRepeat,
+                                          image: AssetImage(
+                                              "assets/images/ic_wbcar.png"),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -818,45 +827,48 @@ class _newoffer extends State<NewOffer> {
                               ),
                             )),
                       ),
-                      Container(
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
 
-                        color: const Color(0xff43A2CC),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              width: 50,
-                              height: 48,
-                              color: const Color(0xff43A2CC),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => MyForm2("",
-                                                onSubmit2: onSubmit2));
-                                      });
+                          color: const Color(0xff43A2CC),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                width: 50,
+                                height: 48,
+                                color: const Color(0xff43A2CC),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => MyForm2("",
+                                                  onSubmit2: onSubmit2));
+                                        });
 //showBottomSheet();
-                                    },
-                                    child: Text(
-                                     "مدينتك",
-                                      textDirection: TextDirection.rtl,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          //fontWeight: FontWeight.bold
+                                      },
+                                      child: Text(
+                                       "مدينتك",
+                                        textDirection: TextDirection.rtl,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            //fontWeight: FontWeight.bold
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
 
+                        ),
                       ),
                     ],
                   ),
@@ -976,7 +988,7 @@ class _newoffer extends State<NewOffer> {
                       Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
-                          height: 50,
+                          height: 40,
                           child: new RaisedButton(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -990,7 +1002,7 @@ class _newoffer extends State<NewOffer> {
                               ],
                             ),
                             textColor: Colors.black54,
-                            color: Colors.grey[400],
+                            color: Colors.grey[300],
                             onPressed: () {
                               getImage11();
                             },
@@ -1004,7 +1016,7 @@ class _newoffer extends State<NewOffer> {
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
-                          height: 50,
+                          height: 40,
                           child: new RaisedButton(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1018,7 +1030,7 @@ class _newoffer extends State<NewOffer> {
                               ],
                             ),
                             textColor: Colors.black54,
-                            color: Colors.grey[400],
+                            color: Colors.grey[300],
                             onPressed: () {
                               getImage12();
                             },
@@ -1043,7 +1055,7 @@ class _newoffer extends State<NewOffer> {
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
-                          height: 50,
+                          height: 40,
                           child: new RaisedButton(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1057,7 +1069,7 @@ class _newoffer extends State<NewOffer> {
                               ],
                             ),
                             textColor: Colors.black54,
-                            color: Colors.grey[400],
+                            color: Colors.grey[300],
                             onPressed: () {
                               getImage13();
                             },
@@ -1071,7 +1083,7 @@ class _newoffer extends State<NewOffer> {
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
-                          height: 50,
+                          height: 40,
                           child: new RaisedButton(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1085,7 +1097,7 @@ class _newoffer extends State<NewOffer> {
                               ],
                             ),
                             textColor: Colors.black54,
-                            color: Colors.grey[400],
+                            color: Colors.grey[300],
                             onPressed: () {
                               getImage14();
                             },
