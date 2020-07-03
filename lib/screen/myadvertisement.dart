@@ -407,7 +407,13 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
           Expanded(
               child: orderlist.length == 0
                   ? Center(
-                      child:  loadingIndicator,)
+                child: new Text(
+                  "لا يوجد بيانات",
+                ),
+              )
+
+//              Center(
+//                      child:  loadingIndicator,)
                   : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,

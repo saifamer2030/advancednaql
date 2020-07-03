@@ -158,7 +158,12 @@ class _myOrder1State extends State<myOrder1> {
           Expanded(
               child: myorderlist.length == 0
                   ? Center(
-                child: loadingIndicator,)
+                child: new Text(
+                  "لا يوجد بيانات",
+                ),
+              )
+//              Center(
+//                child: loadingIndicator,)
                   : new ListView.builder(
                   physics: BouncingScrollPhysics(),
                   controller: _controller,

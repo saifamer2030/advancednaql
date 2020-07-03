@@ -8,14 +8,13 @@ import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:connectivity/connectivity.dart';
 
-class LoginScreen2  extends StatefulWidget {
+class LoginScreen2 extends StatefulWidget {
   @override
   _LoginScreen2State createState() => _LoginScreen2State();
 }
 
 class _LoginScreen2State extends State<LoginScreen2> {
-
-  var connectivityResult =  (Connectivity().checkConnectivity());
+  var connectivityResult = (Connectivity().checkConnectivity());
   bool _authtype = false;
 
   bool _load = false;
@@ -31,8 +30,8 @@ class _LoginScreen2State extends State<LoginScreen2> {
   Widget build(BuildContext context) {
     Widget loadingIndicator = _load
         ? new Container(
-      child: SpinKitCircle(color: Colors.blue),
-    )
+            child: SpinKitCircle(color: Colors.blue),
+          )
         : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
@@ -44,18 +43,17 @@ class _LoginScreen2State extends State<LoginScreen2> {
             Column(
               children: <Widget>[
                 Container(
-                  width:  MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width,
                   height: 86.0,
                   decoration: BoxDecoration(
-
                     color: const Color(0xff4fc3f7),
                   ),
                 ),
                 Transform.translate(
                   offset: Offset(0.0, -42.0),
                   child:
-                  // Adobe XD layer: 'logoBox' (shape)
-                  Center(
+                      // Adobe XD layer: 'logoBox' (shape)
+                      Center(
                     child: Container(
                       width: 156.0,
                       height: 57.0,
@@ -74,13 +72,14 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 ),
               ],
             ),
-
-
-
             Form(
               key: _formKey1,
               child: Padding(
-                  padding: EdgeInsets.only(top:_minimumPadding * 20,bottom: _minimumPadding * 2, right: _minimumPadding * 2,left: _minimumPadding * 2),
+                  padding: EdgeInsets.only(
+                      top: _minimumPadding * 20,
+                      bottom: _minimumPadding * 2,
+                      right: _minimumPadding * 2,
+                      left: _minimumPadding * 2),
                   child: ListView(
                     physics: BouncingScrollPhysics(),
                     children: <Widget>[
@@ -117,64 +116,71 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(10.0),
-                                            bottomRight: Radius.circular(10.0)),
-                                      ),
-                                      width: 250,
-                                      height: 60,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: TextFormField(
-                                            keyboardType:
-                                                TextInputType.text,
-                                            style: textStyle,
+                                Container(
+                                  width: 250,
+                                  color: Colors.white,
+                                  child: Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Directionality(
                                             textDirection: TextDirection.rtl,
-                                            controller: _emailController,
-                                            validator: (String value) {
-                                              if (value.isEmpty) {
-                                                return 'برجاء إدخال البريد الإلكترونى';
-                                              }
-
-                                              Pattern pattern =r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                                              Pattern pattern1 =r'^(?:[+0]10)?[0-9]{11}$';//10,11 for 11 no
-                                                                  //(?:[+0]n)?[0-9]{n+1}$'
-                                              RegExp regex = new RegExp(pattern);
-                                              RegExp regex1 = new RegExp(pattern1);
-                                              if ((regex.hasMatch(value))|| (regex1.hasMatch(value))) {
-                                                if (regex.hasMatch(value)) {
-                                                  setState(() {
-                                                    _authtype=false;
-                                                  });
-
-                                                }else if (regex1.hasMatch(value)) {
-                                                  setState(() {
-                                                    _authtype=true;
-                                                  });
+                                            child: TextFormField(
+                                              keyboardType: TextInputType.text,
+                                              style: textStyle,
+                                              textDirection: TextDirection.rtl,
+                                              controller: _emailController,
+                                              validator: (String value) {
+                                                if (value.isEmpty) {
+                                                  return 'برجاء إدخال البريد الإلكترونى';
+//                                                Toast.show("برجاء إدخال البريد الإلكترونى", context,
+//                                                    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                                                 }
-                                              }else{
-                                                return Translations.of(context).translate('email_phone_error');
 
-                                              }
-                                            },
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: Translations.of(context).translate('email_phone'),
-                                              fillColor: Colors.white,
-                                              filled: true,
-                                              errorStyle: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0),
+                                                Pattern pattern =
+                                                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                                Pattern pattern1 =
+                                                    r'^(?:[+0]10)?[0-9]{11}$'; //10,11 for 11 no
+                                                //(?:[+0]n)?[0-9]{n+1}$'
+                                                RegExp regex =
+                                                    new RegExp(pattern);
+                                                RegExp regex1 =
+                                                    new RegExp(pattern1);
+                                                if ((regex.hasMatch(value)) ||
+                                                    (regex1.hasMatch(value))) {
+                                                  if (regex.hasMatch(value)) {
+                                                    setState(() {
+                                                      _authtype = false;
+                                                    });
+                                                  } else if (regex1
+                                                      .hasMatch(value)) {
+                                                    setState(() {
+                                                      _authtype = true;
+                                                    });
+                                                  }
+                                                } else {
+                                                  return Translations.of(context)
+                                                      .translate(
+                                                          'email_phone_error');
+//                                                Toast.show(Translations.of(context)
+//                                                    .translate(
+//                                                        'email_phone_error'), context,
+//                                                    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                                                }
+                                              },
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: Translations.of(context)
+                                                    .translate('email_phone'),
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                errorStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ),
+                                ),
+
                                   ],
                                 )),
                           )),
@@ -199,48 +205,49 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(10.0),
-                                            bottomRight: Radius.circular(10.0)),
-                                      ),
-                                      width: 250,
-                                      height: 60,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: TextFormField(
-                                            // textAlign: TextAlign.right,
-                                            obscureText: true,
-                                            keyboardType: TextInputType.text,
-                                            style: textStyle,
-                                            textDirection: TextDirection.rtl,
-                                            controller: _passwordController,
-                                            validator: (String value) {
-                                              if (value.isEmpty) {
-                                                return 'برجاء إدخال كلمة السر';
-                                              }
-                                              if (value.length < 6) {
-                                                return ' كلمة السر لا تقل عن 6';
-                                              }
-                                            },
 
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: 'كلمة السر',
-                                              fillColor: Colors.white,
-                                              filled: true,
-                                              errorStyle: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0),
+                                    Container(
+                                      width: 250,
+                                      color: Colors.white,
+                                      child: Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: TextFormField(
+                                              // textAlign: TextAlign.right,
+                                              obscureText: true,
+                                              keyboardType: TextInputType.text,
+                                              style: textStyle,
+                                              textDirection: TextDirection.rtl,
+                                              controller: _passwordController,
+
+                                              validator: (String value) {
+                                                if (value.isEmpty) {
+                                                  return 'برجاء إدخال كلمة السر';
+//                                                Toast.show("برجاء إدخال كلمة السر", context,
+//                                                    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                                                }
+                                                if (value.length < 6) {
+                                                  return ' كلمة السر لا تقل عن 6';
+//                                                Toast.show("كلمة السر لا تقل عن 6", context,
+//                                                    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                                                }
+                                              },
+
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                hintText: 'كلمة السر',
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                errorStyle: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15.0),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
                                     ),
+
                                   ],
                                 )),
                           )),
@@ -255,54 +262,63 @@ class _LoginScreen2State extends State<LoginScreen2> {
                             child: Text(
                               "هل نسيت كلمة السر؟",
                               textDirection: TextDirection.ltr,
-                              style:
-                                  TextStyle(color: const Color(0xff4fc3f7), fontSize: 15),
+                              style: TextStyle(
+                                  color: const Color(0xff4fc3f7), fontSize: 15),
                             ),
-                          )
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: _minimumPadding, bottom: _minimumPadding),
-                        child: Container(
+                          )),
+                      InkWell(
+                        onTap: () async {
+                          if (_formKey1.currentState.validate() ) {
+                            try {
+                              final result =
+                                  await InternetAddress.lookup('google.com');
+                              if (result.isNotEmpty &&
+                                  result[0].rawAddress.isNotEmpty) {
+                                //  print('connected');
+                                if (_authtype) {
+                                  signinphone();
+
+                                } else {
+                                  _uploaddata();
+                                }
+
+                                //signinphone();
+                                setState(() {
+                                  _load = true;
+                                });
+                              }
+                            } on SocketException catch (_) {
+                              //  print('not connected');
+                              Toast.show(
+                                  "برجاء مراجعة الاتصال بالشبكة", context,
+                                  duration: Toast.LENGTH_LONG,
+                                  gravity: Toast.BOTTOM);
+                            }
+                          }
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: _minimumPadding, bottom: _minimumPadding),
+                          child: Container(
 //                          decoration: BoxDecoration(
 //                              borderRadius: BorderRadius.circular(50),
 //                              border: Border.all(color: Colors.black, width: 4)),
-                          height: 50.0,
-                          child: Material(
-                            borderRadius: BorderRadius.circular(20.0),
-                            shadowColor: const Color(0xffF4E41E),
-                            color: const Color(0xff4fc3f7),
-                            elevation: 7.0,
-                            child: GestureDetector(
-                              onTap: () async {
-                                if (_formKey1.currentState.validate()) {
-                                  try {
-                                    final result = await InternetAddress.lookup('google.com');
-                                    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                                    //  print('connected');
-                                      if(_authtype){signinphone();}else{_uploaddata();}
-
-                                      //signinphone();
-                                      setState(() {
-                                        _load = true;
-                                      });
-                                    }
-                                  } on SocketException catch (_) {
-                                  //  print('not connected');
-                  Toast.show("برجاء مراجعة الاتصال بالشبكة",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
-                                  }
-
-                                }
-                              },
-                              child: Center(
-                                child: Text(
-                                  'تسجيل الدخول',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Montserrat'),
+                            height: 50.0,
+                            child: Material(
+                              borderRadius: BorderRadius.circular(20.0),
+                              shadowColor: const Color(0xffF4E41E),
+                              color: const Color(0xff4fc3f7),
+                              elevation: 7.0,
+                              child: GestureDetector(
+                                child: Center(
+                                  child: Text(
+                                    'تسجيل الدخول',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Montserrat'),
+                                  ),
                                 ),
                               ),
                             ),
@@ -364,8 +380,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
                                   bottom: _minimumPadding),
                               child: FlatButton(
                                 onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed('/signup');
+                                  Navigator.of(context).pushNamed('/signup');
                                 },
                                 child: Text(
                                   "حساب جديد",
@@ -395,7 +410,6 @@ class _LoginScreen2State extends State<LoginScreen2> {
               child: loadingIndicator,
               alignment: FractionalOffset.center,
             ),
-
           ],
         ),
       ),
@@ -416,10 +430,10 @@ class _LoginScreen2State extends State<LoginScreen2> {
     );
   }
 
-  void signinphone(){
+  void signinphone() {
     List<String> phonenoList = [];
     final userdatabaseReference =
-    FirebaseDatabase.instance.reference().child("userdata");
+        FirebaseDatabase.instance.reference().child("userdata");
     userdatabaseReference.once().then((DataSnapshot snapshot) {
       var KEYS = snapshot.value.keys;
       var DATA = snapshot.value;
@@ -427,24 +441,23 @@ class _LoginScreen2State extends State<LoginScreen2> {
       phonenoList.clear();
       for (var individualkey in KEYS) {
         phonenoList.add(DATA[individualkey]["cPhone"]);
-    }
-    if(phonenoList.contains(_emailController.text)){
-    loginUserphone(_emailController.text.trim(), context);
-
-    }else{
-      Toast.show("تم التسجيل من قبل",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
-    }
-        });
-
+      }
+      if (phonenoList.contains(_emailController.text)) {
+        loginUserphone(_emailController.text.trim(), context);
+      } else {
+        Toast.show("تم التسجيل من قبل", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }
+    });
   }
-  Future<bool> loginUserphone(String phone, BuildContext context) async{
+
+  Future<bool> loginUserphone(String phone, BuildContext context) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
 
     _auth.verifyPhoneNumber(
         phoneNumber: "+2$phone",
         timeout: Duration(seconds: 60),
-        verificationCompleted: (AuthCredential credential) async{
+        verificationCompleted: (AuthCredential credential) async {
           Navigator.of(context).pop();
 
           AuthResult result = await _auth.signInWithCredential(credential);
@@ -463,10 +476,10 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
           //This callback would gets called when verification is done auto maticlly
         },
-        verificationFailed: (AuthException exception){
+        verificationFailed: (AuthException exception) {
           print(exception);
         },
-        codeSent: (String verificationId, [int forceResendingToken]){
+        codeSent: (String verificationId, [int forceResendingToken]) {
           showDialog(
               context: context,
               barrierDismissible: false,
@@ -486,15 +499,19 @@ class _LoginScreen2State extends State<LoginScreen2> {
                       child: Text("Confirm"),
                       textColor: Colors.white,
                       color: const Color(0xff4fc3f7),
-                      onPressed: () async{
+                      onPressed: () async {
                         final code = _codeController.text.trim();
-                        AuthCredential credential = PhoneAuthProvider.getCredential(verificationId: verificationId, smsCode: code);
+                        AuthCredential credential =
+                            PhoneAuthProvider.getCredential(
+                                verificationId: verificationId, smsCode: code);
 
-                        AuthResult result = await _auth.signInWithCredential(credential);
+                        AuthResult result =
+                            await _auth.signInWithCredential(credential);
 
                         //FirebaseUser user = result.user;
-                      //  createRecord(result.user.uid);
-                        Navigator.of(context).pushReplacementNamed('/fragmentnaql');
+                        //  createRecord(result.user.uid);
+                        Navigator.of(context)
+                            .pushReplacementNamed('/fragmentnaql');
 
 //                        if(user != null){
 //                          Navigator.push(context, MaterialPageRoute(
@@ -507,11 +524,9 @@ class _LoginScreen2State extends State<LoginScreen2> {
                     )
                   ],
                 );
-              }
-          );
+              });
         },
-        codeAutoRetrievalTimeout: null
-    );
+        codeAutoRetrievalTimeout: null);
   }
 
   void _uploaddata() {
@@ -521,17 +536,17 @@ class _LoginScreen2State extends State<LoginScreen2> {
         .signInWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text)
         .then((signedInUser) {
-
       Navigator.of(context).pushReplacementNamed('/fragmentnaql');
       setState(() {
         _load = false;
       });
     }).catchError((e) {
-          Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-          setState(() {
-            _load = false;
-          });
-        });
+      Toast.show(e, context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      setState(() {
+        _load = false;
+      });
+    });
     // print(_emailController.text+"////");
   }
 
@@ -590,10 +605,13 @@ class _LoginScreen2State extends State<LoginScreen2> {
                 }
               } on SocketException catch (_) {
                 //  print('not connected');
-                Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
+                Toast.show(
+                    Translations.of(context)
+                        .translate('please_see_network_connection'),
+                    context,
+                    duration: Toast.LENGTH_LONG,
+                    gravity: Toast.BOTTOM);
               }
-
             }
           },
           child: new Text('تأكيد'),

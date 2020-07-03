@@ -152,6 +152,19 @@ class _orderProfileState extends State<orderProfile> {
               Container(
                 width:  MediaQuery.of(context).size.width,
                 height: 86.0,
+
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 20,
+                    height: 20,
+                    child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Icon(Icons.arrow_back)),
+                  ),
+                ),
                 decoration: BoxDecoration(
 
                   color: const Color(0xff4fc3f7),
@@ -393,7 +406,7 @@ class _orderProfileState extends State<orderProfile> {
                                 ],
                               ),
                               textColor: Colors.black54,
-                              color: Colors.grey[400],
+                              color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
                                   Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
@@ -434,7 +447,7 @@ class _orderProfileState extends State<orderProfile> {
                                 ],
                               ),
                               textColor: Colors.black54,
-                              color: Colors.grey[400],
+                              color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
                                   Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
@@ -484,7 +497,7 @@ class _orderProfileState extends State<orderProfile> {
                                 ],
                               ),
                               textColor: Colors.black54,
-                              color: Colors.grey[400],
+                              color: Colors.grey[300],
                               onPressed: () {
                               },
 //
@@ -511,7 +524,7 @@ class _orderProfileState extends State<orderProfile> {
                                 ],
                               ),
                               textColor: Colors.black54,
-                              color: Colors.grey[400],
+                              color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
                                   Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
@@ -593,7 +606,7 @@ class _orderProfileState extends State<orderProfile> {
                                     children: <Widget>[
                                       Container(
                                         width: 320,
-                                        height: 60,
+
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Card(
@@ -658,7 +671,7 @@ class _orderProfileState extends State<orderProfile> {
 
                                         },
                                         child: Icon(
-                                          Icons.add_comment,
+                                          Icons.send,
                                           color: Colors.grey,
                                         ),
                                       ),
@@ -848,14 +861,12 @@ class _orderProfileState extends State<orderProfile> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) =>
-                            new CupertinoAlertDialog(
+                            new AlertDialog(
                               title: new Text("تنبية"),
                               content:
                               new Text("سوف يتم حذف تعليقك؟"),
                               actions: [
-                                CupertinoDialogAction(
-                                    isDefaultAction: false,
-                                    child: new FlatButton(
+                              new FlatButton(
                                       onPressed: () {
                                         setState(() {
 
@@ -921,14 +932,12 @@ class _orderProfileState extends State<orderProfile> {
 //                                            'cType': "user",
 //                                          })).then((value) => Navigator.pop(context)),
                                       ,child: Text("موافق"),
-                                    )),
-                                CupertinoDialogAction(
-                                    isDefaultAction: false,
-                                    child: new FlatButton(
+                                    ),
+                               new FlatButton(
                                       onPressed: () =>
                                           Navigator.pop(context),
                                       child: Text("إلغاء"),
-                                    )),
+                                    )
                               ],
                             ),
                           );

@@ -222,20 +222,18 @@ class _AllOrderState extends State<AllOrder> {
       ),
       body: Column(
         children: <Widget>[
-
           Container(
-            width:  MediaQuery.of(context).size.width,
+            width: MediaQuery.of(context).size.width,
             height: 86.0,
             decoration: BoxDecoration(
-
               color: const Color(0xff4fc3f7),
             ),
           ),
           Transform.translate(
             offset: Offset(0.0, -42.0),
             child:
-            // Adobe XD layer: 'logoBox' (shape)
-            Center(
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
               child: Container(
                 width: 156.0,
                 height: 57.0,
@@ -263,12 +261,12 @@ class _AllOrderState extends State<AllOrder> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                      width:  ( MediaQuery.of(context).size.width / 6 ) * 2.4,
+                      width: (MediaQuery.of(context).size.width / 6) * 2.4,
                       height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         color: Colors.grey[500],
-  ),
+                      ),
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: TextField(
@@ -294,8 +292,8 @@ class _AllOrderState extends State<AllOrder> {
                             ),
                             suffixIcon: searchcontroller.text.isNotEmpty
                                 ? IconButton(
-                                    icon: Icon(Icons.cancel,
-                                        color: Colors.black),
+                                    icon:
+                                        Icon(Icons.cancel, color: Colors.black),
                                     onPressed: () {
                                       setState(() {
                                         searchcontroller.clear();
@@ -312,7 +310,7 @@ class _AllOrderState extends State<AllOrder> {
                       ),
                     ),
                     Container(
-                       width: ( MediaQuery.of(context).size.width / 6 ) * 1.8 ,
+                      width: (MediaQuery.of(context).size.width / 6) * 1.8,
                       height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
@@ -324,8 +322,10 @@ class _AllOrderState extends State<AllOrder> {
                           color: Colors.grey[500],
                           onPressed: () {
                             Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MyHomePage()),);
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyHomePage()),
+                            );
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -349,7 +349,7 @@ class _AllOrderState extends State<AllOrder> {
                     ),
                     Container(
                       padding: EdgeInsets.only(left: 5.0),
-                       width: ( MediaQuery.of(context).size.width / 6) * 1.3,
+                      width: (MediaQuery.of(context).size.width / 6) * 1.3,
                       height: 35,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
@@ -386,8 +386,14 @@ class _AllOrderState extends State<AllOrder> {
           Expanded(
               child: orderlist.length == 0
                   ? Center(
-                      child: loadingIndicator,
+                      child: new Text(
+                        "لا يوجد بيانات",
+                      ),
                     )
+
+//              Center(
+//                      child: loadingIndicator,
+//                    )
                   : new ListView.builder(
                       physics: BouncingScrollPhysics(),
                       controller: _controller,
@@ -447,8 +453,8 @@ class _AllOrderState extends State<AllOrder> {
   ) {
     var cRate = 0.0;
     if (custRate > 0) {
-      if(rating==null || custRate== null){
-      }else{
+      if (rating == null || custRate == null) {
+      } else {
         cRate = double.parse(rating) / custRate;
       }
     }
@@ -534,7 +540,7 @@ class _AllOrderState extends State<AllOrder> {
                               color: cType == "طلب" ? Colors.green : Colors.red,
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 10,top: 5),
+                              padding: const EdgeInsets.only(left: 10, top: 5),
                               child: Text(
                                 cType,
                                 style: TextStyle(
@@ -551,17 +557,19 @@ class _AllOrderState extends State<AllOrder> {
                           right: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child:(cCategory == null||cpayload == null)? Text(""):Text(
-                              "$cCategory حمولة  $cpayload",
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  color: Colors.blue,
-                                  fontFamily: 'Gamja Flower',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 13.0,
-                                  fontStyle: FontStyle.normal),
-                            ),
+                            child: (cCategory == null || cpayload == null)
+                                ? Text("")
+                                : Text(
+                                    "$cCategory حمولة  $cpayload",
+                                    textDirection: TextDirection.rtl,
+                                    textAlign: TextAlign.right,
+                                    style: TextStyle(
+                                        color: Colors.blue,
+                                        fontFamily: 'Gamja Flower',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13.0,
+                                        fontStyle: FontStyle.normal),
+                                  ),
                           ),
                         ),
                         Positioned(
@@ -600,7 +608,8 @@ class _AllOrderState extends State<AllOrder> {
                                     borderColor: Colors.amber,
                                     spacing: 0.0)
                                 : new Text(
-                              Translations.of(context).translate('newly_joined'),
+                                    Translations.of(context)
+                                        .translate('newly_joined'),
                                     style: TextStyle(
                                         color: Colors.lightBlue,
                                         fontFamily: 'Gamja Flower',
@@ -610,24 +619,26 @@ class _AllOrderState extends State<AllOrder> {
                                   ),
                           ),
                         ),
-                        cType == "طلب" ?   Positioned(
-                          top: 75,
-                          right: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ctime != null
-                                ? Text(  "وقت التحرك: $ctime ",
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize: 10.0,
-                                  fontFamily: 'Gamja Flower',
-                                  fontStyle: FontStyle.normal),
-                            )
-                                : Text(" "),
-                          ),
-                        ):Container(),
-
+                        cType == "طلب"
+                            ? Positioned(
+                                top: 75,
+                                right: 0,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: ctime != null
+                                      ? Text(
+                                          "وقت التحرك: $ctime ",
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.right,
+                                          style: TextStyle(
+                                              fontSize: 10.0,
+                                              fontFamily: 'Gamja Flower',
+                                              fontStyle: FontStyle.normal),
+                                        )
+                                      : Text(" "),
+                                ),
+                              )
+                            : Container(),
                         Positioned(
                           top: 100,
                           right: 0,
@@ -673,15 +684,17 @@ class _AllOrderState extends State<AllOrder> {
                                   height: _minimumPadding,
                                   width: _minimumPadding,
                                 ),
-                                 cdate == null? Text(""): Text(
-                                  "منذ: $cdate",
-                                  textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      fontFamily: 'Gamja Flower',
-                                      fontSize: 10.0,
-                                      fontStyle: FontStyle.normal),
-                                ),
+                                cdate == null
+                                    ? Text("")
+                                    : Text(
+                                        "منذ: $cdate",
+                                        textDirection: TextDirection.rtl,
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            fontFamily: 'Gamja Flower',
+                                            fontSize: 10.0,
+                                            fontStyle: FontStyle.normal),
+                                      ),
                               ],
                             ),
                           ),
