@@ -18,6 +18,7 @@ import 'package:connectivity/connectivity.dart';
 
 import 'ModelsForChating/chat.dart';
 import 'allorder.dart';
+import 'owner.dart';
 
 class providerProlile extends StatefulWidget {
   String cId;
@@ -246,11 +247,6 @@ class _providerProlileState extends State<providerProlile> {
 
   @override
   Widget build(BuildContext context) {
-//    Widget loadingIndicator = _load
-//        ? new Container(
-//      child: SpinKitCircle(color: Colors.blue),
-//    )
-//        : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
@@ -267,11 +263,15 @@ class _providerProlileState extends State<providerProlile> {
 
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    width: 20,
-                    height: 20,
+                    width: 50,
+                    height: 50,
                     child: InkWell(
                         onTap: () => Navigator.pop(context),
-                        child: Icon(Icons.arrow_back)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left:8.0,top:20),
+                          child: Icon(Icons.arrow_back,color: Colors.white,),
+                        )
+                    ),
                   ),
                 ),
                 decoration: BoxDecoration(
@@ -509,7 +509,7 @@ class _providerProlileState extends State<providerProlile> {
                                   ),
                                 ),
                               ),
-                              Positioned(
+                             /** Positioned(
                                 top: 8,
                                 left: 5,
                                 child: Padding(
@@ -522,7 +522,7 @@ class _providerProlileState extends State<providerProlile> {
                                         padding: const EdgeInsets.only(
                                             top: 8.0),
                                         child: Text(
-                                          "خلال: ${orderclass.cmodel}",
+                                          "خلال: ${orderclass.ctime}",
                                           textDirection:
                                           TextDirection.rtl,
                                           textAlign: TextAlign.right,
@@ -537,37 +537,47 @@ class _providerProlileState extends State<providerProlile> {
                                     ],
                                   ),
                                 ),
-                              ),
+                              ),**/
                               Positioned(
                                 top: 20,
                                 right: 5,
                                 child: Padding(
                                   padding: const EdgeInsets.all(5.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      orderclass == null
-                                          ? Text("")
-                                          : Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 8.0),
-                                        child: Text(
-                                          "المالك: ${widget.cName}",
-                                          textDirection:
-                                          TextDirection.rtl,
-                                          textAlign: TextAlign.right,
-                                          style: TextStyle(
-                                              fontSize: 15.0,
-                                              fontFamily:
-                                              'Gamja Flower',
-                                              fontStyle:
-                                              FontStyle.normal),
+                                  child:  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Owner(widget.cId,widget.cName)));
+                                    },
+
+                                    child: Row(
+                                      children: <Widget>[
+                                        orderclass == null
+                                            ? Text("")
+                                            : Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 8.0),
+                                          child: Text(
+                                            "المالك: ${widget.cName}",
+                                            textDirection:
+                                            TextDirection.rtl,
+                                            textAlign: TextAlign.right,
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontFamily:
+                                                'Gamja Flower',
+                                                fontStyle:
+                                                FontStyle.normal),
+                                          ),
                                         ),
-                                      ),
-                                      Icon(
-                                        Icons.person,
-                                        color: Colors.grey,
-                                      ),
-                                    ],
+                                        Icon(
+                                          Icons.person,
+                                          color: Colors.grey,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -732,53 +742,50 @@ class _providerProlileState extends State<providerProlile> {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) =>
-                                new CupertinoAlertDialog(
+                                new AlertDialog(
                                   title: new Text("تنبية"),
                                   content:
                                   new Text("سوف يتم إرسال طلبك الان ؟"),
                                   actions: [
-                                    CupertinoDialogAction(
-                                        isDefaultAction: false,
-                                        child: new FlatButton(
-                                          onPressed: () => databasemyorder.child(pid)
+                                    new FlatButton(
+                                      onPressed: () => databasemyorder.child(pid)
+                                          .set({
+                                        'Uid': _userId,
+                                        'wid': widget.cId,
+                                        'pid': pid,
+
+                                        'Name': _username,
+                                        'title':
+                                        "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
+                                        'statusOrder': "قيد الانتظار",
+                                        'cadv': "${orderclass.cadv}",
+                                        'curl': "${orderclass.curi}",
+                                        'cType': "provider",
+                                      }).whenComplete(() =>
+                                          databasemyorder2.child(pid)
+                                          // .child(widget.cId)
                                               .set({
                                             'Uid': _userId,
                                             'wid': widget.cId,
                                             'pid': pid,
-
-                                            'Name': _username,
+                                            'Name': widget.cName,
                                             'title':
                                             "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
                                             'statusOrder': "قيد الانتظار",
-                                            'cadv': "${orderclass.cadv}",
-                                            'curl': "${orderclass.curi}",
-                                            'cType': "provider",
-                                          }).whenComplete(() =>
-                                              databasemyorder2.child(pid)
-                                              // .child(widget.cId)
-                                                  .set({
-                                                'Uid': _userId,
-                                                'wid': widget.cId,
-                                                'pid': pid,
-                                                'Name': widget.cName,
-                                                'title':
-                                                "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
-                                                'statusOrder': "قيد الانتظار",
-                                                'cadv':
-                                                "${orderclass.cadv}",
-                                                'curl':
-                                                "${orderclass.curi}",
-                                                'cType': "user",
-                                              })).then((value) => Navigator.pop(context)),
-                                          child: Text("موافق"),
-                                        )),
-                                    CupertinoDialogAction(
-                                        isDefaultAction: false,
-                                        child: new FlatButton(
+                                            'cadv':
+                                            "${orderclass.cadv}",
+                                            'curl':
+                                            "${orderclass.curi}",
+                                            'cType': "user",
+                                          })).then((value) => Navigator.pop(context)),
+                                      child: Text("موافق"),
+                                    ),
+
+                                    new FlatButton(
                                           onPressed: () =>
                                               Navigator.pop(context),
                                           child: Text("إلغاء"),
-                                        )),
+                                        ),
                                   ],
                                 ),
                               );
@@ -1347,44 +1354,9 @@ class _providerProlileState extends State<providerProlile> {
                                                 duration: Toast.LENGTH_SHORT,
                                                 gravity: Toast.BOTTOM);
                                           }
-                                          //   }),
-//            Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                    builder: (context) =>
-//                        CoifUserProlile(cId, curi, cName, _userId)));
                                         });
                                       }
-//                                      => databasemyorder.child(pid)
-//                                          .set({
-//                                        'Uid': _userId,
-//                                        'wid': widget.cId,
-//                                        'pid': pid,
-//
-//                                        'Name': _username,
-//                                        'title':
-//                                        "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
-//                                        'statusOrder': "قيد الانتظار",
-//                                        'cadv': "${orderclass.cadv}",
-//                                        'curl': "${orderclass.curi}",
-//                                        'cType': "provider",
-//                                      }).whenComplete(() =>
-//                                          databasemyorder2.child(pid)
-//                                          // .child(widget.cId)
-//                                              .set({
-//                                            'Uid': _userId,
-//                                            'wid': widget.cId,
-//                                            'pid': pid,
-//                                            'Name': widget.cName,
-//                                            'title':
-//                                            "شاحنة ${orderclass.cCategory} حمولة ${orderclass.cpayload}",
-//                                            'statusOrder': "قيد الانتظار",
-//                                            'cadv':
-//                                            "${orderclass.cadv}",
-//                                            'curl':
-//                                            "${orderclass.curi}",
-//                                            'cType': "user",
-//                                          })).then((value) => Navigator.pop(context)),
+
                                       ,child: Text("موافق"),
                                     ),
 

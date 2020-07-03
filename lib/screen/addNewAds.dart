@@ -85,8 +85,8 @@ class _adsState extends State<AddNewAds> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              width: 100.0,
-                              height: 100.0,
+                              width: 75.0,
+                              height: 75.0,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: const AssetImage(
@@ -96,23 +96,22 @@ class _adsState extends State<AddNewAds> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 50),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Stack(
                                 children: <Widget>[
                                   Container(
-                                    width: 200.0,
+                                    width: 160.0,
                                     height: 30.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5.0),
-                                      color: const Color(
-                                          0xffeaeaea), //0xff4fc3f7  //0xffeaeaea
+                                      color:  Colors.grey[400], //0xff4fc3f7  //0xffeaeaea
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Container(
-                                          width: 170,
+                                          //width: 150,
                                           height: 30,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
@@ -203,8 +202,8 @@ class _adsState extends State<AddNewAds> {
                         child: Column(
                           children: <Widget>[
                             Container(
-                              width: 100.0,
-                              height: 100.0,
+                              width: 75.0,
+                              height: 75.0,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: const AssetImage(
@@ -215,23 +214,22 @@ class _adsState extends State<AddNewAds> {
                             ),
 
                             Padding(
-                              padding: const EdgeInsets.only(top: 50),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Stack(
                                 children: <Widget>[
                                   Container(
-                                    width: 200.0,
+                                    width: 160.0,
                                     height: 30.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5.0),
-                                      color: const Color(
-                                          0xffeaeaea), //0xff4fc3f7  //0xffeaeaea
+                                      color:Colors.grey[400], //0xff4fc3f7  //0xffeaeaea
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Container(
-                                          width: 170,
+                                         // width: 170,
                                           height: 30,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(

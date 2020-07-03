@@ -253,21 +253,25 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
               Container(
                 width:  MediaQuery.of(context).size.width,
                 height: 86.0,
-                decoration: BoxDecoration(
-
-                  color: const Color(0xff4fc3f7),
-                ),
                 child: InkWell(
                   onTap: () => Navigator.pop(context),
 
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    width: 20,
-                    height: 20,
+                    width: 50,
+                    height: 50,
                     child: InkWell(
                         onTap: () => Navigator.pop(context),
-                        child: Icon(Icons.arrow_back)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left:8.0,top:20),
+                          child: Icon(Icons.arrow_back,color: Colors.white,),
+                        )
+                    ),
                   ),
+                ),
+                decoration: BoxDecoration(
+
+                  color: const Color(0xff4fc3f7),
                 ),
               ),
               Transform.translate(

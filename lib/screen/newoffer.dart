@@ -166,21 +166,25 @@ class _newoffer extends State<NewOffer> {
             Container(
               width:  MediaQuery.of(context).size.width,
               height: 86.0,
-              decoration: BoxDecoration(
-
-                color: const Color(0xff4fc3f7),
-              ),
               child: InkWell(
                 onTap: () => Navigator.pop(context),
 
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  width: 20,
-                  height: 20,
+                  width: 50,
+                  height: 50,
                   child: InkWell(
                       onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back)),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left:8.0,top:20),
+                        child: Icon(Icons.arrow_back,color: Colors.white,),
+                      )
+                  ),
                 ),
+              ),
+              decoration: BoxDecoration(
+
+                color: const Color(0xff4fc3f7),
               ),
             ),
             Transform.translate(
@@ -729,7 +733,7 @@ class _newoffer extends State<NewOffer> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       _travelcheck==true?Text(""): Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(2.0),
                         child: Container(
 
                           color: const Color(0xff43A2CC),
@@ -832,40 +836,35 @@ class _newoffer extends State<NewOffer> {
                         child: Container(
 
                           color: const Color(0xff43A2CC),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                width: 50,
-                                height: 48,
-                                color: const Color(0xff43A2CC),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => MyForm2("",
-                                                  onSubmit2: onSubmit2));
-                                        });
+                          child: Container(
+                            width: 50,
+                            height: 48,
+                            color: const Color(0xff43A2CC),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) => MyForm2("",
+                                              onSubmit2: onSubmit2));
+                                    });
 //showBottomSheet();
-                                      },
-                                      child: Text(
-                                       "مدينتك",
-                                        textDirection: TextDirection.rtl,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 12,
-                                            //fontWeight: FontWeight.bold
-                                        ),
-                                      ),
+                                  },
+                                  child: Text(
+                                   "مدينتك",
+                                    textDirection: TextDirection.rtl,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        //fontWeight: FontWeight.bold
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
 
                         ),
