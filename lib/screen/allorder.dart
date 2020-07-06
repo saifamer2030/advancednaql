@@ -391,7 +391,7 @@ class _AllOrderState extends State<AllOrder> {
                       ),
                     )
 
-//              Center(
+//
 //                      child: loadingIndicator,
 //                    )
                   : new ListView.builder(
