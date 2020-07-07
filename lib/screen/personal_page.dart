@@ -127,31 +127,7 @@ class __PersonalPageState extends State<PersonalPage> {
     //getUser();
   }
 
- /** void getUser() async {
-    FirebaseUser usr = await _firebaseAuth.currentUser();
-    if (usr != null) {
-//      setState(() {
-//        _userId=usr.uid;
-//      });
 
-      mDatabase
-          .child("userdata")
-          .child(usr.uid)
-          .once()
-          .then((DataSnapshot snapshot) {
-        Map<dynamic, dynamic> values = snapshot.value;
-        if (values != null) {
-          setState(() {
-            _cName = values['cName'].toString();
-            _cMobile = values['cPhone'].toString();
-            _cType = values['cType'].toString();
-            nameController = TextEditingController(text: _cName);
-            phoneController = TextEditingController(text: _cMobile);
-          });
-        }
-      });
-    }
-  }**/
 
   @override
   Widget build(BuildContext context) {
@@ -163,21 +139,25 @@ class __PersonalPageState extends State<PersonalPage> {
               Container(
                 width:  MediaQuery.of(context).size.width,
                 height: 86.0,
-                decoration: BoxDecoration(
-
-                  color: const Color(0xff4fc3f7),
-                ),
                 child: InkWell(
                   onTap: () => Navigator.pop(context),
 
                   child: Container(
                     alignment: Alignment.centerLeft,
-                    width: 20,
-                    height: 20,
+                    width: 50,
+                    height: 50,
                     child: InkWell(
                         onTap: () => Navigator.pop(context),
-                        child: Icon(Icons.arrow_back)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left:8.0,top:20),
+                          child: Icon(Icons.arrow_back,color: Colors.white,),
+                        )
+                    ),
                   ),
+                ),
+                decoration: BoxDecoration(
+
+                  color: const Color(0xff4fc3f7),
                 ),
               ),
               Transform.translate(
