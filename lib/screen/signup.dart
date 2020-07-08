@@ -272,7 +272,7 @@ class _SignUpState extends State<SignUp> {
                                 }
                               },
                               decoration: InputDecoration(
-                                labelText: Translations.of(context).translate('password_is_not_equal'),
+                                labelText: Translations.of(context).translate('password_confirmation'),
                                 //hintText: 'Name',
                                 labelStyle: textStyle,
                                 errorStyle: TextStyle(

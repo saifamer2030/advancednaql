@@ -522,9 +522,6 @@ class _newoffer extends State<NewOffer> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-//                                              borderRadius: BorderRadius.only(
-//                                                  topRight: Radius.circular(10.0),
-//                                                  bottomRight: Radius.circular(10.0)),
                                 ),
                                 width: 250,
                                 height: 40,
@@ -596,7 +593,7 @@ class _newoffer extends State<NewOffer> {
                       mainAxisAlignment:
                       MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        (_advcheck==true||Agrcheck==true)?Text(""):Container(
+                        (_advcheck==true||Agrcheck==true)?Container():Container(
                           color: const Color(0xffF4F4F4),
                           child: Row(
                             mainAxisAlignment:
@@ -730,9 +727,9 @@ class _newoffer extends State<NewOffer> {
                   ),
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      _travelcheck==true?Text(""): Padding(
+                      (_travelcheck==true||Agrcheck==true)?Container(): Padding(
                         padding: const EdgeInsets.all(2.0),
                         child: Container(
 
@@ -982,7 +979,7 @@ class _newoffer extends State<NewOffer> {
                   ) ,
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(left:10.0),
@@ -1011,7 +1008,7 @@ class _newoffer extends State<NewOffer> {
                           ),
                         ),
                       ),
-                      (_advcheck==true||Agrcheck==true)?Text(""): Padding(
+                      (_advcheck==true||Agrcheck==true||isSwitched==false)?Container(): Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
                           width: 150 /*MediaQuery.of(context).size.width*/,
@@ -1048,7 +1045,7 @@ class _newoffer extends State<NewOffer> {
                     width: _minimumPadding,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(left:10.0),
@@ -1211,9 +1208,10 @@ class _newoffer extends State<NewOffer> {
                         color: const Color(0xff43A2CC),
                         onPressed: () async {
                           if (_formKey.currentState.validate()) {
-                            if (sampleImage11 != null && ((sampleImage12 != null)&&(!_advcheck||!Agrcheck))
-                                && sampleImage13 != null && ((sampleImage14 != null)&&(!_advcheck||!Agrcheck||isSwitched))
-                                && sampleImage1 != null) {
+                            if (sampleImage11 != null && sampleImage1 != null&& sampleImage13 != null
+//                                &&((sampleImage12 != null)&&(_advcheck||Agrcheck))
+//                                && ((sampleImage14 != null)&&(_advcheck||Agrcheck))
+                               ) {
     if((((city1==""||city1==null)||(city2==""||city2==null))&&(!Agrcheck))||(city3==""||city3==null)){
     Toast.show("برجاء ادخال المدينة", context,
     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -1418,7 +1416,7 @@ _nocheck=false;
 
     // set up the button
     Widget okButton = FlatButton(
-      child: Text("إلغاء"),
+      child: Text("تم"),
       onPressed: () { Navigator.pop(context); },
     );
 
@@ -1555,26 +1553,32 @@ _nocheck=false;
   }
   Future uploadpp12(String url11) async {
     // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+if(_advcheck==true||Agrcheck==true||isSwitched==false){
+  uploadpp13(url11,"a");
 
-    final StorageReference storageRef =
-    FirebaseStorage.instance.ref().child('myimage');
-    DateTime now = DateTime.now();
+}else{
+
+  final StorageReference storageRef =
+FirebaseStorage.instance.ref().child('myimage');
+DateTime now = DateTime.now();
 
 //    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
-    final StorageUploadTask uploadTask =
-    storageRef.child('$now.jpg').putFile(sampleImage12);
-    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    String url12 = Imageurl.toString();
-    //print('URL Is $url');
-    setState(() {
-       _load2 = false;
-    });
-    Toast.show(Translations.of(context).translate('id_photo_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-    // uploadwp(url);
-    uploadpp13(url11,url12);
-    setState(() {
-       _load2 = true;
-    });
+final StorageUploadTask uploadTask =
+storageRef.child('$now.jpg').putFile(sampleImage12);
+var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+String url12 = Imageurl.toString();
+//print('URL Is $url');
+setState(() {
+  _load2 = false;
+});
+Toast.show(Translations.of(context).translate('id_photo_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+// uploadwp(url);
+uploadpp13(url11,url12);
+setState(() {
+  _load2 = true;
+});
+}
+
   }
   Future uploadpp13(url11,url12) async {
     // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
@@ -1601,26 +1605,30 @@ _nocheck=false;
   }
   Future uploadpp14(url11,url12,url13) async {
     // Toast.show("22222",context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-
-    final StorageReference storageRef =
-    FirebaseStorage.instance.ref().child('myimage');
-    DateTime now = DateTime.now();
+    if(_advcheck==true||Agrcheck==true||isSwitched==false) {
+      uploadpp1(url11,url12,url13,"a");
+    }else{
+      final StorageReference storageRef =
+      FirebaseStorage.instance.ref().child('myimage');
+      DateTime now = DateTime.now();
 
 //    String currentTime = new DateTime(now.year, now.month, now.day, now.hour, now.minute) as String;
-    final StorageUploadTask uploadTask =
-    storageRef.child('$now.jpg').putFile(sampleImage14);
-    var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
-    String url14 = Imageurl.toString();
-    //print('URL Is $url');
-    setState(() {
-       _load2 = false;
-    });
-    Toast.show(Translations.of(context).translate('Photo_Drivers_license_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
-    // uploadwp(url);
-    uploadpp1(url11,url12,url13,url14);
-    setState(() {
-      _load2 = true;
-    });
+      final StorageUploadTask uploadTask =
+      storageRef.child('$now.jpg').putFile(sampleImage14);
+      var Imageurl = await (await uploadTask.onComplete).ref.getDownloadURL();
+      String url14 = Imageurl.toString();
+      //print('URL Is $url');
+      setState(() {
+        _load2 = false;
+      });
+      Toast.show(Translations.of(context).translate('Photo_Drivers_license_uploaded'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+      // uploadwp(url);
+      uploadpp1(url11,url12,url13,url14);
+      setState(() {
+        _load2 = true;
+      });
+    }
+
   }
 
   Future getImage1() async {
