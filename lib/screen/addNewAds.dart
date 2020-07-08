@@ -69,7 +69,7 @@ class _adsState extends State<AddNewAds> {
                 child: Container(
                   height: 250,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       InkWell(
                         onTap: () {
@@ -100,7 +100,7 @@ class _adsState extends State<AddNewAds> {
                               child: Stack(
                                 children: <Widget>[
                                   Container(
-                                    width: 160.0,
+                                  //  width: 160.0,
                                     height: 30.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5.0),
@@ -218,7 +218,7 @@ class _adsState extends State<AddNewAds> {
                               child: Stack(
                                 children: <Widget>[
                                   Container(
-                                    width: 160.0,
+                                 //   width: 160.0,
                                     height: 30.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(5.0),

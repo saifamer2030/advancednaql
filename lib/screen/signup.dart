@@ -605,6 +605,8 @@ class _SignUpState extends State<SignUp> {
       'cEmail': _emailController.text,
       'cPhone': _phoneController.text,
       'cType': "مستخدم",
+      'rating': "0",
+      'custRate': 0,
 
       //'published': false,
     }).whenComplete(() {
