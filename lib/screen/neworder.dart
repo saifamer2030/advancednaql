@@ -679,10 +679,8 @@ class _newOrderState extends State<newOrder> {
                                   if(fromPlaceLat == null || fromPlaceLng == null ||
                                      toPlaceLat == null || toPlaceLng == null){
                                     showInSnackBar("برجاء ادخال المكان");
-
-//                                    Toast.show("برجاء ادخال المدينة", context,
-//                                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-
+                                    print("\n\n\n\n\nfromPlaceLat "+ fromPlaceLat +" - fromPlaceLng "+ fromPlaceLng+
+                                    " - toPlaceLat"+toPlaceLat +" - toPlaceLng" +toPlaceLng);
                                   }else{
                                       try {
                                         final result = await InternetAddress.lookup('google.com');
@@ -749,7 +747,6 @@ class _newOrderState extends State<newOrder> {
         // 'cType': Translations.of(context).translate('order'),
         'cType': 'طلب',
         'cCategory': _CategorycurrentItemSelected,
-        'cpayload': _PayloadcurrentItemSelected,
         'cpayload': _PayloadcurrentItemSelected,
         'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
         'ctime':_timecheck?_timeController.text:_timecurrentItemSelected,

@@ -7,21 +7,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
 class CurrentLocation2 extends StatefulWidget {
-
-  // String _coifId;
-  // String _coifImg;
-  // String _coifName;
-
-  // CurrentLocation2(this._coifId , this._coifImg,this._coifName);
-
   @override
   _CurrentLocationState createState() => _CurrentLocationState();
 }
 
 class _CurrentLocationState extends State<CurrentLocation2> {
-  static  LatLng _center = const LatLng(24.774265, 46.738586);
+  static LatLng _center = const LatLng(24.774265, 46.738586);
   LatLng _lastMapPostion = _center;
   LatLng _myLoc;
 
@@ -41,14 +33,11 @@ class _CurrentLocationState extends State<CurrentLocation2> {
 
   @override
   void initState() {
-
     checkGPS('ACTION_LOCATION_SOURCE_SETTINGS');
     _getCurrentLocation();
 
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +54,8 @@ class _CurrentLocationState extends State<CurrentLocation2> {
               width: MediaQuery.of(context).size.width,
               child: GoogleMap(
                 mapType: _currentMapType,
-                initialCameraPosition:
-                CameraPosition(target: _myLoc != null ? _myLoc :_center, zoom: 8.0),
+                initialCameraPosition: CameraPosition(
+                    target: _myLoc != null ? _myLoc : _center, zoom: 8.0),
                 onMapCreated: _onMapCreated,
                 markers: _markers,
                 onCameraMove: _onCameraMove,
@@ -75,7 +64,6 @@ class _CurrentLocationState extends State<CurrentLocation2> {
                   top: 20.0,
                 ),
               )),
-
 //          Padding(
 //            padding: EdgeInsets.all(16.0),
 //            child: Align(
@@ -100,23 +88,24 @@ class _CurrentLocationState extends State<CurrentLocation2> {
             child: new Icon(FontAwesomeIcons.mapPin, size: 40.0),
           ),
           Container(
+            width:( MediaQuery.of(context).size.width / 3 ) *2,
             alignment: Alignment.bottomCenter,
             margin: EdgeInsets.all(16.0),
             child: RaisedButton(
                 color: Colors.amber,
                 onPressed: () {
-                 _onAddMarker(context);
+                  _onAddMarker(context);
                 },
                 child: Row(
                   children: <Widget>[
-                    Expanded(
-                      child: Text("Save Location",
-                          style: TextStyle(fontSize: 20.0, color: Colors.white),
-                          textAlign: TextAlign.center),
-                    ),
-                    Expanded(
-                      child: Icon(Icons.save, color: Colors.white),
-                    ),
+SizedBox(width: 20,),
+                    Text("حفظ المكان",
+                        style: TextStyle(fontSize: 20.0, color: Colors.white),
+                        textAlign: TextAlign.center),
+SizedBox(width: 20,),
+                    Icon(Icons.save, color: Colors.white),
+SizedBox(width: 20,),
+
 //                    Text("Save Location", style: TextStyle(fontSize: 20.0, color: Colors.white),),
 //                    SizedBox(width: 15.0,),
 //                    Icon(Icons.save , color: Colors.white,)
@@ -129,6 +118,7 @@ class _CurrentLocationState extends State<CurrentLocation2> {
   }
 
   void _onAddMarker(BuildContext context) {
+    if (_myLoc == null) _myLoc = _center;
     Navigator.pop(context, _myLoc);
   }
 
@@ -166,7 +156,7 @@ class _CurrentLocationState extends State<CurrentLocation2> {
           markerId: MarkerId(_lastMapPostion.toString()),
           position: _lastMapPostion,
           infoWindow:
-          InfoWindow(title: "Ryadah - KSA", snippet: "this is snippet"),
+              InfoWindow(title: "Ryadah - KSA", snippet: "this is snippet"),
           icon: BitmapDescriptor.defaultMarkerWithHue(
               BitmapDescriptor.hueViolet)));
     });
@@ -183,9 +173,9 @@ class _CurrentLocationState extends State<CurrentLocation2> {
     _geoPosition = await Geolocator()
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((po) {
-      _myLoc = LatLng(po.latitude , po.longitude);
+      _myLoc = LatLng(po.latitude, po.longitude);
       controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(po.latitude , po.longitude), zoom: 15.0),
+        CameraPosition(target: LatLng(po.latitude, po.longitude), zoom: 15.0),
       ));
     });
   }
@@ -226,12 +216,12 @@ class _CurrentLocationState extends State<CurrentLocation2> {
 
   checkGPS(settingsName) async {
     isLocationEnabled = await Geolocator().isLocationServiceEnabled();
-    if(!isLocationEnabled){
-      _showDialog(_context , settingsName);
+    if (!isLocationEnabled) {
+      _showDialog(_context, settingsName);
     }
   }
 
-  void _showDialog(BuildContext context , String settingsName){
+  void _showDialog(BuildContext context, String settingsName) {
     showAlert(
       context: context,
       title: "Enable GPS ?",
@@ -249,16 +239,15 @@ class _CurrentLocationState extends State<CurrentLocation2> {
       cancelable: true,
     );
   }
+
   openSettingsMenu(settingsName) async {
     isLocationEnabled = await Geolocator().isLocationServiceEnabled();
 
     try {
       isLocationEnabled =
-      await AccessSettingsMenu.openSettings(settingsType: settingsName);
+          await AccessSettingsMenu.openSettings(settingsType: settingsName);
     } catch (e) {
       isLocationEnabled = false;
     }
   }
-
-
 }
