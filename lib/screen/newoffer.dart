@@ -635,7 +635,7 @@ class _newoffer extends State<NewOffer> {
                             ],
                           ),
                         ),
-                        Container(
+                        _travelcheck?Container(): Container(
                           width: 70,
                           color: const Color(0xff43A2CC),
                           child: DropdownButtonHideUnderline(
