@@ -49,9 +49,15 @@ dependencies:
   flutter_local_notifications:
   fimber: ^0.4.0
   google_maps_flutter: 
+  geolocator:
+  access_settings_menu: ^0.0.1
+  flutter_alert: ^0.4.0
+  rflutter_alert: ^1.0.3
+  font_awesome_flutter: ^8.8.1
   geoflutterfire: ^2.0.3+2
   location: ^2.3.5
   flutter_slidable: ^0.5.4
+  uuid: ^2.2.0
 
   #simple_slider: ^0.0.2
   rxdart:

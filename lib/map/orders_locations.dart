@@ -1,4 +1,5 @@
-class OrderClass {
+class OrdersLocations{
+
   String cId;
   String cdate;
   String clat1;
@@ -13,7 +14,12 @@ class OrderClass {
   bool cpublished;
   String cstarttraveltime;
   String curi;
-  OrderClass(
+ String fromPLat;
+ String fromPLng;
+ String toPLat;
+ String toPLng;
+
+OrdersLocations(
   this.cId,
   this.cdate,
   this.clat1,
@@ -27,9 +33,11 @@ class OrderClass {
   this.ctime,
   this.cpublished,
   this.cstarttraveltime,
-      this.curi,
-
-     );
+  this.curi ,
+  this.fromPLat, 
+  this.fromPLng , 
+  this.toPLat , 
+  this.toPLng  );
 
 
 }
