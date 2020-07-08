@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../screen/orderprofile.dart';
+import '../screen/providerprofile.dart';
 import 'orders_locations.dart';
 
 var mapKey = 'AIzaSyASpc8HqIa7OPmBeSJu7szAStFHeKpbC2U';
 
 class MapViewNaql extends StatefulWidget {
-
   @override
   _MapViewNaqlState createState() => _MapViewNaqlState();
 }
@@ -44,30 +45,34 @@ class _MapViewNaqlState extends State<MapViewNaql> {
             var keys = data1.value.keys;
 
             for (var individualkey in keys) {
-              if(DATA[individualkey]['fromPLat'] != null && DATA[individualkey]['toPLat'] != null){
-              OrdersLocations orderclass = new OrdersLocations(
-                  DATA[individualkey]['cId'],
-                  DATA[individualkey]['cdate'],
-                  DATA[individualkey]['clat1'],
-                  DATA[individualkey]['clong1'],
-                  DATA[individualkey]['clat2'],
-                  DATA[individualkey]['clong2'],
-                  DATA[individualkey]['cType'],
-                  DATA[individualkey]['cCategory'],
-                  DATA[individualkey]['cpayload'],
-                  DATA[individualkey]['cnocars'],
-                  DATA[individualkey]['ctime'],
-                  DATA[individualkey]['cpublished'],
-                  DATA[individualkey]['cstarttraveltime'],
-                  DATA[individualkey]['curi'],
-                  DATA[individualkey]['fromPLat'],
-                  DATA[individualkey]['fromPLng'],
-                  DATA[individualkey]['toPLat'],
-                  DATA[individualkey]['toPLng']);
+              if (DATA[individualkey]['fromPLat'] != null &&
+                  DATA[individualkey]['toPLat'] != null) {
+                OrdersLocations orderclass = new OrdersLocations(
+                    DATA[individualkey]['cId'],
+                    DATA[individualkey]['ctitle'],
+                    individualkey,
+                    DATA[individualkey]['cdate'],
+                    DATA[individualkey]['clat1'],
+                    DATA[individualkey]['clong1'],
+                    DATA[individualkey]['clat2'],
+                    DATA[individualkey]['clong2'],
+                    DATA[individualkey]['cType'],
+                    DATA[individualkey]['cCategory'],
+                    DATA[individualkey]['cpayload'],
+                    DATA[individualkey]['cnocars'],
+                    DATA[individualkey]['ctime'],
+                    DATA[individualkey]['cpublished'],
+                    DATA[individualkey]['cstarttraveltime'],
+                    DATA[individualkey]['curi'],
+                    DATA[individualkey]['fromPLat'],
+                    DATA[individualkey]['fromPLng'],
+                    DATA[individualkey]['toPLat'],
+                    DATA[individualkey]['toPLng']);
 
-              
-                 orderlist.add(orderclass) ;
-                 print("MAPPPPPPPPPPPPPP>>>>>>>>{$individualkey}>>>" + DATA[individualkey]['fromPLat'] + "\n\n\n\n");
+                orderlist.add(orderclass);
+                print("MAPPPPPPPPPPPPPP>>>>>>>>{$individualkey}>>>" +
+                    DATA[individualkey]['fromPLat'] +
+                    "\n\n\n\n");
               }
               setMarkers();
             }
@@ -75,9 +80,6 @@ class _MapViewNaqlState extends State<MapViewNaql> {
         }
       });
     });
-    
-
-    
   }
 
   //close database
@@ -96,9 +98,9 @@ class _MapViewNaqlState extends State<MapViewNaql> {
       body: Stack(
         children: <Widget>[
           _googleMap(context),
-         // _zoomInFunction(),
-         // _zoomOutFunction(),
-         // _buildContainer(context),
+          // _zoomInFunction(),
+          // _zoomOutFunction(),
+          // _buildContainer(context),
         ],
       ),
     );
@@ -119,24 +121,72 @@ class _MapViewNaqlState extends State<MapViewNaql> {
       ),
     );
   }
-   _onFindCoifAddMarker(String lat, String lng, String name, String snippet) {
+
+  _onFindCoifAddMarker(String lat, String lng, String name, String snippet,
+      OrdersLocations order) async {
     LatLng newLatLng = LatLng(double.parse(lat), double.parse(lng));
+
+    BitmapDescriptor icon ;
+    if (order.cType == "طلب") {
+      icon = await BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(32, 32)), 'assets/images/pin_red.png');
+    } else {
+      icon =  await BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(32, 32)), 'assets/images/pin_green.png');
+    }
 
     setState(() {
       _markers.add(Marker(
           markerId: MarkerId(newLatLng.toString()),
           position: newLatLng,
           infoWindow: InfoWindow(title: name, snippet: snippet),
-          icon: BitmapDescriptor.defaultMarkerWithHue(
-              BitmapDescriptor.hueViolet)));
+          icon: icon,
+          // BitmapDescriptor.defaultMarkerWithHue(
+          //     BitmapDescriptor.hueViolet),
+          onTap: () {
+            //this is what you're looking for!
+            if (snippet == "طلب") {
+              //order
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => orderProfile(
+                        order.cId,
+                        order.cdate,
+                        order.clat1,
+                        order.clong1,
+                        order.clat2,
+                        order.clong2,
+                        order.cType,
+                        order.cCategory,
+                        order.cpayload,
+                        order.cnocars,
+                        order.ctime,
+                        order.cpublished,
+                        order.cstarttraveltime,
+                        order.curi,
+                        order.ctitle,
+                        order.cDateId)),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => providerProlile(
+                        order.cId, order.ctitle, order.cDateId)),
+              );
+            }
+          }));
     });
   }
 
   void setMarkers() {
-
     for (var order in orderlist) {
-      _onFindCoifAddMarker(order.fromPLat, order.fromPLng, order.cCategory, order.cType);
-      print("Marker>>>>>MAPPPPPPPPPPPPPP>>>>>>>>>>>" + order.fromPLat + "\n\n\n\n");
+      _onFindCoifAddMarker(
+          order.fromPLat, order.fromPLng, order.cCategory, order.cType, order);
+      print("Marker>>>>>MAPPPPPPPPPPPPPP>>>>>>>>>>>" +
+          order.fromPLat +
+          "\n\n\n\n");
     }
   }
 
@@ -322,5 +372,4 @@ class _MapViewNaqlState extends State<MapViewNaql> {
   //       target: LatLng(lat, lng), zoom: 15, tilt: 50.0, bearing: 45.0)));
   // }
 
- 
 }

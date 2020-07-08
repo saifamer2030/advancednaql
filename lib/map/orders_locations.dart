@@ -1,6 +1,8 @@
 class OrdersLocations{
 
   String cId;
+  String ctitle;
+  String cDateId;
   String cdate;
   String clat1;
   String clong1;
@@ -21,6 +23,8 @@ class OrdersLocations{
 
 OrdersLocations(
   this.cId,
+  this.ctitle,
+  this.cDateId,
   this.cdate,
   this.clat1,
   this.clong1,

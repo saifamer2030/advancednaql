@@ -19,7 +19,7 @@ environment:
 dependencies:
   flutter: 
     sdk: flutter
-    
+
   cupertino_icons: ^0.1.2
   adobe_xd: ^0.1.3
   firebase_auth: ^0.16.0
@@ -117,6 +117,8 @@ flutter:
    - assets/images/ic_mycar.png
    - assets/images/ic_location.png
    - assets/images/ic_location2.png
+   - assets/images/pin_red.png
+   - assets/images/pin_green.png
    - assets/images/ic_wlocation.png
    - assets/images/ic_bluecar.png
    - assets/images/ic_ads.png
