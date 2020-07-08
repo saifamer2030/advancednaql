@@ -60,6 +60,8 @@ class _orderProfileState extends State<orderProfile> {
   String _userId;
   var _formKey1 = GlobalKey<FormState>();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   Future<void> _launched;
   var _controller = ScrollController();
   bool favcheck=false;
@@ -144,6 +146,7 @@ class _orderProfileState extends State<orderProfile> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return  Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color(0xffffffff),
       body: Stack(
         children: <Widget>[
@@ -363,7 +366,8 @@ class _orderProfileState extends State<orderProfile> {
                           color: const Color(0xff43A2CC),
                           onPressed: () {
                             if (_userId == null) {
-                              Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+                              showInSnackBar("يجب عليك تسجيل الدخول أولا");
+                             // Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
 
                             } else {
                               Navigator.push(
@@ -412,8 +416,8 @@ class _orderProfileState extends State<orderProfile> {
                               color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
-                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
+                                 // Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+showInSnackBar("يجب عليك تسجيل الدخول أولا");
                                 } else {
                                   Navigator.push(
                                     context,
@@ -453,12 +457,14 @@ class _orderProfileState extends State<orderProfile> {
                               color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
-                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+//                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+                                 showInSnackBar("يجب عليك تسجيل الدخول أولا");
                                 } else {
                                   if(cPhone!=null){
                                     _makePhoneCall('tel:$cPhone');
                                   }else{
-                                    Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                   // Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                    showInSnackBar("حاول مرة اخرى");
 
                                   }
                                 }
@@ -530,15 +536,16 @@ class _orderProfileState extends State<orderProfile> {
                               color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
-                                  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
-
+                                //  Toast.show("يجب عليك تسجيل الدخول أولا", context,duration: Toast.LENGTH_LONG,gravity: Toast.BOTTOM);
+showInSnackBar("يجب عليك تسجيل الدخول أولا");
                                 } else {
                                   if(cPhone!=null){
                                     //var phone="01003208785";
                                     var whatsappUrl ="whatsapp://send?phone=+2$cPhone";
                                     canLaunch(whatsappUrl) != null? launch(whatsappUrl):print("open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
                                   }else{
-                                    Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                   // Toast.show("حاول مرة اخرى",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                    showInSnackBar("حاول مرة اخرى");
 
                                   }
                                 }
@@ -662,7 +669,8 @@ class _orderProfileState extends State<orderProfile> {
                                               }
                                             } on SocketException catch (_) {
                                               //  print('not connected');
-                                              Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                             // Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                              showInSnackBar(Translations.of(context).translate('please_see_network_connection'));
 
                                             }
 //                                                setState(() {
@@ -749,8 +757,8 @@ class _orderProfileState extends State<orderProfile> {
               'cadvID': widget.cDateID,
 
             }).whenComplete(() {
-
-              Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+showInSnackBar("تم التعليق بنجاح");
+              //Toast.show("تم التعليق بنجاح",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
               CommentClass commentclass =
               new CommentClass(
                 widget.cId,
@@ -807,7 +815,8 @@ class _orderProfileState extends State<orderProfile> {
 
               //  _controller.animateTo(0.0,curve: Curves.easeInOut, duration: Duration(seconds: 1));
             }).catchError((e) {
-              Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+              showInSnackBar(e);
+             // Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
               setState(() {
                 //  _load2 = false;
               });
@@ -886,15 +895,18 @@ class _orderProfileState extends State<orderProfile> {
                                               setState(() {
                                                 commentlist.removeAt(index);
                                               });
-                                              Toast.show("تم حذف التعليق", context,
-                                                  duration: Toast.LENGTH_SHORT,
-                                                  gravity: Toast.BOTTOM);
+                                              showInSnackBar("تم حذف التعليق");
+//                                              Toast.show("تم حذف التعليق", context,
+//                                                  duration: Toast.LENGTH_SHORT,
+//                                                  gravity: Toast.BOTTOM);
                                             }).then((value) => Navigator.pop(context));
                                           }
                                           else{
-                                            Toast.show("ليس تعليقك", context,
-                                                duration: Toast.LENGTH_SHORT,
-                                                gravity: Toast.BOTTOM);
+                                            showInSnackBar("ليس تعليقك");
+
+//                                            Toast.show("ليس تعليقك", context,
+//                                                duration: Toast.LENGTH_SHORT,
+//                                                gravity: Toast.BOTTOM);
                                           }
                                           //   }),
 //            Navigator.push(
@@ -999,6 +1011,14 @@ class _orderProfileState extends State<orderProfile> {
     );
   }
 
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        style: TextStyle(color: const Color(0xff48B2E1)),
+      ),
+    ));
+  }
   Future<void> _makePhoneCall(String url) async {
     if (await canLaunch(url)) {
       await launch(url);

@@ -18,6 +18,7 @@ class _SignUpState extends State<SignUp> {
   var _formKey = GlobalKey<FormState>();
   final double _minimumPadding = 5.0;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -47,6 +48,8 @@ class _SignUpState extends State<SignUp> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
+      key: _scaffoldKey,
+
       backgroundColor: const Color(0xffffffff),
       body: Container(
         child: Stack(
@@ -310,6 +313,61 @@ class _SignUpState extends State<SignUp> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(_minimumPadding),
+
+                              child: Container(
+                                height: 50.0,
+                                width: 150,
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  shadowColor: const Color(0xff41a0cb),
+                                  color: const Color(0xff41a0cb),
+                                  elevation: 3.0,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      if (_formKey.currentState.validate()) {
+                                        try {
+                                          final result = await InternetAddress.lookup('google.com');
+                                          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                                            //  print('connected');
+                                            loginUserphone(_phoneController.text.trim(), context);
+                                            setState(() {
+                                              _load = true;
+                                            });
+                                          }
+                                        } on SocketException catch (_) {
+                                          //  print('not connected');
+                                          //  Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                          showInSnackBar( Translations.of(context).translate('please_see_network_connection'));
+
+                                        }
+
+                                      } else
+                                        print('correct');
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+
+                                      children: <Widget>[
+                                        Text(
+                                          Translations.of(context).translate('sign_up'),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Montserrat'),
+                                        ),
+                                        Icon(
+                                          Icons.phone_android,
+                                          color: Colors.white,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
 
                             Padding(
                               padding: EdgeInsets.all(_minimumPadding),
@@ -336,7 +394,8 @@ class _SignUpState extends State<SignUp> {
                                           }
                                         } on SocketException catch (_) {
                                           //  print('not connected');
-                                          Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                          //Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                          showInSnackBar( Translations.of(context).translate('please_see_network_connection'));
 
                                         }
                                         //loginUserphone(_phoneController.text.trim(), context);
@@ -358,60 +417,6 @@ class _SignUpState extends State<SignUp> {
                                         ),
                                         Icon(
                                           Icons.email,
-                                          color: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.all(_minimumPadding),
-
-                              child: Container(
-                                height: 50.0,
-                                width: 150,
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  shadowColor: const Color(0xff41a0cb),
-                                  color: const Color(0xff41a0cb),
-                                  elevation: 3.0,
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      if (_formKey.currentState.validate()) {
-                                        try {
-                                          final result = await InternetAddress.lookup('google.com');
-                                          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                                            //  print('connected');
-                                            loginUserphone(_phoneController.text.trim(), context);
-                                            setState(() {
-                                              _load = true;
-                                            });
-                                          }
-                                        } on SocketException catch (_) {
-                                          //  print('not connected');
-                                          Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-
-                                        }
-
-                                      } else
-                                        print('correct');
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-
-                                      children: <Widget>[
-                                        Text(
-                                          Translations.of(context).translate('sign_up'),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Montserrat'),
-                                        ),
-                                        Icon(
-                                          Icons.phone_android,
                                           color: Colors.white,
                                         ),
                                       ],
@@ -581,7 +586,9 @@ class _SignUpState extends State<SignUp> {
 
       createRecord(signedInUser.user.uid);
     }).catchError((e) {
-      Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+     // Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      showInSnackBar(e);
+
       setState(() {
         _load = false;
       });
@@ -601,7 +608,8 @@ class _SignUpState extends State<SignUp> {
 
       //'published': false,
     }).whenComplete(() {
-      Toast.show(Translations.of(context).translate('sign_in_successful'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+     // Toast.show(Translations.of(context).translate('sign_in_successful'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+      showInSnackBar(Translations.of(context).translate('sign_in_successful'));
 
     });
 
@@ -637,5 +645,13 @@ class _SignUpState extends State<SignUp> {
 //    return user;
 //  }
 
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        style: TextStyle(color: const Color(0xff48B2E1)),
+      ),
+    ));
+  }
 
 }

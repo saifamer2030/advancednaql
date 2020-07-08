@@ -21,6 +21,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
   var _formKey1 = GlobalKey<FormState>();
 
   final double _minimumPadding = 5.0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -36,6 +37,7 @@ class _LoginScreen2State extends State<LoginScreen2> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color(0xffffffff),
       body: Container(
         child: Stack(
@@ -289,10 +291,11 @@ class _LoginScreen2State extends State<LoginScreen2> {
                               }
                             } on SocketException catch (_) {
                               //  print('not connected');
-                              Toast.show(
-                                  "برجاء مراجعة الاتصال بالشبكة", context,
-                                  duration: Toast.LENGTH_LONG,
-                                  gravity: Toast.BOTTOM);
+                              showInSnackBar("برجاء مراجعة الاتصال بالشبكة");
+//                              Toast.show(
+//                                  "برجاء مراجعة الاتصال بالشبكة", context,
+//                                  duration: Toast.LENGTH_LONG,
+//                                  gravity: Toast.BOTTOM);
                             }
                           }
                         },
@@ -445,8 +448,9 @@ class _LoginScreen2State extends State<LoginScreen2> {
       if (phonenoList.contains(_emailController.text)) {
         loginUserphone(_emailController.text.trim(), context);
       } else {
-        Toast.show("تم التسجيل من قبل", context,
-            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        showInSnackBar("تم التسجيل من قبل");
+//        Toast.show("تم التسجيل من قبل", context,
+//            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       }
     });
   }
@@ -541,8 +545,9 @@ class _LoginScreen2State extends State<LoginScreen2> {
         _load = false;
       });
     }).catchError((e) {
-      Toast.show(e, context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      showInSnackBar(e);
+//      Toast.show(e, context,
+//          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       setState(() {
         _load = false;
       });
@@ -600,17 +605,18 @@ class _LoginScreen2State extends State<LoginScreen2> {
                       .sendPasswordResetEmail(email: _textFieldController.text);
                   //Form.of(context).save();
                   Navigator.pop(context);
-                  Toast.show("برجاء مراجعة بريدك الإلكترونى", context,
-                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+                  showInSnackBar("برجاء مراجعة بريدك الإلكترونى");
+
+//                  Toast.show("برجاء مراجعة بريدك الإلكترونى", context,
+//                      duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
                 }
               } on SocketException catch (_) {
-                //  print('not connected');
-                Toast.show(
-                    Translations.of(context)
-                        .translate('please_see_network_connection'),
-                    context,
-                    duration: Toast.LENGTH_LONG,
-                    gravity: Toast.BOTTOM);
+                showInSnackBar(Translations.of(context).translate('please_see_network_connection'));
+////                Toast.show(
+////                    Translations.of(context).translate('please_see_network_connection'),
+//                    context,
+//                    duration: Toast.LENGTH_LONG,
+//                    gravity: Toast.BOTTOM);
               }
             }
           },
@@ -621,5 +627,14 @@ class _LoginScreen2State extends State<LoginScreen2> {
 
     showDialog(
         context: context, builder: (BuildContext context) => alertDialog);
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        style: TextStyle(color: const Color(0xff48B2E1)),
+      ),
+    ));
   }
 }

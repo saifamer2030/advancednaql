@@ -159,6 +159,7 @@ class _newoffer extends State<NewOffer> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color(0xffffffff),
       body: Stack(children: <Widget>[
         Column(
@@ -232,7 +233,10 @@ class _newoffer extends State<NewOffer> {
                         }else if (picno==2){
                           getImage3();
                         }else{
-                Toast.show(Translations.of(context).translate('the_maximum_number_is_three'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                          showInSnackBar(
+                              Translations.of(context).translate('the_maximum_number_is_three'));
+
+                         // Toast.show(Translations.of(context).translate('the_maximum_number_is_three'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
 
                         }
 
@@ -1213,8 +1217,8 @@ class _newoffer extends State<NewOffer> {
 //                                && ((sampleImage14 != null)&&(_advcheck||Agrcheck))
                                ) {
     if((((city1==""||city1==null)||(city2==""||city2==null))&&(!Agrcheck))||(city3==""||city3==null)){
-    Toast.show("برجاء ادخال المدينة", context,
-    duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+//    Toast.show("برجاء ادخال المدينة", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    showInSnackBar("برجاء ادخال المدينة");
 
     }else {
       try {
@@ -1228,13 +1232,16 @@ class _newoffer extends State<NewOffer> {
         }
       } on SocketException catch (_) {
         //  print('not connected');
-        Toast.show(
-            Translations.of(context).translate('please_see_network_connection'),
-            context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        showInSnackBar( Translations.of(context).translate('please_see_network_connection'));
+
+//        Toast.show(
+//            Translations.of(context).translate('please_see_network_connection'),
+//            context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       }
     }
                             }else{
-                            Toast.show(Translations.of(context).translate('please_add_the_required_images'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                           // Toast.show(Translations.of(context).translate('please_add_the_required_images'),context,duration: Toast.LENGTH_SHORT,gravity:  Toast.BOTTOM);
+                            showInSnackBar( Translations.of(context).translate('please_add_the_required_images'));
 
                             }
 
@@ -1400,7 +1407,9 @@ _nocheck=false;
         });
         showAlertDialog( context);
       }).catchError((e) {
-        Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+        showInSnackBar( e);
+
+       // Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
         setState(() {
           _load2 = false;
         });
@@ -2144,4 +2153,5 @@ class _MyForm3State extends State<MyForm3> {
       ],
     );
   }
+
 }

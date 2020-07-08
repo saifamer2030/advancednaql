@@ -42,6 +42,7 @@ class _providerProlileState extends State<providerProlile> {
 
   //List<OrderDetailClass> orderlist = [];
   List<CommentClass> commentlist = [];
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   //var _controller = ScrollController();
 
@@ -250,6 +251,7 @@ class _providerProlileState extends State<providerProlile> {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
 
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color(0xffffffff),
       body: Stack(
         children: <Widget>[
@@ -385,12 +387,12 @@ class _providerProlileState extends State<providerProlile> {
                                           !favcheck; //boolean value
                                         });
                                         if (_userId == null) {
-                                          //if(favchecklist[position] ){
-                                          Toast.show(
-                                              "يجب عليك تسجيل الدخول أولا",
-                                              context,
-                                              duration: Toast.LENGTH_LONG,
-                                              gravity: Toast.BOTTOM);
+showInSnackBar("يجب عليك تسجيل الدخول أولا") ;
+//Toast.show(
+//                                              "يجب عليك تسجيل الدخول أولا",
+//                                              context,
+//                                              duration: Toast.LENGTH_LONG,
+//                                              gravity: Toast.BOTTOM);
                                           setState(() {
                                             favcheck = false; //boolean value
                                           });
@@ -447,18 +449,21 @@ class _providerProlileState extends State<providerProlile> {
                                               'arrange': int.parse(
                                                   "${now.year.toString()}${b}${c}${d}${e}${f}")
                                             });
-                                            Toast.show(
-                                                "${widget.cName}تم اضافتة فى المفضلة ",
-                                                context,
-                                                duration: Toast.LENGTH_SHORT,
-                                                gravity: Toast.BOTTOM);
+                                            showInSnackBar( "${widget.cName}تم اضافتة فى المفضلة ") ;
+
+//                                            Toast.show(
+//                                                "${widget.cName}تم اضافتة فى المفضلة ",
+//                                                context,
+//                                                duration: Toast.LENGTH_SHORT,
+//                                                gravity: Toast.BOTTOM);
                                           } else {
                                             databaseFav.set(null);
+                                            showInSnackBar( "تم الحذف فى المفضلة") ;
 
-                                            Toast.show("تم الحذف فى المفضلة",
-                                                context,
-                                                duration: Toast.LENGTH_SHORT,
-                                                gravity: Toast.BOTTOM);
+//                                            Toast.show("تم الحذف فى المفضلة",
+//                                                context,
+//                                                duration: Toast.LENGTH_SHORT,
+//                                                gravity: Toast.BOTTOM);
                                           }
 
                                           ////////////////*************************
@@ -723,10 +728,11 @@ class _providerProlileState extends State<providerProlile> {
                           color: const Color(0xff43A2CC),
                           onPressed: () {
                             if (_userId == null) {
-                              Toast.show(
-                                  "يجب عليك تسجيل الدخول أولا", context,
-                                  duration: Toast.LENGTH_LONG,
-                                  gravity: Toast.BOTTOM);
+                              showInSnackBar("يجب عليك تسجيل الدخول أولا");
+//                              Toast.show(
+//                                  "يجب عليك تسجيل الدخول أولا", context,
+//                                  duration: Toast.LENGTH_LONG,
+//                                  gravity: Toast.BOTTOM);
                             } else {
                               final databasemyorder = FirebaseDatabase
                                   .instance
@@ -841,10 +847,12 @@ class _providerProlileState extends State<providerProlile> {
                               color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
-                                  Toast.show(
-                                      "يجب عليك تسجيل الدخول أولا", context,
-                                      duration: Toast.LENGTH_LONG,
-                                      gravity: Toast.BOTTOM);
+                                  showInSnackBar("يجب عليك تسجيل الدخول أولا");
+
+//                                  Toast.show(
+//                                      "يجب عليك تسجيل الدخول أولا", context,
+//                                      duration: Toast.LENGTH_LONG,
+//                                      gravity: Toast.BOTTOM);
                                 } else {
                                   Navigator.push(
                                     context,
@@ -891,17 +899,21 @@ class _providerProlileState extends State<providerProlile> {
                               color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
-                                  Toast.show(
-                                      "يجب عليك تسجيل الدخول أولا", context,
-                                      duration: Toast.LENGTH_LONG,
-                                      gravity: Toast.BOTTOM);
+                                  showInSnackBar("يجب عليك تسجيل الدخول أولا");
+
+//                                  Toast.show(
+//                                      "يجب عليك تسجيل الدخول أولا", context,
+//                                      duration: Toast.LENGTH_LONG,
+//                                      gravity: Toast.BOTTOM);
                                 } else {
                                   if (cPhone != null) {
                                     _makePhoneCall('tel:$cPhone');
                                   } else {
-                                    Toast.show("حاول مرة اخرى", context,
-                                        duration: Toast.LENGTH_LONG,
-                                        gravity: Toast.BOTTOM);
+                                    showInSnackBar("حاول مرة اخرى");
+
+//                                    Toast.show("حاول مرة اخرى", context,
+//                                        duration: Toast.LENGTH_LONG,
+//                                        gravity: Toast.BOTTOM);
                                   }
                                 }
                               },
@@ -981,10 +993,12 @@ class _providerProlileState extends State<providerProlile> {
                               color: Colors.grey[300],
                               onPressed: () {
                                 if (_userId == null) {
-                                  Toast.show(
-                                      "يجب عليك تسجيل الدخول أولا", context,
-                                      duration: Toast.LENGTH_LONG,
-                                      gravity: Toast.BOTTOM);
+                                  showInSnackBar("يجب عليك تسجيل الدخول أولا");
+
+//                                  Toast.show(
+//                                      "يجب عليك تسجيل الدخول أولا", context,
+//                                      duration: Toast.LENGTH_LONG,
+//                                      gravity: Toast.BOTTOM);
                                 } else {
                                   if (cPhone != null) {
                                     //var phone="01003208785";
@@ -995,9 +1009,10 @@ class _providerProlileState extends State<providerProlile> {
                                         : print(
                                         "open whatsapp app link or do a snackbar with notification that there is no whatsapp installed");
                                   } else {
-                                    Toast.show("حاول مرة اخرى", context,
-                                        duration: Toast.LENGTH_LONG,
-                                        gravity: Toast.BOTTOM);
+                                    showInSnackBar("حاول مرة اخرى");
+//                                    Toast.show("حاول مرة اخرى", context,
+//                                        duration: Toast.LENGTH_LONG,
+//                                        gravity: Toast.BOTTOM);
                                   }
                                 }
                               },
@@ -1117,8 +1132,8 @@ class _providerProlileState extends State<providerProlile> {
 
                                             }
                                           } on SocketException catch (_) {
-                                            //  print('not connected');
-                                            Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                            showInSnackBar(Translations.of(context).translate('please_see_network_connection'));
+//                                            Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
 
                                           }
 //                                                setState(() {
@@ -1209,8 +1224,10 @@ class _providerProlileState extends State<providerProlile> {
               'cadvID': widget.cDateID,
 
             }).whenComplete(() {
-              Toast.show("تم التعليق بنجاح", context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+              showInSnackBar("تم التعليق بنجاح");
+
+//              Toast.show("تم التعليق بنجاح", context,
+//                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
               CommentClass commentclass = new CommentClass(
                 widget.cId,
                 _userId,
@@ -1269,8 +1286,9 @@ class _providerProlileState extends State<providerProlile> {
                **/
               //  _controller.animateTo(0.0,curve: Curves.easeInOut, duration: Duration(seconds: 1));
             }).catchError((e) {
-              Toast.show(e, context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+              showInSnackBar(e);
+//              Toast.show(e, context,
+//                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
               setState(() {
                 //  _load2 = false;
               });
@@ -1344,15 +1362,18 @@ class _providerProlileState extends State<providerProlile> {
                                               setState(() {
                                                 commentlist.removeAt(index);
                                               });
-                                              Toast.show("تم حذف التعليق", context,
-                                                  duration: Toast.LENGTH_SHORT,
-                                                  gravity: Toast.BOTTOM);
+                                              showInSnackBar("تم حذف التعليق");
+//                                              Toast.show("تم حذف التعليق", context,
+//                                                  duration: Toast.LENGTH_SHORT,
+//                                                  gravity: Toast.BOTTOM);
                                             }).then((value) => Navigator.pop(context));
                                           }
                                           else{
-                                            Toast.show("ليس تعليقك", context,
-                                                duration: Toast.LENGTH_SHORT,
-                                                gravity: Toast.BOTTOM);
+                                            showInSnackBar("ليس تعليقك");
+
+//                                            Toast.show("ليس تعليقك", context,
+//                                                duration: Toast.LENGTH_SHORT,
+//                                                gravity: Toast.BOTTOM);
                                           }
                                         });
                                       }
@@ -1422,6 +1443,15 @@ class _providerProlileState extends State<providerProlile> {
         ),
       ),
     );
+  }
+
+  void showInSnackBar(String value) {
+    _scaffoldKey.currentState.showSnackBar(new SnackBar(
+      content: new Text(
+        value,
+        style: TextStyle(color: const Color(0xff48B2E1)),
+      ),
+    ));
   }
   Future<void> _makePhoneCall(String url) async {
     if (await canLaunch(url)) {

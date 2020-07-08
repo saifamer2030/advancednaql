@@ -651,8 +651,10 @@ class _newOrderState extends State<newOrder> {
                               onTap: () async {
                                 if (_formKey.currentState.validate()) {
                                   if((city1==""||city1==null)||(city2==""||city2==null)){
-                                    Toast.show("برجاء ادخال المدينة", context,
-                                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                                    showInSnackBar("برجاء ادخال المدينة");
+
+//                                    Toast.show("برجاء ادخال المدينة", context,
+//                                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
                                   }else{
                                       try {
@@ -665,7 +667,8 @@ class _newOrderState extends State<newOrder> {
                                         }
                                       } on SocketException catch (_) {
                                         //  print('not connected');
-                                        Toast.show("برجاء مراجعة الاتصال بالشبكة",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                       // Toast.show("برجاء مراجعة الاتصال بالشبكة",context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+                                        showInSnackBar("برجاء مراجعة الاتصال بالشبكة");
 
                                       }}
 
@@ -732,7 +735,9 @@ class _newOrderState extends State<newOrder> {
           _load2 = false;
         });
       }).catchError((e) {
-        Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+        showInSnackBar(e);
+
+       // Toast.show(e,context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
         setState(() {
           _load2 = false;
         });
@@ -794,15 +799,15 @@ class _newOrderState extends State<newOrder> {
     });
   }
   void onSubmit4(String result) {
-    Toast.show("${result}", context,
-        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+//    Toast.show("${result}", context,
+//        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     setState(() {
       city1=result;
     });
   }
   void onSubmit3(String result) {
-    Toast.show("${result}", context,
-        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+//    Toast.show("${result}", context,
+//        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     setState(() {
       city2=result;
     });
