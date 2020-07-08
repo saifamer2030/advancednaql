@@ -5,8 +5,11 @@ import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import '../map/cur_loc.dart';
 
 class newOrder extends StatefulWidget {
   String dep;
@@ -18,6 +21,8 @@ class newOrder extends StatefulWidget {
 }
 
 class _newOrderState extends State<newOrder> {
+  LatLng fromPlace, toPlace ;
+  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng;
   var _formKey = GlobalKey<FormState>();
   final double _minimumPadding = 5.0;
   var _Categoryarray = [
@@ -182,14 +187,24 @@ class _newOrderState extends State<newOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => MyForm4("",
-                                                onSubmit4: onSubmit4));
-                                      });
+                                    onTap: ()async {
+                                      // setState(() {
+                                      //   showDialog(
+                                      //       context: context,
+                                      //       builder: (context) => MyForm4("",
+                                      //           onSubmit4: onSubmit4));
+                                      // });
 //showBottomSheet();
+                                    toPlace = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            CurrentLocation2()));
+                                            toPlaceLat = toPlace.latitude.toString();
+                                            toPlaceLng = toPlace.longitude.toString();
+                                      print(
+                                          "to POP lastPositionnnnnn>>>>>>>>>>>>> " +
+                                              toPlace.toString());
                                     },
                                     child: Text(
                                       Translations.of(context).translate('place_of_delivery'),
@@ -229,14 +244,25 @@ class _newOrderState extends State<newOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => MyForm3("",
-                                                onSubmit3: onSubmit3));
-                                      });
+                                    onTap: () async{
+                                      // setState(() {
+                                      //   showDialog(
+                                      //       context: context,
+                                      //       builder: (context) => MyForm3("",
+                                      //           onSubmit3: onSubmit3));
+                                      // });
 //showBottomSheet();
+                                      fromPlace = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CurrentLocation2()),
+                                      );
+                                      fromPlaceLat = fromPlace.latitude.toString();
+                                      fromPlaceLng = fromPlace.longitude.toString();
+                                      print(
+                                          "From POP lastPositionnnnnn>>>>>>>>>>>>> " +
+                                              fromPlace.toString());
                                     },
                                     child: Text(
                                       Translations.of(context).translate('download_place'),
@@ -650,8 +676,9 @@ class _newOrderState extends State<newOrder> {
                             child: InkWell(
                               onTap: () async {
                                 if (_formKey.currentState.validate()) {
-                                  if((city1==""||city1==null)||(city2==""||city2==null)){
-                                    showInSnackBar("برجاء ادخال المدينة");
+                                  if(fromPlaceLat == null || fromPlaceLng == null ||
+                                     toPlaceLat == null || toPlaceLng == null){
+                                    showInSnackBar("برجاء ادخال المكان");
 
 //                                    Toast.show("برجاء ادخال المدينة", context,
 //                                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -729,6 +756,10 @@ class _newOrderState extends State<newOrder> {
         'cpublished': false,
         'cstarttraveltime': "",
         'curi': "a",
+              'fromPLat': fromPlaceLat,
+              'fromPLng': fromPlaceLng,
+              'toPLat': toPlaceLat,
+              'toPLng': toPlaceLng,
       }).whenComplete(() {
         showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
         setState(() {

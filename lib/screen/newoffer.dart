@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:toast/toast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,6 +13,8 @@ import 'package:image/image.dart' as Img;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
+
+import '../map/cur_loc.dart';
 
 class NewOffer extends StatefulWidget {
   String dep;
@@ -24,6 +27,8 @@ class NewOffer extends StatefulWidget {
 
 @override
 class _newoffer extends State<NewOffer> {
+  LatLng fromPlace, toPlace ;
+  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng;
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -890,14 +895,24 @@ class _newoffer extends State<NewOffer> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => MyForm4("",
-                                              onSubmit4: onSubmit4));
-                                    });
+                                  onTap: () async{
+                                    // setState(() {
+                                    //   showDialog(
+                                    //       context: context,
+                                    //       builder: (context) => MyForm4("",
+                                    //           onSubmit4: onSubmit4));
+                                    // });
 //showBottomSheet();
+                                    toPlace = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            CurrentLocation2()));
+                                            toPlaceLat = toPlace.latitude.toString();
+                                            toPlaceLng = toPlace.longitude.toString();
+                                      print(
+                                          "to POP lastPositionnnnnn>>>>>>>>>>>>> " +
+                                              toPlace.toString());
                                   },
                                   child: Text(
                                     Translations.of(context).translate('place_of_delivery'),
@@ -937,14 +952,25 @@ class _newoffer extends State<NewOffer> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => MyForm3("",
-                                              onSubmit3: onSubmit3));
-                                    });
+                                  onTap: ()async {
+                                    // setState(() {
+                                    //   showDialog(
+                                    //       context: context,
+                                    //       builder: (context) => MyForm3("",
+                                    //           onSubmit3: onSubmit3));
+                                    // });
 //showBottomSheet();
+                                    fromPlace = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CurrentLocation2()),
+                                      );
+                                      fromPlaceLat = fromPlace.latitude.toString();
+                                      fromPlaceLng = fromPlace.longitude.toString();
+                                      print(
+                                          "From POP lastPositionnnnnn>>>>>>>>>>>>> " +
+                                              fromPlace.toString());
                                   },
                                   child: Text(
                                     Translations.of(context).translate('download_place'),
@@ -1216,9 +1242,9 @@ class _newoffer extends State<NewOffer> {
 //                                &&((sampleImage12 != null)&&(_advcheck||Agrcheck))
 //                                && ((sampleImage14 != null)&&(_advcheck||Agrcheck))
                                ) {
-    if((((city1==""||city1==null)||(city2==""||city2==null))&&(!Agrcheck))||(city3==""||city3==null)){
+    if(((fromPlaceLat == null || fromPlaceLng == null ||toPlaceLat == null || toPlaceLng == null)&&(!Agrcheck))||(city3==""||city3==null)){
 //    Toast.show("برجاء ادخال المدينة", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    showInSnackBar("برجاء ادخال المدينة");
+    showInSnackBar("برجاء ادخال المكان");
 
     }else {
       try {
@@ -1360,6 +1386,10 @@ class _newoffer extends State<NewOffer> {
         'cpublished': false,
         'cstarttraveltime': "",
         'curi': url13,
+              'fromPLat': fromPlaceLat,
+              'fromPLng': fromPlaceLng,
+              'toPLat': toPlaceLat,
+              'toPLng': toPlaceLng,
         //////////////////////////
         'ccity': city3,
         'cadv': __advarraycurrentItemSelected,

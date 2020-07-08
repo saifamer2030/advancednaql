@@ -1,7 +1,6 @@
 import 'package:advancednaql/classes/OrderClass.dart';
 import 'package:advancednaql/classes/OrderNameClass.dart';
 import 'package:advancednaql/classes/UserRateClass.dart';
-import 'package:advancednaql/map/map.dart';
 import 'package:advancednaql/screen/orderprofile.dart';
 import 'package:advancednaql/screen/providerprofile.dart';
 import 'package:advancednaql/translation/app_localizations.dart';
@@ -13,6 +12,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 import 'package:toast/toast.dart';
+
+import '../map/map_view.dart';
 
 class AllOrder extends StatefulWidget {
   @override
@@ -324,7 +325,7 @@ class _AllOrderState extends State<AllOrder> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyHomePage()),
+                                  builder: (context) => MapViewNaql()),
                             );
                           },
                           child: Row(
