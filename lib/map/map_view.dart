@@ -126,13 +126,13 @@ class _MapViewNaqlState extends State<MapViewNaql> {
       OrdersLocations order) async {
     LatLng newLatLng = LatLng(double.parse(lat), double.parse(lng));
 
-    BitmapDescriptor icon ;
+     BitmapDescriptor icon ;
     if (order.cType == "طلب") {
       icon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(32, 32)), 'assets/images/pin_red.png');
+      ImageConfiguration(size: Size(116, 116)), 'assets/images/pin_green.png');
     } else {
       icon =  await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(32, 32)), 'assets/images/pin_green.png');
+      ImageConfiguration(size: Size(116, 116)), 'assets/images/pin_red.png');
     }
 
     setState(() {
