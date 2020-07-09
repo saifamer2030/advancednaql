@@ -16,14 +16,11 @@ class _CurrentLocationState extends State<CurrentLocation2> {
   static LatLng _center = const LatLng(24.774265, 46.738586);
   LatLng _lastMapPostion = _center;
   LatLng _myLoc;
-
   MapType _currentMapType = MapType.normal;
   final Set<Marker> _markers = {};
-
   final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   bool isLocationEnabled;
   BuildContext _context;
-
   Position _currentPosition;
   Position _geoPosition;
   String _currentAddress;
@@ -64,31 +61,12 @@ class _CurrentLocationState extends State<CurrentLocation2> {
                   top: 20.0,
                 ),
               )),
-//          Padding(
-//            padding: EdgeInsets.all(16.0),
-//            child: Align(
-//                alignment: Alignment.topRight,
-//                child: Column(
-//                  children: <Widget>[
-//                    actionBtn(Icons.map, _onMapTypePressed),
-//                    SizedBox(
-//                      height: 10.0,
-//                    ),
-//                    actionBtn(Icons.add_location, _onAddMarkerPressed),
-//                    SizedBox(
-//                      height: 10.0,
-//                    ),
-//                    actionBtn(Icons.location_searching, _goToPositionOne),
-//                  ],
-//                )),
-//          ),
-
           new Align(
             alignment: Alignment.center,
             child: new Icon(FontAwesomeIcons.mapPin, size: 40.0),
           ),
           Container(
-            width:( MediaQuery.of(context).size.width / 3 ) *2,
+            width: (MediaQuery.of(context).size.width / 3) * 2,
             alignment: Alignment.bottomCenter,
             margin: EdgeInsets.all(16.0),
             child: RaisedButton(
@@ -98,17 +76,19 @@ class _CurrentLocationState extends State<CurrentLocation2> {
                 },
                 child: Row(
                   children: <Widget>[
-SizedBox(width: 20,),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Text("حفظ المكان",
                         style: TextStyle(fontSize: 20.0, color: Colors.white),
                         textAlign: TextAlign.center),
-SizedBox(width: 20,),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Icon(Icons.save, color: Colors.white),
-SizedBox(width: 20,),
-
-//                    Text("Save Location", style: TextStyle(fontSize: 20.0, color: Colors.white),),
-//                    SizedBox(width: 15.0,),
-//                    Icon(Icons.save , color: Colors.white,)
+                    SizedBox(
+                      width: 20,
+                    ),
                   ],
                 )),
           )
@@ -117,8 +97,27 @@ SizedBox(width: 20,),
     );
   }
 
+
+_getAddressFromLatLng(double lt, double lg) async {
+    try {
+      List<Placemark> p = await Geolocator().placemarkFromCoordinates(lt, lg);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+            print("\n\n\n\n\n\n\n"+_currentAddress+"\n\n\n\n\n\n");
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void _onAddMarker(BuildContext context) {
-    if (_myLoc == null) _myLoc = _center;
+    if (_myLoc == null) _myLoc = _lastMapPostion;
+    _getAddressFromLatLng(_myLoc.latitude , _myLoc.longitude);
+    //add _currentAddress to args
     Navigator.pop(context, _myLoc);
   }
 

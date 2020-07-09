@@ -202,9 +202,6 @@ class _newOrderState extends State<newOrder> {
                                             CurrentLocation2()));
                                             toPlaceLat = toPlace.latitude.toString();
                                             toPlaceLng = toPlace.longitude.toString();
-                                      print(
-                                          "to POP lastPositionnnnnn>>>>>>>>>>>>> " +
-                                              toPlace.toString());
                                     },
                                     child: Text(
                                       Translations.of(context).translate('place_of_delivery'),
@@ -260,9 +257,7 @@ class _newOrderState extends State<newOrder> {
                                       );
                                       fromPlaceLat = fromPlace.latitude.toString();
                                       fromPlaceLng = fromPlace.longitude.toString();
-                                      print(
-                                          "From POP lastPositionnnnnn>>>>>>>>>>>>> " +
-                                              fromPlace.toString());
+                                      
                                     },
                                     child: Text(
                                       Translations.of(context).translate('download_place'),
@@ -679,8 +674,6 @@ class _newOrderState extends State<newOrder> {
                                   if(fromPlaceLat == null || fromPlaceLng == null ||
                                      toPlaceLat == null || toPlaceLng == null){
                                     showInSnackBar("برجاء ادخال المكان");
-                                    print("\n\n\n\n\nfromPlaceLat "+ fromPlaceLat +" - fromPlaceLng "+ fromPlaceLng+
-                                    " - toPlaceLat"+toPlaceLat +" - toPlaceLng" +toPlaceLng);
                                   }else{
                                       try {
                                         final result = await InternetAddress.lookup('google.com');

@@ -5,9 +5,11 @@ import 'package:advancednaql/translation/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:toast/toast.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+import '../map/cur_loc.dart';
 import 'myadvertisement.dart';
 
 class EditOrder extends StatefulWidget {
@@ -51,6 +53,8 @@ class EditOrder extends StatefulWidget {
 }
 
 class _EditOrderState extends State<EditOrder> {
+  LatLng fromPlace, toPlace ;
+  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng;
   var _formKey = GlobalKey<FormState>();
   final double _minimumPadding = 5.0;
   var _Categoryarray = [
@@ -223,14 +227,21 @@ class _EditOrderState extends State<EditOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => MyForm4(widget.clat1,
-                                                onSubmit4: onSubmit4));
-                                      });
+                                    onTap: () async {
+                                      // setState(() {
+                                      //   showDialog(
+                                      //       context: context,
+                                      //       builder: (context) => MyForm4(widget.clat1,
+                                      //           onSubmit4: onSubmit4));
+                                      // });
 //showBottomSheet();
+                                    toPlace = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            CurrentLocation2()));
+                                            toPlaceLat = toPlace.latitude.toString();
+                                            toPlaceLng = toPlace.longitude.toString();
                                     },
                                     child: Text(
                                       Translations.of(context).translate('place_of_delivery'),
@@ -270,14 +281,23 @@ class _EditOrderState extends State<EditOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) => MyForm3(widget.clat2,
-                                                onSubmit3: onSubmit3));
-                                      });
+                                   onTap: () async{
+                                      // setState(() {
+                                      //   showDialog(
+                                      //       context: context,
+                                      //       builder: (context) => MyForm3("",
+                                      //           onSubmit3: onSubmit3));
+                                      // });
 //showBottomSheet();
+                                      fromPlace = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CurrentLocation2()),
+                                      );
+                                      fromPlaceLat = fromPlace.latitude.toString();
+                                      fromPlaceLng = fromPlace.longitude.toString();
+                                      
                                     },
                                     child: Text(
                                       Translations.of(context).translate('download_place'),
@@ -691,7 +711,8 @@ class _EditOrderState extends State<EditOrder> {
                             child: InkWell(
                               onTap: () async {
                                 if (_formKey.currentState.validate()) {
-                                  if((city1==""||city1==null)||(city2==""||city2==null)){
+                                  if(fromPlaceLat == null || fromPlaceLng == null ||
+                                     toPlaceLat == null || toPlaceLng == null){
                                     Toast.show("برجاء ادخال المدينة", context,
                                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
@@ -761,12 +782,15 @@ class _EditOrderState extends State<EditOrder> {
         'cType': 'طلب',
         'cCategory': _CategorycurrentItemSelected,
         'cpayload': _PayloadcurrentItemSelected,
-        'cpayload': _PayloadcurrentItemSelected,
         'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
         'ctime':_timecheck?_timeController.text:_timecurrentItemSelected,
         'cpublished': false,
         'cstarttraveltime': "",
         'curi': "a",
+              'fromPLat': fromPlaceLat,
+              'fromPLng': fromPlaceLng,
+              'toPLat': toPlaceLat,
+              'toPLng': toPlaceLng,
       }).whenComplete(() {
         showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
         setState(() {
