@@ -54,7 +54,8 @@ class EditOrder extends StatefulWidget {
 
 class _EditOrderState extends State<EditOrder> {
   LatLng fromPlace, toPlace ;
-  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng;
+  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng , fPlaceName , tPlaceName;
+  Map <String , dynamic > sendData = Map();
   var _formKey = GlobalKey<FormState>();
   final double _minimumPadding = 5.0;
   var _Categoryarray = [
@@ -227,7 +228,18 @@ class _EditOrderState extends State<EditOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () async{
+                                      sendData = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CurrentLocation2()),
+                                      );
+                                      toPlace = sendData["loc_latLng"];
+                                      toPlaceLat = toPlace.latitude.toString();
+                                      toPlaceLng = toPlace.longitude.toString();
+                                      tPlaceName = sendData["loc_name"];
+                                    },
 //                                    async {
 //                                      // setState(() {
 //                                      //   showDialog(
@@ -282,7 +294,20 @@ class _EditOrderState extends State<EditOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                   onTap: () {},
+                                   onTap: () async{
+                                      sendData = await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CurrentLocation2()),
+                                      );
+                                      fromPlace = sendData["loc_latLng"];
+                                      fromPlaceLat = fromPlace.latitude.toString();
+                                      fromPlaceLng = fromPlace.longitude.toString();
+                                      fPlaceName = sendData["loc_name"];
+                                      print("\n\n\n\n\n\n\nfromPlaceLng>>>>"+
+                                      fromPlaceLng+fPlaceName+"\n\n\n\n\n\n");
+                                   },
 //                                   async{
 //                                      // setState(() {
 //                                      //   showDialog(
@@ -714,8 +739,9 @@ class _EditOrderState extends State<EditOrder> {
                               onTap: () async {
                                 if (_formKey.currentState.validate()) {
                                   if(fromPlaceLat == null || fromPlaceLng == null ||
-                                     toPlaceLat == null || toPlaceLng == null){
-                                    Toast.show("برجاء ادخال المدينة", context,
+                                     toPlaceLat == null || toPlaceLng == null ||  
+                                     fPlaceName == null || tPlaceName == null  ){
+                                    Toast.show("برجاء ادخال المكان", context,
                                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
                                   }else{
@@ -793,6 +819,8 @@ class _EditOrderState extends State<EditOrder> {
               'fromPLng': fromPlaceLng,
               'toPLat': toPlaceLat,
               'toPLng': toPlaceLng,
+              'fPlaceName':fPlaceName,
+              'tPlaceName':tPlaceName,
       }).whenComplete(() {
         showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
         setState(() {

@@ -28,7 +28,8 @@ class NewOffer extends StatefulWidget {
 @override
 class _newoffer extends State<NewOffer> {
   LatLng fromPlace, toPlace ;
-  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng;
+  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng , fPlaceName , tPlaceName;
+  Map <String , dynamic > sendData = Map();
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -903,16 +904,16 @@ class _newoffer extends State<NewOffer> {
                                     //           onSubmit4: onSubmit4));
                                     // });
 //showBottomSheet();
-                                    toPlace = await Navigator.push(
+                                    sendData = await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            CurrentLocation2()));
-                                            toPlaceLat = toPlace.latitude.toString();
-                                            toPlaceLng = toPlace.longitude.toString();
-                                      print(
-                                          "to POP lastPositionnnnnn>>>>>>>>>>>>> " +
-                                              toPlace.toString());
+                                                CurrentLocation2()),
+                                      );
+                                      toPlace = sendData["loc_latLng"];
+                                      toPlaceLat = toPlace.latitude.toString();
+                                      toPlaceLng = toPlace.longitude.toString();
+                                      tPlaceName = sendData["loc_name"];
                                   },
                                   child: Text(
                                     Translations.of(context).translate('place_of_delivery'),
@@ -960,17 +961,18 @@ class _newoffer extends State<NewOffer> {
                                     //           onSubmit3: onSubmit3));
                                     // });
 //showBottomSheet();
-                                    fromPlace = await Navigator.push(
+                                     sendData = await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 CurrentLocation2()),
                                       );
+                                      fromPlace = sendData["loc_latLng"];
                                       fromPlaceLat = fromPlace.latitude.toString();
                                       fromPlaceLng = fromPlace.longitude.toString();
-                                      print(
-                                          "From POP lastPositionnnnnn>>>>>>>>>>>>> " +
-                                              fromPlace.toString());
+                                      fPlaceName = sendData["loc_name"];
+                                      print("\n\n\n\n\n\n\nfromPlaceLng>>>>"+
+                                      fromPlaceLng+fPlaceName+"\n\n\n\n\n\n");
                                   },
                                   child: Text(
                                     Translations.of(context).translate('download_place'),
@@ -1242,8 +1244,10 @@ class _newoffer extends State<NewOffer> {
 //                                &&((sampleImage12 != null)&&(_advcheck||Agrcheck))
 //                                && ((sampleImage14 != null)&&(_advcheck||Agrcheck))
                                ) {
-    if(((fromPlaceLat == null || fromPlaceLng == null ||toPlaceLat == null || toPlaceLng == null)&&(!Agrcheck))||(city3==""||city3==null)){
-//    Toast.show("برجاء ادخال المدينة", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    if(fromPlaceLat == null || fromPlaceLng == null ||
+                                     toPlaceLat == null || toPlaceLng == null ||  
+                                     fPlaceName == null || tPlaceName == null  ){
+                                           Toast.show("برجاء ادخال المدينة", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     showInSnackBar("برجاء ادخال المكان");
 
     }else {
@@ -1390,6 +1394,8 @@ class _newoffer extends State<NewOffer> {
               'fromPLng': fromPlaceLng,
               'toPLat': toPlaceLat,
               'toPLng': toPlaceLng,
+              'fPlaceName':fPlaceName,
+              'tPlaceName':tPlaceName,
         //////////////////////////
         'ccity': city3,
         'cadv': __advarraycurrentItemSelected,

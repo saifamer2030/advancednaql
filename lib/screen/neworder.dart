@@ -22,7 +22,8 @@ class newOrder extends StatefulWidget {
 
 class _newOrderState extends State<newOrder> {
   LatLng fromPlace, toPlace ;
-  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng;
+  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng , fPlaceName , tPlaceName;
+  Map <String , dynamic > sendData = Map();
   var _formKey = GlobalKey<FormState>();
   final double _minimumPadding = 5.0;
   var _Categoryarray = [
@@ -195,13 +196,16 @@ class _newOrderState extends State<newOrder> {
                                       //           onSubmit4: onSubmit4));
                                       // });
 //showBottomSheet();
-                                    toPlace = await Navigator.push(
+                                    sendData = await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            CurrentLocation2()));
-                                            toPlaceLat = toPlace.latitude.toString();
-                                            toPlaceLng = toPlace.longitude.toString();
+                                                CurrentLocation2()),
+                                      );
+                                      toPlace = sendData["loc_latLng"];
+                                      toPlaceLat = toPlace.latitude.toString();
+                                      toPlaceLng = toPlace.longitude.toString();
+                                      tPlaceName = sendData["loc_name"];
                                     },
                                     child: Text(
                                       Translations.of(context).translate('place_of_delivery'),
@@ -249,14 +253,18 @@ class _newOrderState extends State<newOrder> {
                                       //           onSubmit3: onSubmit3));
                                       // });
 //showBottomSheet();
-                                      fromPlace = await Navigator.push(
+                                       sendData = await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 CurrentLocation2()),
                                       );
+                                      fromPlace = sendData["loc_latLng"];
                                       fromPlaceLat = fromPlace.latitude.toString();
                                       fromPlaceLng = fromPlace.longitude.toString();
+                                      fPlaceName = sendData["loc_name"];
+                                      print("\n\n\n\n\n\n\nfromPlaceLng>>>>"+
+                                      fromPlaceLng+fPlaceName+"\n\n\n\n\n\n");
                                       
                                     },
                                     child: Text(
@@ -672,7 +680,8 @@ class _newOrderState extends State<newOrder> {
                               onTap: () async {
                                 if (_formKey.currentState.validate()) {
                                   if(fromPlaceLat == null || fromPlaceLng == null ||
-                                     toPlaceLat == null || toPlaceLng == null){
+                                     toPlaceLat == null || toPlaceLng == null ||  
+                                     fPlaceName == null || tPlaceName == null  ){
                                     showInSnackBar("برجاء ادخال المكان");
                                   }else{
                                       try {
@@ -750,6 +759,8 @@ class _newOrderState extends State<newOrder> {
               'fromPLng': fromPlaceLng,
               'toPLat': toPlaceLat,
               'toPLng': toPlaceLng,
+              'fPlaceName':fPlaceName,
+              'tPlaceName':tPlaceName,
       }).whenComplete(() {
         showInSnackBar(Translations.of(context).translate('your_request_has_been_sent_for_review_successfully'),);
         setState(() {
