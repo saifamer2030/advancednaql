@@ -34,6 +34,20 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	  <key>CFBundleURLTypes</key>
+                <array>
+                    <dict>
+                        <key>CFBundleTypeRole</key>
+                        <string>Editor</string>
+                        <key>CFBundleURLSchemes</key>
+                        <array>
+                            <!-- Insert your reversed client ID here -->
+                            <string> com.googleusercontent.apps.1064652075744-hum9499q0k39ppnea474084cahh7mn53 </string>
+                        </array>
+                    </dict>
+                </array>
+		<key>NSRemindersUsageDescription</key>
+    	<string>Access to notifications must be allowed to remind you of your appointments</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

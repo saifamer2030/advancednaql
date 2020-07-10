@@ -136,7 +136,8 @@ class _MoreWidget extends State<MoreWidget> {
                                     'إضافة إعلان',
                                     style: TextStyle(
                                       fontFamily: 'DroidArabicKufi',
-                                      fontSize: 13,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
                                       color: const Color(0xff3F9DC7),
                                       height: 1.2307692307692308,
                                     ),
@@ -179,7 +180,8 @@ class _MoreWidget extends State<MoreWidget> {
                                     'إعلاناتي',
                                     style: TextStyle(
                                       fontFamily: 'DroidArabicKufi',
-                                      fontSize: 13,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
                                       color: const Color(0xff3F9DC7),
                                       height: 1.2307692307692308,
                                     ),
@@ -229,7 +231,8 @@ class _MoreWidget extends State<MoreWidget> {
                                     'محادثاتي',
                                     style: TextStyle(
                                       fontFamily: 'DroidArabicKufi',
-                                      fontSize: 13,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
                                       color: const Color(0xff3F9DC7),
                                       height: 1.2307692307692308,
                                     ),
@@ -284,7 +287,8 @@ class _MoreWidget extends State<MoreWidget> {
                                     'الصفحه الشخصية',
                                     style: TextStyle(
                                       fontFamily: 'DroidArabicKufi',
-                                      fontSize: 13,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
                                       color: const Color(0xff3F9DC7),
                                       height: 1.2307692307692308,
                                     ),
@@ -410,7 +414,8 @@ class _MoreWidget extends State<MoreWidget> {
                                     'شروط الاستخدام',
                                     style: TextStyle(
                                       fontFamily: 'DroidArabicKufi',
-                                      fontSize: 13,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
                                       color: const Color(0xff3F9DC7),
                                       height: 1.2307692307692308,
                                     ),
@@ -464,7 +469,8 @@ class _MoreWidget extends State<MoreWidget> {
                                     'سياسه الخصوصيه',
                                     style: TextStyle(
                                       fontFamily: 'DroidArabicKufi',
-                                      fontSize: 13,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
                                       color: const Color(0xff3F9DC7),
                                       height: 1.2307692307692308,
                                     ),
@@ -497,7 +503,8 @@ class _MoreWidget extends State<MoreWidget> {
                               'تقييم التطبيق',
                               style: TextStyle(
                                 fontFamily: 'DroidArabicKufi',
-                                fontSize: 13,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                                 color: const Color(0xff3F9DC7),
                                 height: 1.2307692307692308,
                               ),
@@ -526,7 +533,8 @@ class _MoreWidget extends State<MoreWidget> {
                               'الشكاوي',
                               style: TextStyle(
                                 fontFamily: 'DroidArabicKufi',
-                                fontSize: 13,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                                 color: const Color(0xff3F9DC7),
                                 height: 1.2307692307692308,
                               ),
@@ -555,7 +563,8 @@ class _MoreWidget extends State<MoreWidget> {
                               'مساعدة',
                               style: TextStyle(
                                 fontFamily: 'DroidArabicKufi',
-                                fontSize: 13,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                                 color: const Color(0xff3F9DC7),
                                 height: 1.2307692307692308,
                               ),
@@ -584,7 +593,8 @@ class _MoreWidget extends State<MoreWidget> {
                               'نبذة عن التطبيق',
                               style: TextStyle(
                                 fontFamily: 'DroidArabicKufi',
-                                fontSize: 13,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                                 color: const Color(0xff3F9DC7),
                                 height: 1.2307692307692308,
                               ),
@@ -633,7 +643,8 @@ class _MoreWidget extends State<MoreWidget> {
                                       'تسجيل الدخول',
                                       style: TextStyle(
                                         fontFamily: 'DroidArabicKufi',
-                                        fontSize: 13,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
                                         color: const Color(0xff3F9DC7),
                                         height: 1.2307692307692308,
                                       ),
@@ -643,7 +654,8 @@ class _MoreWidget extends State<MoreWidget> {
                                       'تسجيل خروج',
                                       style: TextStyle(
                                         fontFamily: 'DroidArabicKufi',
-                                        fontSize: 13,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
                                         color: const Color(0xff3F9DC7),
                                         height: 1.2307692307692308,
                                       ),

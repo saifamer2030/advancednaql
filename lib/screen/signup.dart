@@ -313,68 +313,68 @@ class _SignUpState extends State<SignUp> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+//                            Padding(
+//                              padding: EdgeInsets.all(_minimumPadding),
+//
+//                              child: Container(
+//                                height: 50.0,
+//                                width: 150,
+//                                child: Material(
+//                                  borderRadius: BorderRadius.circular(20.0),
+//                                  shadowColor: const Color(0xff41a0cb),
+//                                  color: const Color(0xff41a0cb),
+//                                  elevation: 3.0,
+//                                  child: GestureDetector(
+//                                    onTap: () async {
+//                                      if (_formKey.currentState.validate()) {
+//                                        try {
+//                                          final result = await InternetAddress.lookup('googl.com');
+//                                          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+//                                            //  print('connected');
+//                                            loginUserphone(_phoneController.text.trim(), context);
+//                                            setState(() {
+//                                              _load = true;
+//                                            });
+//                                          }
+//                                        } on SocketException catch (_) {
+//                                          //  print('not connected');
+//                                          //  Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
+//                                          showInSnackBar( Translations.of(context).translate('please_see_network_connection'));
+//
+//                                        }
+//
+//                                      } else
+//                                        print('correct');
+//                                    },
+//                                    child: Row(
+//                                      mainAxisAlignment: MainAxisAlignment.center,
+//
+//                                      children: <Widget>[
+//                                        Text(
+//                                          Translations.of(context).translate('sign_up'),
+//                                          textAlign: TextAlign.center,
+//                                          style: TextStyle(
+//                                              color: Colors.white,
+//                                              fontWeight: FontWeight.bold,
+//                                              fontFamily: 'Montserrat'),
+//                                        ),
+//                                        Icon(
+//                                          Icons.phone_android,
+//                                          color: Colors.white,
+//                                        ),
+//                                      ],
+//                                    ),
+//                                  ),
+//                                ),
+//                              ),
+//                            ),
+
                             Padding(
                               padding: EdgeInsets.all(_minimumPadding),
 
                               child: Container(
                                 height: 50.0,
-                                width: 150,
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(20.0),
-                                  shadowColor: const Color(0xff41a0cb),
-                                  color: const Color(0xff41a0cb),
-                                  elevation: 3.0,
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      if (_formKey.currentState.validate()) {
-                                        try {
-                                          final result = await InternetAddress.lookup('google.com');
-                                          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-                                            //  print('connected');
-                                            loginUserphone(_phoneController.text.trim(), context);
-                                            setState(() {
-                                              _load = true;
-                                            });
-                                          }
-                                        } on SocketException catch (_) {
-                                          //  print('not connected');
-                                          //  Toast.show(Translations.of(context).translate('please_see_network_connection'),context,duration: Toast.LENGTH_LONG,gravity:  Toast.BOTTOM);
-                                          showInSnackBar( Translations.of(context).translate('please_see_network_connection'));
-
-                                        }
-
-                                      } else
-                                        print('correct');
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-
-                                      children: <Widget>[
-                                        Text(
-                                          Translations.of(context).translate('sign_up'),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Montserrat'),
-                                        ),
-                                        Icon(
-                                          Icons.phone_android,
-                                          color: Colors.white,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            Padding(
-                              padding: EdgeInsets.all(_minimumPadding),
-
-                              child: Container(
-                                height: 50.0,
-                                width: 150,
+                                width: 250,
                                 child: Material(
                                   borderRadius: BorderRadius.circular(20.0),
                                   shadowColor: const Color(0xff41a0cb),

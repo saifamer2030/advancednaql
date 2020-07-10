@@ -227,22 +227,23 @@ class _EditOrderState extends State<EditOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                    onTap: () async {
-                                      // setState(() {
-                                      //   showDialog(
-                                      //       context: context,
-                                      //       builder: (context) => MyForm4(widget.clat1,
-                                      //           onSubmit4: onSubmit4));
-                                      // });
-//showBottomSheet();
-                                    toPlace = await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            CurrentLocation2()));
-                                            toPlaceLat = toPlace.latitude.toString();
-                                            toPlaceLng = toPlace.longitude.toString();
-                                    },
+                                    onTap: () {},
+//                                    async {
+//                                      // setState(() {
+//                                      //   showDialog(
+//                                      //       context: context,
+//                                      //       builder: (context) => MyForm4(widget.clat1,
+//                                      //           onSubmit4: onSubmit4));
+//                                      // });
+////showBottomSheet();
+//                                    toPlace = await Navigator.push(
+//                                        context,
+//                                        MaterialPageRoute(
+//                                            builder: (context) =>
+//                                            CurrentLocation2()));
+//                                            toPlaceLat = toPlace.latitude.toString();
+//                                            toPlaceLng = toPlace.longitude.toString();
+//                                    },
                                     child: Text(
                                       Translations.of(context).translate('place_of_delivery'),
                                       textDirection: TextDirection.rtl,
@@ -281,24 +282,25 @@ class _EditOrderState extends State<EditOrder> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   InkWell(
-                                   onTap: () async{
-                                      // setState(() {
-                                      //   showDialog(
-                                      //       context: context,
-                                      //       builder: (context) => MyForm3("",
-                                      //           onSubmit3: onSubmit3));
-                                      // });
-//showBottomSheet();
-                                      fromPlace = await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CurrentLocation2()),
-                                      );
-                                      fromPlaceLat = fromPlace.latitude.toString();
-                                      fromPlaceLng = fromPlace.longitude.toString();
-                                      
-                                    },
+                                   onTap: () {},
+//                                   async{
+//                                      // setState(() {
+//                                      //   showDialog(
+//                                      //       context: context,
+//                                      //       builder: (context) => MyForm3("",
+//                                      //           onSubmit3: onSubmit3));
+//                                      // });
+////showBottomSheet();
+//                                      fromPlace = await Navigator.push(
+//                                        context,
+//                                        MaterialPageRoute(
+//                                            builder: (context) =>
+//                                                CurrentLocation2()),
+//                                      );
+//                                      fromPlaceLat = fromPlace.latitude.toString();
+//                                      fromPlaceLng = fromPlace.longitude.toString();
+//
+//                                    },
                                     child: Text(
                                       Translations.of(context).translate('download_place'),
                                       textDirection: TextDirection.rtl,
