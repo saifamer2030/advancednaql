@@ -103,16 +103,19 @@ class __pledgeState extends State<Pledge> {
                               top: 10.0,
                             ),
                             child: Center(
-                              child: Text(
-                                  "وَأَوْفُواْ بِعَهْدِ ٱللَّهِ إِذَا عَٰهَدتُّمْ وَلَا تَنقُضُواْ"
-                                  " ٱلْأَيْمَٰنَ بَعْدَ تَوْكِيدِهَا وَقَدْ جَعَلْتُمُ ٱللَّهَ عَلَيْكُمْ كَفِيلًا ۚإِنَّ ٱللَّهَ يَعْلَمُ مَا تَفْعَلُون\nَ",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 0,left: 0),
+                                child: Text(
+                                    "وَأَوْفُواْ بِعَهْدِ ٱللَّهِ إِذَا عَٰهَدتُّمْ وَلَا تَنقُضُواْ"
+                                    "ٱلْأَيْمَٰنَ بَعْدَ تَوْكِيدِهَا وَقَدْ\n              جَعَلْتُمُ ٱللَّهَ عَلَيْكُمْ كَفِيلًا ۚإِنَّ ٱللَّهَ يَعْلَمُ مَا تَفْعَلُون",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
                             ),
                           ),
-                          Text(" صِّدٍَّقٍَّ آلِّلِّهِّ آلِّعََّظِِّيِّمِِّ",
+                          Text("صدق الله العظيمِِّ",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                               )),
@@ -280,6 +283,7 @@ class __pledgeState extends State<Pledge> {
                             height: .5,
                             color: Colors.grey,
                           ),
+
                           Container(
                             width: MediaQuery.of(context).size.width,
                             child: new RaisedButton(

@@ -103,22 +103,33 @@ _getAddressFromLatLng(double lt, double lg) async {
       List<Placemark> p = await Geolocator().placemarkFromCoordinates(lt, lg);
 
       Placemark place = p[0];
+      String name = place.name;
+      String subLocality = place.subLocality;
+      String locality = place.locality;
+      String administrativeArea = place.administrativeArea;
+      String postalCode = place.postalCode;
+      String country = place.country;
+
 
       setState(() {
-        _currentAddress =
-            "${place.locality}, ${place.postalCode}, ${place.country}";
-            print("\n\n\n\n\n\n\n"+_currentAddress+"\n\n\n\n\n\n");
+        _currentAddress = 
+        "${name}, ${subLocality}, ${locality}, ${administrativeArea} ${postalCode}, ${country}";
+            
       });
     } catch (e) {
       print(e);
     }
   }
 
-  void _onAddMarker(BuildContext context) {
+  void _onAddMarker(BuildContext context)async {
     if (_myLoc == null) _myLoc = _lastMapPostion;
-    _getAddressFromLatLng(_myLoc.latitude , _myLoc.longitude);
+    await _getAddressFromLatLng(_myLoc.latitude , _myLoc.longitude);
+    // print("\n\n\n\n\n\n\n"+_currentAddress+"\n\n\n\n\n\n");
     //add _currentAddress to args
-    Navigator.pop(context, _myLoc);
+    Map <String , dynamic > sendData = Map();
+    sendData["loc_latLng"] = _myLoc;
+    sendData["loc_name"] = _currentAddress;
+    Navigator.pop(context, sendData);
   }
 
   _onMapCreated(GoogleMapController controller) {

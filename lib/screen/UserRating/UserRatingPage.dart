@@ -92,6 +92,22 @@ class _UserRatingPageState extends State<UserRatingPage> {
           Container(
             width: width,
             height: 86.0,
+            child: InkWell(
+              onTap: () => Navigator.pop(context),
+
+              child: Container(
+                alignment: Alignment.centerLeft,
+                width: 50,
+                height: 50,
+                child: InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left:8.0,top:20),
+                      child: Icon(Icons.arrow_back,color: Colors.white,),
+                    )
+                ),
+              ),
+            ),
             decoration: BoxDecoration(
               color: const Color(0xff4fc3f7),
             ),

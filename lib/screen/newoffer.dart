@@ -28,7 +28,8 @@ class NewOffer extends StatefulWidget {
 @override
 class _newoffer extends State<NewOffer> {
   LatLng fromPlace, toPlace ;
-  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng;
+  String fromPlaceLat , fromPlaceLng , toPlaceLat , toPlaceLng , fPlaceName , tPlaceName;
+  Map <String , dynamic > sendData = Map();
   var _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -70,7 +71,7 @@ class _newoffer extends State<NewOffer> {
     'نقل ركاب',
     'أخرى'
   ];
-  var _Payloadarray = [
+  var _Payloadarraylow = [
     '100-200 كيلو',
     '200-300 كيلو',
     '400-500 كيلو',
@@ -126,7 +127,11 @@ class _newoffer extends State<NewOffer> {
   TextEditingController _shortController = TextEditingController();
   TextEditingController _detailController = TextEditingController();
   var _CategorycurrentItemSelected = '';
-  var _PayloadcurrentItemSelected = '';
+
+  var _PayloadcurrentItemSelectedlow = '';
+  var _PayloadcurrentItemSelectedmedum = '';
+  var _PayloadcurrentItemSelectedhigh = '';
+
   var _citycurrentItemSelected = '';
   var __noarraycurrentItemSelected = '';
   var __advarraycurrentItemSelected = '';
@@ -141,7 +146,10 @@ class _newoffer extends State<NewOffer> {
 //        });
 //  }
 //}
-    _PayloadcurrentItemSelected = _Payloadarray[0];
+    _PayloadcurrentItemSelectedlow = _Payloadarraylow[0];
+    _PayloadcurrentItemSelectedmedum = _Payloadarraymidum[0];
+    _PayloadcurrentItemSelectedhigh = _Payloadarrayhigh[0];
+
     __advarraycurrentItemSelected= _advarray[0];
     __noarraycurrentItemSelected = _noarray[0];
     _citycurrentItemSelected = _cityarray[0];
@@ -615,71 +623,91 @@ class _newoffer extends State<NewOffer> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        (_advcheck==true||Agrcheck==true)?Container():Container(
-                          color: const Color(0xffF4F4F4),
-                          child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Switch(
-                                value: isSwitched,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isSwitched = value;
-                                    print(isSwitched);
-                                  });
-                                },
-                                activeTrackColor:
-                                const Color(0xff1891C7),
-                                activeColor: Colors.lightBlueAccent,
-                              ),
-                              Text(Translations.of(context).translate('with_the_driver'),
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12),),
-                              Container(
-                                width: 20,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    matchTextDirection: true,
-                                    repeat: ImageRepeat.noRepeat,
-                                    image: AssetImage(
-                                        "assets/images/ic_driver.png"),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+
+                            color: const Color(0xff43A2CC),
+                            child: Container(
+                              width: 50,
+                              height: 48,
+                              color: const Color(0xff43A2CC),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) => MyForm2("",
+                                                onSubmit2: onSubmit2));
+                                      });
+//showBottomSheet();
+                                    },
+                                    child: Text(
+                                      "مدينتك",
+                                      textDirection: TextDirection.rtl,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        //fontWeight: FontWeight.bold
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                ],
+                              ),
+                            ),
+
                           ),
                         ),
-                        _travelcheck?Container(): Container(
-                          width: 70,
+                        Container(
+
                           color: const Color(0xff43A2CC),
                           child: DropdownButtonHideUnderline(
                               child: ButtonTheme(
                                 alignedDropdown: true,
-                                child: DropdownButton<String>(
-                                  items: _noarray.map(
-                                          (String value) {
+                                child: Row(
+                                  children: <Widget>[
+                                    DropdownButton<String>(
+                                      items: _Categoryarray
+                                          .map((String value) {
                                         return new DropdownMenuItem<String>(
                                           value: value,
                                           child: new Text(value),
                                         );
                                       }).toList(),
-                                  value: __noarraycurrentItemSelected,
-                                  onChanged:
-                                      (String newValueSelected) {
-                                    // Your code to execute, when a menu item is selected from dropdown
-                                    _onDropDownItemSelectedno(
-                                        newValueSelected);
-                                  },
-                                  style: new TextStyle(
-                                    color: Colors.black,
-                                  ),
+                                      value: _CategorycurrentItemSelected,
+                                      onChanged:
+                                          (String newValueSelected) {
+                                        // Your code to execute, when a menu item is selected from dropdown
+                                        _onDropDownItemSelectedcat(
+                                            newValueSelected);
+                                      },
+                                      style: new TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            alignment: Alignment.center,
+                                            matchTextDirection: true,
+                                            repeat:
+                                            ImageRepeat.noRepeat,
+                                            image: AssetImage(
+                                                "assets/images/ic_wbcar.png"),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               )),
                         ),
@@ -710,6 +738,217 @@ class _newoffer extends State<NewOffer> {
                                 ),
                               )),
                         ),
+
+                      ],
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        _travelcheck?Container(): Container(
+                          width: 70,
+                          color: const Color(0xff43A2CC),
+                          child: DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: DropdownButton<String>(
+                                  items: _noarray.map(
+                                          (String value) {
+                                        return new DropdownMenuItem<String>(
+                                          value: value,
+                                          child: new Text(value),
+                                        );
+                                      }).toList(),
+                                  value: __noarraycurrentItemSelected,
+                                  onChanged:
+                                      (String newValueSelected) {
+                                    // Your code to execute, when a menu item is selected from dropdown
+                                    _onDropDownItemSelectedno(
+                                        newValueSelected);
+                                  },
+                                  style: new TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              )),
+                        ),
+                        (_advcheck==true||Agrcheck==true)?Container():Container(
+                          color: const Color(0xffF4F4F4),
+                          child: Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Switch(
+                                value: isSwitched,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isSwitched = value;
+                                    print(isSwitched);
+                                  });
+                                },
+                                activeTrackColor:
+                                const Color(0xff1891C7),
+                                activeColor: Colors.lightBlueAccent,
+                              ),
+                              Text(Translations.of(context).translate('with_the_driver'),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12),),
+                              Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    alignment: Alignment.center,
+                                    matchTextDirection: true,
+                                    repeat: ImageRepeat.noRepeat,
+                                    image: AssetImage(
+                                        "assets/images/ic_driver.png"),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        (_travelcheck==true||Agrcheck==true)?Container(): Container(
+
+                          color: const Color(0xff43A2CC),
+                          child:_CategorycurrentItemSelected=='نقل ثقيل'? DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: Row(
+                                  children: <Widget>[
+                                    DropdownButton<String>(
+                                      items: _Payloadarrayhigh.map(
+                                              (String value) {
+                                            return new DropdownMenuItem<String>(
+                                              value: value,
+                                              child: new Text(value),
+                                            );
+                                          }).toList(),
+                                      value: _PayloadcurrentItemSelectedhigh,
+                                      onChanged:
+                                          (String newValueSelected) {
+                                        // Your code to execute, when a menu item is selected from dropdown
+                                        _onDropDownItemSelectedpayhigh(
+                                            newValueSelected);
+                                      },
+                                      style: new TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    /**   Padding(
+                                        padding: const EdgeInsets.only(right: 8),
+                                        child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        matchTextDirection: true,
+                                        repeat:
+                                        ImageRepeat.noRepeat,
+                                        image: AssetImage(
+                                        "assets/images/ic_wcar.png"),
+                                        ),
+                                        ),
+                                        ),
+                                        ),**/
+                                  ],
+                                ),
+                              )):_CategorycurrentItemSelected=='نقل متوسط'? DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: Row(
+                                  children: <Widget>[
+                                    DropdownButton<String>(
+                                      items: _Payloadarraymidum.map(
+                                              (String value) {
+                                            return new DropdownMenuItem<String>(
+                                              value: value,
+                                              child: new Text(value),
+                                            );
+                                          }).toList(),
+                                      value: _PayloadcurrentItemSelectedmedum,
+                                      onChanged:
+                                          (String newValueSelected) {
+                                        // Your code to execute, when a menu item is selected from dropdown
+                                        _onDropDownItemSelectedpaymedum(
+                                            newValueSelected);
+                                      },
+                                      style: new TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    /**  Padding(
+                                        padding: const EdgeInsets.only(right: 8),
+                                        child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        matchTextDirection: true,
+                                        repeat:
+                                        ImageRepeat.noRepeat,
+                                        image: AssetImage(
+                                        "assets/images/ic_wcar.png"),
+                                        ),
+                                        ),
+                                        ),
+                                        ),**/
+                                  ],
+                                ),
+                              )):DropdownButtonHideUnderline(
+                              child: ButtonTheme(
+                                alignedDropdown: true,
+                                child: Row(
+                                  children: <Widget>[
+                                    DropdownButton<String>(
+                                      items: _Payloadarraylow.map(
+                                              (String value) {
+                                            return new DropdownMenuItem<String>(
+                                              value: value,
+                                              child: new Text(value),
+                                            );
+                                          }).toList(),
+                                      value: _PayloadcurrentItemSelectedlow,
+                                      onChanged:
+                                          (String newValueSelected) {
+                                        // Your code to execute, when a menu item is selected from dropdown
+                                        _onDropDownItemSelectedpaylow(
+                                            newValueSelected);
+                                      },
+                                      style: new TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    /** Padding(
+                                        padding: const EdgeInsets.only(right: 8),
+                                        child: Container(
+                                        width: 20,
+                                        height: 20,
+                                        decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        matchTextDirection: true,
+                                        repeat:
+                                        ImageRepeat.noRepeat,
+                                        image: AssetImage(
+                                        "assets/images/ic_wcar.png"),
+                                        ),
+                                        ),
+                                        ),
+                                        ),**/
+                                  ],
+                                ),
+                              )),
+                        ),
+
                       ],
                     ),
                   ),
@@ -751,148 +990,6 @@ class _newoffer extends State<NewOffer> {
                         fontFamily: 'Montserrat'),
                   ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      (_travelcheck==true||Agrcheck==true)?Container(): Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Container(
-
-                          color: const Color(0xff43A2CC),
-                          child: DropdownButtonHideUnderline(
-                              child: ButtonTheme(
-                                alignedDropdown: true,
-                                child: Row(
-                                  children: <Widget>[
-                                    DropdownButton<String>(
-                                      items: _Payloadarray.map(
-                                              (String value) {
-                                            return new DropdownMenuItem<String>(
-                                              value: value,
-                                              child: new Text(value),
-                                            );
-                                          }).toList(),
-                                      value: _PayloadcurrentItemSelected,
-                                      onChanged:
-                                          (String newValueSelected) {
-                                        // Your code to execute, when a menu item is selected from dropdown
-                                        _onDropDownItemSelectedpay(
-                                            newValueSelected);
-                                      },
-                                      style: new TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 8),
-                                      child: Container(
-                                        width: 20,
-                                        height: 20,
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            alignment: Alignment.center,
-                                            matchTextDirection: true,
-                                            repeat:
-                                            ImageRepeat.noRepeat,
-                                            image: AssetImage(
-                                                "assets/images/ic_wcar.png"),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                        ),
-                      ),
-                      Container(
-
-                        color: const Color(0xff43A2CC),
-                        child: DropdownButtonHideUnderline(
-                            child: ButtonTheme(
-                              alignedDropdown: true,
-                              child: Row(
-                                children: <Widget>[
-                                  DropdownButton<String>(
-                                    items: _Categoryarray
-                                        .map((String value) {
-                                      return new DropdownMenuItem<String>(
-                                        value: value,
-                                        child: new Text(value),
-                                      );
-                                    }).toList(),
-                                    value: _CategorycurrentItemSelected,
-                                    onChanged:
-                                        (String newValueSelected) {
-                                      // Your code to execute, when a menu item is selected from dropdown
-                                      _onDropDownItemSelectedcat(
-                                          newValueSelected);
-                                    },
-                                    style: new TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: Container(
-                                      width: 20,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          matchTextDirection: true,
-                                          repeat:
-                                          ImageRepeat.noRepeat,
-                                          image: AssetImage(
-                                              "assets/images/ic_wbcar.png"),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-
-                          color: const Color(0xff43A2CC),
-                          child: Container(
-                            width: 50,
-                            height: 48,
-                            color: const Color(0xff43A2CC),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => MyForm2("",
-                                              onSubmit2: onSubmit2));
-                                    });
-//showBottomSheet();
-                                  },
-                                  child: Text(
-                                   "مدينتك",
-                                    textDirection: TextDirection.rtl,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        //fontWeight: FontWeight.bold
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                        ),
-                      ),
-                    ],
-                  ),
                  SizedBox(
                     height: 2*_minimumPadding,
                     width: _minimumPadding,
@@ -919,16 +1016,16 @@ class _newoffer extends State<NewOffer> {
                                     //           onSubmit4: onSubmit4));
                                     // });
 //showBottomSheet();
-                                    toPlace = await Navigator.push(
+                                    sendData = await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                            CurrentLocation2()));
-                                            toPlaceLat = toPlace.latitude.toString();
-                                            toPlaceLng = toPlace.longitude.toString();
-                                      print(
-                                          "to POP lastPositionnnnnn>>>>>>>>>>>>> " +
-                                              toPlace.toString());
+                                                CurrentLocation2()),
+                                      );
+                                      toPlace = sendData["loc_latLng"];
+                                      toPlaceLat = toPlace.latitude.toString();
+                                      toPlaceLng = toPlace.longitude.toString();
+                                      tPlaceName = sendData["loc_name"];
                                   },
                                   child: Text(
                                     Translations.of(context).translate('place_of_delivery'),
@@ -976,17 +1073,18 @@ class _newoffer extends State<NewOffer> {
                                     //           onSubmit3: onSubmit3));
                                     // });
 //showBottomSheet();
-                                    fromPlace = await Navigator.push(
+                                     sendData = await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 CurrentLocation2()),
                                       );
+                                      fromPlace = sendData["loc_latLng"];
                                       fromPlaceLat = fromPlace.latitude.toString();
                                       fromPlaceLng = fromPlace.longitude.toString();
-                                      print(
-                                          "From POP lastPositionnnnnn>>>>>>>>>>>>> " +
-                                              fromPlace.toString());
+                                      fPlaceName = sendData["loc_name"];
+                                      print("\n\n\n\n\n\n\nfromPlaceLng>>>>"+
+                                      fromPlaceLng+fPlaceName+"\n\n\n\n\n\n");
                                   },
                                   child: Text(
                                     Translations.of(context).translate('download_place'),
@@ -1025,7 +1123,7 @@ class _newoffer extends State<NewOffer> {
                   ) ,
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(left:10.0),
@@ -1054,6 +1152,45 @@ class _newoffer extends State<NewOffer> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(left:10.0),
+                        child: Container(
+                          width: 150 /*MediaQuery.of(context).size.width*/,
+                          height: 40,
+                          child: new RaisedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                new Text(Translations.of(context).translate('equipment_image'),
+                                  style: TextStyle(
+                                    color:const Color(0xff1891C7),
+                                    fontSize: 10,
+                                  ),),
+                                photoselected13?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
+                              ],
+                            ),
+                            textColor: Colors.black54,
+                            color: Colors.grey[300],
+                            onPressed: () {
+                              getImage13();
+                            },
+//
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(10.0)),
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 2*_minimumPadding,
+                    width: _minimumPadding,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
                       (_advcheck==true||Agrcheck==true||isSwitched==false)?Container(): Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
@@ -1083,44 +1220,6 @@ class _newoffer extends State<NewOffer> {
                         ),
                       ),
 
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: 2*_minimumPadding,
-                    width: _minimumPadding,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left:10.0),
-                        child: Container(
-                          width: 150 /*MediaQuery.of(context).size.width*/,
-                          height: 40,
-                          child: new RaisedButton(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                new Text(Translations.of(context).translate('equipment_image'),
-                                  style: TextStyle(
-                                    color:const Color(0xff1891C7),
-                                    fontSize: 10,
-                                  ),),
-                                photoselected13?Icon(Icons.check,color: Colors.green,):Icon(Icons.add,color: Colors.black54,),
-                              ],
-                            ),
-                            textColor: Colors.black54,
-                            color: Colors.grey[300],
-                            onPressed: () {
-                              getImage13();
-                            },
-//
-                            shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0)),
-                          ),
-                        ),
-                      ),
                       (_advcheck==true||Agrcheck==true||isSwitched==false)?Text(""):Padding(
                         padding: const EdgeInsets.only(left:10.0),
                         child: Container(
@@ -1258,8 +1357,10 @@ class _newoffer extends State<NewOffer> {
 //                                &&((sampleImage12 != null)&&(_advcheck||Agrcheck))
 //                                && ((sampleImage14 != null)&&(_advcheck||Agrcheck))
                                ) {
-    if(((fromPlaceLat == null || fromPlaceLng == null ||toPlaceLat == null || toPlaceLng == null)&&(!Agrcheck))||(city3==""||city3==null)){
-//    Toast.show("برجاء ادخال المدينة", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    if(fromPlaceLat == null || fromPlaceLng == null ||
+                                     toPlaceLat == null || toPlaceLng == null ||  
+                                     fPlaceName == null || tPlaceName == null  ){
+                                           Toast.show("برجاء ادخال المدينة", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     showInSnackBar("برجاء ادخال المكان");
 
     }else {
@@ -1338,9 +1439,21 @@ class _newoffer extends State<NewOffer> {
     });
   }
 
-  void _onDropDownItemSelectedpay(String newValueSelected) {
+  void _onDropDownItemSelectedpaylow(String newValueSelected) {
     setState(() {
-      this._PayloadcurrentItemSelected = newValueSelected;
+      this._PayloadcurrentItemSelectedlow = newValueSelected;
+    });
+  }
+
+  void _onDropDownItemSelectedpaymedum(String newValueSelected) {
+    setState(() {
+      this._PayloadcurrentItemSelectedmedum = newValueSelected;
+    });
+  }
+
+  void _onDropDownItemSelectedpayhigh(String newValueSelected) {
+    setState(() {
+      this._PayloadcurrentItemSelectedhigh = newValueSelected;
     });
   }
   void _onDropDownItemSelectedno(String newValueSelected) {
@@ -1393,10 +1506,9 @@ class _newoffer extends State<NewOffer> {
         'clong1':date,
         'clat2': city1,
         'clong2': date,
-        // 'cType': Translations.of(context).translate('show'),
         'cType': 'عرض',
         'cCategory': _CategorycurrentItemSelected,
-        'cpayload':_travelcheck?"": _PayloadcurrentItemSelected,
+        'cpayload':_travelcheck?"":_CategorycurrentItemSelected=='نقل ثقيل'? _PayloadcurrentItemSelectedhigh:_CategorycurrentItemSelected=='نقل متوسط'? _PayloadcurrentItemSelectedmedum:_PayloadcurrentItemSelectedlow,
         'cnocars':_nocheck?_noController.text:__noarraycurrentItemSelected,
         'ctime':"a",
         'cpublished': false,
@@ -1406,6 +1518,8 @@ class _newoffer extends State<NewOffer> {
               'fromPLng': fromPlaceLng,
               'toPLat': toPlaceLat,
               'toPLng': toPlaceLng,
+              'fPlaceName':fPlaceName,
+              'tPlaceName':tPlaceName,
         //////////////////////////
         'ccity': city3,
         'cadv': __advarraycurrentItemSelected,
@@ -1440,7 +1554,10 @@ class _newoffer extends State<NewOffer> {
           _shortController.text = "";
           _detailController.text = "";
           _CategorycurrentItemSelected = _Categoryarray[0];
-          _PayloadcurrentItemSelected = _Payloadarray[0];
+          _PayloadcurrentItemSelectedlow = _Payloadarraylow[0];
+          _PayloadcurrentItemSelectedmedum = _Payloadarraymidum[0];
+          _PayloadcurrentItemSelectedhigh = _Payloadarrayhigh[0];
+
           __advarraycurrentItemSelected= _advarray[0];
           __noarraycurrentItemSelected = _noarray[0];
           _citycurrentItemSelected = _cityarray[0];
