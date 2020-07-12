@@ -77,6 +77,22 @@ class _newoffer extends State<NewOffer> {
     '600-700 كيلو',
     '800-900 كيلو'
   ];
+  var _Payloadarraymidum = [
+    '1-2 طن',
+    '2-3 طن',
+    '4-5 طن',
+    '6-7 طن',
+  ];
+  var _Payloadarrayhigh = [
+    '10-15 طن',
+    '15-20 طن',
+    '20-25 طن',
+    '25-30 طن',
+    '30-35 طن',
+    '35-40 طن',
+    '40-45 طن'
+
+  ];
   var _cityarray = ['جدة', 'الرياض', 'مكة', 'المدينة'];
   var _advarray = ['تشغيل', 'أيجار'];
   var _noarray = [
