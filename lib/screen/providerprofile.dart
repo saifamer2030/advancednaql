@@ -8,6 +8,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //import 'package:simple_slider/simple_slider.dart';
@@ -39,6 +40,8 @@ class _providerProlileState extends State<providerProlile> {
   Future<void> _launched;
   var _controller = ScrollController();
   bool favcheck = false;
+  String from;
+  String to;
 
   //List<OrderDetailClass> orderlist = [];
   List<CommentClass> commentlist = [];
@@ -138,6 +141,11 @@ class _providerProlileState extends State<providerProlile> {
                   DATA['cpublished'],
                   DATA['cstarttraveltime'],
                   DATA['curi'],
+
+                  DATA['fromPLat'],
+                  DATA['fromPLng'],
+                  DATA['toPLat'],
+                  DATA['toPLng'],
                   ////
                   DATA['ccity'],
                   DATA['cadv'],
@@ -224,6 +232,11 @@ class _providerProlileState extends State<providerProlile> {
                   DATA['cpublished'],
                   DATA['cstarttraveltime'],
                   DATA['curi'],
+
+                  DATA['fromPLat'],
+                  DATA['fromPLng'],
+                  DATA['toPLat'],
+                  DATA['toPLng'],
                   ////
                   DATA['ccity'],
                   DATA['cadv'],
@@ -249,6 +262,32 @@ class _providerProlileState extends State<providerProlile> {
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
+    Future.delayed(Duration(seconds: 0), () async {
+    try {
+      List<Placemark> p = await Geolocator().placemarkFromCoordinates(double.parse(orderclass.fromPLat), double.parse(orderclass.fromPLng));
+
+      Placemark place = p[0];
+
+      setState(() {
+        from =
+        "${place.locality}";
+      });
+    } catch (e) {
+      print(e);
+    }
+      try {
+        List<Placemark> p = await Geolocator().placemarkFromCoordinates(double.parse(orderclass.toPLat), double.parse(orderclass.toPLng));
+
+        Placemark place = p[0];
+
+        setState(() {
+          to =
+          "${place.locality}";
+        });
+      } catch (e) {
+        print(e);
+      }
+    });
 
     return Scaffold(
       key: _scaffoldKey,
@@ -665,7 +704,7 @@ showInSnackBar("يجب عليك تسجيل الدخول أولا") ;
                                         padding: const EdgeInsets.only(
                                             top: 8.0),
                                         child: Text(
-                                          "من:${orderclass.clat1} إلى: ${orderclass.clat2}",
+                                          "من:${from} إلى: ${to}",
                                           textDirection:
                                           TextDirection.rtl,
                                           textAlign: TextAlign.right,
@@ -1444,7 +1483,20 @@ showInSnackBar("يجب عليك تسجيل الدخول أولا") ;
       ),
     );
   }
-
+//  _getAddressFromLatLng(double lt, double lg) async {
+//    try {
+//      List<Placemark> p = await Geolocator().placemarkFromCoordinates(lt, lg);
+//
+//      Placemark place = p[0];
+//
+//      setState(() {
+//        _currentAddress =
+//        "${place.locality}, ${place.postalCode}, ${place.country}";
+//      });
+//    } catch (e) {
+//      print(e);
+//    }
+//  }
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: new Text(

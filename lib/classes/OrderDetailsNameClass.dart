@@ -35,6 +35,10 @@ class OrderDetailsNameClass {
   String rating;
   int custRate;
   String cDateID;
+  String fromPLat;
+  String fromPLng;
+  String toPLat;
+  String toPLng;
 
   OrderDetailsNameClass(
   this.cId,
@@ -51,8 +55,12 @@ class OrderDetailsNameClass {
   this.cpublished,
   this.cstarttraveltime,
       this.curi,
+  this.fromPLat,
+  this.fromPLng ,
+  this.toPLat ,
+  this.toPLng,
 
-      this.curi11,
+  this.curi11,
       this.curi12,
       this.curi14,
 

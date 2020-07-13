@@ -37,8 +37,7 @@ class __PersonalPageState extends State<PersonalPage> {
         ? null
         : setState(() {
             _userId = user.uid;
-            final userdatabaseReference =
-            FirebaseDatabase.instance.reference().child("userdata");
+            final userdatabaseReference =FirebaseDatabase.instance.reference().child("userdata");
             userdatabaseReference
                 .child(_userId)
                 .child("cPhone")

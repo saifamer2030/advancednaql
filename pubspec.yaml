@@ -131,6 +131,8 @@ flutter:
    - assets/images/ic_light_transmission.png
    - assets/images/ic_passenger_transport.png
    - assets/images/ic_person.png
+   - assets/images/ic_red.png
+   - assets/images/ic_green.png
    - lang/en.json
    - lang/ar.json
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -139,6 +139,11 @@ class _AllOrderState extends State<AllOrder> {
                 DATA[individualkey]['cpublished'],
                 DATA[individualkey]['cstarttraveltime'],
                 DATA[individualkey]['curi'],
+                DATA[individualkey]['fromPLat'],
+                DATA[individualkey]['fromPLng'],
+                DATA[individualkey]['toPLat'],
+                DATA[individualkey]['toPLng'],
+
               );
               /////////////////////////////////////
               final userdatabaseReference =
@@ -171,6 +176,10 @@ class _AllOrderState extends State<AllOrder> {
                       DATA[individualkey]['cpublished'],
                       DATA[individualkey]['cstarttraveltime'],
                       DATA[individualkey]['curi'],
+                      DATA[individualkey]['fromPLat'],
+                      DATA[individualkey]['fromPLng'],
+                      DATA[individualkey]['toPLat'],
+                      DATA[individualkey]['toPLng'],
                       DATA5['cName'],
                       DATA5['rating'],
                       DATA5['custRate'],
@@ -422,6 +431,11 @@ class _AllOrderState extends State<AllOrder> {
                               orderlist[index].rating,
                               orderlist[index].custRate,
                               orderlist[index].cDateID,
+                              orderlist[index].fromPLat,
+                              orderlist[index].fromPLng,
+                              orderlist[index].toPLat,
+                              orderlist[index].toPLng,
+
                             ),
                             onTap: () {});
                       }))
@@ -451,6 +465,12 @@ class _AllOrderState extends State<AllOrder> {
     rating,
     custRate,
     String cDateID,
+
+      String fromPLat,
+      String fromPLng,
+      String toPLat,
+      String toPLng,
+
   ) {
     var cRate = 0.0;
     if (custRate > 0) {
@@ -499,7 +519,12 @@ class _AllOrderState extends State<AllOrder> {
                               curi,
                               cname,
                               cDateID,
-                            )));
+                           fromPLat,
+                           fromPLng,
+                           toPLat,
+                           toPLng,
+
+                        )));
               } else {}
             });
           },

@@ -21,25 +21,34 @@ class _adsState extends State<AddNewAds> {
           Column(
             children: <Widget>[
               Container(
-                width: MediaQuery.of(context).size.width,
+                width:  MediaQuery.of(context).size.width,
                 height: 86.0,
-                decoration: BoxDecoration(
-                  color: const Color(0xff4fc3f7),
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 50,
+                    height: 50,
+                    child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left:8.0,top:20),
+                          child: Icon(Icons.arrow_back,color: Colors.white,),
+                        )
+                    ),
+                  ),
                 ),
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  width: 20,
-                  height: 20,
-                  child: InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Icon(Icons.arrow_back)),
+                decoration: BoxDecoration(
+
+                  color: const Color(0xff4fc3f7),
                 ),
               ),
               Transform.translate(
                 offset: Offset(0.0, -42.0),
                 child:
-                    // Adobe XD layer: 'logoBox' (shape)
-                    Center(
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
                   child: Container(
                     width: 156.0,
                     height: 57.0,

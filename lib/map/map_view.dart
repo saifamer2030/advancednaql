@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../screen/orderprofile.dart';
 import '../screen/providerprofile.dart';
 import 'orders_locations.dart';
+import 'orders_locations_name.dart';
 
 var mapKey = 'AIzaSyASpc8HqIa7OPmBeSJu7szAStFHeKpbC2U';
 
@@ -19,11 +20,11 @@ class MapViewNaql extends StatefulWidget {
 
 class _MapViewNaqlState extends State<MapViewNaql> {
   Map<String, String> categoriesList;
-  List<OrdersLocations> orderlist = [];
+  List<OrdersLocationsName> orderlist = [];
 
   Completer<GoogleMapController> _controller = Completer();
   double zoomVal = 0.5;
-
+  String _cName;
   final Set<Marker> _markers = {};
 
   @override
@@ -31,7 +32,7 @@ class _MapViewNaqlState extends State<MapViewNaql> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      //    _userId = user.uid;
+      final userdatabaseReference =FirebaseDatabase.instance.reference().child("userdata");
       final orderdatabaseReference =
           FirebaseDatabase.instance.reference().child("orderdata");
       orderdatabaseReference.once().then((DataSnapshot data) {
@@ -68,13 +69,81 @@ class _MapViewNaqlState extends State<MapViewNaql> {
                     DATA[individualkey]['fromPLng'],
                     DATA[individualkey]['toPLat'],
                     DATA[individualkey]['toPLng']);
+                userdatabaseReference
+                    .child( DATA[individualkey]['cId'])
+                    .child("cName")
+                    .once()
+                    .then((DataSnapshot snapshot5) {
+                  setState(() {
+                    if (snapshot5.value != null) {
+                      setState(() {
+                        _cName=snapshot5.value;
+                        OrdersLocationsName orderclassname = new OrdersLocationsName(
+                            DATA[individualkey]['cId'],
+                            DATA[individualkey]['ctitle'],
+                            individualkey,
+                            DATA[individualkey]['cdate'],
+                            DATA[individualkey]['clat1'],
+                            DATA[individualkey]['clong1'],
+                            DATA[individualkey]['clat2'],
+                            DATA[individualkey]['clong2'],
+                            DATA[individualkey]['cType'],
+                            DATA[individualkey]['cCategory'],
+                            DATA[individualkey]['cpayload'],
+                            DATA[individualkey]['cnocars'],
+                            DATA[individualkey]['ctime'],
+                            DATA[individualkey]['cpublished'],
+                            DATA[individualkey]['cstarttraveltime'],
+                            DATA[individualkey]['curi'],
+                            DATA[individualkey]['fromPLat'],
+                            DATA[individualkey]['fromPLng'],
+                            DATA[individualkey]['toPLat'],
+                            DATA[individualkey]['toPLng'],
+                            _cName
+                        );
+                        orderlist.add(orderclassname);
+                        setMarkers();
 
-                orderlist.add(orderclass);
+                      });
+                    }else{
+                      setState(() {
+                        _cName="اسم غير معلوم";
+                        OrdersLocationsName orderclassname = new OrdersLocationsName(
+                            DATA[individualkey]['cId'],
+                            DATA[individualkey]['ctitle'],
+                            individualkey,
+                            DATA[individualkey]['cdate'],
+                            DATA[individualkey]['clat1'],
+                            DATA[individualkey]['clong1'],
+                            DATA[individualkey]['clat2'],
+                            DATA[individualkey]['clong2'],
+                            DATA[individualkey]['cType'],
+                            DATA[individualkey]['cCategory'],
+                            DATA[individualkey]['cpayload'],
+                            DATA[individualkey]['cnocars'],
+                            DATA[individualkey]['ctime'],
+                            DATA[individualkey]['cpublished'],
+                            DATA[individualkey]['cstarttraveltime'],
+                            DATA[individualkey]['curi'],
+                            DATA[individualkey]['fromPLat'],
+                            DATA[individualkey]['fromPLng'],
+                            DATA[individualkey]['toPLat'],
+                            DATA[individualkey]['toPLng'],
+                            _cName
+                        );
+                        orderlist.add(orderclassname);
+                        setMarkers();
+
+                      });
+                    }
+
+                  });
+                });         //////////////////////////
+
                 print("MAPPPPPPPPPPPPPP>>>>>>>>{$individualkey}>>>" +
                     DATA[individualkey]['fromPLat'] +
                     "\n\n\n\n");
               }
-              setMarkers();
             }
           });
         }
@@ -91,13 +160,62 @@ class _MapViewNaqlState extends State<MapViewNaql> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Map View - All Requests"),
-        centerTitle: true,
-      ),
+//      appBar: AppBar(
+//        title: Text("Map View - All Requests"),
+//        centerTitle: true,
+//      ),
       body: Stack(
         children: <Widget>[
           _googleMap(context),
+          Column(
+            children: <Widget>[
+              Container(
+                width:  MediaQuery.of(context).size.width,
+                height: 86.0,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 50,
+                    height: 50,
+                    child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left:8.0,top:20),
+                          child: Icon(Icons.arrow_back,color: Colors.white,),
+                        )
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+
+                  color: const Color(0xff4fc3f7),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(0.0, -42.0),
+                child:
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
+                  child: Container(
+                    width: 156.0,
+                    height: 57.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        matchTextDirection: true,
+                        repeat: ImageRepeat.noRepeat,
+                        image: AssetImage("assets/logowhite.png"),
+                      ),
+                      borderRadius: BorderRadius.circular(21.0),
+                      color: const Color(0xff4fc3f7),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
           // _zoomInFunction(),
           // _zoomOutFunction(),
           // _buildContainer(context),
@@ -123,67 +241,107 @@ class _MapViewNaqlState extends State<MapViewNaql> {
   }
 
   _onFindCoifAddMarker(String lat, String lng, String name, String snippet,
-      OrdersLocations order) async {
+      OrdersLocationsName order) async {
     LatLng newLatLng = LatLng(double.parse(lat), double.parse(lng));
 
      BitmapDescriptor icon ;
-    if (order.cType == "طلب") {
+    if (snippet == "طلب") {
       icon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(116, 116)), 'assets/images/pin_green.png');
+      ImageConfiguration(size: Size(116, 116)), 'assets/images/ic_green.png');
     } else {
       icon =  await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(116, 116)), 'assets/images/pin_red.png');
+      ImageConfiguration(size: Size(116, 116)), 'assets/images/ic_red.png');
     }
 
     setState(() {
       _markers.add(Marker(
           markerId: MarkerId(newLatLng.toString()),
           position: newLatLng,
-          infoWindow: InfoWindow(title: name, snippet: snippet),
+          infoWindow: InfoWindow(title: name, snippet: snippet,
+              onTap: () {
+                //this is what you're looking for!
+                if (snippet == "طلب") {
+                  //order
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => orderProfile(
+                            order.cId,
+                            order.cdate,
+                            order.clat1,
+                            order.clong1,
+                            order.clat2,
+                            order.clong2,
+                            order.cType,
+                            order.cCategory,
+                            order.cpayload,
+                            order.cnocars,
+                            order.ctime,
+                            order.cpublished,
+                            order.cstarttraveltime,
+                            order.curi,
+                            order.cName,
+                            order.cDateId,
+                          order.fromPLat,
+                          order.fromPLng,
+                          order.toPLat,
+                          order.toPLng,
+                        )),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => providerProlile(
+                            order.cId, order.cDateId, order.cName)),
+                  );
+                }
+              }
+          ),
           icon: icon,
           // BitmapDescriptor.defaultMarkerWithHue(
           //     BitmapDescriptor.hueViolet),
           onTap: () {
-            //this is what you're looking for!
-            if (snippet == "طلب") {
-              //order
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => orderProfile(
-                        order.cId,
-                        order.cdate,
-                        order.clat1,
-                        order.clong1,
-                        order.clat2,
-                        order.clong2,
-                        order.cType,
-                        order.cCategory,
-                        order.cpayload,
-                        order.cnocars,
-                        order.ctime,
-                        order.cpublished,
-                        order.cstarttraveltime,
-                        order.curi,
-                        order.ctitle,
-                        order.cDateId)),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => providerProlile(
-                        order.cId, order.ctitle, order.cDateId)),
-              );
-            }
-          }));
+//            //this is what you're looking for!
+//            if (snippet == "طلب") {
+//              //order
+//              Navigator.push(
+//                context,
+//                MaterialPageRoute(
+//                    builder: (context) => orderProfile(
+//                        order.cId,
+//                        order.cdate,
+//                        order.clat1,
+//                        order.clong1,
+//                        order.clat2,
+//                        order.clong2,
+//                        order.cType,
+//                        order.cCategory,
+//                        order.cpayload,
+//                        order.cnocars,
+//                        order.ctime,
+//                        order.cpublished,
+//                        order.cstarttraveltime,
+//                        order.curi,
+//                        order.ctitle,
+//                        order.cDateId)),
+//              );
+//            } else {
+//              Navigator.push(
+//                context,
+//                MaterialPageRoute(
+//                    builder: (context) => providerProlile(
+//                        order.cId, order.ctitle, order.cDateId)),
+//              );
+//            }
+          }
+          ));
     });
   }
 
   void setMarkers() {
     for (var order in orderlist) {
-      _onFindCoifAddMarker(
-          order.fromPLat, order.fromPLng, order.cCategory, order.cType, order);
+      _onFindCoifAddMarker(order.fromPLat, order.fromPLng, order.cCategory, order.cType, order);
       print("Marker>>>>>MAPPPPPPPPPPPPPP>>>>>>>>>>>" +
           order.fromPLat +
           "\n\n\n\n");

@@ -129,6 +129,11 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                       DATA[individualkey]['cpublished'],
                       DATA[individualkey]['cstarttraveltime'],
                       DATA[individualkey]['curi'],
+                      DATA[individualkey]['fromPLat'],
+                      DATA[individualkey]['fromPLng'],
+                      DATA[individualkey]['toPLat'],
+                      DATA[individualkey]['toPLng'],
+
 //////////
                       DATA[individualkey]['curi11'],
                       DATA[individualkey]['curi12'],
@@ -178,6 +183,11 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                             DATA[individualkey]['cpublished'],
                             DATA[individualkey]['cstarttraveltime'],
                             DATA[individualkey]['curi'],
+                            DATA[individualkey]['fromPLat'],
+                            DATA[individualkey]['fromPLng'],
+                            DATA[individualkey]['toPLat'],
+                            DATA[individualkey]['toPLng'],
+
                             DATA[individualkey]['curi11'],
                             DATA[individualkey]['curi12'],
                             DATA[individualkey]['curi14'],
@@ -446,6 +456,11 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                               orderlist[index].rating,
                               orderlist[index].custRate,
                               orderlist[index].cDateID,
+
+                              orderlist[index].fromPLat,
+                              orderlist[index].fromPLng,
+                              orderlist[index].toPLat,
+                              orderlist[index].toPLng,
                             ),
                             actions: <Widget>[
                               Container(
@@ -541,13 +556,13 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) =>
-                                        new CupertinoAlertDialog(
+                                        new AlertDialog(
                                           title: new Text(Translations.of(context).translate('warning')),
                                           content: new Text(Translations.of(context).translate('delete_your_ad')),
                                           actions: [
-                                            CupertinoDialogAction(
-                                                isDefaultAction: false,
-                                                child: new FlatButton(
+//                                            DialogAction(
+//                                                isDefaultAction: false,
+                                                 new FlatButton(
                                                   onPressed: () {
                                                     setState(() {
                                                       FirebaseDatabase.instance.reference()
@@ -565,14 +580,13 @@ class _MyAdvertisementState extends State<MyAdvertisement> {
                                                   }
                                                   ,
                                                   child: Text(Translations.of(context).translate('oK')),
-                                                )),
-                                            CupertinoDialogAction(
-                                                isDefaultAction: false,
-                                                child: new FlatButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(context),
-                                                  child: Text(Translations.of(context).translate('no')),
-                                                )),
+                                                ),
+                                            //),
+                                            new FlatButton(
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
+                                              child: Text(Translations.of(context).translate('no')),
+                                            ),
                                           ],
                                         ),
                                       );
@@ -663,6 +677,11 @@ setState(() {
       rating,
       custRate,
       String cDateID,
+
+      String fromPLat,
+      String fromPLng,
+      String toPLat,
+      String toPLng,
       ) {
     var cRate = 0.0;
     if (custRate > 0) {
@@ -708,6 +727,10 @@ setState(() {
                           curi,
                           cname,
                           cDateID,
+                          fromPLat,
+                          fromPLng,
+                          toPLat,
+                          toPLng,
                         )));
               } else {}
             });

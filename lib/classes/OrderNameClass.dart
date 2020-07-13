@@ -13,6 +13,10 @@ class OrderNameClass {
   bool cpublished;
   String cstarttraveltime;
   String curi;
+  String fromPLat;
+  String fromPLng;
+  String toPLat;
+  String toPLng;
   String cName;
   String rating;
   int custRate;
@@ -32,7 +36,12 @@ class OrderNameClass {
   this.cpublished,
   this.cstarttraveltime,
       this.curi,
-      this.cName,
+
+  this.fromPLat,
+  this.fromPLng ,
+  this.toPLat ,
+  this.toPLng,
+  this.cName,
       this.rating,
       this.custRate,
       this.cDateID,

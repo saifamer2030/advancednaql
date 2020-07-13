@@ -40,10 +40,10 @@ class _CurrentLocationState extends State<CurrentLocation2> {
   Widget build(BuildContext context) {
     _context = context;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Current Location"),
-        centerTitle: true,
-      ),
+//      appBar: AppBar(
+//        title: Text("Current Location"),
+//        centerTitle: true,
+//      ),
       body: Stack(
         children: <Widget>[
           Container(
@@ -91,7 +91,57 @@ class _CurrentLocationState extends State<CurrentLocation2> {
                     ),
                   ],
                 )),
-          )
+          ),
+          Column(
+            children: <Widget>[
+              Container(
+                width:  MediaQuery.of(context).size.width,
+                height: 86.0,
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 50,
+                    height: 50,
+                    child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left:8.0,top:20),
+                          child: Icon(Icons.arrow_back,color: Colors.white,),
+                        )
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+
+                  color: const Color(0xff4fc3f7),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(0.0, -42.0),
+                child:
+                // Adobe XD layer: 'logoBox' (shape)
+                Center(
+                  child: Container(
+                    width: 156.0,
+                    height: 57.0,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        matchTextDirection: true,
+                        repeat: ImageRepeat.noRepeat,
+                        image: AssetImage("assets/logowhite.png"),
+                      ),
+                      borderRadius: BorderRadius.circular(21.0),
+                      color: const Color(0xff4fc3f7),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+
         ],
       ),
     );

@@ -13,6 +13,10 @@ class OrderPhotoDetailClass {
   bool cpublished;
   String cstarttraveltime;
   String curi;
+  String fromPLat;
+  String fromPLng;
+  String toPLat;
+  String toPLng;
 
   String curi11;
   String curi12;
@@ -48,6 +52,10 @@ class OrderPhotoDetailClass {
   this.cstarttraveltime,
    this.curi,
 
+      this.fromPLat,
+      this.fromPLng ,
+      this.toPLat ,
+      this.toPLng,
 
       this.curi11,
       this.curi12,

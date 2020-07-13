@@ -9,6 +9,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 //import 'package:simple_slider/simple_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -36,6 +37,10 @@ class orderProfile  extends StatefulWidget {
   String curi;
   String cname;
   String  cDateID;
+  String fromPLat;
+      String fromPLng;
+  String toPLat;
+      String toPLng;
   orderProfile( 
     this.cId,
       this.cdate,
@@ -52,7 +57,12 @@ class orderProfile  extends StatefulWidget {
       this.cstarttraveltime,
       this.curi,
       this.cname,
-      this.cDateID,);
+      this.cDateID,
+      this.fromPLat,
+      this.fromPLng,
+      this.toPLat,
+      this.toPLng,
+      );
   @override
   _orderProfileState createState() => _orderProfileState();
 }
@@ -62,6 +72,8 @@ class _orderProfileState extends State<orderProfile> {
   var _formKey1 = GlobalKey<FormState>();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  String from;
+  String to;
 
   Future<void> _launched;
   var _controller = ScrollController();
@@ -145,7 +157,32 @@ class _orderProfileState extends State<orderProfile> {
 //    )
 //        : new Container();
     TextStyle textStyle = Theme.of(context).textTheme.subtitle;
+    Future.delayed(Duration(seconds: 0), () async {
+      try {
+        List<Placemark> p = await Geolocator().placemarkFromCoordinates(double.parse(widget.fromPLat), double.parse(widget.fromPLng));
 
+        Placemark place = p[0];
+
+        setState(() {
+          from =
+          "${place.locality}";
+        });
+      } catch (e) {
+        print(e);
+      }
+      try {
+        List<Placemark> p = await Geolocator().placemarkFromCoordinates(double.parse(widget.toPLat), double.parse(widget.toPLng));
+
+        Placemark place = p[0];
+
+        setState(() {
+          to =
+          "${place.locality}";
+        });
+      } catch (e) {
+        print(e);
+      }
+    });
     return  Scaffold(
       key: _scaffoldKey,
       backgroundColor: const Color(0xffffffff),
@@ -237,6 +274,124 @@ class _orderProfileState extends State<orderProfile> {
                           child: Stack(
                             alignment: Alignment.bottomCenter,
                             children: <Widget>[
+                              new Positioned(
+                                  top: 30,
+                                  left: 15,
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        setState(() {
+                                          favcheck =
+                                          !favcheck; //boolean value
+                                        });
+                                        if (_userId == null) {
+                                          showInSnackBar("يجب عليك تسجيل الدخول أولا") ;
+//Toast.show(
+//                                              "يجب عليك تسجيل الدخول أولا",
+//                                              context,
+//                                              duration: Toast.LENGTH_LONG,
+//                                              gravity: Toast.BOTTOM);
+                                          setState(() {
+                                            favcheck = false; //boolean value
+                                          });
+                                        } else {
+                                          DateTime now = DateTime.now();
+                                          String b = now.month.toString();
+                                          if (b.length < 2) {
+                                            b = "0" + b;
+                                          }
+                                          String c = now.day.toString();
+                                          if (c.length < 2) {
+                                            c = "0" + c;
+                                          }
+                                          String d = now.hour.toString();
+                                          if (d.length < 2) {
+                                            d = "0" + d;
+                                          }
+                                          String e = now.minute.toString();
+                                          if (e.length < 2) {
+                                            e = "0" + e;
+                                          }
+                                          String f = now.second.toString();
+                                          if (f.length < 2) {
+                                            f = "0" + f;
+                                          }
+
+//////////*******************************************
+                                          final databasealarm =
+                                          FirebaseDatabase.instance
+                                              .reference()
+                                              .child("Alarm")
+                                              .child(widget.cId);
+                                          final databaseFav = FirebaseDatabase
+                                              .instance
+                                              .reference()
+                                              .child("userFavourits")
+                                              .child(_userId)
+                                              .child(widget.cId +
+                                              widget.cDateID);
+                                          if (favcheck) {
+                                            databaseFav.set({
+                                              'cId': widget.cId,
+                                              'FavChecked': favcheck,
+                                              'cDateID': widget.cDateID,
+                                            });
+                                            databasealarm.push().set({
+                                              'alarmid':
+                                              databasealarm.push().key,
+                                              'wid': widget.cId,
+                                              'Name': widget.cname,
+                                              'cType': "love",
+                                              'cDateID':
+                                              "${now.year.toString()}-${b}-${c} ${d}:${e}:${f}",
+                                              'arrange': int.parse(
+                                                  "${now.year.toString()}${b}${c}${d}${e}${f}")
+                                            });
+                                            showInSnackBar( "${widget.cname}تم اضافتة فى المفضلة ") ;
+
+//                                            Toast.show(
+//                                                "${widget.cName}تم اضافتة فى المفضلة ",
+//                                                context,
+//                                                duration: Toast.LENGTH_SHORT,
+//                                                gravity: Toast.BOTTOM);
+                                          } else {
+                                            databaseFav.set(null);
+                                            showInSnackBar( "تم الحذف فى المفضلة") ;
+
+//                                            Toast.show("تم الحذف فى المفضلة",
+//                                                context,
+//                                                duration: Toast.LENGTH_SHORT,
+//                                                gravity: Toast.BOTTOM);
+                                          }
+
+                                          ////////////////*************************
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      //decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, bottom: 10.0),
+                                        child: favcheck
+                                            ? Icon(
+                                          Icons.favorite,
+                                          size: 40.0,
+                                          color: Colors.red,
+                                        )
+////
+                                            : Column(
+                                          children: <Widget>[
+                                            Icon(
+                                              Icons.favorite_border,
+                                              size: 40.0,
+                                              color: Colors.red,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )),
 
                               Positioned(
                                 top: 0,
@@ -321,7 +476,7 @@ class _orderProfileState extends State<orderProfile> {
 
                                       Padding(
                                         padding: const EdgeInsets.only(top:8.0),
-                                        child: Text("من:${widget.clat1} إلى: ${widget.clat2}",
+                                        child: Text("من:${from} إلى: ${to}",
                                           textDirection: TextDirection.rtl,
                                           textAlign: TextAlign.right,
                                           style: TextStyle(

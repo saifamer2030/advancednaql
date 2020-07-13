@@ -20,11 +20,14 @@
         android:versionCode="5"
         android:icon="@drawable/ic_launcher"
         android:label="Naql">
-
+//
         <!-- maps -->
+        <!-- AIzaSyASpc8HqIa7OPmBeSJu7szAStFHeKpbC2U      mohamed -->
+        <!-- AIzaSyC33k9kkicraYbyjHQjvaQFqL7TZN7sgcY      ahmed -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyASpc8HqIa7OPmBeSJu7szAStFHeKpbC2U"/>
+            android:value="AIzaSyC33k9kkicraYbyjHQjvaQFqL7TZN7sgcY"/>
 
         <activity
             android:name=".MainActivity"

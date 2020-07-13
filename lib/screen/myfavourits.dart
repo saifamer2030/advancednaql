@@ -138,6 +138,10 @@ class _MyFavState extends State<MyFav> {
                           DATA['cpublished'],
                           DATA['cstarttraveltime'],
                           DATA['curi'],
+                          DATA['fromPLat'],
+                          DATA['fromPLng'],
+                          DATA['toPLat'],
+                          DATA['toPLng'],
 
                         );
                         /////////////////////////////////////
@@ -172,6 +176,10 @@ class _MyFavState extends State<MyFav> {
                                 DATA['cpublished'],
                                 DATA['cstarttraveltime'],
                                 DATA['curi'],
+                                DATA['fromPLat'],
+                                DATA['fromPLng'],
+                                DATA['toPLat'],
+                                DATA['toPLng'],
                                 DATA5['cName'],
                                 DATA5['rating'],
                                 DATA5['custRate'],
@@ -353,6 +361,11 @@ class _MyFavState extends State<MyFav> {
                               orderlist[index].rating,
                               orderlist[index].custRate,
                               orderlist[index].cDateID,
+
+                              orderlist[index].fromPLat,
+                              orderlist[index].fromPLng,
+                              orderlist[index].toPLat,
+                              orderlist[index].toPLng,
                             ),
                             onTap: () {});
                       })
@@ -383,6 +396,11 @@ class _MyFavState extends State<MyFav> {
       rating,
       custRate,
       String cDateID,
+
+      String fromPLat,
+      String fromPLng,
+      String toPLat,
+      String toPLng,
       ) {
     var cRate = 0.0;
     if (custRate > 0) {
@@ -428,6 +446,11 @@ class _MyFavState extends State<MyFav> {
                           curi,
                           cname,
                           cDateID,
+
+                          fromPLat,
+                          fromPLng,
+                          toPLat,
+                          toPLng,
                         )));
               } else {}
             });

@@ -24,6 +24,10 @@ class OrderDetailClass {
   String cshort;
   String cdetail;
   String curilist;
+  String fromPLat;
+  String fromPLng;
+  String toPLat;
+  String toPLng;
 
 
   OrderDetailClass(
@@ -41,6 +45,11 @@ class OrderDetailClass {
   this.cpublished,
   this.cstarttraveltime,
    this.curi,
+  this.fromPLat,
+  this.fromPLng ,
+  this.toPLat ,
+  this.toPLng,
+
   ///////
   this.ccity,
   this.cadv,
